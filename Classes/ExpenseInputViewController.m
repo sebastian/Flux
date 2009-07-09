@@ -8,55 +8,96 @@
 
 #import "ExpenseInputViewController.h"
 
+@interface ExpenseInputViewController (Private)
+-(void)moveTabBarUp;
+@end
+
+
 
 @implementation ExpenseInputViewController
 
+#pragma mark Synthesized methods
+@synthesize amount;
 
-/*
-// The designated initializer. Override to perform setup that is required before the view is loaded.
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
-        // Custom initialization
-    }
-    return self;
+#pragma mark
+#pragma mark -
+#pragma mark TextFieldDelegegate methods
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+	CGRect screen = [[UIScreen mainScreen] bounds];
+	
+	CGRect viewFrame = self.view.window.frame;
+	
+	// Save it for easy reverting
+	originalViewFrame = viewFrame;
+	
+	// Adjust the size
+	viewFrame.size.height = screen.size.height - keyboardBounds.size.height;
+		
+	// Move the frame
+	[UIView beginAnimations:nil context:NULL];
+	[UIView setAnimationBeginsFromCurrentState:YES];
+	[UIView setAnimationDuration:KEYBOARD_ANIMATION_DURATION];
+		
+	[self.view.window setFrame:viewFrame];
+
+	[UIView commitAnimations];
 }
-*/
-
-/*
-// Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView {
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+	// Revert the scaling :)
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationBeginsFromCurrentState:YES];
+    [UIView setAnimationDuration:KEYBOARD_ANIMATION_DURATION];
+    
+    [self.view.window setFrame:originalViewFrame];
+    
+    [UIView commitAnimations];
 }
-*/
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return YES;
+}
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
 
-/*
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+	// We always want the text to change, so return YES
+	return YES;
+}
+
+
+#pragma mark
+#pragma mark -
+#pragma mark Normal methods
+
+- (void)keyboardNotification:(NSNotification*)notification {  
+    NSDictionary *userInfo = [notification userInfo];  
+    NSValue *keyboardBoundsValue = [userInfo objectForKey:UIKeyboardBoundsUserInfoKey];  
+    [keyboardBoundsValue getValue:&keyboardBounds];  
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
-}
-*/
-
-/*
-// Override to allow orientations other than the default portrait orientation.
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-*/
-
-- (void)didReceiveMemoryWarning {
-	// Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
 	
-	// Release any cached data, images, etc that aren't in use.
+	[[NSNotificationCenter defaultCenter] addObserver:self  
+											 selector:@selector(keyboardNotification:)  
+												 name:UIKeyboardWillShowNotification  
+											   object:nil]; 
+		
+	// Show keyboard
+	[amount becomeFirstResponder];
+	
+
 }
+
+#pragma mark
+#pragma mark -
+#pragma mark Unloading etc
 
 - (void)viewDidUnload {
-	// Release any retained subviews of the main view.
-	// e.g. self.myOutlet = nil;
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	
+	amount = nil;
 }
-
-
 - (void)dealloc {
+	[amount release];
     [super dealloc];
 }
 

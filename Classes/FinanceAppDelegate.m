@@ -17,8 +17,11 @@
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
     
-    // Add the tab bar controller's current view as a subview of the window
+	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque];
+	
     [window addSubview:tabBarController.view];
+
+	[window makeKeyAndVisible];
 }
 
 

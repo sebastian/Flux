@@ -8,9 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+static const CGFloat KEYBOARD_ANIMATION_DURATION = 0.3;
 
-@interface ExpenseInputViewController : UIViewController {
-
+@interface ExpenseInputViewController : UIViewController <UITextViewDelegate> {
+	UITextField * amount;
+	
+	CGRect originalViewFrame;
+	CGRect keyboardBounds;
 }
+
+@property (nonatomic, retain) IBOutlet UITextField * amount;
 
 @end
