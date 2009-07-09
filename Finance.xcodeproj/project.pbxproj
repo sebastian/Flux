@@ -15,6 +15,12 @@
 		282CCBFE0DB6C98000C4EA27 /* SecondView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 282CCBFD0DB6C98000C4EA27 /* SecondView.xib */; };
 		288765080DF74369002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765070DF74369002DB57D /* CoreGraphics.framework */; };
 		28AD73880D9D96C1002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD73870D9D96C1002E5188 /* MainWindow.xib */; };
+		96AA703B10061D0900206A37 /* KeyboardButtonBackgroundClicked.png in Resources */ = {isa = PBXBuildFile; fileRef = 96AA703910061D0900206A37 /* KeyboardButtonBackgroundClicked.png */; };
+		96AA703C10061D0900206A37 /* KeyboardButtonBackgroundUnclicked.png in Resources */ = {isa = PBXBuildFile; fileRef = 96AA703A10061D0900206A37 /* KeyboardButtonBackgroundUnclicked.png */; };
+		96AA70521006241A00206A37 /* KeyboardBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 96AA70511006241A00206A37 /* KeyboardBackground.png */; };
+		96AA705C1006273800206A37 /* KeyboardButtonBackgroundClickedDelete.png in Resources */ = {isa = PBXBuildFile; fileRef = 96AA705A1006273800206A37 /* KeyboardButtonBackgroundClickedDelete.png */; };
+		96AA705D1006273800206A37 /* KeyboardButtonBackgroundUnclickedDelete.png in Resources */ = {isa = PBXBuildFile; fileRef = 96AA705B1006273800206A37 /* KeyboardButtonBackgroundUnclickedDelete.png */; };
+		96AA706410062A1200206A37 /* KeyboardButtonBackgroundUnclickedMoreHighlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 96AA706310062A1200206A37 /* KeyboardButtonBackgroundUnclickedMoreHighlight.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +37,12 @@
 		28AD73870D9D96C1002E5188 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Finance-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Finance-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		96AA703910061D0900206A37 /* KeyboardButtonBackgroundClicked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = KeyboardButtonBackgroundClicked.png; path = Graphics/KeyboardButtonBackgroundClicked.png; sourceTree = "<group>"; };
+		96AA703A10061D0900206A37 /* KeyboardButtonBackgroundUnclicked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = KeyboardButtonBackgroundUnclicked.png; path = Graphics/KeyboardButtonBackgroundUnclicked.png; sourceTree = "<group>"; };
+		96AA70511006241A00206A37 /* KeyboardBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = KeyboardBackground.png; path = Graphics/KeyboardBackground.png; sourceTree = "<group>"; };
+		96AA705A1006273800206A37 /* KeyboardButtonBackgroundClickedDelete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = KeyboardButtonBackgroundClickedDelete.png; path = Graphics/KeyboardButtonBackgroundClickedDelete.png; sourceTree = "<group>"; };
+		96AA705B1006273800206A37 /* KeyboardButtonBackgroundUnclickedDelete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = KeyboardButtonBackgroundUnclickedDelete.png; path = Graphics/KeyboardButtonBackgroundUnclickedDelete.png; sourceTree = "<group>"; };
+		96AA706310062A1200206A37 /* KeyboardButtonBackgroundUnclickedMoreHighlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = KeyboardButtonBackgroundUnclickedMoreHighlight.png; path = Graphics/KeyboardButtonBackgroundUnclickedMoreHighlight.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +102,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				96AA703710061CF600206A37 /* Graphics */,
 				96885BB51004ED9E003090D8 /* NIBs */,
 				8D1107310486CEB800E47090 /* Finance-Info.plist */,
 			);
@@ -113,6 +126,19 @@
 				28AD73870D9D96C1002E5188 /* MainWindow.xib */,
 			);
 			name = NIBs;
+			sourceTree = "<group>";
+		};
+		96AA703710061CF600206A37 /* Graphics */ = {
+			isa = PBXGroup;
+			children = (
+				96AA706310062A1200206A37 /* KeyboardButtonBackgroundUnclickedMoreHighlight.png */,
+				96AA705A1006273800206A37 /* KeyboardButtonBackgroundClickedDelete.png */,
+				96AA705B1006273800206A37 /* KeyboardButtonBackgroundUnclickedDelete.png */,
+				96AA70511006241A00206A37 /* KeyboardBackground.png */,
+				96AA703910061D0900206A37 /* KeyboardButtonBackgroundClicked.png */,
+				96AA703A10061D0900206A37 /* KeyboardButtonBackgroundUnclicked.png */,
+			);
+			name = Graphics;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -159,6 +185,12 @@
 			files = (
 				28AD73880D9D96C1002E5188 /* MainWindow.xib in Resources */,
 				282CCBFE0DB6C98000C4EA27 /* SecondView.xib in Resources */,
+				96AA703B10061D0900206A37 /* KeyboardButtonBackgroundClicked.png in Resources */,
+				96AA703C10061D0900206A37 /* KeyboardButtonBackgroundUnclicked.png in Resources */,
+				96AA70521006241A00206A37 /* KeyboardBackground.png in Resources */,
+				96AA705C1006273800206A37 /* KeyboardButtonBackgroundClickedDelete.png in Resources */,
+				96AA705D1006273800206A37 /* KeyboardButtonBackgroundUnclickedDelete.png in Resources */,
+				96AA706410062A1200206A37 /* KeyboardButtonBackgroundUnclickedMoreHighlight.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -182,6 +214,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -189,6 +222,7 @@
 				GCC_PREFIX_HEADER = Finance_Prefix.pch;
 				INFOPLIST_FILE = "Finance-Info.plist";
 				PRODUCT_NAME = Finance;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 			};
 			name = Debug;
 		};

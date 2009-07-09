@@ -27,5 +27,8 @@ static const CGFloat TEXTFIELD_PADDING = 10;
 @property (nonatomic, retain) IBOutlet UIView * addButtonView;
 
 -(IBAction)addExpense:(id)sender;
+-(IBAction)numberButtonPushed:(id)sender;
+-(IBAction)decimalButtonPushed:(id)sender;
+-(IBAction)deleteButtonPushed:(id)sender;
 
 @end

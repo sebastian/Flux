@@ -8,7 +8,6 @@
 
 #import "ExpenseInputViewController.h"
 
-
 @implementation ExpenseInputViewController
 
 #pragma mark Synthesized methods
@@ -18,9 +17,24 @@
 
 #pragma mark
 #pragma mark -
+#pragma mark Currency keyboard methods
+
+-(IBAction)numberButtonPushed:(UIButton *)button {
+	NSLog(@"Pushed the numeric key %i", button.tag);
+}
+-(IBAction)decimalButtonPushed:(id)sender {
+	NSLog(@"Decimal button pushed");
+}
+-(IBAction)deleteButtonPushed:(id)sender {
+	NSLog(@"Backspace button pushed");
+}
+
+#pragma mark
+#pragma mark -
 #pragma mark TextFieldDelegegate methods
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
+		
 	CGRect screen = [[UIScreen mainScreen] bounds];
 	
 	CGRect viewFrame = self.view.window.frame;
@@ -99,7 +113,7 @@
 #pragma mark Normal methods
 
 -(IBAction)addExpense:(id)sender {
-	
+	[amount resignFirstResponder];
 }
 - (void)keyboardNotification:(NSNotification*)notification {  
     NSDictionary *userInfo = [notification userInfo];  
