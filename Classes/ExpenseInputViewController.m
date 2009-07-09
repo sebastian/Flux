@@ -8,16 +8,13 @@
 
 #import "ExpenseInputViewController.h"
 
-@interface ExpenseInputViewController (Private)
--(void)moveTabBarUp;
-@end
-
-
 
 @implementation ExpenseInputViewController
 
 #pragma mark Synthesized methods
 @synthesize amount;
+@synthesize textFieldBackground;
+@synthesize addButtonView;
 
 #pragma mark
 #pragma mark -
@@ -59,6 +56,39 @@
 }
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
 
+	// Is the textfield the amount text field?
+	if (textField == amount) {
+		UIFont * font = [UIFont fontWithName:@"Helvetica" size:24.0];
+		NSString * text = [[textField text] stringByReplacingCharactersInRange:range withString:string];
+		CGSize textSize = [text sizeWithFont:font];
+		
+		NSLog(@"It says the text should take %f size", textSize);
+		
+		float width = textSize.width + TEXTFIELD_PADDING;
+		
+		// always make space for at least two characters
+		if (width < MIN_TEXTFIELD_WIDTH) {
+			width = MIN_TEXTFIELD_WIDTH;
+		} else if (width > MAX_TEXTFIELD_WIDTH) {
+			width = MAX_TEXTFIELD_WIDTH;
+		}
+				
+		CGRect viewFrame = [textFieldBackground frame];
+		viewFrame.size.width = width;
+		
+		CGRect buttonFrame = [addButtonView frame];
+		buttonFrame.origin.x = viewFrame.origin.x + width + 8;
+
+		[UIView beginAnimations:nil context:NULL];
+		[UIView setAnimationBeginsFromCurrentState:YES];
+		[UIView setAnimationDuration:0.05];
+		
+		[textFieldBackground setFrame:viewFrame];
+		[addButtonView setFrame:buttonFrame];
+		
+		[UIView commitAnimations];
+	}
+	
 	// We always want the text to change, so return YES
 	return YES;
 }
@@ -68,6 +98,9 @@
 #pragma mark -
 #pragma mark Normal methods
 
+-(IBAction)addExpense:(id)sender {
+	
+}
 - (void)keyboardNotification:(NSNotification*)notification {  
     NSDictionary *userInfo = [notification userInfo];  
     NSValue *keyboardBoundsValue = [userInfo objectForKey:UIKeyboardBoundsUserInfoKey];  
@@ -94,10 +127,14 @@
 - (void)viewDidUnload {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	
+	addButtonView = nil;
 	amount = nil;
+	textFieldBackground = nil;
 }
 - (void)dealloc {
+	[addButtonView release];
 	[amount release];
+	[textFieldBackground release];
     [super dealloc];
 }
 

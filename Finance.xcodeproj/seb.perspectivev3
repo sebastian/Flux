@@ -275,8 +275,9 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>2</integer>
-									<integer>1</integer>
+									<integer>9</integer>
+									<integer>8</integer>
+									<integer>7</integer>
 									<integer>0</integer>
 								</array>
 							</array>
@@ -328,35 +329,44 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>96B177FA1005FC9C00994A6E</string>
+										<string>96B1789910060BF300994A6E</string>
 										<key>history</key>
 										<array>
 											<string>96B1779E1005F6BB00994A6E</string>
-											<string>96B177F61005FC9C00994A6E</string>
-											<string>96B177F71005FC9C00994A6E</string>
+											<string>96B17872100608FF00994A6E</string>
+											<string>96B1788E10060B9B00994A6E</string>
+											<string>96B1788F10060B9B00994A6E</string>
 										</array>
 										<key>prevStack</key>
 										<array>
 											<string>96B177A11005F6BB00994A6E</string>
 											<string>96B177A21005F6BB00994A6E</string>
-											<string>96B177A31005F6BB00994A6E</string>
 											<string>96B177A41005F6BB00994A6E</string>
-											<string>96B177A51005F6BB00994A6E</string>
 											<string>96B177A61005F6BB00994A6E</string>
-											<string>96B177A71005F6BB00994A6E</string>
 											<string>96B177A81005F6BB00994A6E</string>
-											<string>96B177A91005F6BB00994A6E</string>
 											<string>96B177AA1005F6BB00994A6E</string>
-											<string>96B177BB1005F7C900994A6E</string>
 											<string>96B177BF1005F7E700994A6E</string>
-											<string>96B177D51005F8D600994A6E</string>
 											<string>96B177D61005F8D600994A6E</string>
-											<string>96B177DB1005F90E00994A6E</string>
 											<string>96B177DE1005F96300994A6E</string>
-											<string>96B177EE1005FAF900994A6E</string>
 											<string>96B177EF1005FAF900994A6E</string>
-											<string>96B177F81005FC9C00994A6E</string>
 											<string>96B177F91005FC9C00994A6E</string>
+											<string>96B178061005FDF300994A6E</string>
+											<string>96B1780E1005FEF500994A6E</string>
+											<string>96B178101005FEF500994A6E</string>
+											<string>96B178121005FEF500994A6E</string>
+											<string>96B178141005FEF500994A6E</string>
+											<string>96B178161005FEF500994A6E</string>
+											<string>96B17829100600E400994A6E</string>
+											<string>96B178351006014600994A6E</string>
+											<string>96B1783A1006016F00994A6E</string>
+											<string>96B1785A100602FB00994A6E</string>
+											<string>96B17866100603BF00994A6E</string>
+											<string>96B1787A1006091400994A6E</string>
+											<string>96B178851006098900994A6E</string>
+											<string>96B1788B10060A4700994A6E</string>
+											<string>96B1788C10060A4700994A6E</string>
+											<string>96B1789010060B9B00994A6E</string>
+											<string>96B1789110060B9B00994A6E</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
