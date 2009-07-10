@@ -7,13 +7,28 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreData/CoreData.h>
+#import "ExpenseInputViewController.h"
 
-@interface FinanceAppDelegate : NSObject <UIApplicationDelegate, UITabBarControllerDelegate> {
+@interface FinanceAppDelegate : NSObject <UIApplicationDelegate, UITabBarControllerDelegate, FinanceCoreDataDelegate> {
     UIWindow *window;
     UITabBarController *tabBarController;
+	
+	NSManagedObjectModel *managedObjectModel;
+    NSManagedObjectContext *managedObjectContext;	    
+    NSPersistentStoreCoordinator *persistentStoreCoordinator;
+	
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 @property (nonatomic, retain) IBOutlet UITabBarController *tabBarController;
+
+// CoreData
+- (IBAction)saveAction:sender;
+@property (nonatomic, retain, readonly) NSManagedObjectModel *managedObjectModel;
+@property (nonatomic, retain, readonly) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, retain, readonly) NSPersistentStoreCoordinator *persistentStoreCoordinator;
+@property (nonatomic, readonly) NSString *applicationDocumentsDirectory;
+
 
 @end

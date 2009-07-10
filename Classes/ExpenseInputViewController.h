@@ -7,11 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Transaction.h"
 
 static const CGFloat KEYBOARD_ANIMATION_DURATION = 0.3;
 static const CGFloat MAX_TEXTFIELD_WIDTH = 180;
 static const CGFloat MIN_TEXTFIELD_WIDTH = 40;
 static const CGFloat TEXTFIELD_PADDING = 10;
+
+@protocol FinanceCoreDataDelegate;
+
 
 @interface ExpenseInputViewController : UIViewController <UITextFieldDelegate> {
 	UITextField * amount;
@@ -20,11 +24,22 @@ static const CGFloat TEXTFIELD_PADDING = 10;
 	
 	CGRect originalViewFrame;
 	CGRect keyboardBounds;
+	
+	Transaction * newTransaction;
+	
+	id <FinanceCoreDataDelegate> delegate;
 }
 
+// CoreData
+@property (nonatomic, retain) id <FinanceCoreDataDelegate> delegate;
+
+
+// Outlets
 @property (nonatomic, retain) IBOutlet UITextField * amount;
 @property (nonatomic, retain) IBOutlet UIView * textFieldBackground;
 @property (nonatomic, retain) IBOutlet UIView * addButtonView;
+
+@property (nonatomic, retain) Transaction * newTransaction;
 
 -(IBAction)addExpense:(id)sender;
 -(IBAction)numberButtonPushed:(id)sender;
@@ -32,3 +47,12 @@ static const CGFloat TEXTFIELD_PADDING = 10;
 -(IBAction)deleteButtonPushed:(id)sender;
 
 @end
+
+
+
+@protocol FinanceCoreDataDelegate
+
+-(NSManagedObjectContext*)managedObjectContext;
+
+@end
+

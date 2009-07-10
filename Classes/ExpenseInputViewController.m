@@ -8,6 +8,11 @@
 
 #import "ExpenseInputViewController.h"
 
+@interface ExpenseInputViewController (Private)
+-(void)updateExpenseDisplay;
+@end
+
+
 @implementation ExpenseInputViewController
 
 #pragma mark Synthesized methods
@@ -15,15 +20,25 @@
 @synthesize textFieldBackground;
 @synthesize addButtonView;
 
+@synthesize newTransaction;
+@synthesize delegate;
+
 #pragma mark
 #pragma mark -
 #pragma mark Currency keyboard methods
 
 -(IBAction)numberButtonPushed:(UIButton *)button {
 	NSLog(@"Pushed the numeric key %i", button.tag);
+
+	NSInteger kroner = [self.newTransaction.kroner integerValue] * 10 + button.tag; 
+	
+	[self.newTransaction setKroner:[NSNumber numberWithInt:kroner]];	
+	
+	[self updateExpenseDisplay];
 }
 -(IBAction)decimalButtonPushed:(id)sender {
 	NSLog(@"Decimal button pushed");
+	
 }
 -(IBAction)deleteButtonPushed:(id)sender {
 	NSLog(@"Backspace button pushed");
@@ -112,6 +127,39 @@
 #pragma mark -
 #pragma mark Normal methods
 
+-(void)updateExpenseDisplay {
+	UIFont * font = [UIFont fontWithName:@"Helvetica" size:24.0];
+	NSString * text = [self.newTransaction toString];
+	
+	CGSize textSize = [text sizeWithFont:font];
+	
+	NSLog(@"It says the text should take %f size", textSize);
+	
+	float width = textSize.width + TEXTFIELD_PADDING;
+	
+	// always make space for at least two characters
+	if (width < MIN_TEXTFIELD_WIDTH) {
+		width = MIN_TEXTFIELD_WIDTH;
+	} else if (width > MAX_TEXTFIELD_WIDTH) {
+		width = MAX_TEXTFIELD_WIDTH;
+	}
+	
+	CGRect viewFrame = [textFieldBackground frame];
+	viewFrame.size.width = width;
+	
+	CGRect buttonFrame = [addButtonView frame];
+	buttonFrame.origin.x = viewFrame.origin.x + width + 8;
+	
+	[UIView beginAnimations:nil context:NULL];
+	[UIView setAnimationBeginsFromCurrentState:YES];
+	[UIView setAnimationDuration:0.05];
+	
+	[amount setText:text];
+	[textFieldBackground setFrame:viewFrame];
+	[addButtonView setFrame:buttonFrame];
+	
+	[UIView commitAnimations];
+}
 -(IBAction)addExpense:(id)sender {
 	[amount resignFirstResponder];
 }
@@ -127,9 +175,13 @@
 											 selector:@selector(keyboardNotification:)  
 												 name:UIKeyboardWillShowNotification  
 											   object:nil]; 
+
+	Transaction *trs = [NSEntityDescription insertNewObjectForEntityForName:@"Transaction" inManagedObjectContext:self.delegate.managedObjectContext];
+	self.newTransaction = trs;
+	[trs release];
 		
 	// Show keyboard
-	[amount becomeFirstResponder];
+	//[amount becomeFirstResponder];
 	
 
 }
@@ -144,8 +196,13 @@
 	addButtonView = nil;
 	amount = nil;
 	textFieldBackground = nil;
+
+	// TODO:
+	// Delete somehow?
+	newTransaction = nil;
 }
 - (void)dealloc {
+	[newTransaction release];
 	[addButtonView release];
 	[amount release];
 	[textFieldBackground release];

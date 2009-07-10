@@ -12,7 +12,7 @@
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		28216C970DB411BC00E5133A /* ExpenseInputViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28216C960DB411BC00E5133A /* ExpenseInputViewController.m */; };
-		282CCBFE0DB6C98000C4EA27 /* SecondView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 282CCBFD0DB6C98000C4EA27 /* SecondView.xib */; };
+		282CCBFE0DB6C98000C4EA27 /* Expenses.xib in Resources */ = {isa = PBXBuildFile; fileRef = 282CCBFD0DB6C98000C4EA27 /* Expenses.xib */; };
 		288765080DF74369002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765070DF74369002DB57D /* CoreGraphics.framework */; };
 		28AD73880D9D96C1002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD73870D9D96C1002E5188 /* MainWindow.xib */; };
 		96AA703B10061D0900206A37 /* KeyboardButtonBackgroundClicked.png in Resources */ = {isa = PBXBuildFile; fileRef = 96AA703910061D0900206A37 /* KeyboardButtonBackgroundClicked.png */; };
@@ -21,6 +21,10 @@
 		96AA705C1006273800206A37 /* KeyboardButtonBackgroundClickedDelete.png in Resources */ = {isa = PBXBuildFile; fileRef = 96AA705A1006273800206A37 /* KeyboardButtonBackgroundClickedDelete.png */; };
 		96AA705D1006273800206A37 /* KeyboardButtonBackgroundUnclickedDelete.png in Resources */ = {isa = PBXBuildFile; fileRef = 96AA705B1006273800206A37 /* KeyboardButtonBackgroundUnclickedDelete.png */; };
 		96AA706410062A1200206A37 /* KeyboardButtonBackgroundUnclickedMoreHighlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 96AA706310062A1200206A37 /* KeyboardButtonBackgroundUnclickedMoreHighlight.png */; };
+		96AA7090100656E600206A37 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96AA708F100656E600206A37 /* CoreData.framework */; };
+		96AA70EE10065AB200206A37 /* Finance.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 96AA70ED10065AB200206A37 /* Finance.xcdatamodel */; };
+		96AA710C1006616700206A37 /* Transaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 96AA710B1006616700206A37 /* Transaction.m */; };
+		96AA7112100671FE00206A37 /* ExpensesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96AA7111100671FE00206A37 /* ExpensesViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,7 +35,7 @@
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		28216C950DB411BC00E5133A /* ExpenseInputViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpenseInputViewController.h; sourceTree = "<group>"; };
 		28216C960DB411BC00E5133A /* ExpenseInputViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpenseInputViewController.m; sourceTree = "<group>"; };
-		282CCBFD0DB6C98000C4EA27 /* SecondView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SecondView.xib; sourceTree = "<group>"; };
+		282CCBFD0DB6C98000C4EA27 /* Expenses.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Expenses.xib; sourceTree = "<group>"; };
 		288765070DF74369002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		28A0AB4B0D9B1048005BE974 /* Finance_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Finance_Prefix.pch; sourceTree = "<group>"; };
 		28AD73870D9D96C1002E5188 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
@@ -43,6 +47,12 @@
 		96AA705A1006273800206A37 /* KeyboardButtonBackgroundClickedDelete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = KeyboardButtonBackgroundClickedDelete.png; path = Graphics/KeyboardButtonBackgroundClickedDelete.png; sourceTree = "<group>"; };
 		96AA705B1006273800206A37 /* KeyboardButtonBackgroundUnclickedDelete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = KeyboardButtonBackgroundUnclickedDelete.png; path = Graphics/KeyboardButtonBackgroundUnclickedDelete.png; sourceTree = "<group>"; };
 		96AA706310062A1200206A37 /* KeyboardButtonBackgroundUnclickedMoreHighlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = KeyboardButtonBackgroundUnclickedMoreHighlight.png; path = Graphics/KeyboardButtonBackgroundUnclickedMoreHighlight.png; sourceTree = "<group>"; };
+		96AA708F100656E600206A37 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		96AA70ED10065AB200206A37 /* Finance.xcdatamodel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.xcdatamodel; path = Finance.xcdatamodel; sourceTree = "<group>"; };
+		96AA710A1006616700206A37 /* Transaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Transaction.h; path = ../Transaction.h; sourceTree = "<group>"; };
+		96AA710B1006616700206A37 /* Transaction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Transaction.m; path = ../Transaction.m; sourceTree = "<group>"; };
+		96AA7110100671FE00206A37 /* ExpensesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExpensesViewController.h; path = ../ExpensesViewController.h; sourceTree = "<group>"; };
+		96AA7111100671FE00206A37 /* ExpensesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ExpensesViewController.m; path = ../ExpensesViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +63,7 @@
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				288765080DF74369002DB57D /* CoreGraphics.framework in Frameworks */,
+				96AA7090100656E600206A37 /* CoreData.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -62,6 +73,10 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				96AA7110100671FE00206A37 /* ExpensesViewController.h */,
+				96AA7111100671FE00206A37 /* ExpensesViewController.m */,
+				96AA710A1006616700206A37 /* Transaction.h */,
+				96AA710B1006616700206A37 /* Transaction.m */,
 				28216C950DB411BC00E5133A /* ExpenseInputViewController.h */,
 				28216C960DB411BC00E5133A /* ExpenseInputViewController.m */,
 				1D3623240D0F684500981E51 /* FinanceAppDelegate.h */,
@@ -86,6 +101,7 @@
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
+				96AA708F100656E600206A37 /* CoreData.framework */,
 			);
 			name = Finance;
 			sourceTree = "<group>";
@@ -105,6 +121,7 @@
 				96AA703710061CF600206A37 /* Graphics */,
 				96885BB51004ED9E003090D8 /* NIBs */,
 				8D1107310486CEB800E47090 /* Finance-Info.plist */,
+				96AA70ED10065AB200206A37 /* Finance.xcdatamodel */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -122,7 +139,7 @@
 		96885BB51004ED9E003090D8 /* NIBs */ = {
 			isa = PBXGroup;
 			children = (
-				282CCBFD0DB6C98000C4EA27 /* SecondView.xib */,
+				282CCBFD0DB6C98000C4EA27 /* Expenses.xib */,
 				28AD73870D9D96C1002E5188 /* MainWindow.xib */,
 			);
 			name = NIBs;
@@ -184,7 +201,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				28AD73880D9D96C1002E5188 /* MainWindow.xib in Resources */,
-				282CCBFE0DB6C98000C4EA27 /* SecondView.xib in Resources */,
+				282CCBFE0DB6C98000C4EA27 /* Expenses.xib in Resources */,
 				96AA703B10061D0900206A37 /* KeyboardButtonBackgroundClicked.png in Resources */,
 				96AA703C10061D0900206A37 /* KeyboardButtonBackgroundUnclicked.png in Resources */,
 				96AA70521006241A00206A37 /* KeyboardBackground.png in Resources */,
@@ -204,6 +221,9 @@
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				1D3623260D0F684500981E51 /* FinanceAppDelegate.m in Sources */,
 				28216C970DB411BC00E5133A /* ExpenseInputViewController.m in Sources */,
+				96AA70EE10065AB200206A37 /* Finance.xcdatamodel in Sources */,
+				96AA710C1006616700206A37 /* Transaction.m in Sources */,
+				96AA7112100671FE00206A37 /* ExpensesViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
