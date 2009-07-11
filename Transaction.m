@@ -20,7 +20,7 @@
 @dynamic ore;
 
 -(NSString*)toString {
-	return [NSString stringWithFormat:@"%i,%i",self.kroner, self.ore];
+	return [NSString stringWithFormat:@"%i,%i0", [self.kroner integerValue], [self.ore integerValue]];
 }
 
 @end

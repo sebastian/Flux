@@ -18,7 +18,7 @@
 #pragma mark Synthesized methods
 @synthesize amount;
 @synthesize textFieldBackground;
-@synthesize addButtonView;
+@synthesize deleteButtonView;
 
 @synthesize newTransaction;
 @synthesize delegate;
@@ -30,7 +30,10 @@
 -(IBAction)numberButtonPushed:(UIButton *)button {
 	NSLog(@"Pushed the numeric key %i", button.tag);
 
+	NSLog(@"Currenctly the kroner value is %i", [self.newTransaction.kroner integerValue]);
 	NSInteger kroner = [self.newTransaction.kroner integerValue] * 10 + button.tag; 
+	NSLog(@"New kroner value as calculated: %i", kroner);
+	NSLog(@"The value now reads: %@", [self.newTransaction toString]);
 	
 	[self.newTransaction setKroner:[NSNumber numberWithInt:kroner]];	
 	
@@ -105,7 +108,7 @@
 		CGRect viewFrame = [textFieldBackground frame];
 		viewFrame.size.width = width;
 		
-		CGRect buttonFrame = [addButtonView frame];
+		CGRect buttonFrame = [deleteButtonView frame];
 		buttonFrame.origin.x = viewFrame.origin.x + width + 8;
 
 		[UIView beginAnimations:nil context:NULL];
@@ -113,7 +116,7 @@
 		[UIView setAnimationDuration:0.05];
 		
 		[textFieldBackground setFrame:viewFrame];
-		[addButtonView setFrame:buttonFrame];
+		[deleteButtonView setFrame:buttonFrame];
 		
 		[UIView commitAnimations];
 	}
@@ -147,8 +150,8 @@
 	CGRect viewFrame = [textFieldBackground frame];
 	viewFrame.size.width = width;
 	
-	CGRect buttonFrame = [addButtonView frame];
-	buttonFrame.origin.x = viewFrame.origin.x + width + 8;
+	CGRect buttonFrame = [deleteButtonView frame];
+	buttonFrame.origin.x = viewFrame.origin.x + width;
 	
 	[UIView beginAnimations:nil context:NULL];
 	[UIView setAnimationBeginsFromCurrentState:YES];
@@ -156,7 +159,14 @@
 	
 	[amount setText:text];
 	[textFieldBackground setFrame:viewFrame];
-	[addButtonView setFrame:buttonFrame];
+	[deleteButtonView setFrame:buttonFrame];
+	
+	// Show delete button if there is a value
+	if ([[self.newTransaction toString] isEqualToString:@"0,00"]) {
+		[deleteButtonView setAlpha:0.0];
+	} else {
+		[deleteButtonView setAlpha:1.0];
+	}
 	
 	[UIView commitAnimations];
 }
@@ -179,7 +189,9 @@
 	Transaction *trs = [NSEntityDescription insertNewObjectForEntityForName:@"Transaction" inManagedObjectContext:self.delegate.managedObjectContext];
 	self.newTransaction = trs;
 	[trs release];
-		
+	
+	[self updateExpenseDisplay];
+	
 	// Show keyboard
 	//[amount becomeFirstResponder];
 	
@@ -193,7 +205,7 @@
 - (void)viewDidUnload {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	
-	addButtonView = nil;
+	deleteButtonView = nil;
 	amount = nil;
 	textFieldBackground = nil;
 
@@ -203,7 +215,7 @@
 }
 - (void)dealloc {
 	[newTransaction release];
-	[addButtonView release];
+	[deleteButtonView release];
 	[amount release];
 	[textFieldBackground release];
     [super dealloc];

@@ -20,7 +20,7 @@ static const CGFloat TEXTFIELD_PADDING = 10;
 @interface ExpenseInputViewController : UIViewController <UITextFieldDelegate> {
 	UITextField * amount;
 	UIView * textFieldBackground;
-	UIView * addButtonView;
+	UIView * deleteButtonView;
 	
 	CGRect originalViewFrame;
 	CGRect keyboardBounds;
@@ -37,7 +37,7 @@ static const CGFloat TEXTFIELD_PADDING = 10;
 // Outlets
 @property (nonatomic, retain) IBOutlet UITextField * amount;
 @property (nonatomic, retain) IBOutlet UIView * textFieldBackground;
-@property (nonatomic, retain) IBOutlet UIView * addButtonView;
+@property (nonatomic, retain) IBOutlet UIView * deleteButtonView;
 
 @property (nonatomic, retain) Transaction * newTransaction;
 
