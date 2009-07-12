@@ -10,6 +10,8 @@
 #import <CoreData/CoreData.h>
 #import "ExpenseInputViewController.h"
 
+@protocol FinanceCoreDataDelegate;
+
 @interface FinanceAppDelegate : NSObject <UIApplicationDelegate, UITabBarControllerDelegate, FinanceCoreDataDelegate> {
     UIWindow *window;
     UITabBarController *tabBarController;
@@ -29,6 +31,5 @@
 @property (nonatomic, retain, readonly) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, retain, readonly) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (nonatomic, readonly) NSString *applicationDocumentsDirectory;
-
 
 @end

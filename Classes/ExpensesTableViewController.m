@@ -6,10 +6,14 @@
 //  Copyright 2009 Kle.io. All rights reserved.
 //
 
+#import <CoreData/CoreData.h>
 #import "ExpensesTableViewController.h"
-
+#import "Transaction.h"
 
 @implementation ExpensesTableViewController
+
+@synthesize delegate;
+@synthesize resultsController;
 
 /*
 - (id)initWithStyle:(UITableViewStyle)style {
@@ -20,14 +24,43 @@
 }
 */
 
-/*
 - (void)viewDidLoad {
-    [super viewDidLoad];
-
+	[super viewDidLoad];
+	
+	// Load the expenses
+	NSFetchRequest *request = [[NSFetchRequest alloc] init]; 
+	NSEntityDescription *entity = [NSEntityDescription entityForName:@"Transaction" 
+											  inManagedObjectContext:self.delegate.managedObjectContext]; 
+	[request setEntity:entity];
+	
+	NSSortDescriptor *sortByDate = [[NSSortDescriptor alloc]
+									initWithKey:@"date" ascending:NO];
+	NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortByDate, nil]; 
+	[request setSortDescriptors:sortDescriptors]; 
+	[sortDescriptors release]; 
+	[sortByDate release]; 
+	
+	NSError *error; 
+	NSFetchedResultsController * localRC = [[NSFetchedResultsController alloc] 
+											initWithFetchRequest:request 
+											managedObjectContext:self.delegate.managedObjectContext 
+											sectionNameKeyPath:nil cacheName:@"transactionCache"]; 
+	localRC.delegate=self;
+	
+	self.resultsController = localRC;
+	[localRC release];
+	
+	if ([self.resultsController performFetch:&error]) { 
+		NSLog(@"Error when performing fetch in messageTableViewController");
+		//NSLog([error localizedDescription]);
+	} 	
+	[request release]; 
+	
+	
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
-*/
+
 
 /*
 - (void)viewWillAppear:(BOOL)animated {
@@ -74,27 +107,45 @@
 #pragma mark Table view methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+
+	NSUInteger count = [[resultsController sections] count];
+    if (count == 0) {
+        count = 1;
+    }
+    return count;
+	
 }
 
 
 // Customize the number of rows in the table view.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 0;
+
+	NSArray *sections = [resultsController sections];
+    NSUInteger count = 0;
+    if ([sections count]) {
+        id <NSFetchedResultsSectionInfo> sectionInfo = [sections objectAtIndex:section];
+        count = [sectionInfo numberOfObjects];
+    }
+	return count;
+	
 }
 
 
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    static NSString *CellIdentifier = @"Cell";
+
+    static NSString *CellIdentifier = @"TransactionCell";
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
     }
     
-    // Set up the cell...
+	Transaction *trs = (Transaction *)[resultsController objectAtIndexPath:indexPath];
+	
+	cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+	cell.textLabel.text = [trs toString];
+	cell.detailTextLabel.text = @"An expense";
 	
     return cell;
 }
@@ -149,7 +200,8 @@
 
 
 - (void)dealloc {
-    [super dealloc];
+	[resultsController release];
+	[super dealloc];
 }
 
 

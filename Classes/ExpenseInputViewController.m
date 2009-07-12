@@ -23,10 +23,8 @@
 @synthesize button0, button1, button2, button3, button4, button5, button6, button7, button8, button9;
 @synthesize buttonAdd, buttonComma;
 
-@synthesize whatPicker;
-
 @synthesize newTransaction;
-@synthesize delegate;
+@synthesize appDelegate;
 
 #pragma mark
 #pragma mark -
@@ -47,85 +45,6 @@
 	[self.newTransaction eraseOneNum];
 	[self updateExpenseDisplay];
 }
-
-#pragma mark
-#pragma mark -
-#pragma mark TextFieldDelegegate methods
-
-- (void)textFieldDidBeginEditing:(UITextField *)textField {
-		
-	CGRect screen = [[UIScreen mainScreen] bounds];
-	
-	CGRect viewFrame = self.view.window.frame;
-	
-	// Save it for easy reverting
-	originalViewFrame = viewFrame;
-	
-	// Adjust the size
-	viewFrame.size.height = screen.size.height - keyboardBounds.size.height;
-		
-	// Move the frame
-	[UIView beginAnimations:nil context:NULL];
-	[UIView setAnimationBeginsFromCurrentState:YES];
-	[UIView setAnimationDuration:KEYBOARD_ANIMATION_DURATION];
-		
-	[self.view.window setFrame:viewFrame];
-
-	[UIView commitAnimations];
-}
-- (void)textFieldDidEndEditing:(UITextField *)textField {
-	// Revert the scaling :)
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationBeginsFromCurrentState:YES];
-    [UIView setAnimationDuration:KEYBOARD_ANIMATION_DURATION];
-    
-    [self.view.window setFrame:originalViewFrame];
-    
-    [UIView commitAnimations];
-}
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    [textField resignFirstResponder];
-    return YES;
-}
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-
-	// Is the textfield the amount text field?
-	if (textField == amount) {
-		UIFont * font = [UIFont fontWithName:@"Helvetica" size:24.0];
-		NSString * text = [[textField text] stringByReplacingCharactersInRange:range withString:string];
-		CGSize textSize = [text sizeWithFont:font];
-		
-		NSLog(@"It says the text should take %f size", textSize);
-		
-		float width = textSize.width + TEXTFIELD_PADDING;
-		
-		// always make space for at least two characters
-		if (width < MIN_TEXTFIELD_WIDTH) {
-			width = MIN_TEXTFIELD_WIDTH;
-		} else if (width > MAX_TEXTFIELD_WIDTH) {
-			width = MAX_TEXTFIELD_WIDTH;
-		}
-				
-		CGRect viewFrame = [textFieldBackground frame];
-		viewFrame.size.width = width;
-		
-		CGRect buttonFrame = [deleteButtonView frame];
-		buttonFrame.origin.x = viewFrame.origin.x + width + 8;
-
-		[UIView beginAnimations:nil context:NULL];
-		[UIView setAnimationBeginsFromCurrentState:YES];
-		[UIView setAnimationDuration:0.05];
-		
-		[textFieldBackground setFrame:viewFrame];
-		[deleteButtonView setFrame:buttonFrame];
-		
-		[UIView commitAnimations];
-	}
-	
-	// We always want the text to change, so return YES
-	return YES;
-}
-
 
 #pragma mark
 #pragma mark -
@@ -204,31 +123,24 @@
 	[UIView commitAnimations];
 }
 -(IBAction)addExpense:(id)sender {
-	[amount resignFirstResponder];
+	//[amount resignFirstResponder];
+	// The saving should be taken care of another place...
+	// Now we should assign a fresh Transaction to add
+	//Transaction *trs = [NSEntityDescription insertNewObjectForEntityForName:@"Transaction" inManagedObjectContext:self.appDelegate.managedObjectContext];
+	//self.newTransaction = trs;
+	//[trs release];
+	
 }
-- (void)keyboardNotification:(NSNotification*)notification {  
-    NSDictionary *userInfo = [notification userInfo];  
-    NSValue *keyboardBoundsValue = [userInfo objectForKey:UIKeyboardBoundsUserInfoKey];  
-    [keyboardBoundsValue getValue:&keyboardBounds];  
-}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
-	[[NSNotificationCenter defaultCenter] addObserver:self  
-											 selector:@selector(keyboardNotification:)  
-												 name:UIKeyboardWillShowNotification  
-											   object:nil]; 
-
-	Transaction *trs = [NSEntityDescription insertNewObjectForEntityForName:@"Transaction" inManagedObjectContext:self.delegate.managedObjectContext];
+	Transaction *trs = [NSEntityDescription insertNewObjectForEntityForName:@"Transaction" inManagedObjectContext:self.appDelegate.managedObjectContext];
 	self.newTransaction = trs;
 	[trs release];
 	
 	[self updateExpenseDisplay];
 	
-	// Show keyboard
-	//[amount becomeFirstResponder];
-	
-
 }
 
 #pragma mark
@@ -254,9 +166,7 @@
 	button9 = nil;
 	buttonAdd = nil;
 	buttonComma = nil;
-	
-	whatPicker = nil;
-	
+		
 	// TODO:
 	// Delete somehow?
 	newTransaction = nil;
@@ -275,9 +185,7 @@
 	[button9 release];
 	[buttonAdd release];
 	[buttonComma release];
-	
-	[whatPicker release];
-	
+
 	[newTransaction release];
 	[deleteButtonView release];
 	[amount release];

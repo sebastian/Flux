@@ -8,14 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "Transaction.h"
+#import "FinanceCoreDataDelegate.h"
+
 
 static const CGFloat KEYBOARD_ANIMATION_DURATION = 0.3;
 static const CGFloat MAX_TEXTFIELD_WIDTH = 180;
 static const CGFloat MIN_TEXTFIELD_WIDTH = 40;
 static const CGFloat TEXTFIELD_PADDING = 10;
-
-@protocol FinanceCoreDataDelegate;
-
 
 @interface ExpenseInputViewController : UIViewController <UITextFieldDelegate> {
 	UITextField * amount;
@@ -27,7 +26,7 @@ static const CGFloat TEXTFIELD_PADDING = 10;
 	
 	Transaction * newTransaction;
 	
-	id <FinanceCoreDataDelegate> delegate;
+	id <FinanceCoreDataDelegate> appDelegate;
 	
 	UIButton * button1;
 	UIButton * button2; 
@@ -42,11 +41,10 @@ static const CGFloat TEXTFIELD_PADDING = 10;
 	UIButton * buttonAdd;
 	UIButton * buttonComma;
 	
-	UIPickerView * whatPicker;
 }
 
 // CoreData
-@property (nonatomic, retain) id <FinanceCoreDataDelegate> delegate;
+@property (nonatomic, retain) id <FinanceCoreDataDelegate> appDelegate;
 
 
 // Outlets
@@ -75,15 +73,4 @@ static const CGFloat TEXTFIELD_PADDING = 10;
 @property (nonatomic, retain) IBOutlet UIButton * buttonAdd;
 @property (nonatomic, retain) IBOutlet UIButton * buttonComma;
 
-@property (nonatomic, retain) IBOutlet UIPickerView * whatPicker;
-
 @end
-
-
-
-@protocol FinanceCoreDataDelegate
-
--(NSManagedObjectContext*)managedObjectContext;
-
-@end
-

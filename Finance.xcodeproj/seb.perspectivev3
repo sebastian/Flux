@@ -197,7 +197,48 @@
 	<key>Notifications</key>
 	<array/>
 	<key>OpenEditors</key>
-	<array/>
+	<array>
+		<dict>
+			<key>Content</key>
+			<dict>
+				<key>PBXProjectModuleGUID</key>
+				<string>96F840E2100A6B4E008862CC</string>
+				<key>PBXProjectModuleLabel</key>
+				<string>FinanceAppDelegate.h</string>
+				<key>PBXSplitModuleInNavigatorKey</key>
+				<dict>
+					<key>Split0</key>
+					<dict>
+						<key>PBXProjectModuleGUID</key>
+						<string>96F840E3100A6B4E008862CC</string>
+						<key>PBXProjectModuleLabel</key>
+						<string>FinanceAppDelegate.h</string>
+						<key>_historyCapacity</key>
+						<integer>0</integer>
+						<key>bookmark</key>
+						<string>96F84179100A6FB7008862CC</string>
+						<key>history</key>
+						<array>
+							<string>96F840C3100A6A8D008862CC</string>
+						</array>
+					</dict>
+					<key>SplitCount</key>
+					<string>1</string>
+				</dict>
+				<key>StatusBarVisibility</key>
+				<true/>
+			</dict>
+			<key>Geometry</key>
+			<dict>
+				<key>Frame</key>
+				<string>{{0, 20}, {823, 606}}</string>
+				<key>PBXModuleWindowStatusBarHidden2</key>
+				<false/>
+				<key>RubberWindowFrame</key>
+				<string>217 -621 823 647 0 0 1280 778 </string>
+			</dict>
+		</dict>
+	</array>
 	<key>PerspectiveWidths</key>
 	<array>
 		<integer>1216</integer>
@@ -230,8 +271,6 @@
 			<key>Layout</key>
 			<array>
 				<dict>
-					<key>BecomeActive</key>
-					<true/>
 					<key>ContentConfiguration</key>
 					<dict>
 						<key>PBXBottomSmartGroupGIDs</key>
@@ -279,9 +318,8 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>19</integer>
-									<integer>17</integer>
-									<integer>15</integer>
+									<integer>7</integer>
+									<integer>1</integer>
 									<integer>0</integer>
 								</array>
 							</array>
@@ -314,12 +352,14 @@
 					<key>Dock</key>
 					<array>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
 								<string>96885B8A1004EB08003090D8</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>ExpensesViewController.m</string>
+								<string>ExpenseInputViewController.m</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -327,11 +367,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>96885B8B1004EB08003090D8</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>ExpensesViewController.m</string>
+										<string>ExpenseInputViewController.m</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>96F8405A100A5AF0008862CC</string>
+										<string>96F84178100A6FB7008862CC</string>
 										<key>history</key>
 										<array>
 											<string>96B17872100608FF00994A6E</string>
@@ -341,17 +381,16 @@
 											<string>96AA706C10062CCA00206A37</string>
 											<string>96AA706D10062CCA00206A37</string>
 											<string>96AA70DE1006594300206A37</string>
-											<string>96AA71C410072DA300206A37</string>
-											<string>96AA71D010072DE100206A37</string>
-											<string>966D70C51008AF8F00D781B8</string>
 											<string>96E52EF5100A471200E0459B</string>
 											<string>96E52F0E100A4A7400E0459B</string>
-											<string>96E52F26100A4D5500E0459B</string>
-											<string>96F8403F100A5AD7008862CC</string>
-											<string>96F84040100A5AD7008862CC</string>
-											<string>96F84041100A5AD7008862CC</string>
-											<string>96F84042100A5AD7008862CC</string>
-											<string>96F84058100A5AED008862CC</string>
+											<string>96F8408B100A6704008862CC</string>
+											<string>96F840CD100A6B4E008862CC</string>
+											<string>96F840D0100A6B4E008862CC</string>
+											<string>96F840F1100A6CF0008862CC</string>
+											<string>96F840F2100A6CF0008862CC</string>
+											<string>96F84120100A6D74008862CC</string>
+											<string>96F8414D100A6E47008862CC</string>
+											<string>96F84165100A6EE2008862CC</string>
 										</array>
 										<key>prevStack</key>
 										<array>
@@ -368,18 +407,56 @@
 											<string>96AA71191006720300206A37</string>
 											<string>96AA711A1006720300206A37</string>
 											<string>96AA711B1006720300206A37</string>
-											<string>96AA71221006727F00206A37</string>
-											<string>96AA71231006727F00206A37</string>
 											<string>96F84044100A5AD7008862CC</string>
 											<string>96F84045100A5AD7008862CC</string>
 											<string>96F84046100A5AD7008862CC</string>
 											<string>96F84047100A5AD7008862CC</string>
 											<string>96F84048100A5AD7008862CC</string>
 											<string>96F84049100A5AD7008862CC</string>
-											<string>96F8404A100A5AD7008862CC</string>
-											<string>96F8404B100A5AD7008862CC</string>
-											<string>96F8404C100A5AD7008862CC</string>
-											<string>96F8404D100A5AD7008862CC</string>
+											<string>96F8408D100A6704008862CC</string>
+											<string>96F8408E100A6704008862CC</string>
+											<string>96F8408F100A6704008862CC</string>
+											<string>96F84090100A6704008862CC</string>
+											<string>96F84091100A6704008862CC</string>
+											<string>96F84092100A6704008862CC</string>
+											<string>96F84093100A6704008862CC</string>
+											<string>96F84094100A6704008862CC</string>
+											<string>96F84095100A6704008862CC</string>
+											<string>96F84096100A6704008862CC</string>
+											<string>96F84097100A6704008862CC</string>
+											<string>96F84098100A6704008862CC</string>
+											<string>96F840AA100A68D9008862CC</string>
+											<string>96F840AB100A68D9008862CC</string>
+											<string>96F840AC100A68D9008862CC</string>
+											<string>96F840AD100A68D9008862CC</string>
+											<string>96F840AE100A68D9008862CC</string>
+											<string>96F840AF100A68D9008862CC</string>
+											<string>96F840BC100A6956008862CC</string>
+											<string>96F840BD100A6956008862CC</string>
+											<string>96F840BE100A6956008862CC</string>
+											<string>96F840BF100A6956008862CC</string>
+											<string>96F840C0100A6956008862CC</string>
+											<string>96F840D2100A6B4E008862CC</string>
+											<string>96F840D3100A6B4E008862CC</string>
+											<string>96F840D4100A6B4E008862CC</string>
+											<string>96F840D5100A6B4E008862CC</string>
+											<string>96F840D6100A6B4E008862CC</string>
+											<string>96F840D7100A6B4E008862CC</string>
+											<string>96F840D8100A6B4E008862CC</string>
+											<string>96F840D9100A6B4E008862CC</string>
+											<string>96F840DA100A6B4E008862CC</string>
+											<string>96F840DB100A6B4E008862CC</string>
+											<string>96F840DC100A6B4E008862CC</string>
+											<string>96F840DD100A6B4E008862CC</string>
+											<string>96F840DE100A6B4E008862CC</string>
+											<string>96F840DF100A6B4E008862CC</string>
+											<string>96F840E0100A6B4E008862CC</string>
+											<string>96F840F4100A6CF0008862CC</string>
+											<string>96F840F5100A6CF0008862CC</string>
+											<string>96F84119100A6D24008862CC</string>
+											<string>96F84122100A6D74008862CC</string>
+											<string>96F8414F100A6E47008862CC</string>
+											<string>96F84150100A6E47008862CC</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -419,8 +496,6 @@
 									<dict>
 										<key>Frame</key>
 										<string>{{10, 27}, {842, 122}}</string>
-										<key>RubberWindowFrame</key>
-										<string>3 59 1216 719 0 0 1280 778 </string>
 									</dict>
 									<key>Module</key>
 									<string>XCDetailModule</string>
@@ -475,6 +550,8 @@
 									<dict>
 										<key>Frame</key>
 										<string>{{10, 27}, {842, 122}}</string>
+										<key>RubberWindowFrame</key>
+										<string>3 59 1216 719 0 0 1280 778 </string>
 									</dict>
 									<key>Module</key>
 									<string>PBXBuildResultsModule</string>
@@ -690,6 +767,9 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
+		<string>96F8411C100A6D24008862CC</string>
+		<string>96F8411D100A6D24008862CC</string>
+		<string>96F840E2100A6B4E008862CC</string>
 		<string>/Users/seb/Programmering/Kleio/Finance/iPhone/Finance.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
