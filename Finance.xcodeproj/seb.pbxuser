@@ -527,6 +527,12 @@
 		};
 	};
 	96AA7110100671FE00206A37 /* ExpensesViewController.h */ = {
+		isa = PBXFileReference;
+		fileEncoding = 4;
+		lastKnownFileType = sourcecode.c.h;
+		name = ExpensesViewController.h;
+		path = /Users/seb/Programmering/Kleio/Finance/iPhone/ExpensesViewController.h;
+		sourceTree = "<absolute>";
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {781, 492}}";
 			sepNavSelRange = "{227, 0}";
@@ -534,10 +540,16 @@
 		};
 	};
 	96AA7111100671FE00206A37 /* ExpensesViewController.m */ = {
+		isa = PBXFileReference;
+		fileEncoding = 4;
+		lastKnownFileType = sourcecode.c.objc;
+		name = ExpensesViewController.m;
+		path = /Users/seb/Programmering/Kleio/Finance/iPhone/ExpensesViewController.m;
+		sourceTree = "<absolute>";
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {984, 1428}}";
+			sepNavIntBoundsRect = "{{0, 0}, {1155, 1428}}";
 			sepNavSelRange = "{724, 759}";
-			sepNavVisRange = "{1811, 921}";
+			sepNavVisRange = "{1988, 446}";
 		};
 	};
 	96AA71191006720300206A37 /* XDModelBookmark */ = {
