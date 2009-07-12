@@ -10,11 +10,11 @@
 #import "FinanceCoreDataDelegate.h"
 
 @interface ExpensesTableViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, NSFetchedResultsControllerDelegate> {
-	id <FinanceCoreDataDelegate> delegate;
+	id <FinanceCoreDataDelegate> appDelegate;
 	NSFetchedResultsController * resultsController;
 }
 
 @property (nonatomic, retain) NSFetchedResultsController * resultsController;
-@property (nonatomic, retain) IBOutlet id <FinanceCoreDataDelegate> delegate;
+@property (nonatomic, retain) IBOutlet id <FinanceCoreDataDelegate> appDelegate;
 
 @end

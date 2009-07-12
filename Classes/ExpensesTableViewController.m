@@ -12,7 +12,7 @@
 
 @implementation ExpensesTableViewController
 
-@synthesize delegate;
+@synthesize appDelegate;
 @synthesize resultsController;
 
 /*
@@ -27,34 +27,36 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	
-	// Load the expenses
-	NSFetchRequest *request = [[NSFetchRequest alloc] init]; 
-	NSEntityDescription *entity = [NSEntityDescription entityForName:@"Transaction" 
-											  inManagedObjectContext:self.delegate.managedObjectContext]; 
-	[request setEntity:entity];
-	
-	NSSortDescriptor *sortByDate = [[NSSortDescriptor alloc]
-									initWithKey:@"date" ascending:NO];
-	NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortByDate, nil]; 
-	[request setSortDescriptors:sortDescriptors]; 
-	[sortDescriptors release]; 
-	[sortByDate release]; 
-	
-	NSError *error; 
-	NSFetchedResultsController * localRC = [[NSFetchedResultsController alloc] 
-											initWithFetchRequest:request 
-											managedObjectContext:self.delegate.managedObjectContext 
-											sectionNameKeyPath:nil cacheName:@"transactionCache"]; 
-	localRC.delegate=self;
-	
-	self.resultsController = localRC;
-	[localRC release];
-	
-	if ([self.resultsController performFetch:&error]) { 
-		NSLog(@"Error when performing fetch in messageTableViewController");
-		//NSLog([error localizedDescription]);
-	} 	
-	[request release]; 
+//	self.appDelegate = [[UIApplication sharedApplication] delegate];
+//	
+//	// Load the expenses
+//	NSFetchRequest *request = [[NSFetchRequest alloc] init]; 
+//	NSEntityDescription *entity = [NSEntityDescription entityForName:@"Transaction" 
+//											  inManagedObjectContext:self.appDelegate.managedObjectContext]; 
+//	[request setEntity:entity];
+//	
+//	NSSortDescriptor *sortByDate = [[NSSortDescriptor alloc]
+//									initWithKey:@"date" ascending:NO];
+//	NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortByDate, nil]; 
+//	[request setSortDescriptors:sortDescriptors]; 
+//	[sortDescriptors release]; 
+//	[sortByDate release]; 
+//	
+//	NSError *error; 
+//	NSFetchedResultsController * localRC = [[NSFetchedResultsController alloc] 
+//											initWithFetchRequest:request 
+//											managedObjectContext:self.appDelegate.managedObjectContext 
+//											sectionNameKeyPath:nil cacheName:@"transactionCache"]; 
+//	localRC.delegate=self;
+//	
+//	self.resultsController = localRC;
+//	[localRC release];
+//	
+//	if ([self.resultsController performFetch:&error]) { 
+//		NSLog(@"Error when performing fetch in messageTableViewController");
+//		//NSLog([error localizedDescription]);
+//	} 	
+//	[request release]; 
 	
 	
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
@@ -106,49 +108,82 @@
 
 #pragma mark Table view methods
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+//    //return [[resultsController sections] count];
+//	return 1;
+//}
 
-	NSUInteger count = [[resultsController sections] count];
-    if (count == 0) {
-        count = 1;
-    }
-    return count;
-	
-}
-
-
-// Customize the number of rows in the table view.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-
-	NSArray *sections = [resultsController sections];
-    NSUInteger count = 0;
-    if ([sections count]) {
-        id <NSFetchedResultsSectionInfo> sectionInfo = [sections objectAtIndex:section];
-        count = [sectionInfo numberOfObjects];
-    }
-	return count;
-	
+//	id <NSFetchedResultsSectionInfo> sectionInfo = [[resultsController sections] objectAtIndex:section];
+//    return [sectionInfo numberOfObjects];
+	NSLog(@"Asked for number of rows in section %i", section);
+	return 4;
 }
+
+
+//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+//
+////	NSUInteger count = [[resultsController sections] count];
+////    if (count == 0) {
+////        count = 1;
+////    }
+////    return count;
+//	return 1;	
+//}
+//// Customize the number of rows in the table view.
+//- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+//
+////	NSArray *sections = [resultsController sections];
+////    NSUInteger count = 0;
+////    if ([sections count]) {
+////        id <NSFetchedResultsSectionInfo> sectionInfo = [sections objectAtIndex:section];
+////        count = [sectionInfo numberOfObjects];
+////    }
+////	return count;
+//
+//	return 5;
+//}
 
 
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-
-    static NSString *CellIdentifier = @"TransactionCell";
+    
+	NSLog(@"Asked for row number %i", indexPath.row);
+	
+    static NSString *CellIdentifier = @"Cell";
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
     }
     
-	Transaction *trs = (Transaction *)[resultsController objectAtIndexPath:indexPath];
+	// Configure the cell.
 	
-	cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-	cell.textLabel.text = [trs toString];
-	cell.detailTextLabel.text = @"An expense";
+//	NSManagedObject *managedObject = [fetchedResultsController objectAtIndexPath:indexPath];
+	
+	cell.textLabel.text = @"Some text"; //[[managedObject valueForKey:@"timeStamp"] description];
 	
     return cell;
 }
+
+// Customize the appearance of table view cells.
+//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+//
+//    static NSString *CellIdentifier = @"TransactionCell";
+//    
+//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+//    if (cell == nil) {
+//        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+//    }
+//    
+////	Transaction *trs = (Transaction *)[resultsController objectAtIndexPath:indexPath];
+//	
+//	//cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+//	cell.textLabel.text = @"Test"; //[trs toString];
+//	//cell.detailTextLabel.text = @"An expense";
+//	
+//    return cell;
+//}
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
