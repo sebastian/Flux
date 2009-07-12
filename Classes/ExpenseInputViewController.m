@@ -23,6 +23,8 @@
 @synthesize button0, button1, button2, button3, button4, button5, button6, button7, button8, button9;
 @synthesize buttonAdd, buttonComma;
 
+@synthesize whatPicker;
+
 @synthesize newTransaction;
 @synthesize delegate;
 
@@ -253,6 +255,8 @@
 	buttonAdd = nil;
 	buttonComma = nil;
 	
+	whatPicker = nil;
+	
 	// TODO:
 	// Delete somehow?
 	newTransaction = nil;
@@ -271,6 +275,8 @@
 	[button9 release];
 	[buttonAdd release];
 	[buttonComma release];
+	
+	[whatPicker release];
 	
 	[newTransaction release];
 	[deleteButtonView release];

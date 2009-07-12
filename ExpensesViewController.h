@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 
-@interface ExpensesViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate> {
+@interface ExpensesViewController : UIViewController {
 	UITableView * expensesTable;
 	UISearchBar * searchBar;
 }

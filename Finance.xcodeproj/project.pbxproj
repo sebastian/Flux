@@ -28,6 +28,7 @@
 		96AA70EE10065AB200206A37 /* Finance.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 96AA70ED10065AB200206A37 /* Finance.xcdatamodel */; };
 		96AA710C1006616700206A37 /* Transaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 96AA710B1006616700206A37 /* Transaction.m */; };
 		96AA7112100671FE00206A37 /* ExpensesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96AA7111100671FE00206A37 /* ExpensesViewController.m */; };
+		96F8403A100A5A08008862CC /* ExpensesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96F84039100A5A08008862CC /* ExpensesTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -59,6 +60,8 @@
 		96AA710B1006616700206A37 /* Transaction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Transaction.m; path = ../Transaction.m; sourceTree = "<group>"; };
 		96AA7110100671FE00206A37 /* ExpensesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExpensesViewController.h; path = ../ExpensesViewController.h; sourceTree = "<group>"; };
 		96AA7111100671FE00206A37 /* ExpensesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ExpensesViewController.m; path = ../ExpensesViewController.m; sourceTree = "<group>"; };
+		96F84038100A5A08008862CC /* ExpensesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpensesTableViewController.h; sourceTree = "<group>"; };
+		96F84039100A5A08008862CC /* ExpensesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpensesTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +82,8 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				96F84038100A5A08008862CC /* ExpensesTableViewController.h */,
+				96F84039100A5A08008862CC /* ExpensesTableViewController.m */,
 				96AA7110100671FE00206A37 /* ExpensesViewController.h */,
 				96AA7111100671FE00206A37 /* ExpensesViewController.m */,
 				96AA710A1006616700206A37 /* Transaction.h */,
@@ -236,6 +241,7 @@
 				96AA70EE10065AB200206A37 /* Finance.xcdatamodel in Sources */,
 				96AA710C1006616700206A37 /* Transaction.m in Sources */,
 				96AA7112100671FE00206A37 /* ExpensesViewController.m in Sources */,
+				96F8403A100A5A08008862CC /* ExpensesTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

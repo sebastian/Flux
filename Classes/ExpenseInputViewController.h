@@ -41,6 +41,8 @@ static const CGFloat TEXTFIELD_PADDING = 10;
 	UIButton * button0;
 	UIButton * buttonAdd;
 	UIButton * buttonComma;
+	
+	UIPickerView * whatPicker;
 }
 
 // CoreData
@@ -72,6 +74,8 @@ static const CGFloat TEXTFIELD_PADDING = 10;
 @property (nonatomic, retain) IBOutlet UIButton * button0;
 @property (nonatomic, retain) IBOutlet UIButton * buttonAdd;
 @property (nonatomic, retain) IBOutlet UIButton * buttonComma;
+
+@property (nonatomic, retain) IBOutlet UIPickerView * whatPicker;
 
 @end
 
