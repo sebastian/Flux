@@ -11,6 +11,8 @@
 
 @interface Transaction :  NSManagedObject  
 {
+	bool has_ore;
+	int numOfOre;
 }
 
 // Amount
@@ -31,8 +33,15 @@
 
 // Methods
 -(NSString*)toString;
+-(void)addNumber:(NSInteger)num;
+-(void)eraseOneNum;
+-(void)addDecimal;
 
+// Methods for display
+-(bool)hasDecimals;
+-(bool)canBeAddedTo;
 @end
+
 
 
 

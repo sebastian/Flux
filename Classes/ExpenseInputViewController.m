@@ -20,6 +20,9 @@
 @synthesize textFieldBackground;
 @synthesize deleteButtonView;
 
+@synthesize button0, button1, button2, button3, button4, button5, button6, button7, button8, button9;
+@synthesize buttonAdd, buttonComma;
+
 @synthesize newTransaction;
 @synthesize delegate;
 
@@ -29,22 +32,18 @@
 
 -(IBAction)numberButtonPushed:(UIButton *)button {
 	NSLog(@"Pushed the numeric key %i", button.tag);
-
-	NSLog(@"Currenctly the kroner value is %i", [self.newTransaction.kroner integerValue]);
-	NSInteger kroner = [self.newTransaction.kroner integerValue] * 10 + button.tag; 
-	NSLog(@"New kroner value as calculated: %i", kroner);
-	NSLog(@"The value now reads: %@", [self.newTransaction toString]);
-	
-	[self.newTransaction setKroner:[NSNumber numberWithInt:kroner]];	
-	
+	[self.newTransaction addNumber:button.tag];
 	[self updateExpenseDisplay];
 }
 -(IBAction)decimalButtonPushed:(id)sender {
 	NSLog(@"Decimal button pushed");
-	
+	[self.newTransaction addDecimal];
+	[self updateExpenseDisplay];
 }
 -(IBAction)deleteButtonPushed:(id)sender {
 	NSLog(@"Backspace button pushed");
+	[self.newTransaction eraseOneNum];
+	[self updateExpenseDisplay];
 }
 
 #pragma mark
@@ -168,6 +167,38 @@
 		[deleteButtonView setAlpha:1.0];
 	}
 	
+	// Check if the keyboard is needed
+	// Decimal button needed?
+	if ([self.newTransaction hasDecimals] == YES) {
+		[buttonComma setEnabled:NO];
+	} else {
+		[buttonComma setEnabled:YES];
+	}
+	if ([self.newTransaction canBeAddedTo] == YES) {
+		[button0 setEnabled:YES];
+		[button1 setEnabled:YES];
+		[button2 setEnabled:YES];
+		[button3 setEnabled:YES];
+		[button4 setEnabled:YES];
+		[button5 setEnabled:YES];
+		[button6 setEnabled:YES];
+		[button7 setEnabled:YES];
+		[button8 setEnabled:YES];
+		[button9 setEnabled:YES];
+	} else {
+		[button0 setEnabled:NO];
+		[button1 setEnabled:NO];
+		[button2 setEnabled:NO];
+		[button3 setEnabled:NO];
+		[button4 setEnabled:NO];
+		[button5 setEnabled:NO];
+		[button6 setEnabled:NO];
+		[button7 setEnabled:NO];
+		[button8 setEnabled:NO];
+		[button9 setEnabled:NO];
+	}
+		
+	
 	[UIView commitAnimations];
 }
 -(IBAction)addExpense:(id)sender {
@@ -209,11 +240,38 @@
 	amount = nil;
 	textFieldBackground = nil;
 
+	button0 = nil;
+	button1 = nil;
+	button2 = nil;
+	button3 = nil;
+	button4 = nil;
+	button5 = nil;
+	button6 = nil;
+	button7 = nil;
+	button8 = nil;
+	button9 = nil;
+	buttonAdd = nil;
+	buttonComma = nil;
+	
 	// TODO:
 	// Delete somehow?
 	newTransaction = nil;
 }
 - (void)dealloc {
+	
+	[button0 release];
+	[button1 release];
+	[button2 release];
+	[button3 release];
+	[button4 release];
+	[button5 release];
+	[button6 release];
+	[button7 release];
+	[button8 release];
+	[button9 release];
+	[buttonAdd release];
+	[buttonComma release];
+	
 	[newTransaction release];
 	[deleteButtonView release];
 	[amount release];
