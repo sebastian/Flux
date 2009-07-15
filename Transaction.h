@@ -40,6 +40,7 @@
 // Methods for display
 -(bool)hasDecimals;
 -(bool)canBeAddedTo;
+-(bool)needsDeleteButton;
 @end
 
 

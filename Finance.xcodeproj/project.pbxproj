@@ -15,6 +15,7 @@
 		282CCBFE0DB6C98000C4EA27 /* Expenses.xib in Resources */ = {isa = PBXBuildFile; fileRef = 282CCBFD0DB6C98000C4EA27 /* Expenses.xib */; };
 		288765080DF74369002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765070DF74369002DB57D /* CoreGraphics.framework */; };
 		28AD73880D9D96C1002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD73870D9D96C1002E5188 /* MainWindow.xib */; };
+		960080F5100A98E900740DCB /* TODO.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 960080F4100A98E900740DCB /* TODO.rtf */; };
 		966D70E81008B23100D781B8 /* KeyboardButtonOKClicked.png in Resources */ = {isa = PBXBuildFile; fileRef = 966D70E61008B23100D781B8 /* KeyboardButtonOKClicked.png */; };
 		966D70E91008B23100D781B8 /* KeyboardButtonOKUnclicked.png in Resources */ = {isa = PBXBuildFile; fileRef = 966D70E71008B23100D781B8 /* KeyboardButtonOKUnclicked.png */; };
 		966D71091008B5E600D781B8 /* DeleteButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 966D71081008B5E600D781B8 /* DeleteButton.png */; };
@@ -45,6 +46,7 @@
 		28AD73870D9D96C1002E5188 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Finance-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Finance-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		960080F4100A98E900740DCB /* TODO.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = TODO.rtf; sourceTree = "<group>"; };
 		966D70E61008B23100D781B8 /* KeyboardButtonOKClicked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = KeyboardButtonOKClicked.png; path = Graphics/KeyboardButtonOKClicked.png; sourceTree = "<group>"; };
 		966D70E71008B23100D781B8 /* KeyboardButtonOKUnclicked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = KeyboardButtonOKUnclicked.png; path = Graphics/KeyboardButtonOKUnclicked.png; sourceTree = "<group>"; };
 		966D71081008B5E600D781B8 /* DeleteButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = DeleteButton.png; path = Graphics/DeleteButton.png; sourceTree = "<group>"; };
@@ -113,6 +115,7 @@
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 				96AA708F100656E600206A37 /* CoreData.framework */,
+				960080F4100A98E900740DCB /* TODO.rtf */,
 			);
 			name = Finance;
 			sourceTree = "<group>";
@@ -234,6 +237,7 @@
 				966D70E81008B23100D781B8 /* KeyboardButtonOKClicked.png in Resources */,
 				966D70E91008B23100D781B8 /* KeyboardButtonOKUnclicked.png in Resources */,
 				966D71091008B5E600D781B8 /* DeleteButton.png in Resources */,
+				960080F5100A98E900740DCB /* TODO.rtf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

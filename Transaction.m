@@ -35,11 +35,14 @@
 
 -(NSString*)toString {
 	// TODO fix this ugly hack when I have time
-	if ([self.ore integerValue] > 10) {
-		return [NSString stringWithFormat:@"%i,%i", [self.kroner integerValue], [self.ore integerValue]];
-	} else {
-		return [NSString stringWithFormat:@"%i,%i0", [self.kroner integerValue], [self.ore integerValue]];
-	}
+	NSNumber * number = [NSNumber numberWithDouble:[self.kroner doubleValue] + [self.ore doubleValue]/100];
+	
+	NSNumberFormatter * formatter = [[NSNumberFormatter alloc] init];
+	[formatter setCurrencyCode:@"EUR"];
+	
+	[formatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+	return [formatter stringFromNumber:number];
+	
 }
 -(void)addNumber:(NSInteger)num {
 
@@ -63,10 +66,19 @@
 -(void)eraseOneNum {
 	if (has_ore == YES) {
 		// Do øre stuff
+		switch (numOfOre) {
+			case 1:
+				self.ore = [NSNumber numberWithInt:0];
+				break;
+			case 2:
+				self.ore = [NSNumber numberWithInt:(([self.ore intValue] / 10) * 10)];
+				break;
+			default:
+				break;
+		}
+		
 		numOfOre -= 1;
 		if (numOfOre < 1) {has_ore = NO;}
-		
-		self.ore = [NSNumber numberWithInt:[self.ore integerValue] / 10];
 		
 	} else {
 		// Remove from the main num
@@ -83,11 +95,16 @@
 	return has_ore;
 }
 -(bool)canBeAddedTo {
+	if ([self.kroner intValue] / 1000000000 != 0 && has_ore == NO) {return NO;}
 	if (has_ore == NO) {return YES;}
 	if (has_ore == YES && numOfOre < 2) {return YES;} 
 	
 	return NO;
 	
+}
+-(bool)needsDeleteButton {
+	if ([self.kroner intValue] == 0 && has_ore == NO) {return NO;} 
+	return YES;
 }
 
 @end

@@ -12,7 +12,7 @@
 
 
 static const CGFloat KEYBOARD_ANIMATION_DURATION = 0.3;
-static const CGFloat MAX_TEXTFIELD_WIDTH = 180;
+static const CGFloat MAX_TEXTFIELD_WIDTH = 220;
 static const CGFloat MIN_TEXTFIELD_WIDTH = 40;
 static const CGFloat TEXTFIELD_PADDING = 10;
 

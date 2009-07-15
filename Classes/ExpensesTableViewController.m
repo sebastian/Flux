@@ -108,10 +108,10 @@
 
 #pragma mark Table view methods
 
-//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-//    //return [[resultsController sections] count];
-//	return 1;
-//}
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    //return [[resultsController sections] count];
+	return 0;
+}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 //	id <NSFetchedResultsSectionInfo> sectionInfo = [[resultsController sections] objectAtIndex:section];

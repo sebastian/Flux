@@ -8,7 +8,7 @@
 		<string key="IBDocument.HIToolboxVersion">353.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="197"/>
+			<integer value="189"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -88,31 +88,6 @@
 								<float key="IBUIMinimumFontSize">1.000000e+01</float>
 								<int key="IBUITextAlignment">1</int>
 							</object>
-							<object class="IBUILabel" id="710858643">
-								<reference key="NSNextResponder" ref="57311112"/>
-								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{20, 75}, {26, 36}}</string>
-								<reference key="NSSuperview" ref="57311112"/>
-								<object class="NSColor" key="IBUIBackgroundColor">
-									<int key="NSColorSpace">3</int>
-									<bytes key="NSWhite">MC4yNQA</bytes>
-									<reference key="NSCustomColorSpace" ref="132150594"/>
-								</object>
-								<bool key="IBUIOpaque">NO</bool>
-								<bool key="IBUIClipsSubviews">YES</bool>
-								<bool key="IBUIUserInteractionEnabled">NO</bool>
-								<string key="IBUIText">$</string>
-								<object class="NSFont" key="IBUIFont" id="67621143">
-									<string key="NSName">Helvetica</string>
-									<double key="NSSize">2.400000e+01</double>
-									<int key="NSfFlags">16</int>
-								</object>
-								<reference key="IBUITextColor" ref="809431268"/>
-								<nil key="IBUIHighlightedColor"/>
-								<int key="IBUIBaselineAdjustment">1</int>
-								<float key="IBUIMinimumFontSize">1.000000e+01</float>
-								<int key="IBUITextAlignment">1</int>
-							</object>
 							<object class="IBUILabel" id="160720760">
 								<reference key="NSNextResponder" ref="57311112"/>
 								<int key="NSvFlags">292</int>
@@ -127,7 +102,11 @@
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="IBUIText">what</string>
-								<reference key="IBUIFont" ref="67621143"/>
+								<object class="NSFont" key="IBUIFont" id="67621143">
+									<string key="NSName">Helvetica</string>
+									<double key="NSSize">2.400000e+01</double>
+									<int key="NSfFlags">16</int>
+								</object>
 								<reference key="IBUITextColor" ref="809431268"/>
 								<nil key="IBUIHighlightedColor"/>
 								<int key="IBUIBaselineAdjustment">1</int>
@@ -482,7 +461,7 @@
 										</object>
 									</object>
 								</object>
-								<string key="NSFrame">{{54, 75}, {36, 36}}</string>
+								<string key="NSFrame">{{20, 75}, {36, 36}}</string>
 								<reference key="NSSuperview" ref="57311112"/>
 								<reference key="IBUIBackgroundColor" ref="809431268"/>
 								<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
@@ -515,7 +494,7 @@
 										</object>
 									</object>
 								</object>
-								<string key="NSFrame">{{98, 75}, {40, 36}}</string>
+								<string key="NSFrame">{{64, 75}, {40, 36}}</string>
 								<reference key="NSSuperview" ref="57311112"/>
 								<object class="NSColor" key="IBUIBackgroundColor">
 									<int key="NSColorSpace">3</int>
@@ -937,12 +916,11 @@
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="160720760"/>
-							<reference ref="696131722"/>
-							<reference ref="1051673982"/>
-							<reference ref="710858643"/>
 							<reference ref="665850663"/>
 							<reference ref="99785637"/>
 							<reference ref="52426253"/>
+							<reference ref="1051673982"/>
+							<reference ref="696131722"/>
 						</object>
 						<reference key="parent" ref="1024858337"/>
 					</object>
@@ -988,11 +966,6 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="340360050"/>
 						</object>
-						<reference key="parent" ref="57311112"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">194</int>
-						<reference key="object" ref="710858643"/>
 						<reference key="parent" ref="57311112"/>
 					</object>
 					<object class="IBObjectRecord">
@@ -1101,7 +1074,6 @@
 					<string>191.IBPluginDependency</string>
 					<string>192.IBPluginDependency</string>
 					<string>193.IBPluginDependency</string>
-					<string>194.IBPluginDependency</string>
 					<string>195.IBPluginDependency</string>
 					<string>196.IBPluginDependency</string>
 					<string>197.IBPluginDependency</string>
@@ -1133,7 +1105,6 @@
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>ExpenseInputViewController</string>
-					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>

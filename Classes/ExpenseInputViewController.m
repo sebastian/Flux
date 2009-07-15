@@ -82,10 +82,10 @@
 	[deleteButtonView setFrame:buttonFrame];
 	
 	// Show delete button if there is a value
-	if ([[self.newTransaction toString] isEqualToString:@"0,00"]) {
-		[deleteButtonView setAlpha:0.0];
-	} else {
+	if ([self.newTransaction needsDeleteButton]) {
 		[deleteButtonView setAlpha:1.0];
+	} else {
+		[deleteButtonView setAlpha:0.0];
 	}
 	
 	// Check if the keyboard is needed
