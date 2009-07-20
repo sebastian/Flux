@@ -10,9 +10,7 @@
 #import <CoreData/CoreData.h>
 #import "ExpenseInputViewController.h"
 
-@protocol FinanceCoreDataDelegate;
-
-@interface FinanceAppDelegate : NSObject <UIApplicationDelegate, UITabBarControllerDelegate, FinanceCoreDataDelegate> {
+@interface FinanceAppDelegate : NSObject <UIApplicationDelegate, UITabBarControllerDelegate> {
     UIWindow *window;
     UITabBarController *tabBarController;
 	
@@ -23,7 +21,7 @@
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
-@property (nonatomic, retain) IBOutlet UITabBarController *tabBarController;
+@property (nonatomic, retain) UITabBarController *tabBarController;
 
 // CoreData
 - (IBAction)saveAction:sender;

@@ -7,14 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "FinanceCoreDataDelegate.h"
+#import "TransactionTableCell.h"
 
-@interface ExpensesTableViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, NSFetchedResultsControllerDelegate> {
-	id <FinanceCoreDataDelegate> appDelegate;
+
+@interface ExpensesTableViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource, NSFetchedResultsControllerDelegate> {
 	NSFetchedResultsController * resultsController;
+	NSManagedObjectContext *managedObjectContext;
+	
+	TransactionTableCell * tableCell;
 }
 
+@property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, retain) NSFetchedResultsController * resultsController;
-@property (nonatomic, retain) IBOutlet id <FinanceCoreDataDelegate> appDelegate;
+@property (nonatomic, retain) IBOutlet TransactionTableCell * tableCell;
 
 @end

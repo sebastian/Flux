@@ -7,6 +7,8 @@
 //
 
 #import "FinanceAppDelegate.h"
+#import "ExpenseInputViewController.h"
+#import "ExpensesTableViewController.h"
 
 @implementation FinanceAppDelegate
 
@@ -17,17 +19,38 @@
 #pragma mark Application life cycle
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
-
+	
 	NSManagedObjectContext *context = [self managedObjectContext]; 
     if (!context) { 
         NSLog(@"Couldn't get a managedObjectContext");
     }
-		
-	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque];
 	
-    [window addSubview:tabBarController.view];
+	[application setStatusBarStyle:UIStatusBarStyleBlackOpaque];
+
+	self.tabBarController = [[UITabBarController alloc] initWithNibName:nil 
+															bundle:nil]; 	
+
+	ExpenseInputViewController * viewController1 = [[[ExpenseInputViewController alloc] 
+															   initWithNibName:@"AddExpense" 
+													 bundle:[NSBundle mainBundle] andManagedObjectContext:context] 
+										 autorelease];
+	
+	ExpensesTableViewController * viewController2 = [[[ExpensesTableViewController alloc] 
+															   initWithNibName:@"Expenses" 
+																		bundle:[NSBundle mainBundle]] 
+										  autorelease];
+	viewController1.managedObjectContext = context;
+	viewController2.managedObjectContext = context;
+
+	[self.tabBarController setViewControllers:[NSArray arrayWithObjects:viewController1, viewController2, nil]]; 
+	[self.tabBarController setSelectedIndex:0];
+	
+	[context release];
+	
+	[window addSubview:self.tabBarController.view];
 
 	[window makeKeyAndVisible];
+	
 }
 
 /**

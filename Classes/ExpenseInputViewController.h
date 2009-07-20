@@ -12,7 +12,7 @@
 
 
 static const CGFloat KEYBOARD_ANIMATION_DURATION = 0.3;
-static const CGFloat MAX_TEXTFIELD_WIDTH = 220;
+static const CGFloat MAX_TEXTFIELD_WIDTH = 240;
 static const CGFloat MIN_TEXTFIELD_WIDTH = 40;
 static const CGFloat TEXTFIELD_PADDING = 10;
 
@@ -26,7 +26,7 @@ static const CGFloat TEXTFIELD_PADDING = 10;
 	
 	Transaction * newTransaction;
 	
-	id <FinanceCoreDataDelegate> appDelegate;
+	NSManagedObjectContext *managedObjectContext;
 	
 	UIButton * button1;
 	UIButton * button2; 
@@ -41,16 +41,19 @@ static const CGFloat TEXTFIELD_PADDING = 10;
 	UIButton * buttonAdd;
 	UIButton * buttonComma;
 	
+	UIImageView * expenseConfirmation;
 }
 
 // CoreData
-@property (nonatomic, retain) id <FinanceCoreDataDelegate> appDelegate;
+@property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
 
 
 // Outlets
 @property (nonatomic, retain) IBOutlet UITextField * amount;
 @property (nonatomic, retain) IBOutlet UIView * textFieldBackground;
 @property (nonatomic, retain) IBOutlet UIView * deleteButtonView;
+@property (nonatomic, retain) IBOutlet UIImageView * expenseConfirmation;
+
 
 @property (nonatomic, retain) Transaction * newTransaction;
 
@@ -72,5 +75,7 @@ static const CGFloat TEXTFIELD_PADDING = 10;
 @property (nonatomic, retain) IBOutlet UIButton * button0;
 @property (nonatomic, retain) IBOutlet UIButton * buttonAdd;
 @property (nonatomic, retain) IBOutlet UIButton * buttonComma;
+
+-(id) initWithNibName:(NSString*)nibName bundle:(NSBundle*)bundle andManagedObjectContext:(NSManagedObjectContext*) context;
 
 @end

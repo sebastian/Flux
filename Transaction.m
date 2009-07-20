@@ -19,6 +19,9 @@
 @dynamic date;
 @dynamic ore;
 
+@synthesize formatter;
+
+// This method isn't called anyway, so it is a joke...
 -(id)init {
 	self = [super init];
 	if (self) {
@@ -29,19 +32,25 @@
 			has_ore = NO;
 		}
 		numOfOre = 0;
+		
 	}
 	return self;
 }
 
 -(NSString*)toString {
-	// TODO fix this ugly hack when I have time
+	// TODO: Probably not optimal...
 	NSNumber * number = [NSNumber numberWithDouble:[self.kroner doubleValue] + [self.ore doubleValue]/100];
 	
-	NSNumberFormatter * formatter = [[NSNumberFormatter alloc] init];
-	[formatter setCurrencyCode:@"EUR"];
+	if (self.formatter == nil) {
+		self.formatter = [[NSNumberFormatter alloc] init];
+	}
 	
-	[formatter setNumberStyle:NSNumberFormatterCurrencyStyle];
-	return [formatter stringFromNumber:number];
+	// TODO: Set it to something smart based on where the user is 
+	// and also based on what the user chooses manually...
+	[self.formatter setCurrencyCode:@"EUR"];
+	
+	[self.formatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+	return [self.formatter stringFromNumber:number];
 	
 }
 -(void)addNumber:(NSInteger)num {
@@ -105,6 +114,12 @@
 -(bool)needsDeleteButton {
 	if ([self.kroner intValue] == 0 && has_ore == NO) {return NO;} 
 	return YES;
+}
+
+-(void)dealloc {
+	NSLog(@"It is dealloced");
+	[formatter dealloc];
+	[super dealloc];
 }
 
 @end

@@ -14,8 +14,9 @@
 		28216C970DB411BC00E5133A /* ExpenseInputViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28216C960DB411BC00E5133A /* ExpenseInputViewController.m */; };
 		282CCBFE0DB6C98000C4EA27 /* Expenses.xib in Resources */ = {isa = PBXBuildFile; fileRef = 282CCBFD0DB6C98000C4EA27 /* Expenses.xib */; };
 		288765080DF74369002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765070DF74369002DB57D /* CoreGraphics.framework */; };
-		28AD73880D9D96C1002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD73870D9D96C1002E5188 /* MainWindow.xib */; };
 		960080F5100A98E900740DCB /* TODO.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 960080F4100A98E900740DCB /* TODO.rtf */; };
+		9653EA691010F26700B714BB /* AddExpense.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9653EA681010F26700B714BB /* AddExpense.xib */; };
+		9653EBE6101104FB00B714BB /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9653EBE5101104FB00B714BB /* MainWindow.xib */; };
 		966D70E81008B23100D781B8 /* KeyboardButtonOKClicked.png in Resources */ = {isa = PBXBuildFile; fileRef = 966D70E61008B23100D781B8 /* KeyboardButtonOKClicked.png */; };
 		966D70E91008B23100D781B8 /* KeyboardButtonOKUnclicked.png in Resources */ = {isa = PBXBuildFile; fileRef = 966D70E71008B23100D781B8 /* KeyboardButtonOKUnclicked.png */; };
 		966D71091008B5E600D781B8 /* DeleteButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 966D71081008B5E600D781B8 /* DeleteButton.png */; };
@@ -28,6 +29,9 @@
 		96AA7090100656E600206A37 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96AA708F100656E600206A37 /* CoreData.framework */; };
 		96AA70EE10065AB200206A37 /* Finance.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 96AA70ED10065AB200206A37 /* Finance.xcdatamodel */; };
 		96AA710C1006616700206A37 /* Transaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 96AA710B1006616700206A37 /* Transaction.m */; };
+		96D937291014922F0062E7A4 /* OKOverlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 96D937281014922F0062E7A4 /* OKOverlay.png */; };
+		96E55D8E1014AD8200E63DB8 /* TransactionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96E55D8D1014AD8200E63DB8 /* TransactionCell.xib */; };
+		96E55D921014AF3800E63DB8 /* TransactionTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E55D911014AF3800E63DB8 /* TransactionTableCell.m */; };
 		96F8403A100A5A08008862CC /* ExpensesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96F84039100A5A08008862CC /* ExpensesTableViewController.m */; };
 		96F84082100A66E8008862CC /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96F84081100A66E8008862CC /* CoreData.framework */; };
 /* End PBXBuildFile section */
@@ -43,10 +47,11 @@
 		282CCBFD0DB6C98000C4EA27 /* Expenses.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Expenses.xib; sourceTree = "<group>"; };
 		288765070DF74369002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		28A0AB4B0D9B1048005BE974 /* Finance_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Finance_Prefix.pch; sourceTree = "<group>"; };
-		28AD73870D9D96C1002E5188 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Finance-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Finance-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		960080F4100A98E900740DCB /* TODO.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = TODO.rtf; sourceTree = "<group>"; };
+		9653EA681010F26700B714BB /* AddExpense.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddExpense.xib; sourceTree = "<group>"; };
+		9653EBE5101104FB00B714BB /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		966D70E61008B23100D781B8 /* KeyboardButtonOKClicked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = KeyboardButtonOKClicked.png; path = Graphics/KeyboardButtonOKClicked.png; sourceTree = "<group>"; };
 		966D70E71008B23100D781B8 /* KeyboardButtonOKUnclicked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = KeyboardButtonOKUnclicked.png; path = Graphics/KeyboardButtonOKUnclicked.png; sourceTree = "<group>"; };
 		966D71081008B5E600D781B8 /* DeleteButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = DeleteButton.png; path = Graphics/DeleteButton.png; sourceTree = "<group>"; };
@@ -60,6 +65,10 @@
 		96AA70ED10065AB200206A37 /* Finance.xcdatamodel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.xcdatamodel; path = Finance.xcdatamodel; sourceTree = "<group>"; };
 		96AA710A1006616700206A37 /* Transaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Transaction.h; path = ../Transaction.h; sourceTree = "<group>"; };
 		96AA710B1006616700206A37 /* Transaction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Transaction.m; path = ../Transaction.m; sourceTree = "<group>"; };
+		96D937281014922F0062E7A4 /* OKOverlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = OKOverlay.png; path = Graphics/OKOverlay.png; sourceTree = "<group>"; };
+		96E55D8D1014AD8200E63DB8 /* TransactionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransactionCell.xib; sourceTree = "<group>"; };
+		96E55D901014AF3800E63DB8 /* TransactionTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionTableCell.h; sourceTree = "<group>"; };
+		96E55D911014AF3800E63DB8 /* TransactionTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionTableCell.m; sourceTree = "<group>"; };
 		96F84038100A5A08008862CC /* ExpensesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpensesTableViewController.h; sourceTree = "<group>"; };
 		96F84039100A5A08008862CC /* ExpensesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpensesTableViewController.m; sourceTree = "<group>"; };
 		96F84081100A66E8008862CC /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -94,6 +103,8 @@
 				28216C960DB411BC00E5133A /* ExpenseInputViewController.m */,
 				1D3623240D0F684500981E51 /* FinanceAppDelegate.h */,
 				1D3623250D0F684500981E51 /* FinanceAppDelegate.m */,
+				96E55D901014AF3800E63DB8 /* TransactionTableCell.h */,
+				96E55D911014AF3800E63DB8 /* TransactionTableCell.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -154,8 +165,10 @@
 		96885BB51004ED9E003090D8 /* NIBs */ = {
 			isa = PBXGroup;
 			children = (
+				9653EA681010F26700B714BB /* AddExpense.xib */,
 				282CCBFD0DB6C98000C4EA27 /* Expenses.xib */,
-				28AD73870D9D96C1002E5188 /* MainWindow.xib */,
+				9653EBE5101104FB00B714BB /* MainWindow.xib */,
+				96E55D8D1014AD8200E63DB8 /* TransactionCell.xib */,
 			);
 			name = NIBs;
 			sourceTree = "<group>";
@@ -163,6 +176,7 @@
 		96AA703710061CF600206A37 /* Graphics */ = {
 			isa = PBXGroup;
 			children = (
+				96D937281014922F0062E7A4 /* OKOverlay.png */,
 				966D71081008B5E600D781B8 /* DeleteButton.png */,
 				966D70E61008B23100D781B8 /* KeyboardButtonOKClicked.png */,
 				966D70E71008B23100D781B8 /* KeyboardButtonOKUnclicked.png */,
@@ -226,7 +240,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				28AD73880D9D96C1002E5188 /* MainWindow.xib in Resources */,
 				282CCBFE0DB6C98000C4EA27 /* Expenses.xib in Resources */,
 				96AA703B10061D0900206A37 /* KeyboardButtonBackgroundClicked.png in Resources */,
 				96AA703C10061D0900206A37 /* KeyboardButtonBackgroundUnclicked.png in Resources */,
@@ -238,6 +251,10 @@
 				966D70E91008B23100D781B8 /* KeyboardButtonOKUnclicked.png in Resources */,
 				966D71091008B5E600D781B8 /* DeleteButton.png in Resources */,
 				960080F5100A98E900740DCB /* TODO.rtf in Resources */,
+				9653EA691010F26700B714BB /* AddExpense.xib in Resources */,
+				9653EBE6101104FB00B714BB /* MainWindow.xib in Resources */,
+				96D937291014922F0062E7A4 /* OKOverlay.png in Resources */,
+				96E55D8E1014AD8200E63DB8 /* TransactionCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -254,6 +271,7 @@
 				96AA70EE10065AB200206A37 /* Finance.xcdatamodel in Sources */,
 				96AA710C1006616700206A37 /* Transaction.m in Sources */,
 				96F8403A100A5A08008862CC /* ExpensesTableViewController.m in Sources */,
+				96E55D921014AF3800E63DB8 /* TransactionTableCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

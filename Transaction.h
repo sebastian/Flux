@@ -13,6 +13,7 @@
 {
 	bool has_ore;
 	int numOfOre;
+	NSNumberFormatter * formatter;
 }
 
 // Amount
@@ -30,6 +31,9 @@
 
 // When was it recorded?
 @property (nonatomic, retain) NSDate * date;
+
+// General non savable parameters
+@property (nonatomic, retain) NSNumberFormatter * formatter;
 
 // Methods
 -(NSString*)toString;

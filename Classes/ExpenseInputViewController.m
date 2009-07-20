@@ -22,9 +22,10 @@
 
 @synthesize button0, button1, button2, button3, button4, button5, button6, button7, button8, button9;
 @synthesize buttonAdd, buttonComma;
+@synthesize expenseConfirmation;
 
 @synthesize newTransaction;
-@synthesize appDelegate;
+@synthesize managedObjectContext;
 
 #pragma mark
 #pragma mark -
@@ -49,6 +50,31 @@
 #pragma mark
 #pragma mark -
 #pragma mark Normal methods
+
+/**
+ Performs the save action for the application, which is to send the save:
+ message to the application's managed object context.
+ */
+- (IBAction)save {
+	
+    NSError *error;
+    if (![[self managedObjectContext] save:&error]) {
+		// Handle error
+		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+		exit(-1);  // Fail
+    }
+}
+
+-(id) initWithNibName:(NSString*)nibName bundle:(NSBundle*)bundle andManagedObjectContext:(NSManagedObjectContext*) context {
+	self = [super initWithNibName:nibName bundle:bundle];
+	if (self) {
+		NSLog(@"From Expense input view controller init with nib");
+		
+		NSLog(@"Created a new transaction object");
+		self.newTransaction = [NSEntityDescription insertNewObjectForEntityForName:@"Transaction" inManagedObjectContext:context];
+	}
+	return self;	
+}
 
 -(void)updateExpenseDisplay {
 	UIFont * font = [UIFont fontWithName:@"Helvetica" size:24.0];
@@ -119,26 +145,51 @@
 		[button9 setEnabled:NO];
 	}
 		
-	
 	[UIView commitAnimations];
 }
 -(IBAction)addExpense:(id)sender {
-	//[amount resignFirstResponder];
-	// The saving should be taken care of another place...
-	// Now we should assign a fresh Transaction to add
-	//Transaction *trs = [NSEntityDescription insertNewObjectForEntityForName:@"Transaction" inManagedObjectContext:self.appDelegate.managedObjectContext];
-	//self.newTransaction = trs;
-	//[trs release];
-	
-}
+	[amount resignFirstResponder];
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
+	// Save the expense
+	[self save];
 	
-	Transaction *trs = [NSEntityDescription insertNewObjectForEntityForName:@"Transaction" inManagedObjectContext:self.appDelegate.managedObjectContext];
+	// Now we should assign a fresh Transaction to add
+	Transaction *trs = [NSEntityDescription insertNewObjectForEntityForName:@"Transaction" inManagedObjectContext:self.managedObjectContext];
 	self.newTransaction = trs;
 	[trs release];
 	
+	// Animate the changes
+	[UIView beginAnimations:nil context:NULL];
+	[UIView setAnimationDuration:10.0];
+	[UIView setAnimationBeginsFromCurrentState:YES];
+	
+	[UIView setAnimationDelegate:self];
+	[UIView setAnimationDidStopSelector:@selector(fadeinAnimationDidStop:finished:context:)];
+	
+	expenseConfirmation.hidden = NO;
+	
+	NSLog(@"Performing animation. Fade in");
+	[UIView commitAnimations];
+	
+	[self updateExpenseDisplay];
+}
+
+- (void)fadeinAnimationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context {
+	[UIView beginAnimations:nil context:NULL];
+	[UIView setAnimationBeginsFromCurrentState:YES];
+	[UIView setAnimationDuration:10.0];
+	
+	expenseConfirmation.hidden = YES;
+	
+	NSLog(@"Performing animation. Fade out");
+	[UIView commitAnimations];
+	
+}
+
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+		
 	[self updateExpenseDisplay];
 	
 }
@@ -167,9 +218,7 @@
 	buttonAdd = nil;
 	buttonComma = nil;
 		
-	// TODO:
-	// Delete somehow?
-	newTransaction = nil;
+	expenseConfirmation = nil;
 }
 - (void)dealloc {
 	
@@ -186,11 +235,16 @@
 	[buttonAdd release];
 	[buttonComma release];
 
+	[expenseConfirmation release];
+	
 	[newTransaction release];
 	[deleteButtonView release];
 	[amount release];
 	[textFieldBackground release];
+	[managedObjectContext release];
     [super dealloc];
 }
+
+
 
 @end

@@ -12,8 +12,17 @@
 
 @implementation ExpensesTableViewController
 
-@synthesize appDelegate;
 @synthesize resultsController;
+@synthesize managedObjectContext;
+@synthesize tableCell;
+
+-(id) initWithNibName:(NSString*)nibName bundle:(NSBundle*)bundle {
+	self = [super initWithNibName:nibName bundle:bundle];
+	if (self) {
+		NSLog(@"From ExpensesTableViewController init with nib");
+	}
+	return self;
+}
 
 /*
 - (id)initWithStyle:(UITableViewStyle)style {
@@ -27,40 +36,34 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	
-//	self.appDelegate = [[UIApplication sharedApplication] delegate];
-//	
-//	// Load the expenses
-//	NSFetchRequest *request = [[NSFetchRequest alloc] init]; 
-//	NSEntityDescription *entity = [NSEntityDescription entityForName:@"Transaction" 
-//											  inManagedObjectContext:self.appDelegate.managedObjectContext]; 
-//	[request setEntity:entity];
-//	
-//	NSSortDescriptor *sortByDate = [[NSSortDescriptor alloc]
-//									initWithKey:@"date" ascending:NO];
-//	NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortByDate, nil]; 
-//	[request setSortDescriptors:sortDescriptors]; 
-//	[sortDescriptors release]; 
-//	[sortByDate release]; 
-//	
-//	NSError *error; 
-//	NSFetchedResultsController * localRC = [[NSFetchedResultsController alloc] 
-//											initWithFetchRequest:request 
-//											managedObjectContext:self.appDelegate.managedObjectContext 
-//											sectionNameKeyPath:nil cacheName:@"transactionCache"]; 
-//	localRC.delegate=self;
-//	
-//	self.resultsController = localRC;
-//	[localRC release];
-//	
-//	if ([self.resultsController performFetch:&error]) { 
-//		NSLog(@"Error when performing fetch in messageTableViewController");
-//		//NSLog([error localizedDescription]);
-//	} 	
-//	[request release]; 
+	// Load the expenses
+	NSFetchRequest *request = [[NSFetchRequest alloc] init]; 
+	NSEntityDescription *entity = [NSEntityDescription entityForName:@"Transaction" 
+											  inManagedObjectContext:self.managedObjectContext]; 
+	[request setEntity:entity];
 	
+	NSSortDescriptor *sortByDate = [[NSSortDescriptor alloc]
+									initWithKey:@"date" ascending:NO];
+	NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortByDate, nil]; 
+	[request setSortDescriptors:sortDescriptors]; 
+	[sortDescriptors release]; 
+	[sortByDate release]; 
 	
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+	NSError *error; 
+	NSFetchedResultsController * localRC = [[NSFetchedResultsController alloc] 
+											initWithFetchRequest:request 
+											managedObjectContext:self.managedObjectContext 
+											sectionNameKeyPath:nil cacheName:@"transactionCache"]; 
+	localRC.delegate=self;
+	
+	self.resultsController = localRC;
+	[localRC release];
+	
+	if ([self.resultsController performFetch:&error]) { 
+		NSLog(@"Error when performing fetch in messageTableViewController");
+		//NSLog([error localizedDescription]);
+	} 	
+	[request release]; 
 }
 
 
@@ -109,82 +112,69 @@
 #pragma mark Table view methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    //return [[resultsController sections] count];
-	return 0;
-}
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-//	id <NSFetchedResultsSectionInfo> sectionInfo = [[resultsController sections] objectAtIndex:section];
-//    return [sectionInfo numberOfObjects];
-	NSLog(@"Asked for number of rows in section %i", section);
-	return 4;
-}
-
-
-//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-//
-////	NSUInteger count = [[resultsController sections] count];
-////    if (count == 0) {
-////        count = 1;
-////    }
-////    return count;
-//	return 1;	
-//}
-//// Customize the number of rows in the table view.
-//- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-//
-////	NSArray *sections = [resultsController sections];
-////    NSUInteger count = 0;
-////    if ([sections count]) {
-////        id <NSFetchedResultsSectionInfo> sectionInfo = [sections objectAtIndex:section];
-////        count = [sectionInfo numberOfObjects];
-////    }
-////	return count;
-//
-//	return 5;
-//}
-
-
-// Customize the appearance of table view cells.
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-	NSLog(@"Asked for row number %i", indexPath.row);
-	
-    static NSString *CellIdentifier = @"Cell";
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+	NSUInteger count = [[resultsController sections] count];
+    if (count == 0) {
+        count = 1;
     }
-    
-	// Configure the cell.
-	
-//	NSManagedObject *managedObject = [fetchedResultsController objectAtIndexPath:indexPath];
-	
-	cell.textLabel.text = @"Some text"; //[[managedObject valueForKey:@"timeStamp"] description];
-	
-    return cell;
+    return count;
+
 }
+// Customize the number of rows in the table view.
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+
+	NSArray *sections = [resultsController sections];
+    NSUInteger count = 0;
+    if ([sections count]) {
+        id <NSFetchedResultsSectionInfo> sectionInfo = [sections objectAtIndex:section];
+        count = [sectionInfo numberOfObjects];
+    }
+	return count;
+}
+
 
 // Customize the appearance of table view cells.
 //- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-//
-//    static NSString *CellIdentifier = @"TransactionCell";
+//    
+//	NSLog(@"Asked for row number %i", indexPath.row);
+//	
+//    static NSString *CellIdentifier = @"Cell";
 //    
 //    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 //    if (cell == nil) {
 //        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
 //    }
 //    
-////	Transaction *trs = (Transaction *)[resultsController objectAtIndexPath:indexPath];
+//	// Configure the cell.
 //	
-//	//cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-//	cell.textLabel.text = @"Test"; //[trs toString];
-//	//cell.detailTextLabel.text = @"An expense";
+//	NSManagedObject *managedObject = [fetchedResultsController objectAtIndexPath:indexPath];
+//	
+//	cell.textLabel.text = @"Some text"; //[[managedObject valueForKey:@"timeStamp"] description];
 //	
 //    return cell;
 //}
 
+// Customize the appearance of table view cells.
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+
+    static NSString *CellIdentifier = @"TransactionCell";
+    
+    TransactionTableCell *cell = (TransactionTableCell *) [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+		[[NSBundle mainBundle] loadNibNamed:@"TransactionCell" owner:self options:nil]; 
+		cell = self.tableCell;
+    }
+    	
+	Transaction *trs = (Transaction *)[resultsController objectAtIndexPath:indexPath];
+
+	[cell setValuesWithTransaction:trs];
+	
+    return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+	return 60.0;
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     // Navigation logic may go here. Create and push another view controller.
@@ -235,7 +225,9 @@
 
 
 - (void)dealloc {
+	[managedObjectContext release];
 	[resultsController release];
+	[tableCell release];
 	[super dealloc];
 }
 
