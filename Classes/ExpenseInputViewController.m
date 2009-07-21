@@ -72,6 +72,8 @@
 		
 		NSLog(@"Created a new transaction object");
 		self.newTransaction = [NSEntityDescription insertNewObjectForEntityForName:@"Transaction" inManagedObjectContext:context];
+		
+		self.title = NSLocalizedString(@"Add transaction", @"Add transaction view controller title");
 	}
 	return self;	
 }

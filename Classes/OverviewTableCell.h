@@ -9,13 +9,13 @@
 #import <Foundation/Foundation.h>
 #import "Transaction.h"
 
-@interface TransactionTableCell : UITableViewCell {
-	UILabel * what;
-	UILabel * price;
+@interface OverviewTableCell : UITableViewCell {
+	UILabel * when;
+	UILabel * amount;
 }
 
-@property (nonatomic, retain) IBOutlet UILabel * what;
-@property (nonatomic, retain) IBOutlet UILabel * price;
+@property (nonatomic, retain) IBOutlet UILabel * when;
+@property (nonatomic, retain) IBOutlet UILabel * amount;
 
 -(void)setValuesWithTransaction:(Transaction *)transaction;
 

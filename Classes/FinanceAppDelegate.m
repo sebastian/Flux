@@ -30,22 +30,23 @@
 	self.tabBarController = [[UITabBarController alloc] initWithNibName:nil 
 															bundle:nil]; 	
 
-	ExpenseInputViewController * viewController1 = [[[ExpenseInputViewController alloc] 
-															   initWithNibName:@"AddExpense" 
-													 bundle:[NSBundle mainBundle] andManagedObjectContext:context] 
-										 autorelease];
+	ExpenseInputViewController * viewController1 = 
+		[[[ExpenseInputViewController alloc] initWithNibName:@"AddExpense" bundle:[NSBundle mainBundle] andManagedObjectContext:context] autorelease];
+		
+	ExpensesTableViewController * viewController2 = [[[ExpensesTableViewController alloc] initWithStyle:UITableViewStylePlain andContext:context] autorelease];
 	
-	ExpensesTableViewController * viewController2 = [[[ExpensesTableViewController alloc] 
-															   initWithNibName:@"Expenses" 
-																		bundle:[NSBundle mainBundle]] 
-										  autorelease];
 	viewController1.managedObjectContext = context;
 	viewController2.managedObjectContext = context;
 
-	[self.tabBarController setViewControllers:[NSArray arrayWithObjects:viewController1, viewController2, nil]]; 
+	// Create a navigation controller for the expenses view	
+	UINavigationController * ctrl2NavCtrl = [[UINavigationController alloc] initWithRootViewController:viewController2];
+	[[ctrl2NavCtrl navigationBar] setBarStyle:UIBarStyleBlackOpaque]; 
+	
+	[self.tabBarController setViewControllers:[NSArray arrayWithObjects:viewController1, ctrl2NavCtrl, nil]]; 
 	[self.tabBarController setSelectedIndex:0];
 	
 	[context release];
+	[ctrl2NavCtrl release];
 	
 	[window addSubview:self.tabBarController.view];
 

@@ -7,18 +7,30 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TransactionTableCell.h"
-
+#import "OverviewTableCell.h"
+#import "DetailHeaderView.h"
+#import "DetailContentTableCell.h"
+#import "DetailFooterView.h"
 
 @interface ExpensesTableViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource, NSFetchedResultsControllerDelegate> {
 	NSFetchedResultsController * resultsController;
 	NSManagedObjectContext *managedObjectContext;
 	
-	TransactionTableCell * tableCell;
+	OverviewTableCell * overviewTableCell;
+	DetailHeaderView * detailHeaderView;
+	DetailContentTableCell * detailContentTableCell;
+	DetailFooterView * detailFooterView;
 }
+
+- (id)initWithStyle:(UITableViewStyle)style andContext:(NSManagedObjectContext*)context;
 
 @property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, retain) NSFetchedResultsController * resultsController;
-@property (nonatomic, retain) IBOutlet TransactionTableCell * tableCell;
+
+//Different table cells
+@property (nonatomic, retain) IBOutlet OverviewTableCell * overviewTableCell;
+@property (nonatomic, retain) IBOutlet DetailHeaderView * detailHeaderView;
+@property (nonatomic, retain) IBOutlet DetailContentTableCell * detailContentTableCell;
+@property (nonatomic, retain) IBOutlet DetailFooterView * detailFooterView;
 
 @end

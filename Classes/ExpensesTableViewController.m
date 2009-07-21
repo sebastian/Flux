@@ -14,7 +14,18 @@
 
 @synthesize resultsController;
 @synthesize managedObjectContext;
-@synthesize tableCell;
+@synthesize overviewTableCell;
+@synthesize detailHeaderView, detailContentTableCell, detailFooterView;
+
+- (id)initWithStyle:(UITableViewStyle)style andContext:(NSManagedObjectContext*)context {
+	self = [super initWithStyle:style];
+	if (self != nil) {
+		self.managedObjectContext = context;
+		self.title = NSLocalizedString(@"Transactions", @"Transaction table view header");
+	}
+	return self;
+}
+		
 
 -(id) initWithNibName:(NSString*)nibName bundle:(NSBundle*)bundle {
 	self = [super initWithNibName:nibName bundle:bundle];
@@ -23,19 +34,9 @@
 	}
 	return self;
 }
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
 
-/*
-- (id)initWithStyle:(UITableViewStyle)style {
-    // Override initWithStyle: if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
-    if (self = [super initWithStyle:style]) {
-    }
-    return self;
-}
-*/
-
-- (void)viewDidLoad {
-	[super viewDidLoad];
-	
 	// Load the expenses
 	NSFetchRequest *request = [[NSFetchRequest alloc] init]; 
 	NSEntityDescription *entity = [NSEntityDescription entityForName:@"Transaction" 
@@ -64,29 +65,8 @@
 		//NSLog([error localizedDescription]);
 	} 	
 	[request release]; 
+	
 }
-
-
-/*
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-}
-*/
-/*
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-}
-*/
-/*
-- (void)viewWillDisappear:(BOOL)animated {
-	[super viewWillDisappear:animated];
-}
-*/
-/*
-- (void)viewDidDisappear:(BOOL)animated {
-	[super viewDidDisappear:animated];
-}
-*/
 
 /*
 // Override to allow orientations other than the default portrait orientation.
@@ -120,7 +100,6 @@
     return count;
 
 }
-// Customize the number of rows in the table view.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 
 	NSArray *sections = [resultsController sections];
@@ -132,37 +111,14 @@
 	return count;
 }
 
-
-// Customize the appearance of table view cells.
-//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    
-//	NSLog(@"Asked for row number %i", indexPath.row);
-//	
-//    static NSString *CellIdentifier = @"Cell";
-//    
-//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-//    if (cell == nil) {
-//        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
-//    }
-//    
-//	// Configure the cell.
-//	
-//	NSManagedObject *managedObject = [fetchedResultsController objectAtIndexPath:indexPath];
-//	
-//	cell.textLabel.text = @"Some text"; //[[managedObject valueForKey:@"timeStamp"] description];
-//	
-//    return cell;
-//}
-
-// Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 
-    static NSString *CellIdentifier = @"TransactionCell";
+    static NSString *CellIdentifier = @"OverviewCell";
     
-    TransactionTableCell *cell = (TransactionTableCell *) [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    OverviewTableCell *cell = (OverviewTableCell *) [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-		[[NSBundle mainBundle] loadNibNamed:@"TransactionCell" owner:self options:nil]; 
-		cell = self.tableCell;
+		[[NSBundle mainBundle] loadNibNamed:@"OverviewTableCell" owner:self options:nil]; 
+		cell = self.overviewTableCell;
     }
     	
 	Transaction *trs = (Transaction *)[resultsController objectAtIndexPath:indexPath];
@@ -172,10 +128,6 @@
     return cell;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-	return 60.0;
-}
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     // Navigation logic may go here. Create and push another view controller.
 	// AnotherViewController *anotherViewController = [[AnotherViewController alloc] initWithNibName:@"AnotherView" bundle:nil];
@@ -183,14 +135,16 @@
 	// [anotherViewController release];
 }
 
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+	[[NSBundle mainBundle] loadNibNamed:@"DetailHeaderAndFooter" owner:self options:nil]; 
+	return detailHeaderView;
+	
 }
-*/
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+	[[NSBundle mainBundle] loadNibNamed:@"DetailHeaderAndFooter" owner:self options:nil]; 
+	return detailFooterView;
+}
+
 
 
 /*
@@ -207,27 +161,15 @@
 }
 */
 
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-
 - (void)dealloc {
 	[managedObjectContext release];
 	[resultsController release];
-	[tableCell release];
+
+	[overviewTableCell release];
+	[detailHeaderView release];
+	[detailContentTableCell release];
+	[detailFooterView release];
+	
 	[super dealloc];
 }
 
