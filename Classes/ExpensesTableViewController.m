@@ -22,6 +22,13 @@
 	if (self != nil) {
 		self.managedObjectContext = context;
 		self.title = NSLocalizedString(@"Transactions", @"Transaction table view header");
+
+		//Create a new segmented control
+		UISegmentedControl * segCtrl = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"Overview",@"Details",nil]];
+		segCtrl.segmentedControlStyle = UISegmentedControlStyleBar;
+		
+		self.navigationItem.titleView = segCtrl;
+		[segCtrl release];
 	}
 	return self;
 }
