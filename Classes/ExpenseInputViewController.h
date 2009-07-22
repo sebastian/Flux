@@ -76,6 +76,4 @@ static const CGFloat TEXTFIELD_PADDING = 10;
 @property (nonatomic, retain) IBOutlet UIButton * buttonAdd;
 @property (nonatomic, retain) IBOutlet UIButton * buttonComma;
 
--(id) initWithNibName:(NSString*)nibName bundle:(NSBundle*)bundle andManagedObjectContext:(NSManagedObjectContext*) context;
-
 @end

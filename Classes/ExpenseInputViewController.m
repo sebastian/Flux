@@ -10,6 +10,7 @@
 
 @interface ExpenseInputViewController (Private)
 -(void)updateExpenseDisplay;
+-(void)save;
 @end
 
 
@@ -49,42 +50,48 @@
 
 #pragma mark
 #pragma mark -
-#pragma mark Normal methods
+#pragma mark Init methods
 
-/**
- Performs the save action for the application, which is to send the save:
- message to the application's managed object context.
- */
-- (IBAction)save {
-	
-    NSError *error;
-    if (![[self managedObjectContext] save:&error]) {
-		// Handle error
-		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-		exit(-1);  // Fail
-    }
-}
-
--(id) initWithNibName:(NSString*)nibName bundle:(NSBundle*)bundle andManagedObjectContext:(NSManagedObjectContext*) context {
+-(id) initWithNibName:(NSString*)nibName bundle:(NSBundle*)bundle {
 	self = [super initWithNibName:nibName bundle:bundle];
 	if (self) {
 		NSLog(@"From Expense input view controller init with nib");
-		
-		NSLog(@"Created a new transaction object");
-		self.newTransaction = [NSEntityDescription insertNewObjectForEntityForName:@"Transaction" inManagedObjectContext:context];
-		
 		self.title = NSLocalizedString(@"Add transaction", @"Add transaction view controller title");
 	}
 	return self;	
 }
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+	NSLog(@"View did load");	
+	
+	NSLog(@"Created a new transaction object");
+	self.newTransaction = [NSEntityDescription insertNewObjectForEntityForName:@"Transaction" inManagedObjectContext:self.managedObjectContext];
+	[self updateExpenseDisplay];
+}
+- (void)viewDidAppear:(BOOL)animated {
+	[super viewDidAppear:animated];
+	NSLog(@"View did appear. No additional action taken.");
+	
+}
+- (void)viewDidDisappear:(BOOL)animated {
+	NSLog(@"View did disappear. No additional action taken.");
+	//	NSLog(@"Removing transaction from context");
+	//	[self.managedObjectContext deleteObject:self.newTransaction];
+	//	NSLog(@"Released the transaction object");
+	//[newTransaction release];
+}
+
+
+#pragma mark
+#pragma mark -
+#pragma mark Normal methods
 
 -(void)updateExpenseDisplay {
 	UIFont * font = [UIFont fontWithName:@"Helvetica" size:24.0];
 	NSString * text = [self.newTransaction toString];
 	
 	CGSize textSize = [text sizeWithFont:font];
-	
-	NSLog(@"It says the text should take %f size", textSize);
 	
 	float width = textSize.width + TEXTFIELD_PADDING;
 	
@@ -150,15 +157,33 @@
 	[UIView commitAnimations];
 }
 -(IBAction)addExpense:(id)sender {
-	[amount resignFirstResponder];
-
+	NSLog(@"In the save method before save.");
+	if ([self.newTransaction isInserted] == YES) {
+		NSLog(@"\tIs inserted");
+	} else {
+		NSLog(@"\tIs NOT inserted");
+	}
+	
 	// Save the expense
 	[self save];
+
+	NSLog(@"In the save method after save.");
+	if ([self.newTransaction isInserted] == YES) {
+		NSLog(@"\tIs inserted");
+	} else {
+		NSLog(@"\tIs NOT inserted");
+	}
 	
 	// Now we should assign a fresh Transaction to add
 	Transaction *trs = [NSEntityDescription insertNewObjectForEntityForName:@"Transaction" inManagedObjectContext:self.managedObjectContext];
 	self.newTransaction = trs;
-	[trs release];
+
+	NSLog(@"In the save method after having created a new transaction.");
+	if ([self.newTransaction isInserted] == YES) {
+		NSLog(@"\tIs inserted");
+	} else {
+		NSLog(@"\tIs NOT inserted");
+	}
 	
 	// Animate the changes
 	[UIView beginAnimations:nil context:NULL];
@@ -188,12 +213,18 @@
 	
 }
 
+#pragma mark
+#pragma mark -
+#pragma mark CoreData
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-		
-	[self updateExpenseDisplay];
+- (void)save {
 	
+    NSError *error;
+    if (![self.managedObjectContext save:&error]) {
+		// Handle error
+		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+		exit(-1);  // Fail
+    }
 }
 
 #pragma mark
@@ -201,7 +232,7 @@
 #pragma mark Unloading etc
 
 - (void)viewDidUnload {
-	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	NSLog(@"viewDidUnload...");
 	
 	deleteButtonView = nil;
 	amount = nil;
@@ -219,7 +250,10 @@
 	button9 = nil;
 	buttonAdd = nil;
 	buttonComma = nil;
-		
+	
+	NSLog(@"Released newTransaction in viewDidUnload");
+	[newTransaction release];
+	
 	expenseConfirmation = nil;
 }
 - (void)dealloc {
@@ -239,7 +273,6 @@
 
 	[expenseConfirmation release];
 	
-	[newTransaction release];
 	[deleteButtonView release];
 	[amount release];
 	[textFieldBackground release];

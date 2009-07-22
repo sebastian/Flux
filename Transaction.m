@@ -117,7 +117,7 @@
 }
 
 -(void)dealloc {
-	NSLog(@"It is dealloced");
+	NSLog(@"Transaction object dealloced");
 	[formatter dealloc];
 	[super dealloc];
 }

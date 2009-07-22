@@ -13,6 +13,17 @@
 
 @synthesize date;
 
+- (void)drawRect:(CGRect)rect {
+	CGContextRef context = UIGraphicsGetCurrentContext();
+
+	CGRect areaToDraw = rect;
+	areaToDraw.size.height = 2;
+	areaToDraw.origin.y = [self frame].size.height - 2;
+	
+	CGContextSetFillColorWithColor(context, [[UIColor blackColor] CGColor]);
+	CGContextFillRect(context, areaToDraw);
+}
+
 - (void)dealloc {
 	[date release];
     [super dealloc];

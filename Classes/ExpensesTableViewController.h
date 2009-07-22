@@ -20,12 +20,17 @@
 	DetailHeaderView * detailHeaderView;
 	DetailContentTableCell * detailContentTableCell;
 	DetailFooterView * detailFooterView;
+	
+	UISegmentedControl * modeCtrl;
 }
 
 - (id)initWithStyle:(UITableViewStyle)style andContext:(NSManagedObjectContext*)context;
+-(NSInteger) selectedSegment;
 
 @property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, retain) NSFetchedResultsController * resultsController;
+
+@property (nonatomic, retain) UISegmentedControl * modeCtrl;
 
 //Different table cells
 @property (nonatomic, retain) IBOutlet OverviewTableCell * overviewTableCell;

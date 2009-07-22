@@ -31,7 +31,7 @@
 															bundle:nil]; 	
 
 	ExpenseInputViewController * viewController1 = 
-		[[[ExpenseInputViewController alloc] initWithNibName:@"AddExpense" bundle:[NSBundle mainBundle] andManagedObjectContext:context] autorelease];
+		[[[ExpenseInputViewController alloc] initWithNibName:@"AddExpense" bundle:[NSBundle mainBundle]] autorelease];
 		
 	ExpensesTableViewController * viewController2 = [[[ExpensesTableViewController alloc] initWithStyle:UITableViewStylePlain andContext:context] autorelease];
 	

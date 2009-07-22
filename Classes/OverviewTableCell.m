@@ -30,8 +30,6 @@
 	
 	CGRect cellSize = [self frame];
 	
-	NSLog(@"Frame width and height: %f, %f", cellSize.size.width, cellSize.size.height);
-	
 	float x_location = cellSize.size.width - PRICE_FIELD_MAX_WIDTH - PRICE_FIELD_MARGIN;
 	float price_field_width = PRICE_FIELD_MAX_WIDTH;
 	
