@@ -216,70 +216,70 @@
 #pragma mark -
 #pragma mark NSFetchedResultsControllerDelegate methods
 
-/*
- Assume self has a property 'tableView', as is the case for an instance of a UITableViewController
- subclass, and a method configureCell:atIndexPath: which updates the contents of a given cell
- with information from a managed object at the given index path in the fetched results controller.
- */
-
-- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
-    [self.tableView beginUpdates];
-}
-
-
-- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo
-		   atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
-	
-    switch(type) {
-        case NSFetchedResultsChangeInsert:
-            [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex]
-			 withRowAnimation:UITableViewRowAnimationFade];
-            break;
-			
-        case NSFetchedResultsChangeDelete:
-            [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex]
-			 withRowAnimation:UITableViewRowAnimationFade];
-            break;
-    }
-}
-
-
-- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject
-	   atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type
-	  newIndexPath:(NSIndexPath *)newIndexPath {
-	
-    UITableView *tableView = self.tableView;
-	
-    switch(type) {
-			
-        case NSFetchedResultsChangeInsert:
-            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
-							 withRowAnimation:UITableViewRowAnimationFade];
-            break;
-			
-        case NSFetchedResultsChangeDelete:
-            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
-							 withRowAnimation:UITableViewRowAnimationFade];
-            break;
-			
-			//        case NSFetchedResultsChangeUpdate:
-			//            [self configureCell:[tableView cellForRowAtIndexPath:indexPath]
-			//					atIndexPath:indexPath];
-			//            break;
-			
-        case NSFetchedResultsChangeMove:
-            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
-							 withRowAnimation:UITableViewRowAnimationFade];
-            [tableView reloadSections:[NSIndexSet indexSetWithIndex:newIndexPath.section]
-					 withRowAnimation:UITableViewRowAnimationFade];
-            break;
-    }
-}
-
-
-- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-    [self.tableView endUpdates];
-}
+///*
+// Assume self has a property 'tableView', as is the case for an instance of a UITableViewController
+// subclass, and a method configureCell:atIndexPath: which updates the contents of a given cell
+// with information from a managed object at the given index path in the fetched results controller.
+// */
+//
+//- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
+//    [self.tableView beginUpdates];
+//}
+//
+//
+//- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo
+//		   atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
+//	
+//    switch(type) {
+//        case NSFetchedResultsChangeInsert:
+//            [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex]
+//			 withRowAnimation:UITableViewRowAnimationFade];
+//            break;
+//			
+//        case NSFetchedResultsChangeDelete:
+//            [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex]
+//			 withRowAnimation:UITableViewRowAnimationFade];
+//            break;
+//    }
+//}
+//
+//
+//- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject
+//	   atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type
+//	  newIndexPath:(NSIndexPath *)newIndexPath {
+//	
+//    UITableView *tableView = self.tableView;
+//	
+//    switch(type) {
+//			
+//        case NSFetchedResultsChangeInsert:
+//            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
+//							 withRowAnimation:UITableViewRowAnimationFade];
+//            break;
+//			
+//        case NSFetchedResultsChangeDelete:
+//            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
+//							 withRowAnimation:UITableViewRowAnimationFade];
+//            break;
+//			
+//			//        case NSFetchedResultsChangeUpdate:
+//			//            [self configureCell:[tableView cellForRowAtIndexPath:indexPath]
+//			//					atIndexPath:indexPath];
+//			//            break;
+//			
+//        case NSFetchedResultsChangeMove:
+//            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
+//							 withRowAnimation:UITableViewRowAnimationFade];
+//            [tableView reloadSections:[NSIndexSet indexSetWithIndex:newIndexPath.section]
+//					 withRowAnimation:UITableViewRowAnimationFade];
+//            break;
+//    }
+//}
+//
+//
+//- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+//    [self.tableView endUpdates];
+//}
 
 
 
