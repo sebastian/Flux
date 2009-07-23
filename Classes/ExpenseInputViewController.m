@@ -151,59 +151,51 @@
 	[UIView commitAnimations];
 }
 -(void)addExpense {
-	NSLog(@"In the save method before save.");
-	if ([self.newTransaction isInserted] == YES) {
-		NSLog(@"\tIs inserted");
-	} else {
-		NSLog(@"\tIs NOT inserted");
-	}
-	
+
 	// Save the expense
 	[self save];
-
-	NSLog(@"In the save method after save.");
-	if ([self.newTransaction isInserted] == YES) {
-		NSLog(@"\tIs inserted");
-	} else {
-		NSLog(@"\tIs NOT inserted");
-	}
 	
 	// Now we should assign a fresh Transaction to add
 	Transaction *trs = [NSEntityDescription insertNewObjectForEntityForName:@"Transaction" inManagedObjectContext:self.managedObjectContext];
 	self.newTransaction = trs;
 
-	NSLog(@"In the save method after having created a new transaction.");
-	if ([self.newTransaction isInserted] == YES) {
-		NSLog(@"\tIs inserted");
-	} else {
-		NSLog(@"\tIs NOT inserted");
-	}
+	[self.view bringSubviewToFront:expenseConfirmation];
+	expenseConfirmation.hidden = NO;	
+	
+	CGRect newFrame = expenseConfirmation.frame;
+	expenseConfirmation.frame = newFrame;
+	newFrame.origin.x = [self.view frame].size.width / 2 - newFrame.size.width / 2;
+	newFrame.origin.y = [self.view frame].size.height / 2 - newFrame.size.height / 2;
+	
+	newFrame.size.width = 1;
+	newFrame.size.height = 1;
 	
 	// Animate the changes
 	[UIView beginAnimations:nil context:NULL];
-	[UIView setAnimationDuration:10.0];
+	[UIView setAnimationDuration:1.0];
 	[UIView setAnimationBeginsFromCurrentState:YES];
 	
 	[UIView setAnimationDelegate:self];
 	[UIView setAnimationDidStopSelector:@selector(fadeinAnimationDidStop:finished:context:)];
 	
-	expenseConfirmation.hidden = NO;
+	expenseConfirmation.transform = CGAffineTransformMakeScale(1.0, 1.0);
 	
 	NSLog(@"Performing animation. Fade in");
 	[UIView commitAnimations];
 	
 	[self updateExpenseDisplay];
 }
-
 - (void)fadeinAnimationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context {
 	[UIView beginAnimations:nil context:NULL];
 	[UIView setAnimationBeginsFromCurrentState:YES];
-	[UIView setAnimationDuration:10.0];
+	[UIView setAnimationDuration:3.0];
 	
-	expenseConfirmation.hidden = YES;
+	expenseConfirmation.transform = CGAffineTransformMakeScale(0.001, 0.001);
 	
 	NSLog(@"Performing animation. Fade out");
 	[UIView commitAnimations];
+	
+	expenseConfirmation.hidden = YES;
 	
 }
 

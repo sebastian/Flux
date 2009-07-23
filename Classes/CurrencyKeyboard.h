@@ -32,6 +32,8 @@
 // External methods for delegate
 -(void)showKeyboard;
 -(void)hideKeyboard;
+-(void)showKeyboardWithAnimation:(BOOL)animation;
+-(void)hideKeyboardWithAnimation:(BOOL)animation;
 
 -(void)disableCommaButton;
 -(void)enableCommaButton;

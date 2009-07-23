@@ -8,6 +8,10 @@
 
 #import "CurrencyKeyboard.h"
 
+@interface CurrencyKeyboard (Private)
+-(void)moveKeyboardTo:(CGRect)keyboardFrame animated:(BOOL)animation;
+@end
+
 
 @implementation CurrencyKeyboard
 
@@ -32,6 +36,13 @@
 #pragma mark External methods for delegate
 
 -(void)showKeyboard {
+	[self showKeyboardWithAnimation:NO];
+}
+-(void)hideKeyboard {
+	[self hideKeyboardWithAnimation:NO];
+}
+-(void)showKeyboardWithAnimation:(BOOL)animation {
+
 	CGRect keyboardFrame = [self.view frame];
 	CGRect delegateFrame = [self.delegate.view frame];
 	keyboardFrame.origin.y = delegateFrame.size.height;
@@ -41,31 +52,40 @@
 	// Update the keyboard location
 	keyboardFrame.origin.y = delegateFrame.size.height - keyboardFrame.size.height;
 	
-	[UIView beginAnimations:nil context:NULL];
-	[UIView setAnimationBeginsFromCurrentState:YES];
-	[UIView setAnimationDuration:0.08];
-	
-	self.view.frame = keyboardFrame;
-	
-	NSLog(@"Performing animation. Keyboard slide in");
-	[UIView commitAnimations];	
+	[self moveKeyboardTo:keyboardFrame animated:animation];
+
 }
--(void)hideKeyboard {
+-(void)hideKeyboardWithAnimation:(BOOL)animation {
+	
 	CGRect keyboardFrame = [self.view frame];
 	CGRect delegateFrame = [self.delegate.view frame];
-
+	
 	// Hide keyboard
 	keyboardFrame.origin.y = delegateFrame.size.height;
+	
+	[self moveKeyboardTo:keyboardFrame animated:animation];
 
-	[UIView beginAnimations:nil context:NULL];
-	[UIView setAnimationBeginsFromCurrentState:YES];
-	[UIView setAnimationDuration:0.03];
-	
-	self.view.frame = keyboardFrame;
-	
-	NSLog(@"Performing animation. Keyboard slide in");
-	[UIView commitAnimations];
 }
+-(void)moveKeyboardTo:(CGRect)keyboardFrame animated:(BOOL)animation {
+
+	if (animation) {
+		[UIView beginAnimations:nil context:NULL];
+		[UIView setAnimationBeginsFromCurrentState:YES];
+		[UIView setAnimationDuration:0.03];
+		
+		self.view.frame = keyboardFrame;
+		
+		NSLog(@"Performing animation. Keyboard slide in");
+		[UIView commitAnimations];		
+		
+	} else {
+		self.view.frame = keyboardFrame;
+		
+	}	
+	
+}
+
+
 -(void)disableCommaButton {[self.buttonComma setEnabled:NO];}
 -(void)enableCommaButton {[self.buttonComma setEnabled:YES];}
 
