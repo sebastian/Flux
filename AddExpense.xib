@@ -198,25 +198,6 @@
 						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 						<float key="IBUIAlpha">0.000000e+00</float>
 					</object>
-					<object class="IBUIImageView" id="693743469">
-						<reference key="NSNextResponder" ref="175991278"/>
-						<int key="NSvFlags">-2147483356</int>
-						<string key="NSFrame">{{40, 144}, {240, 150}}</string>
-						<reference key="NSSuperview" ref="175991278"/>
-						<object class="NSColor" key="IBUIBackgroundColor">
-							<int key="NSColorSpace">3</int>
-							<bytes key="NSWhite">MCAwAA</bytes>
-							<reference key="NSCustomColorSpace" ref="295846904"/>
-						</object>
-						<bool key="IBUIOpaque">NO</bool>
-						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
-						<int key="IBUIContentMode">4</int>
-						<bool key="IBUIUserInteractionEnabled">NO</bool>
-						<object class="NSCustomResource" key="IBUIImage">
-							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">OKOverlay.png</string>
-						</object>
-					</object>
 				</object>
 				<string key="NSFrameSize">{320, 415}</string>
 				<reference key="NSSuperview"/>
@@ -268,14 +249,6 @@
 					</object>
 					<int key="connectionID">76</int>
 				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">expenseConfirmation</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="693743469"/>
-					</object>
-					<int key="connectionID">81</int>
-				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -307,7 +280,6 @@
 							<reference ref="208211747"/>
 							<reference ref="26140608"/>
 							<reference ref="217352294"/>
-							<reference ref="693743469"/>
 							<reference ref="605923377"/>
 							<reference ref="84286806"/>
 						</object>
@@ -356,11 +328,6 @@
 						<reference key="object" ref="105778006"/>
 						<reference key="parent" ref="84286806"/>
 					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">80</int>
-						<reference key="object" ref="693743469"/>
-						<reference key="parent" ref="175991278"/>
-					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -378,14 +345,12 @@
 					<string>31.IBPluginDependency</string>
 					<string>45.IBPluginDependency</string>
 					<string>46.IBPluginDependency</string>
-					<string>80.IBPluginDependency</string>
 				</object>
 				<object class="NSMutableArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>ExpenseInputViewController</string>
 					<string>UIResponder</string>
 					<string>{{249, 341}, {320, 415}}</string>
-					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -434,14 +399,12 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>amount</string>
 							<string>deleteButtonView</string>
-							<string>expenseConfirmation</string>
 							<string>textFieldBackground</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>UITextField</string>
 							<string>UIView</string>
-							<string>UIImageView</string>
 							<string>UIView</string>
 						</object>
 					</object>

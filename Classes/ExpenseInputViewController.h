@@ -29,8 +29,6 @@ static const CGFloat TEXTFIELD_PADDING = 10;
 	
 	NSManagedObjectContext *managedObjectContext;
 		
-	UIImageView * expenseConfirmation;
-	
 	CurrencyKeyboard * currencyKeyboard;
 }
 
@@ -42,7 +40,6 @@ static const CGFloat TEXTFIELD_PADDING = 10;
 @property (nonatomic, retain) IBOutlet UITextField * amount;
 @property (nonatomic, retain) IBOutlet UIView * textFieldBackground;
 @property (nonatomic, retain) IBOutlet UIView * deleteButtonView;
-@property (nonatomic, retain) IBOutlet UIImageView * expenseConfirmation;
 
 @property (nonatomic, retain) CurrencyKeyboard * currencyKeyboard;
 @property (nonatomic, retain) Transaction * newTransaction;

@@ -14,6 +14,8 @@
 		28216C970DB411BC00E5133A /* ExpenseInputViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28216C960DB411BC00E5133A /* ExpenseInputViewController.m */; };
 		288765080DF74369002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765070DF74369002DB57D /* CoreGraphics.framework */; };
 		960080F5100A98E900740DCB /* TODO.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 960080F4100A98E900740DCB /* TODO.rtf */; };
+		963B020E10185D8C00CD5184 /* ConfirmationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 963B020D10185D8C00CD5184 /* ConfirmationView.m */; };
+		963B021810185DAA00CD5184 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 963B021710185DAA00CD5184 /* QuartzCore.framework */; };
 		9653EA691010F26700B714BB /* AddExpense.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9653EA681010F26700B714BB /* AddExpense.xib */; };
 		9653EBE6101104FB00B714BB /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9653EBE5101104FB00B714BB /* MainWindow.xib */; };
 		966D70E81008B23100D781B8 /* KeyboardButtonOKClicked.png in Resources */ = {isa = PBXBuildFile; fileRef = 966D70E61008B23100D781B8 /* KeyboardButtonOKClicked.png */; };
@@ -55,6 +57,9 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Finance-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Finance-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		960080F4100A98E900740DCB /* TODO.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = TODO.rtf; sourceTree = "<group>"; };
+		963B020C10185D8C00CD5184 /* ConfirmationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfirmationView.h; sourceTree = "<group>"; };
+		963B020D10185D8C00CD5184 /* ConfirmationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfirmationView.m; sourceTree = "<group>"; };
+		963B021710185DAA00CD5184 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		9653EA681010F26700B714BB /* AddExpense.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddExpense.xib; sourceTree = "<group>"; };
 		9653EBE5101104FB00B714BB /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		966D70E61008B23100D781B8 /* KeyboardButtonOKClicked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = KeyboardButtonOKClicked.png; path = Graphics/KeyboardButtonOKClicked.png; sourceTree = "<group>"; };
@@ -101,6 +106,7 @@
 				288765080DF74369002DB57D /* CoreGraphics.framework in Frameworks */,
 				96AA7090100656E600206A37 /* CoreData.framework in Frameworks */,
 				96F84082100A66E8008862CC /* CoreData.framework in Frameworks */,
+				963B021810185DAA00CD5184 /* QuartzCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -110,12 +116,11 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				963B020A10185D6E00CD5184 /* Add Expenses */,
 				96BD3E67101744C600926A83 /* Keyboard */,
 				96FFFA771015ED0300A53779 /* Expenses tab */,
 				96AA710A1006616700206A37 /* Transaction.h */,
 				96AA710B1006616700206A37 /* Transaction.m */,
-				28216C950DB411BC00E5133A /* ExpenseInputViewController.h */,
-				28216C960DB411BC00E5133A /* ExpenseInputViewController.m */,
 				1D3623240D0F684500981E51 /* FinanceAppDelegate.h */,
 				1D3623250D0F684500981E51 /* FinanceAppDelegate.m */,
 			);
@@ -167,12 +172,24 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				963B021710185DAA00CD5184 /* QuartzCore.framework */,
 				96F84081100A66E8008862CC /* CoreData.framework */,
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				288765070DF74369002DB57D /* CoreGraphics.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		963B020A10185D6E00CD5184 /* Add Expenses */ = {
+			isa = PBXGroup;
+			children = (
+				963B020C10185D8C00CD5184 /* ConfirmationView.h */,
+				963B020D10185D8C00CD5184 /* ConfirmationView.m */,
+				28216C950DB411BC00E5133A /* ExpenseInputViewController.h */,
+				28216C960DB411BC00E5133A /* ExpenseInputViewController.m */,
+			);
+			name = "Add Expenses";
 			sourceTree = "<group>";
 		};
 		96885BB51004ED9E003090D8 /* NIBs */ = {
@@ -320,6 +337,7 @@
 				96FFFA8E1015EDC600A53779 /* DetailContentTableCell.m in Sources */,
 				96FFFA911015EDD000A53779 /* DetailFooterView.m in Sources */,
 				96BD3E6C101744DB00926A83 /* CurrencyKeyboard.m in Sources */,
+				963B020E10185D8C00CD5184 /* ConfirmationView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

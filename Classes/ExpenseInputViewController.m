@@ -7,6 +7,7 @@
 //
 
 #import "ExpenseInputViewController.h"
+#import "ConfirmationView.h"
 
 @interface ExpenseInputViewController (Private)
 -(void)updateExpenseDisplay;
@@ -20,8 +21,6 @@
 @synthesize amount;
 @synthesize textFieldBackground;
 @synthesize deleteButtonView;
-
-@synthesize expenseConfirmation;
 
 @synthesize newTransaction;
 @synthesize managedObjectContext;
@@ -158,45 +157,15 @@
 	// Now we should assign a fresh Transaction to add
 	Transaction *trs = [NSEntityDescription insertNewObjectForEntityForName:@"Transaction" inManagedObjectContext:self.managedObjectContext];
 	self.newTransaction = trs;
-
-	[self.view bringSubviewToFront:expenseConfirmation];
-	expenseConfirmation.hidden = NO;	
 	
-	CGRect newFrame = expenseConfirmation.frame;
-	expenseConfirmation.frame = newFrame;
-	newFrame.origin.x = [self.view frame].size.width / 2 - newFrame.size.width / 2;
-	newFrame.origin.y = [self.view frame].size.height / 2 - newFrame.size.height / 2;
+	ConfirmationView *confirmationView = [ConfirmationView loadingViewInView:[self.view.window.subviews objectAtIndex:0]];
 	
-	newFrame.size.width = 1;
-	newFrame.size.height = 1;
-	
-	// Animate the changes
-	[UIView beginAnimations:nil context:NULL];
-	[UIView setAnimationDuration:1.0];
-	[UIView setAnimationBeginsFromCurrentState:YES];
-	
-	[UIView setAnimationDelegate:self];
-	[UIView setAnimationDidStopSelector:@selector(fadeinAnimationDidStop:finished:context:)];
-	
-	expenseConfirmation.transform = CGAffineTransformMakeScale(1.0, 1.0);
-	
-	NSLog(@"Performing animation. Fade in");
-	[UIView commitAnimations];
-	
+	[confirmationView 
+		performSelector:@selector(removeView)
+		withObject:nil
+		afterDelay:1.0];
+		
 	[self updateExpenseDisplay];
-}
-- (void)fadeinAnimationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context {
-	[UIView beginAnimations:nil context:NULL];
-	[UIView setAnimationBeginsFromCurrentState:YES];
-	[UIView setAnimationDuration:3.0];
-	
-	expenseConfirmation.transform = CGAffineTransformMakeScale(0.001, 0.001);
-	
-	NSLog(@"Performing animation. Fade out");
-	[UIView commitAnimations];
-	
-	expenseConfirmation.hidden = YES;
-	
 }
 
 #pragma mark
@@ -228,12 +197,8 @@
 	
 	NSLog(@"Released newTransaction in viewDidUnload");
 	[newTransaction release];
-	
-	expenseConfirmation = nil;
 }
 - (void)dealloc {
-	[expenseConfirmation release];
-	
 	[deleteButtonView release];
 	[amount release];
 	[textFieldBackground release];
