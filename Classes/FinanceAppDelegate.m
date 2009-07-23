@@ -58,15 +58,18 @@
  applicationWillTerminate: saves changes in the application's managed object context before the application terminates.
  */
 - (void)applicationWillTerminate:(UIApplication *)application {
+
+	// Don't want the app to save on close!
+	// Make sure to save elsewhere!
 	
-    NSError *error;
-    if (managedObjectContext != nil) {
-        if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
-			// Handle error
-			NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-			exit(-1);  // Fail
-        } 
-    }
+//    NSError *error;
+//    if (managedObjectContext != nil) {
+//        if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
+//			// Handle error
+//			NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+//			exit(-1);  // Fail
+//        } 
+//    }
 }
 
 
