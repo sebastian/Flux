@@ -30,7 +30,6 @@
 #pragma mark -
 #pragma mark Actions
 -(IBAction)deleteButtonPushed:(id)sender {
-	NSLog(@"Backspace button pushed");
 	[self.newTransaction eraseOneNum];
 	[self updateExpenseDisplay];
 }
@@ -57,7 +56,6 @@
 -(id) initWithNibName:(NSString*)nibName bundle:(NSBundle*)bundle {
 	self = [super initWithNibName:nibName bundle:bundle];
 	if (self) {
-		NSLog(@"From Expense input view controller init with nib");
 		self.title = NSLocalizedString(@"Add transaction", @"Add transaction view controller title");
 	}
 	return self;	
@@ -65,9 +63,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-	NSLog(@"View did load");	
-	
-	NSLog(@"Created a new transaction object");
+
 	self.newTransaction = [NSEntityDescription insertNewObjectForEntityForName:@"Transaction" inManagedObjectContext:self.managedObjectContext];
 	[self updateExpenseDisplay];
 	
@@ -76,7 +72,6 @@
 }
 - (void)viewDidAppear:(BOOL)animated {
 	[super viewDidAppear:animated];
-	NSLog(@"View did appear. No additional action taken.");
 	
 	// Show the currency keyboard
 	[self.currencyKeyboard showKeyboard];
@@ -89,7 +84,6 @@
 	[self.currencyKeyboard hideKeyboard];
 }
 - (void)viewDidDisappear:(BOOL)animated {
-	NSLog(@"View did disappear. No additional action taken.");
 }
 
 
@@ -151,6 +145,16 @@
 }
 -(void)addExpense {
 
+	// Set up the auto fill properties for the transaction
+	newTransaction.date = [NSDate date];
+
+	// TODO: Set up location
+	newTransaction.lat = [NSNumber numberWithFloat:0.0];
+	newTransaction.lng = [NSNumber numberWithFloat:0.0];
+	
+	// FIXME: use currency used on screen
+	newTransaction.currency = @"€";
+	
 	// Save the expense
 	[self save];
 	
@@ -187,15 +191,12 @@
 #pragma mark Unloading etc
 
 - (void)viewDidUnload {
-	NSLog(@"viewDidUnload...");
-	
 	deleteButtonView = nil;
 	amount = nil;
 	textFieldBackground = nil;
 	
 	[currencyKeyboard release];
 	
-	NSLog(@"Released newTransaction in viewDidUnload");
 	[newTransaction release];
 }
 - (void)dealloc {

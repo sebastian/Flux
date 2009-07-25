@@ -18,6 +18,8 @@
 @dynamic lng;
 @dynamic date;
 @dynamic ore;
+@dynamic description;
+@dynamic tags;
 
 @synthesize formatter;
 
@@ -117,7 +119,6 @@
 }
 
 -(void)dealloc {
-	NSLog(@"Transaction object dealloced");
 	[formatter dealloc];
 	[super dealloc];
 }

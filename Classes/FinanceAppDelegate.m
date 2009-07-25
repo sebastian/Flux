@@ -8,7 +8,7 @@
 
 #import "FinanceAppDelegate.h"
 #import "ExpenseInputViewController.h"
-#import "ExpensesTableViewController.h"
+#import "TransactionsViewController.h"
 
 @implementation FinanceAppDelegate
 
@@ -22,7 +22,21 @@
 	
 	NSManagedObjectContext *context = [self managedObjectContext]; 
     if (!context) { 
-        NSLog(@"Couldn't get a managedObjectContext");
+        NSLog(@"Couldn't get a managedObjectContext number 1");
+    }
+	
+	/*
+	 Why does the addContext need a context of it's own?
+	 There are several reasons:
+	 * I don't want the temporary transactions to be autosaved
+	 * I don't want the temporary transactions to show up in the table views
+	 * I want to be able to make changes to transaction objects in the table views
+		and have them autosaved on app termination
+	 */
+	NSManagedObjectContext *contextAddExpense = [[NSManagedObjectContext alloc] init];
+	[contextAddExpense setPersistentStoreCoordinator: [self persistentStoreCoordinator]];
+    if (!contextAddExpense) { 
+        NSLog(@"Couldn't get a managedObjectContext number 2");
     }
 	
 	[application setStatusBarStyle:UIStatusBarStyleBlackOpaque];
@@ -30,23 +44,19 @@
 	self.tabBarController = [[UITabBarController alloc] initWithNibName:nil 
 															bundle:nil]; 	
 
-	ExpenseInputViewController * viewController1 = 
+	ExpenseInputViewController * addExpenseController = 
 		[[[ExpenseInputViewController alloc] initWithNibName:@"AddExpense" bundle:[NSBundle mainBundle]] autorelease];
+	addExpenseController.managedObjectContext = contextAddExpense;
 		
-	ExpensesTableViewController * viewController2 = [[[ExpensesTableViewController alloc] initWithStyle:UITableViewStylePlain andContext:context] autorelease];
+	TransactionsViewController * transactionViewController = [[[TransactionsViewController alloc] initWithContext:context] autorelease];
 	
-	viewController1.managedObjectContext = context;
-	viewController2.managedObjectContext = context;
-
-	// Create a navigation controller for the expenses view	
-	UINavigationController * ctrl2NavCtrl = [[UINavigationController alloc] initWithRootViewController:viewController2];
-	[[ctrl2NavCtrl navigationBar] setBarStyle:UIBarStyleBlackOpaque]; 
+	NSArray * controllers = [[NSArray arrayWithObjects:addExpenseController, transactionViewController, nil] autorelease];
 	
-	[self.tabBarController setViewControllers:[NSArray arrayWithObjects:viewController1, ctrl2NavCtrl, nil]]; 
+	[self.tabBarController setViewControllers:controllers]; 
 	[self.tabBarController setSelectedIndex:0];
 	
 	[context release];
-	[ctrl2NavCtrl release];
+	[contextAddExpense release];
 	
 	[window addSubview:self.tabBarController.view];
 
@@ -58,18 +68,14 @@
  applicationWillTerminate: saves changes in the application's managed object context before the application terminates.
  */
 - (void)applicationWillTerminate:(UIApplication *)application {
-
-	// Don't want the app to save on close!
-	// Make sure to save elsewhere!
-	
-//    NSError *error;
-//    if (managedObjectContext != nil) {
-//        if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
-//			// Handle error
-//			NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-//			exit(-1);  // Fail
-//        } 
-//    }
+    NSError *error;
+    if (managedObjectContext != nil) {
+        if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
+			// Handle error
+			NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+			exit(-1);  // Fail
+        } 
+    }
 }
 
 
@@ -107,7 +113,7 @@
     NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
     if (coordinator != nil) {
         managedObjectContext = [[NSManagedObjectContext alloc] init];
-        [managedObjectContext setPersistentStoreCoordinator: coordinator];
+		[managedObjectContext setPersistentStoreCoordinator: coordinator];
     }
     return managedObjectContext;
 }
@@ -143,7 +149,9 @@
     persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel: [self managedObjectModel]];
     if (![persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeUrl options:nil error:&error]) {
         // Handle error
-    }    
+		NSLog(@"COULDN'T CREATE A PERSISTANT STORE COORDINATOR! CHAOS");
+		NSLog(@"ERROR: %@", error);
+	}    
 	
     return persistentStoreCoordinator;
 }
@@ -174,6 +182,7 @@
 		
 	[tabBarController release];
     [window release];
+	
     [super dealloc];
 }
 

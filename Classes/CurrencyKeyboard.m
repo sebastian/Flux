@@ -75,7 +75,6 @@
 		
 		self.view.frame = keyboardFrame;
 		
-		NSLog(@"Performing animation. Keyboard slide in");
 		[UIView commitAnimations];		
 		
 	} else {
@@ -120,15 +119,12 @@
 #pragma mark IBAction with callback to delegate
 
 -(IBAction)numberButtonPushed:(UIButton *)button {
-	NSLog(@"Pushed the numeric key %i. Delegate will be notified.", button.tag);
 	[self.delegate numericButtonPressed:button.tag];
 }
 -(IBAction)decimalButtonPushed:(id)sender {
-	NSLog(@"Pushed the decimal button. Delegate will be notified.");
 	[self.delegate decimalButtonPressed];
 }
 -(IBAction)okButtonPushed:(id)sender {
-	NSLog(@"Pushed the OK button. Delegate will be notified.");		
 	[self.delegate okButtonPressed];
 }
 
@@ -139,7 +135,6 @@
 	// Release any cached data, images, etc that aren't in use.
 }
 - (void)viewDidUnload {
-	NSLog(@"keyboard unloaded...");
 		
 	button0 = nil;
 	button1 = nil;
@@ -171,7 +166,6 @@
 	
     [super dealloc];
 	
-	NSLog(@"CurrencyKeyboard deallocated");
 }
 
 

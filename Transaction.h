@@ -16,6 +16,9 @@
 	NSNumberFormatter * formatter;
 }
 
+@property (nonatomic, retain) NSString * description;
+@property (nonatomic, retain) NSString * tags;
+
 // Amount
 @property (nonatomic, retain) NSNumber * kroner;
 @property (nonatomic, retain) NSNumber * ore;
