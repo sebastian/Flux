@@ -24,19 +24,18 @@
 @synthesize formatter;
 
 // This method isn't called anyway, so it is a joke...
--(id)init {
-	self = [super init];
+
+- (id)initWithEntity:(NSEntityDescription *)entity insertIntoManagedObjectContext:(NSManagedObjectContext *)context {
+	self = [super initWithEntity:entity insertIntoManagedObjectContext:context];
 	if (self) {
-		
-		if (self.ore != 0) {
-			has_ore = YES;
-		} else {
-			has_ore = NO;
-		}
+		has_ore = NO;
 		numOfOre = 0;
 		
+		// Set date to the current date
+		self.date = [NSDate date];
 	}
 	return self;
+	
 }
 
 -(NSString*)toString {

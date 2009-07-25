@@ -145,9 +145,6 @@
 }
 -(void)addExpense {
 
-	// Set up the auto fill properties for the transaction
-	newTransaction.date = [NSDate date];
-
 	// TODO: Set up location
 	newTransaction.lat = [NSNumber numberWithFloat:0.0];
 	newTransaction.lng = [NSNumber numberWithFloat:0.0];

@@ -268,6 +268,7 @@
 							<array>
 								<string>29B97314FDCFA39411CA2CEA</string>
 								<string>080E96DDFE201D6D7F000001</string>
+								<string>963B020A10185D6E00CD5184</string>
 								<string>96FFFA771015ED0300A53779</string>
 								<string>29B97317FDCFA39411CA2CEA</string>
 								<string>29B97323FDCFA39411CA2CEA</string>
@@ -276,8 +277,8 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>10</integer>
-									<integer>4</integer>
+									<integer>6</integer>
+									<integer>2</integer>
 									<integer>1</integer>
 									<integer>0</integer>
 								</array>
@@ -318,7 +319,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>96885B8A1004EB08003090D8</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>OverviewTableViewController.m</string>
+								<string>ExpenseInputViewController.m</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -326,11 +327,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>96885B8B1004EB08003090D8</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>OverviewTableViewController.m</string>
+										<string>ExpenseInputViewController.m</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>9697733C101AEAD900F0DC3D</string>
+										<string>96977350101AED0100F0DC3D</string>
 										<key>history</key>
 										<array>
 											<string>96B17872100608FF00994A6E</string>
@@ -361,19 +362,19 @@
 											<string>963B04381019F4DA00CD5184</string>
 											<string>96D8CA52101A2C2300C270D9</string>
 											<string>96D8CA57101A2C2300C270D9</string>
-											<string>96D8CA59101A2C2300C270D9</string>
 											<string>96E5794B101ADF8800B53DB7</string>
 											<string>9627A2DC101AE20D00779BAE</string>
-											<string>9627A2E4101AE26E00779BAE</string>
-											<string>9627A2ED101AE38000779BAE</string>
 											<string>9627A2F5101AE4C300779BAE</string>
-											<string>9627A2F6101AE4C300779BAE</string>
 											<string>9627A2F7101AE4C300779BAE</string>
 											<string>9627A2F8101AE4C300779BAE</string>
-											<string>9627A2FB101AE4C300779BAE</string>
-											<string>9627A30B101AE85300779BAE</string>
 											<string>96977339101AEAD900F0DC3D</string>
-											<string>9697733A101AEAD900F0DC3D</string>
+											<string>96977340101AED0100F0DC3D</string>
+											<string>96977341101AED0100F0DC3D</string>
+											<string>96977342101AED0100F0DC3D</string>
+											<string>96977343101AED0100F0DC3D</string>
+											<string>96977344101AED0100F0DC3D</string>
+											<string>96977345101AED0100F0DC3D</string>
+											<string>96977346101AED0100F0DC3D</string>
 										</array>
 										<key>prevStack</key>
 										<array>
@@ -419,6 +420,15 @@
 											<string>969772EE101AE8D500F0DC3D</string>
 											<string>9697732D101AE9FA00F0DC3D</string>
 											<string>9697733B101AEAD900F0DC3D</string>
+											<string>96977347101AED0100F0DC3D</string>
+											<string>96977348101AED0100F0DC3D</string>
+											<string>96977349101AED0100F0DC3D</string>
+											<string>9697734A101AED0100F0DC3D</string>
+											<string>9697734B101AED0100F0DC3D</string>
+											<string>9697734C101AED0100F0DC3D</string>
+											<string>9697734D101AED0100F0DC3D</string>
+											<string>9697734E101AED0100F0DC3D</string>
+											<string>9697734F101AED0100F0DC3D</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>

@@ -10,9 +10,9 @@
 	};
 	1D3623250D0F684500981E51 /* FinanceAppDelegate.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1103, 2688}}";
-			sepNavSelRange = "{4996, 0}";
-			sepNavVisRange = "{3698, 892}";
+			sepNavIntBoundsRect = "{{0, 0}, {858, 2674}}";
+			sepNavSelRange = "{857, 0}";
+			sepNavVisRange = "{145, 2008}";
 			sepNavWindowFrame = "{{15, 56}, {934, 717}}";
 		};
 	};
@@ -31,10 +31,10 @@
 	};
 	28216C960DB411BC00E5133A /* ExpenseInputViewController.m */ = {
 		uiCtxt = {
-			sepNavFolds = "{\n    c =     (\n                {\n            r = \"{846, 69}\";\n            s = 0;\n        },\n                {\n            r = \"{942, 21}\";\n            s = 0;\n        },\n                {\n            r = \"{995, 66}\";\n            s = 0;\n        },\n                {\n            r = \"{1944, 109}\";\n            s = 0;\n        },\n                {\n            r = \"{2096, 1}\";\n            s = 0;\n        },\n                {\n            r = \"{2187, 1426}\";\n            s = 0;\n        },\n                {\n            r = \"{4930, 135}\";\n            s = 0;\n        }\n    );\n    r = \"{0, 5075}\";\n    s = 0;\n}";
-			sepNavIntBoundsRect = "{{0, 0}, {876, 1988}}";
-			sepNavSelRange = "{3197, 0}";
-			sepNavVisRange = "{2044, 1211}";
+			sepNavFolds = "{\n    c =     (\n                {\n            r = \"{846, 69}\";\n            s = 0;\n        },\n                {\n            r = \"{942, 21}\";\n            s = 0;\n        },\n                {\n            r = \"{995, 66}\";\n            s = 0;\n        },\n                {\n            r = \"{1944, 109}\";\n            s = 0;\n        },\n                {\n            r = \"{2096, 1}\";\n            s = 0;\n        },\n                {\n            r = \"{2187, 1426}\";\n            s = 0;\n        },\n                {\n            r = \"{4835, 135}\";\n            s = 0;\n        }\n    );\n    r = \"{0, 4980}\";\n    s = 0;\n}";
+			sepNavIntBoundsRect = "{{0, 0}, {876, 1946}}";
+			sepNavSelRange = "{1949, 0}";
+			sepNavVisRange = "{1706, 1321}";
 			sepNavWindowFrame = "{{15, 456}, {934, 717}}";
 		};
 	};
@@ -47,12 +47,12 @@
 			1D6058900D05DD3D006BFB54 /* Finance */,
 		);
 		breakpoints = (
-			96FFFD971017198800A53779 /* ExpenseInputViewController.m:174 */,
-			96FFFD991017198900A53779 /* ExpenseInputViewController.m:174 */,
-			96FFFDBA10171AAB00A53779 /* ExpenseInputViewController.m:174 */,
-			96FFFDBC10171AAB00A53779 /* ExpenseInputViewController.m:174 */,
-			96FFFDBE10171AAC00A53779 /* ExpenseInputViewController.m:174 */,
-			96FFFDC010171AAD00A53779 /* ExpenseInputViewController.m:174 */,
+			96FFFD971017198800A53779 /* ExpenseInputViewController.m:171 */,
+			96FFFD991017198900A53779 /* ExpenseInputViewController.m:171 */,
+			96FFFDBA10171AAB00A53779 /* ExpenseInputViewController.m:171 */,
+			96FFFDBC10171AAB00A53779 /* ExpenseInputViewController.m:171 */,
+			96FFFDBE10171AAC00A53779 /* ExpenseInputViewController.m:171 */,
+			96FFFDC010171AAD00A53779 /* ExpenseInputViewController.m:171 */,
 			96BD3F121017524600926A83 /* CurrencyKeyboard.m:39 */,
 			969772FD101AE8E200F0DC3D /* OverviewTableViewController.m:73 */,
 			969772FF101AE8E300F0DC3D /* OverviewTableViewController.m:74 */,
@@ -254,6 +254,23 @@
 			9697733A101AEAD900F0DC3D /* PBXTextBookmark */ = 9697733A101AEAD900F0DC3D /* PBXTextBookmark */;
 			9697733B101AEAD900F0DC3D /* PBXTextBookmark */ = 9697733B101AEAD900F0DC3D /* PBXTextBookmark */;
 			9697733C101AEAD900F0DC3D /* PBXTextBookmark */ = 9697733C101AEAD900F0DC3D /* PBXTextBookmark */;
+			96977340101AED0100F0DC3D /* PBXTextBookmark */ = 96977340101AED0100F0DC3D /* PBXTextBookmark */;
+			96977341101AED0100F0DC3D /* PBXTextBookmark */ = 96977341101AED0100F0DC3D /* PBXTextBookmark */;
+			96977342101AED0100F0DC3D /* PBXTextBookmark */ = 96977342101AED0100F0DC3D /* PBXTextBookmark */;
+			96977343101AED0100F0DC3D /* PBXTextBookmark */ = 96977343101AED0100F0DC3D /* PBXTextBookmark */;
+			96977344101AED0100F0DC3D /* PBXTextBookmark */ = 96977344101AED0100F0DC3D /* PBXTextBookmark */;
+			96977345101AED0100F0DC3D /* PBXTextBookmark */ = 96977345101AED0100F0DC3D /* PBXTextBookmark */;
+			96977346101AED0100F0DC3D /* PBXTextBookmark */ = 96977346101AED0100F0DC3D /* PBXTextBookmark */;
+			96977347101AED0100F0DC3D /* PBXTextBookmark */ = 96977347101AED0100F0DC3D /* PBXTextBookmark */;
+			96977348101AED0100F0DC3D /* PBXTextBookmark */ = 96977348101AED0100F0DC3D /* PBXTextBookmark */;
+			96977349101AED0100F0DC3D /* PBXTextBookmark */ = 96977349101AED0100F0DC3D /* PBXTextBookmark */;
+			9697734A101AED0100F0DC3D /* PBXTextBookmark */ = 9697734A101AED0100F0DC3D /* PBXTextBookmark */;
+			9697734B101AED0100F0DC3D /* PBXTextBookmark */ = 9697734B101AED0100F0DC3D /* PBXTextBookmark */;
+			9697734C101AED0100F0DC3D /* PBXTextBookmark */ = 9697734C101AED0100F0DC3D /* PBXTextBookmark */;
+			9697734D101AED0100F0DC3D /* PBXTextBookmark */ = 9697734D101AED0100F0DC3D /* PBXTextBookmark */;
+			9697734E101AED0100F0DC3D /* PBXTextBookmark */ = 9697734E101AED0100F0DC3D /* PBXTextBookmark */;
+			9697734F101AED0100F0DC3D /* PBXTextBookmark */ = 9697734F101AED0100F0DC3D /* PBXTextBookmark */;
+			96977350101AED0100F0DC3D /* PBXTextBookmark */ = 96977350101AED0100F0DC3D /* PBXTextBookmark */;
 			96AA703D10061F4900206A37 = 96AA703D10061F4900206A37 /* PBXBookmark */;
 			96AA704010061F4900206A37 = 96AA704010061F4900206A37 /* PBXBookmark */;
 			96AA706B10062CCA00206A37 = 96AA706B10062CCA00206A37 /* PBXBookmark */;
@@ -442,7 +459,7 @@
 		fRef = 1D3623250D0F684500981E51 /* FinanceAppDelegate.m */;
 		name = "FinanceAppDelegate.m: 60";
 		rLen = 0;
-		rLoc = 2363;
+		rLoc = 2340;
 		rType = 0;
 		vrLen = 1733;
 		vrLoc = 782;
@@ -452,7 +469,7 @@
 		fRef = 1D3623250D0F684500981E51 /* FinanceAppDelegate.m */;
 		name = "FinanceAppDelegate.m: 60";
 		rLen = 0;
-		rLoc = 2363;
+		rLoc = 2340;
 		rType = 0;
 		vrLen = 1747;
 		vrLoc = 751;
@@ -462,7 +479,7 @@
 		fRef = 1D3623250D0F684500981E51 /* FinanceAppDelegate.m */;
 		name = "FinanceAppDelegate.m: 60";
 		rLen = 0;
-		rLoc = 2363;
+		rLoc = 2340;
 		rType = 0;
 		vrLen = 679;
 		vrLoc = 1441;
@@ -472,7 +489,7 @@
 		fRef = 1D3623250D0F684500981E51 /* FinanceAppDelegate.m */;
 		name = "FinanceAppDelegate.m: 60";
 		rLen = 0;
-		rLoc = 2363;
+		rLoc = 2340;
 		rType = 0;
 		vrLen = 1765;
 		vrLoc = 751;
@@ -482,7 +499,7 @@
 		fRef = 1D3623250D0F684500981E51 /* FinanceAppDelegate.m */;
 		name = "FinanceAppDelegate.m: 143";
 		rLen = 0;
-		rLoc = 4989;
+		rLoc = 4966;
 		rType = 0;
 		vrLen = 1878;
 		vrLoc = 2839;
@@ -492,7 +509,7 @@
 		fRef = 1D3623250D0F684500981E51 /* FinanceAppDelegate.m */;
 		name = "FinanceAppDelegate.m: 143";
 		rLen = 0;
-		rLoc = 4989;
+		rLoc = 4966;
 		rType = 0;
 		vrLen = 1878;
 		vrLoc = 2839;
@@ -502,7 +519,7 @@
 		fRef = 1D3623250D0F684500981E51 /* FinanceAppDelegate.m */;
 		name = "FinanceAppDelegate.m: 143";
 		rLen = 0;
-		rLoc = 4989;
+		rLoc = 4966;
 		rType = 0;
 		vrLen = 772;
 		vrLoc = 2839;
@@ -512,7 +529,7 @@
 		fRef = 1D3623250D0F684500981E51 /* FinanceAppDelegate.m */;
 		name = "FinanceAppDelegate.m: 144";
 		rLen = 0;
-		rLoc = 4996;
+		rLoc = 4973;
 		rType = 0;
 		vrLen = 1969;
 		vrLoc = 2997;
@@ -522,7 +539,7 @@
 		fRef = 1D3623250D0F684500981E51 /* FinanceAppDelegate.m */;
 		name = "FinanceAppDelegate.m: 144";
 		rLen = 0;
-		rLoc = 4996;
+		rLoc = 4973;
 		rType = 0;
 		vrLen = 1969;
 		vrLoc = 2997;
@@ -532,7 +549,7 @@
 		fRef = 1D3623250D0F684500981E51 /* FinanceAppDelegate.m */;
 		name = "FinanceAppDelegate.m: 144";
 		rLen = 0;
-		rLoc = 4996;
+		rLoc = 4973;
 		rType = 0;
 		vrLen = 1786;
 		vrLoc = 3361;
@@ -542,7 +559,7 @@
 		fRef = 1D3623250D0F684500981E51 /* FinanceAppDelegate.m */;
 		name = "FinanceAppDelegate.m: 144";
 		rLen = 0;
-		rLoc = 4996;
+		rLoc = 4973;
 		rType = 0;
 		vrLen = 784;
 		vrLoc = 2997;
@@ -552,7 +569,7 @@
 		fRef = 1D3623250D0F684500981E51 /* FinanceAppDelegate.m */;
 		name = "FinanceAppDelegate.m: 144";
 		rLen = 0;
-		rLoc = 4996;
+		rLoc = 4973;
 		rType = 0;
 		vrLen = 2029;
 		vrLoc = 2514;
@@ -572,7 +589,7 @@
 		fRef = 28216C960DB411BC00E5133A /* ExpenseInputViewController.m */;
 		name = "ExpenseInputViewController.m: 166";
 		rLen = 0;
-		rLoc = 4414;
+		rLoc = 4319;
 		rType = 0;
 		vrLen = 4481;
 		vrLoc = 594;
@@ -582,7 +599,7 @@
 		fRef = 1D3623250D0F684500981E51 /* FinanceAppDelegate.m */;
 		name = "FinanceAppDelegate.m: 144";
 		rLen = 0;
-		rLoc = 4996;
+		rLoc = 4973;
 		rType = 0;
 		vrLen = 2029;
 		vrLoc = 2514;
@@ -602,7 +619,7 @@
 		fRef = 28216C960DB411BC00E5133A /* ExpenseInputViewController.m */;
 		name = "ExpenseInputViewController.m: 154";
 		rLen = 0;
-		rLoc = 3648;
+		rLoc = 3635;
 		rType = 0;
 		vrLen = 4201;
 		vrLoc = 566;
@@ -617,7 +634,7 @@
 		fRef = 28216C960DB411BC00E5133A /* ExpenseInputViewController.m */;
 		name = "ExpenseInputViewController.m: 161";
 		rLen = 0;
-		rLoc = 3938;
+		rLoc = 3843;
 		rType = 0;
 		vrLen = 4066;
 		vrLoc = 579;
@@ -627,7 +644,7 @@
 		fRef = 28216C960DB411BC00E5133A /* ExpenseInputViewController.m */;
 		name = "ExpenseInputViewController.m: 161";
 		rLen = 0;
-		rLoc = 3938;
+		rLoc = 3843;
 		rType = 0;
 		vrLen = 4079;
 		vrLoc = 566;
@@ -642,7 +659,7 @@
 		fRef = 28216C960DB411BC00E5133A /* ExpenseInputViewController.m */;
 		name = "ExpenseInputViewController.m: 159";
 		rLen = 0;
-		rLoc = 3863;
+		rLoc = 3768;
 		rType = 0;
 		vrLen = 4162;
 		vrLoc = 579;
@@ -652,7 +669,7 @@
 		fRef = 28216C960DB411BC00E5133A /* ExpenseInputViewController.m */;
 		name = "ExpenseInputViewController.m: 159";
 		rLen = 0;
-		rLoc = 3863;
+		rLoc = 3768;
 		rType = 0;
 		vrLen = 4175;
 		vrLoc = 579;
@@ -661,8 +678,8 @@
 		isa = PBXTextBookmark;
 		fRef = 963B02981019E10900CD5184 /* TransactionsViewController.h */;
 		name = "TransactionsViewController.h: 21";
-		rLen = 18;
-		rLoc = 458;
+		rLen = 0;
+		rLoc = 457;
 		rType = 0;
 		vrLen = 483;
 		vrLoc = 0;
@@ -672,7 +689,7 @@
 		fRef = 963B02991019E10900CD5184 /* TransactionsViewController.m */;
 		name = "TransactionsViewController.m: 42";
 		rLen = 0;
-		rLoc = 1011;
+		rLoc = 995;
 		rType = 0;
 		vrLen = 1062;
 		vrLoc = 0;
@@ -682,7 +699,7 @@
 		fRef = 28216C960DB411BC00E5133A /* ExpenseInputViewController.m */;
 		name = "ExpenseInputViewController.m: 159";
 		rLen = 0;
-		rLoc = 3863;
+		rLoc = 3768;
 		rType = 0;
 		vrLen = 4175;
 		vrLoc = 579;
@@ -692,7 +709,7 @@
 		fRef = 963B02991019E10900CD5184 /* TransactionsViewController.m */;
 		name = "TransactionsViewController.m: 42";
 		rLen = 0;
-		rLoc = 1011;
+		rLoc = 995;
 		rType = 0;
 		vrLen = 1062;
 		vrLoc = 0;
@@ -701,8 +718,8 @@
 		isa = PBXTextBookmark;
 		fRef = 963B02981019E10900CD5184 /* TransactionsViewController.h */;
 		name = "TransactionsViewController.h: 21";
-		rLen = 18;
-		rLoc = 458;
+		rLen = 0;
+		rLoc = 457;
 		rType = 0;
 		vrLen = 483;
 		vrLoc = 0;
@@ -712,7 +729,7 @@
 		fRef = 963B02991019E10900CD5184 /* TransactionsViewController.m */;
 		name = "TransactionsViewController.m: 28";
 		rLen = 0;
-		rLoc = 795;
+		rLoc = 880;
 		rType = 0;
 		vrLen = 1075;
 		vrLoc = 0;
@@ -722,7 +739,7 @@
 		fRef = 963B02991019E10900CD5184 /* TransactionsViewController.m */;
 		name = "TransactionsViewController.m: 33";
 		rLen = 0;
-		rLoc = 835;
+		rLoc = 900;
 		rType = 0;
 		vrLen = 1075;
 		vrLoc = 0;
@@ -732,7 +749,7 @@
 		fRef = 1D3623250D0F684500981E51 /* FinanceAppDelegate.m */;
 		name = "FinanceAppDelegate.m: 144";
 		rLen = 0;
-		rLoc = 4996;
+		rLoc = 4973;
 		rType = 0;
 		vrLen = 2028;
 		vrLoc = 2515;
@@ -742,7 +759,7 @@
 		fRef = 963B02991019E10900CD5184 /* TransactionsViewController.m */;
 		name = "TransactionsViewController.m: 33";
 		rLen = 0;
-		rLoc = 835;
+		rLoc = 900;
 		rType = 0;
 		vrLen = 1075;
 		vrLoc = 0;
@@ -752,7 +769,7 @@
 		fRef = 1D3623250D0F684500981E51 /* FinanceAppDelegate.m */;
 		name = "FinanceAppDelegate.m: 59";
 		rLen = 0;
-		rLoc = 2085;
+		rLoc = 2062;
 		rType = 0;
 		vrLen = 2046;
 		vrLoc = 254;
@@ -772,7 +789,7 @@
 		fRef = 28216C960DB411BC00E5133A /* ExpenseInputViewController.m */;
 		name = "ExpenseInputViewController.m: 199";
 		rLen = 0;
-		rLoc = 4883;
+		rLoc = 4788;
 		rType = 0;
 		vrLen = 1345;
 		vrLoc = 3730;
@@ -822,7 +839,7 @@
 		fRef = 96AA710B1006616700206A37 /* Transaction.m */;
 		name = "Transaction.m: 121";
 		rLen = 0;
-		rLoc = 2500;
+		rLoc = 2668;
 		rType = 0;
 		vrLen = 2257;
 		vrLoc = 292;
@@ -831,7 +848,7 @@
 		isa = PBXTextBookmark;
 		fRef = 1D3623250D0F684500981E51 /* FinanceAppDelegate.m */;
 		rLen = 0;
-		rLoc = 4996;
+		rLoc = 4973;
 		rType = 0;
 	};
 	9627A2FD101AE4C300779BAE /* PBXTextBookmark */ = {
@@ -839,7 +856,7 @@
 		fRef = 1D3623250D0F684500981E51 /* FinanceAppDelegate.m */;
 		name = "FinanceAppDelegate.m: 59";
 		rLen = 0;
-		rLoc = 2085;
+		rLoc = 2062;
 		rType = 0;
 		vrLen = 2110;
 		vrLoc = 254;
@@ -869,7 +886,7 @@
 		fRef = 28216C960DB411BC00E5133A /* ExpenseInputViewController.m */;
 		name = "ExpenseInputViewController.m: 199";
 		rLen = 0;
-		rLoc = 4883;
+		rLoc = 4788;
 		rType = 0;
 		vrLen = 1345;
 		vrLoc = 3730;
@@ -919,7 +936,7 @@
 		fRef = 96AA710B1006616700206A37 /* Transaction.m */;
 		name = "Transaction.m: 121";
 		rLen = 0;
-		rLoc = 2500;
+		rLoc = 2668;
 		rType = 0;
 		vrLen = 2257;
 		vrLoc = 292;
@@ -929,7 +946,7 @@
 		fRef = 1D3623250D0F684500981E51 /* FinanceAppDelegate.m */;
 		name = "FinanceAppDelegate.m: 153";
 		rLen = 0;
-		rLoc = 4996;
+		rLoc = 4973;
 		rType = 0;
 		vrLen = 1849;
 		vrLoc = 3698;
@@ -939,7 +956,7 @@
 		fRef = 1D3623250D0F684500981E51 /* FinanceAppDelegate.m */;
 		name = "FinanceAppDelegate.m: 153";
 		rLen = 0;
-		rLoc = 4996;
+		rLoc = 4973;
 		rType = 0;
 		vrLen = 1849;
 		vrLoc = 3698;
@@ -949,7 +966,7 @@
 		fRef = 1D3623250D0F684500981E51 /* FinanceAppDelegate.m */;
 		name = "FinanceAppDelegate.m: 153";
 		rLen = 0;
-		rLoc = 4996;
+		rLoc = 4973;
 		rType = 0;
 		vrLen = 1757;
 		vrLoc = 3866;
@@ -959,7 +976,7 @@
 		fRef = 1D3623250D0F684500981E51 /* FinanceAppDelegate.m */;
 		name = "FinanceAppDelegate.m: 153";
 		rLen = 0;
-		rLoc = 4996;
+		rLoc = 4973;
 		rType = 0;
 		vrLen = 892;
 		vrLoc = 3698;
@@ -969,7 +986,7 @@
 		fRef = 1D3623250D0F684500981E51 /* FinanceAppDelegate.m */;
 		name = "FinanceAppDelegate.m: 153";
 		rLen = 0;
-		rLoc = 4996;
+		rLoc = 4973;
 		rType = 0;
 		vrLen = 1919;
 		vrLoc = 3257;
@@ -999,7 +1016,7 @@
 		fRef = 1D3623250D0F684500981E51 /* FinanceAppDelegate.m */;
 		name = "FinanceAppDelegate.m: 153";
 		rLen = 0;
-		rLoc = 4996;
+		rLoc = 4973;
 		rType = 0;
 		vrLen = 1919;
 		vrLoc = 3257;
@@ -1069,7 +1086,7 @@
 		fRef = 1D3623250D0F684500981E51 /* FinanceAppDelegate.m */;
 		name = "FinanceAppDelegate.m: 153";
 		rLen = 0;
-		rLoc = 4996;
+		rLoc = 4973;
 		rType = 0;
 		vrLen = 892;
 		vrLoc = 3698;
@@ -1223,7 +1240,7 @@
 		fRef = 28216C960DB411BC00E5133A /* ExpenseInputViewController.m */;
 		name = "ExpenseInputViewController.m: 166";
 		rLen = 0;
-		rLoc = 4414;
+		rLoc = 4319;
 		rType = 0;
 		vrLen = 4481;
 		vrLoc = 594;
@@ -1241,17 +1258,17 @@
 	963B02981019E10900CD5184 /* TransactionsViewController.h */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {729, 809}}";
-			sepNavSelRange = "{458, 18}";
-			sepNavVisRange = "{0, 483}";
+			sepNavSelRange = "{457, 0}";
+			sepNavVisRange = "{0, 463}";
 			sepNavWindowFrame = "{{38, 435}, {934, 717}}";
 		};
 	};
 	963B02991019E10900CD5184 /* TransactionsViewController.m */ = {
 		uiCtxt = {
-			sepNavFolds = "{\n    c =     (\n                {\n            r = \"{938, 26}\";\n            s = 0;\n        },\n                {\n            r = \"{990, 1}\";\n            s = 0;\n        }\n    );\n    r = \"{0, 1075}\";\n    s = 0;\n}";
+			sepNavFolds = "{\n    c =     (\n                {\n            r = \"{922, 26}\";\n            s = 0;\n        },\n                {\n            r = \"{974, 1}\";\n            s = 0;\n        }\n    );\n    r = \"{0, 1059}\";\n    s = 0;\n}";
 			sepNavIntBoundsRect = "{{0, 0}, {729, 809}}";
-			sepNavSelRange = "{835, 0}";
-			sepNavVisRange = "{0, 1050}";
+			sepNavSelRange = "{900, 0}";
+			sepNavVisRange = "{0, 1034}";
 			sepNavWindowFrame = "{{61, 414}, {934, 717}}";
 		};
 	};
@@ -1265,9 +1282,9 @@
 	963B02BC1019E8D600CD5184 /* DetailTableViewController.m */ = {
 		uiCtxt = {
 			sepNavFolds = "{\n    c =     (\n                {\n            r = \"{1684, 84}\";\n            s = 0;\n        },\n                {\n            r = \"{2529, 316}\";\n            s = 0;\n        },\n                {\n            r = \"{2938, 119}\";\n            s = 0;\n        },\n                {\n            r = \"{3149, 117}\";\n            s = 0;\n        },\n                {\n            r = \"{3365, 13}\";\n            s = 0;\n        }\n    );\n    r = \"{0, 3522}\";\n    s = 0;\n}";
-			sepNavIntBoundsRect = "{{0, 0}, {756, 1330}}";
-			sepNavSelRange = "{1597, 28}";
-			sepNavVisRange = "{154, 1924}";
+			sepNavIntBoundsRect = "{{0, 0}, {1103, 1344}}";
+			sepNavSelRange = "{1431, 0}";
+			sepNavVisRange = "{1036, 651}";
 		};
 	};
 	963B02DA1019E9EB00CD5184 /* PBXTextBookmark */ = {
@@ -1956,6 +1973,176 @@
 		vrLen = 3352;
 		vrLoc = 364;
 	};
+	96977340101AED0100F0DC3D /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 96F84039100A5A08008862CC /* OverviewTableViewController.m */;
+		name = "OverviewTableViewController.m: 78";
+		rLen = 0;
+		rLoc = 2524;
+		rType = 0;
+		vrLen = 2966;
+		vrLoc = 153;
+	};
+	96977341101AED0100F0DC3D /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1D3623250D0F684500981E51 /* FinanceAppDelegate.m */;
+		name = "FinanceAppDelegate.m: 33";
+		rLen = 0;
+		rLoc = 857;
+		rType = 0;
+		vrLen = 2008;
+		vrLoc = 145;
+	};
+	96977342101AED0100F0DC3D /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 963B02981019E10900CD5184 /* TransactionsViewController.h */;
+		name = "TransactionsViewController.h: 20";
+		rLen = 0;
+		rLoc = 457;
+		rType = 0;
+		vrLen = 463;
+		vrLoc = 0;
+	};
+	96977343101AED0100F0DC3D /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 963B02991019E10900CD5184 /* TransactionsViewController.m */;
+		name = "TransactionsViewController.m: 33";
+		rLen = 0;
+		rLoc = 900;
+		rType = 0;
+		vrLen = 1059;
+		vrLoc = 0;
+	};
+	96977344101AED0100F0DC3D /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 96AA710A1006616700206A37 /* Transaction.h */;
+		name = "Transaction.h: 21";
+		rLen = 0;
+		rLoc = 382;
+		rType = 0;
+		vrLen = 1111;
+		vrLoc = 0;
+	};
+	96977345101AED0100F0DC3D /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 96AA710B1006616700206A37 /* Transaction.m */;
+		name = "Transaction.m: 35";
+		rLen = 0;
+		rLoc = 730;
+		rType = 0;
+		vrLen = 2205;
+		vrLoc = 34;
+	};
+	96977346101AED0100F0DC3D /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 28216C960DB411BC00E5133A /* ExpenseInputViewController.m */;
+		name = "ExpenseInputViewController.m: 199";
+		rLen = 0;
+		rLoc = 4788;
+		rType = 0;
+		vrLen = 2899;
+		vrLoc = 1859;
+	};
+	96977347101AED0100F0DC3D /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 96F84039100A5A08008862CC /* OverviewTableViewController.m */;
+		name = "OverviewTableViewController.m: 78";
+		rLen = 0;
+		rLoc = 2524;
+		rType = 0;
+		vrLen = 2966;
+		vrLoc = 153;
+	};
+	96977348101AED0100F0DC3D /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 28216C960DB411BC00E5133A /* ExpenseInputViewController.m */;
+		name = "ExpenseInputViewController.m: 199";
+		rLen = 0;
+		rLoc = 4788;
+		rType = 0;
+		vrLen = 2930;
+		vrLoc = 1828;
+	};
+	96977349101AED0100F0DC3D /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1D3623250D0F684500981E51 /* FinanceAppDelegate.m */;
+		name = "FinanceAppDelegate.m: 33";
+		rLen = 0;
+		rLoc = 857;
+		rType = 0;
+		vrLen = 2008;
+		vrLoc = 145;
+	};
+	9697734A101AED0100F0DC3D /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 963B02991019E10900CD5184 /* TransactionsViewController.m */;
+		name = "TransactionsViewController.m: 33";
+		rLen = 0;
+		rLoc = 900;
+		rType = 0;
+		vrLen = 1059;
+		vrLoc = 0;
+	};
+	9697734B101AED0100F0DC3D /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 963B02981019E10900CD5184 /* TransactionsViewController.h */;
+		name = "TransactionsViewController.h: 20";
+		rLen = 0;
+		rLoc = 457;
+		rType = 0;
+		vrLen = 463;
+		vrLoc = 0;
+	};
+	9697734C101AED0100F0DC3D /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 963B02991019E10900CD5184 /* TransactionsViewController.m */;
+		name = "TransactionsViewController.m: 33";
+		rLen = 0;
+		rLoc = 900;
+		rType = 0;
+		vrLen = 1059;
+		vrLoc = 0;
+	};
+	9697734D101AED0100F0DC3D /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 96AA710B1006616700206A37 /* Transaction.m */;
+		name = "Transaction.m: 15";
+		rLen = 0;
+		rLoc = 226;
+		rType = 0;
+		vrLen = 1614;
+		vrLoc = 0;
+	};
+	9697734E101AED0100F0DC3D /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 96AA710A1006616700206A37 /* Transaction.h */;
+		name = "Transaction.h: 21";
+		rLen = 0;
+		rLoc = 382;
+		rType = 0;
+		vrLen = 1111;
+		vrLoc = 0;
+	};
+	9697734F101AED0100F0DC3D /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 96AA710B1006616700206A37 /* Transaction.m */;
+		name = "Transaction.m: 35";
+		rLen = 0;
+		rLoc = 730;
+		rType = 0;
+		vrLen = 2205;
+		vrLoc = 34;
+	};
+	96977350101AED0100F0DC3D /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 28216C960DB411BC00E5133A /* ExpenseInputViewController.m */;
+		name = "ExpenseInputViewController.m: 147";
+		rLen = 0;
+		rLoc = 3635;
+		rType = 0;
+		vrLen = 2854;
+		vrLoc = 1859;
+	};
 	96AA703D10061F4900206A37 /* PBXBookmark */ = {
 		isa = PBXBookmark;
 		fRef = 96AA703910061D0900206A37 /* KeyboardButtonBackgroundClicked.png */;
@@ -2174,16 +2361,16 @@
 	96AA710A1006616700206A37 /* Transaction.h */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {729, 809}}";
-			sepNavSelRange = "{794, 6}";
+			sepNavSelRange = "{382, 0}";
 			sepNavVisRange = "{0, 1111}";
 		};
 	};
 	96AA710B1006616700206A37 /* Transaction.m */ = {
 		uiCtxt = {
-			sepNavFolds = "{\n    c =     (\n                {\n            r = \"{607, 511}\";\n            s = 0;\n        },\n                {\n            r = \"{1642, 426}\";\n            s = 0;\n        },\n                {\n            r = \"{2090, 17}\";\n            s = 0;\n        },\n                {\n            r = \"{2153, 18}\";\n            s = 0;\n        },\n                {\n            r = \"{2194, 180}\";\n            s = 0;\n        },\n                {\n            r = \"{2402, 79}\";\n            s = 0;\n        }\n    );\n    r = \"{0, 2549}\";\n    s = 0;\n}";
-			sepNavIntBoundsRect = "{{0, 0}, {729, 1078}}";
-			sepNavSelRange = "{1275, 0}";
-			sepNavVisRange = "{292, 1032}";
+			sepNavFolds = "{\n    c =     (\n                {\n            r = \"{775, 511}\";\n            s = 0;\n        },\n                {\n            r = \"{1810, 426}\";\n            s = 0;\n        },\n                {\n            r = \"{2258, 17}\";\n            s = 0;\n        },\n                {\n            r = \"{2321, 18}\";\n            s = 0;\n        },\n                {\n            r = \"{2362, 180}\";\n            s = 0;\n        },\n                {\n            r = \"{2570, 79}\";\n            s = 0;\n        }\n    );\n    r = \"{0, 2717}\";\n    s = 0;\n}";
+			sepNavIntBoundsRect = "{{0, 0}, {729, 1036}}";
+			sepNavSelRange = "{730, 0}";
+			sepNavVisRange = "{34, 1270}";
 		};
 	};
 	96AA71191006720300206A37 /* XDModelBookmark */ = {
@@ -2216,7 +2403,7 @@
 		fRef = 1D3623250D0F684500981E51 /* FinanceAppDelegate.m */;
 		name = "FinanceAppDelegate.m: 24";
 		rLen = 0;
-		rLoc = 2168;
+		rLoc = 2145;
 		rType = 0;
 		vrLen = 809;
 		vrLoc = 177;
@@ -2421,7 +2608,7 @@
 		rLen = 0;
 		rLoc = 341;
 		rType = 0;
-		vrLen = 2585;
+		vrLen = 2549;
 		vrLoc = 0;
 	};
 	96D8CA59101A2C2300C270D9 /* PBXTextBookmark */ = {
@@ -2538,7 +2725,7 @@
 		fRef = 1D3623250D0F684500981E51 /* FinanceAppDelegate.m */;
 		name = "FinanceAppDelegate.m: 142";
 		rLen = 0;
-		rLoc = 4966;
+		rLoc = 4943;
 		rType = 0;
 		vrLen = 1580;
 		vrLoc = 3577;
@@ -2558,7 +2745,7 @@
 		fRef = 1D3623250D0F684500981E51 /* FinanceAppDelegate.m */;
 		name = "FinanceAppDelegate.m: 33";
 		rLen = 0;
-		rLoc = 1464;
+		rLoc = 1441;
 		rType = 0;
 		vrLen = 1742;
 		vrLoc = 0;
@@ -2568,7 +2755,7 @@
 		fRef = 1D3623250D0F684500981E51 /* FinanceAppDelegate.m */;
 		name = "FinanceAppDelegate.m: 33";
 		rLen = 0;
-		rLoc = 1464;
+		rLoc = 1441;
 		rType = 0;
 		vrLen = 1742;
 		vrLoc = 0;
@@ -2598,7 +2785,7 @@
 		fRef = 1D3623250D0F684500981E51 /* FinanceAppDelegate.m */;
 		name = "FinanceAppDelegate.m: 60";
 		rLen = 0;
-		rLoc = 2363;
+		rLoc = 2340;
 		rType = 0;
 		vrLen = 1734;
 		vrLoc = 781;
@@ -2846,7 +3033,7 @@
 		vrLen = 1114;
 		vrLoc = 147;
 	};
-	96FFFD971017198800A53779 /* ExpenseInputViewController.m:174 */ = {
+	96FFFD971017198800A53779 /* ExpenseInputViewController.m:171 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -2858,12 +3045,12 @@
 		functionName = "-viewDidAppear:";
 		hitCount = 0;
 		ignoreCount = 0;
-		lineNumber = 174;
+		lineNumber = 171;
 		location = Finance;
 		modificationTime = 270199268.641543;
 		state = 1;
 	};
-	96FFFD991017198900A53779 /* ExpenseInputViewController.m:174 */ = {
+	96FFFD991017198900A53779 /* ExpenseInputViewController.m:171 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -2875,12 +3062,12 @@
 		functionName = "-viewDidAppear:";
 		hitCount = 0;
 		ignoreCount = 0;
-		lineNumber = 174;
+		lineNumber = 171;
 		location = Finance;
 		modificationTime = 270199268.669914;
 		state = 1;
 	};
-	96FFFDBA10171AAB00A53779 /* ExpenseInputViewController.m:174 */ = {
+	96FFFDBA10171AAB00A53779 /* ExpenseInputViewController.m:171 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -2892,12 +3079,12 @@
 		functionName = "-viewDidDisappear:";
 		hitCount = 0;
 		ignoreCount = 0;
-		lineNumber = 174;
+		lineNumber = 171;
 		location = Finance;
 		modificationTime = 270199268.691453;
 		state = 1;
 	};
-	96FFFDBC10171AAB00A53779 /* ExpenseInputViewController.m:174 */ = {
+	96FFFDBC10171AAB00A53779 /* ExpenseInputViewController.m:171 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -2909,12 +3096,12 @@
 		functionName = "-viewDidDisappear:";
 		hitCount = 0;
 		ignoreCount = 0;
-		lineNumber = 174;
+		lineNumber = 171;
 		location = Finance;
 		modificationTime = 270199268.716024;
 		state = 1;
 	};
-	96FFFDBE10171AAC00A53779 /* ExpenseInputViewController.m:174 */ = {
+	96FFFDBE10171AAC00A53779 /* ExpenseInputViewController.m:171 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -2926,12 +3113,12 @@
 		functionName = "-viewDidDisappear:";
 		hitCount = 0;
 		ignoreCount = 0;
-		lineNumber = 174;
+		lineNumber = 171;
 		location = Finance;
 		modificationTime = 270199266.996722;
 		state = 2;
 	};
-	96FFFDC010171AAD00A53779 /* ExpenseInputViewController.m:174 */ = {
+	96FFFDC010171AAD00A53779 /* ExpenseInputViewController.m:171 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -2943,7 +3130,7 @@
 		functionName = "-viewDidDisappear:";
 		hitCount = 0;
 		ignoreCount = 0;
-		lineNumber = 174;
+		lineNumber = 171;
 		location = Finance;
 		modificationTime = 270199268.737329;
 		state = 1;
