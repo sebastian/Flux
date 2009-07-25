@@ -10,8 +10,6 @@
 
 
 @interface DetailFooterView : UIView {
-	UILabel * totalAmount;
 }
 
-@property (nonatomic, retain) IBOutlet UILabel * totalAmount;
 @end

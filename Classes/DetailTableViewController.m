@@ -13,11 +13,12 @@
 @implementation DetailTableViewController
 
 @synthesize detailHeaderView, detailContentTableCell, detailFooterView;
+@synthesize yearMonthToDisplay;
 		
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 	
-	NSLog(@"DetailTableViewController view will appear... Reload data");
+	[self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
 	
 	// Load the expenses
 	NSFetchRequest *request = [[NSFetchRequest alloc] init]; 
@@ -25,8 +26,13 @@
 											  inManagedObjectContext:self.managedObjectContext]; 
 	[request setEntity:entity];
 	
+	NSPredicate * monthPredicate = [NSPredicate predicateWithFormat:@"yearMonth = %@", yearMonthToDisplay];
+	
+	[request setPredicate:monthPredicate];
+	
 	NSSortDescriptor *sortByDate = [[NSSortDescriptor alloc]
-									initWithKey:@"kroner" ascending:NO];
+									initWithKey:@"day" ascending:NO];
+	
 	NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortByDate, nil]; 
 	[request setSortDescriptors:sortDescriptors]; 
 	[sortDescriptors release]; 
@@ -36,20 +42,19 @@
 	NSFetchedResultsController * localRC = [[NSFetchedResultsController alloc] 
 											initWithFetchRequest:request 
 											managedObjectContext:self.managedObjectContext 
-											sectionNameKeyPath:nil cacheName:@"transactionCache"]; 
+											sectionNameKeyPath:@"day" cacheName:@"transactionCache"]; 
 	localRC.delegate=self;
 	
 	self.resultsController = localRC;
 	[localRC release];
 	
 	if (![resultsController performFetch:&error]) { 
-		NSLog(@"Error when performing fetch in DetailTableViewCOntroller");
-		NSLog(@"ERROR: %@", [error userInfo]);
+		NSLog(@"Error when performing fetch in OverviewTableViewController");
+		NSLog(@"ERROR: %@", [error localizedDescription]);
 	} 	
-	[request release]; 
+	[request release];
 	
-	[self.tableView reloadData];
-	
+	[self.tableView reloadData];	
 }
 
 #pragma mark Table view methods
@@ -70,22 +75,40 @@
 	}
 		
 	cell.amount.text = [trs toString];
-	cell.what.text = @"Sometime";
+	cell.what.text = trs.transactionDescription;
 		
 	[cell setBackgroundColorForCellNumber:indexPath.row];
 		
     return cell;
 }
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+	return 30;
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Navigation logic may go here. Create and push another view controller.
+	[tableView deselectRowAtIndexPath:indexPath animated:YES];
+	// Navigation logic may go here. Create and push another view controller.
 	// AnotherViewController *anotherViewController = [[AnotherViewController alloc] initWithNibName:@"AnotherView" bundle:nil];
 	// [self.navigationController pushViewController:anotherViewController];
 	// [anotherViewController release];
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+	NSArray * transactions = [[[resultsController sections] objectAtIndex:section] objects];
+	Transaction * aTransaction = (Transaction*) [transactions objectAtIndex:0];
+		
+	// Calculate the amount
+	int iKroner = [(NSNumber*)[transactions valueForKeyPath:@"@sum.kroner"] intValue];
+	int iOre = [(NSNumber*)[transactions valueForKeyPath:@"@sum.ore"] intValue];
+	
+	double amount = iKroner + ((double)iOre/100);
+	NSNumber * numAmount = [NSNumber numberWithDouble:amount];
+	
+	// Get a cell
 	[[NSBundle mainBundle] loadNibNamed:@"DetailHeaderAndFooter" owner:self options:nil]; 
+	
+	detailHeaderView.date.text = [aTransaction.day stringValue];
+	detailHeaderView.amount.text = [aTransaction numberToMoney:numAmount];
 	
 	return detailHeaderView;
 	
@@ -95,10 +118,14 @@
 	
 	return detailFooterView;
 }
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+	return 30;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
 	return 20;
 }
+
+
 
 - (void)dealloc {
 	[detailHeaderView release];

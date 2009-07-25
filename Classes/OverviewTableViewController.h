@@ -12,7 +12,14 @@
 
 @interface OverviewTableViewController : TransactionTableViewController {
 	OverviewTableCell * overviewTableCell;
+
+	// Only during beta
+	Transaction * betaTransaction;
+	NSMutableString * currentString;
+	BOOL storingCharacters;
 }
+
+-(void)addBetaContent;
 
 //Different table cells
 @property (nonatomic, retain) IBOutlet OverviewTableCell * overviewTableCell;

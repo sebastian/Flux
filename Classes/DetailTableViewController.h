@@ -16,7 +16,11 @@
 	DetailHeaderView * detailHeaderView;
 	DetailContentTableCell * detailContentTableCell;
 	DetailFooterView * detailFooterView;
+	NSString * yearMonthToDisplay;
 }
+
+
+@property (nonatomic, assign) NSString * yearMonthToDisplay;
 
 //Different table cells
 @property (nonatomic, retain) IBOutlet DetailHeaderView * detailHeaderView;

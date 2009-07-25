@@ -10,13 +10,16 @@
 #import "Transaction.h"
 
 @interface OverviewTableCell : UITableViewCell {
-	UILabel * when;
+	UILabel * month;
+	UILabel * year;
 	UILabel * amount;
 }
 
-@property (nonatomic, retain) IBOutlet UILabel * when;
+@property (nonatomic, retain) IBOutlet UILabel * month;
 @property (nonatomic, retain) IBOutlet UILabel * amount;
+@property (nonatomic, retain) IBOutlet UILabel * year;
 
 -(void)setValuesWithTransaction:(Transaction *)transaction;
+-(void)updateCellWithDate:(NSDate*)date andAmount:(NSString*)amountString;
 
 @end

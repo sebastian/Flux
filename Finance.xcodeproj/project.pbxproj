@@ -24,6 +24,7 @@
 		966D70E81008B23100D781B8 /* KeyboardButtonOKClicked.png in Resources */ = {isa = PBXBuildFile; fileRef = 966D70E61008B23100D781B8 /* KeyboardButtonOKClicked.png */; };
 		966D70E91008B23100D781B8 /* KeyboardButtonOKUnclicked.png in Resources */ = {isa = PBXBuildFile; fileRef = 966D70E71008B23100D781B8 /* KeyboardButtonOKUnclicked.png */; };
 		966D71091008B5E600D781B8 /* DeleteButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 966D71081008B5E600D781B8 /* DeleteButton.png */; };
+		969776A8101B662300F0DC3D /* DetailCellHeader.png in Resources */ = {isa = PBXBuildFile; fileRef = 969776A7101B662300F0DC3D /* DetailCellHeader.png */; };
 		96AA703B10061D0900206A37 /* KeyboardButtonBackgroundClicked.png in Resources */ = {isa = PBXBuildFile; fileRef = 96AA703910061D0900206A37 /* KeyboardButtonBackgroundClicked.png */; };
 		96AA703C10061D0900206A37 /* KeyboardButtonBackgroundUnclicked.png in Resources */ = {isa = PBXBuildFile; fileRef = 96AA703A10061D0900206A37 /* KeyboardButtonBackgroundUnclicked.png */; };
 		96AA70521006241A00206A37 /* KeyboardBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 96AA70511006241A00206A37 /* KeyboardBackground.png */; };
@@ -33,6 +34,8 @@
 		96AA7090100656E600206A37 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96AA708F100656E600206A37 /* CoreData.framework */; };
 		96AA70EE10065AB200206A37 /* Finance.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 96AA70ED10065AB200206A37 /* Finance.xcdatamodel */; };
 		96AA710C1006616700206A37 /* Transaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 96AA710B1006616700206A37 /* Transaction.m */; };
+		96B1A63A101B6DF500DB6787 /* DetailCellFooter.png in Resources */ = {isa = PBXBuildFile; fileRef = 96B1A639101B6DF500DB6787 /* DetailCellFooter.png */; };
+		96B1A655101B71B900DB6787 /* sampleTransactions.xml in Resources */ = {isa = PBXBuildFile; fileRef = 96B1A654101B71B900DB6787 /* sampleTransactions.xml */; };
 		96BD3E6C101744DB00926A83 /* CurrencyKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 96BD3E6A101744DB00926A83 /* CurrencyKeyboard.m */; };
 		96BD3E6D101744DB00926A83 /* CurrencyKeyboard.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96BD3E6B101744DB00926A83 /* CurrencyKeyboard.xib */; };
 		96D937291014922F0062E7A4 /* OKOverlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 96D937281014922F0062E7A4 /* OKOverlay.png */; };
@@ -74,6 +77,7 @@
 		966D70E61008B23100D781B8 /* KeyboardButtonOKClicked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = KeyboardButtonOKClicked.png; path = Graphics/KeyboardButtonOKClicked.png; sourceTree = "<group>"; };
 		966D70E71008B23100D781B8 /* KeyboardButtonOKUnclicked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = KeyboardButtonOKUnclicked.png; path = Graphics/KeyboardButtonOKUnclicked.png; sourceTree = "<group>"; };
 		966D71081008B5E600D781B8 /* DeleteButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = DeleteButton.png; path = Graphics/DeleteButton.png; sourceTree = "<group>"; };
+		969776A7101B662300F0DC3D /* DetailCellHeader.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = DetailCellHeader.png; path = Graphics/DetailCellHeader.png; sourceTree = "<group>"; };
 		96AA703910061D0900206A37 /* KeyboardButtonBackgroundClicked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = KeyboardButtonBackgroundClicked.png; path = Graphics/KeyboardButtonBackgroundClicked.png; sourceTree = "<group>"; };
 		96AA703A10061D0900206A37 /* KeyboardButtonBackgroundUnclicked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = KeyboardButtonBackgroundUnclicked.png; path = Graphics/KeyboardButtonBackgroundUnclicked.png; sourceTree = "<group>"; };
 		96AA70511006241A00206A37 /* KeyboardBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = KeyboardBackground.png; path = Graphics/KeyboardBackground.png; sourceTree = "<group>"; };
@@ -84,6 +88,8 @@
 		96AA70ED10065AB200206A37 /* Finance.xcdatamodel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.xcdatamodel; path = Finance.xcdatamodel; sourceTree = "<group>"; };
 		96AA710A1006616700206A37 /* Transaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Transaction.h; path = ../Transaction.h; sourceTree = "<group>"; };
 		96AA710B1006616700206A37 /* Transaction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Transaction.m; path = ../Transaction.m; sourceTree = "<group>"; };
+		96B1A639101B6DF500DB6787 /* DetailCellFooter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = DetailCellFooter.png; path = Graphics/DetailCellFooter.png; sourceTree = "<group>"; };
+		96B1A654101B71B900DB6787 /* sampleTransactions.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = sampleTransactions.xml; sourceTree = "<group>"; };
 		96BD3E69101744DB00926A83 /* CurrencyKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrencyKeyboard.h; sourceTree = "<group>"; };
 		96BD3E6A101744DB00926A83 /* CurrencyKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrencyKeyboard.m; sourceTree = "<group>"; };
 		96BD3E6B101744DB00926A83 /* CurrencyKeyboard.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CurrencyKeyboard.xib; sourceTree = "<group>"; };
@@ -174,6 +180,7 @@
 				96885BB51004ED9E003090D8 /* NIBs */,
 				8D1107310486CEB800E47090 /* Finance-Info.plist */,
 				96AA70ED10065AB200206A37 /* Finance.xcdatamodel */,
+				96B1A654101B71B900DB6787 /* sampleTransactions.xml */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -214,6 +221,8 @@
 		96AA703710061CF600206A37 /* Graphics */ = {
 			isa = PBXGroup;
 			children = (
+				96B1A639101B6DF500DB6787 /* DetailCellFooter.png */,
+				969776A7101B662300F0DC3D /* DetailCellHeader.png */,
 				96D937281014922F0062E7A4 /* OKOverlay.png */,
 				966D71081008B5E600D781B8 /* DeleteButton.png */,
 				966D70E61008B23100D781B8 /* KeyboardButtonOKClicked.png */,
@@ -331,6 +340,9 @@
 				96FFFA941015EDF500A53779 /* DetailTableCell.xib in Resources */,
 				96FFFAE01015F8E200A53779 /* DetailHeaderAndFooter.xib in Resources */,
 				96BD3E6D101744DB00926A83 /* CurrencyKeyboard.xib in Resources */,
+				969776A8101B662300F0DC3D /* DetailCellHeader.png in Resources */,
+				96B1A63A101B6DF500DB6787 /* DetailCellFooter.png in Resources */,
+				96B1A655101B71B900DB6787 /* sampleTransactions.xml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

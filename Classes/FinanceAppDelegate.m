@@ -19,7 +19,7 @@
 #pragma mark Application life cycle
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
-	
+		
 	NSManagedObjectContext *context = [self managedObjectContext]; 
     if (!context) { 
         NSLog(@"Couldn't get a managedObjectContext number 1");

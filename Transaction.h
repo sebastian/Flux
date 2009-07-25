@@ -16,7 +16,7 @@
 	NSNumberFormatter * formatter;
 }
 
-@property (nonatomic, retain) NSString * description;
+@property (nonatomic, retain) NSString * transactionDescription;
 @property (nonatomic, retain) NSString * tags;
 
 // Amount
@@ -34,6 +34,8 @@
 
 // When was it recorded?
 @property (nonatomic, retain) NSDate * date;
+@property (nonatomic, retain) NSString * yearMonth;
+@property (nonatomic, retain) NSNumber * day;
 
 // General non savable parameters
 @property (nonatomic, retain) NSNumberFormatter * formatter;
@@ -48,8 +50,6 @@
 -(bool)hasDecimals;
 -(bool)canBeAddedTo;
 -(bool)needsDeleteButton;
+
+-(NSString*)numberToMoney:(NSNumber*)number;
 @end
-
-
-
-

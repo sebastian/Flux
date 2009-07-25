@@ -12,13 +12,11 @@
 @interface TransactionTableViewController : UITableViewController  <UITableViewDelegate, UITableViewDataSource, NSFetchedResultsControllerDelegate> {
 	NSFetchedResultsController * resultsController;
 	NSManagedObjectContext *managedObjectContext;
-	UISegmentedControl * modeCtrl;
 }
 
 - (id)initWithStyle:(UITableViewStyle)style andContext:(NSManagedObjectContext*)context;
 
 @property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, retain) NSFetchedResultsController * resultsController;
-@property (nonatomic, retain) UISegmentedControl * modeCtrl;
 
 @end

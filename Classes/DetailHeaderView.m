@@ -11,7 +11,7 @@
 
 @implementation DetailHeaderView
 
-@synthesize date;
+@synthesize date, amount;
 
 - (void)drawRect:(CGRect)rect {
 	CGContextRef context = UIGraphicsGetCurrentContext();
@@ -25,6 +25,7 @@
 }
 
 - (void)dealloc {
+	[amount release];
 	[date release];
     [super dealloc];
 }

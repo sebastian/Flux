@@ -16,44 +16,61 @@
 @dynamic kroner;
 @dynamic currency;
 @dynamic lng;
+@dynamic yearMonth;
+@dynamic day;
 @dynamic date;
 @dynamic ore;
-@dynamic description;
+@dynamic transactionDescription;
 @dynamic tags;
 
 @synthesize formatter;
 
 // This method isn't called anyway, so it is a joke...
 
-- (id)initWithEntity:(NSEntityDescription *)entity insertIntoManagedObjectContext:(NSManagedObjectContext *)context {
-	self = [super initWithEntity:entity insertIntoManagedObjectContext:context];
-	if (self) {
-		has_ore = NO;
-		numOfOre = 0;
-		
-		// Set date to the current date
-		self.date = [NSDate date];
+- (void)awakeFromInsert {
+	NSLog(@"First time setup of Transaction object");
+	has_ore = NO;
+	numOfOre = 0;
+	
+	// Set date to the current date
+	self.date = [NSDate date];
+	
+	// Set the month and year for easier searching and displaying and most importantly grouping!
+	NSCalendar * currentCalendar = [NSCalendar currentCalendar];
+	NSDateComponents * components = [currentCalendar components:(NSMonthCalendarUnit | NSDayCalendarUnit | NSYearCalendarUnit) fromDate:self.date];
+
+	NSString * yearMonthValue;
+	if (components.month < 10) {
+		yearMonthValue = [NSString stringWithFormat:@"%4i0%i", components.year, components.month];
+	} else {
+		yearMonthValue = [NSString stringWithFormat:@"%4i%i", components.year, components.month];
 	}
-	return self;
+	
+	self.day = [NSNumber numberWithInt:components.day];
+	self.yearMonth = yearMonthValue;
+	// FIXME: Memory leak? Why can't I release this without it breaking?
+	//[yearMonthValue release];
 	
 }
 
 -(NSString*)toString {
 	// TODO: Probably not optimal...
 	NSNumber * number = [NSNumber numberWithDouble:[self.kroner doubleValue] + [self.ore doubleValue]/100];
-	
-	if (self.formatter == nil) {
+	return [self numberToMoney:number];
+}
+-(NSString*)numberToMoney:(NSNumber*)number {
+	if (formatter == nil) {
 		self.formatter = [[NSNumberFormatter alloc] init];
 	}
-	
+
 	// TODO: Set it to something smart based on where the user is 
 	// and also based on what the user chooses manually...
-	[self.formatter setCurrencyCode:@"EUR"];
+	[formatter setCurrencyCode:@"EUR"];
 	
-	[self.formatter setNumberStyle:NSNumberFormatterCurrencyStyle];
-	return [self.formatter stringFromNumber:number];
-	
+	[formatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+	return [formatter stringFromNumber:number];
 }
+
 -(void)addNumber:(NSInteger)num {
 
 	if (has_ore == NO) {

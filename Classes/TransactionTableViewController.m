@@ -35,6 +35,8 @@
     if (count == 0) {
         count = 1;
     }
+	
+	NSLog(@"There are %i sections", count);
     return count;
 	
 }
