@@ -45,6 +45,8 @@
 -(void)addNumber:(NSInteger)num;
 -(void)eraseOneNum;
 -(void)addDecimal;
+-(NSString*)formattedDate;
+
 
 // Methods for display
 -(bool)hasDecimals;

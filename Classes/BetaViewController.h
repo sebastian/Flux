@@ -40,5 +40,5 @@
 -(IBAction)addData:(id)sender;
 -(IBAction)clearData:(id)sender;
 +(void)increaseProgressBar:(BetaViewController*)view;
-
+-(void)sendDataUpdatedNotification;
 @end

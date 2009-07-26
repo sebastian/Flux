@@ -9,58 +9,55 @@
 #import <CoreData/CoreData.h>
 #import "DetailTableViewController.h"
 #import "Transaction.h"
+#import "TransactionDisplay.h"
 
 @implementation DetailTableViewController
 
 @synthesize detailHeaderView, detailContentTableCell, detailFooterView;
 @synthesize yearMonthToDisplay;
-		
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-	
-	[self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-	
-	// Load the expenses
-	NSFetchRequest *request = [[NSFetchRequest alloc] init]; 
-	NSEntityDescription *entity = [NSEntityDescription entityForName:@"Transaction" 
-											  inManagedObjectContext:self.managedObjectContext]; 
-	[request setEntity:entity];
+
+-(void)updateData {
+	NSLog(@"From child: Updating data in %@", self);
 	
 	NSPredicate * monthPredicate = [NSPredicate predicateWithFormat:@"yearMonth = %@", yearMonthToDisplay];
-	
-	[request setPredicate:monthPredicate];
-	
 	NSSortDescriptor *sortByDate = [[NSSortDescriptor alloc]
 									initWithKey:@"day" ascending:NO];
 	
 	NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortByDate, nil]; 
-	[request setSortDescriptors:sortDescriptors]; 
+	
+	[self loadDataWithSortDescriptors:sortDescriptors predicates:monthPredicate sectionNameKeyPath:@"day" cacheName:@"detailTransactionCache"];
+	
 	[sortDescriptors release]; 
-	[sortByDate release]; 
-	
-	NSError *error; 
-	NSFetchedResultsController * localRC = [[NSFetchedResultsController alloc] 
-											initWithFetchRequest:request 
-											managedObjectContext:self.managedObjectContext 
-											sectionNameKeyPath:@"day" cacheName:@"detailTransactionCache"]; 
-	localRC.delegate=self;
-	
-	self.resultsController = localRC;
-	[localRC release];
-	
-	if (![resultsController performFetch:&error]) { 
-		NSLog(@"Error when performing fetch in OverviewTableViewController");
-		NSLog(@"ERROR: %@", [error localizedDescription]);
-	} 	
-	[request release];
-	
-	[self.tableView reloadData];	
+	[sortByDate release];
+	[monthPredicate release];
 }
 
 #pragma mark Table view methods
 
 -(void)viewDidLoad {
-	self.title = NSLocalizedString(@"Detail view", @"Detail table transaction view");
+	///////////////////////////////////////////
+	// Get the calendar values
+	NSLocale * userLocale = [NSLocale currentLocale];
+	NSDateFormatter * dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+	[dateFormatter setLocale:userLocale];
+
+	// Month range
+	NSRange range;
+	range.length = 2;
+	range.location = 4;
+	
+	NSInteger monthNum = [[yearMonthToDisplay substringWithRange:range] intValue] - 1;
+	
+	NSString * monthName = [[dateFormatter monthSymbols] objectAtIndex:monthNum];
+	
+	NSString * year = [yearMonthToDisplay substringToIndex:4];
+	
+	self.title = [NSString stringWithFormat:@"%@ %@", [monthName capitalizedString], year];
+	
+	[self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+	
+	[self updateData];
+	
 }
 
 // To get the section shower on the side
@@ -69,8 +66,6 @@
 	NSInteger sectionCount = sections.count;
 	
 	NSMutableArray * titles = [[[NSMutableArray alloc] initWithCapacity:sectionCount] autorelease];
-	
-	NSLog(@"Returning an array of section names");
 	
 	for (NSInteger n = 0; n < sectionCount; n++) {
 		NSArray * objectsInSection = [[sections objectAtIndex:n] objects];
@@ -93,7 +88,6 @@
 	if (cell == nil) {
 		[[NSBundle mainBundle] loadNibNamed:@"DetailTableCell" owner:self options:nil]; 
 		cell = self.detailContentTableCell;
-		NSLog(@"Creating a new detail cell...");
 	}
 		
 	cell.amount.text = [trs toString];
@@ -105,14 +99,6 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 	return 30;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	[tableView deselectRowAtIndexPath:indexPath animated:YES];
-	// Navigation logic may go here. Create and push another view controller.
-	// AnotherViewController *anotherViewController = [[AnotherViewController alloc] initWithNibName:@"AnotherView" bundle:nil];
-	// [self.navigationController pushViewController:anotherViewController];
-	// [anotherViewController release];
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
@@ -129,6 +115,8 @@
 	// Get a cell
 	[[NSBundle mainBundle] loadNibNamed:@"DetailHeaderAndFooter" owner:self options:nil]; 
 	
+	// TODO: Localize the date format display
+	detailHeaderView.monthYear.text = self.title;
 	detailHeaderView.date.text = [aTransaction.day stringValue];
 	detailHeaderView.amount.text = [aTransaction numberToMoney:numAmount];
 	
@@ -147,6 +135,23 @@
 	return 20;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	[tableView deselectRowAtIndexPath:indexPath animated:YES];
+	
+	TransactionDisplay * infoDisplay =
+		[[TransactionDisplay alloc] initWithNibName:@"TransactionDisplay" 
+											 bundle:[NSBundle mainBundle]];
+	
+	Transaction * theTransaction = (Transaction*)[resultsController objectAtIndexPath:indexPath];
+	
+	infoDisplay.currentTransaction = theTransaction;
+	
+	[self.navigationController pushViewController:infoDisplay animated:YES];
+	
+	// I thinkg the navigation controller retains it, so I can release it here
+	[infoDisplay release];
+	
+}
 
 
 - (void)dealloc {

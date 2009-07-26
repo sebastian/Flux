@@ -167,6 +167,10 @@
 		afterDelay:1.0];
 		
 	[self updateExpenseDisplay];
+	
+	// Notify the table views that the data has changed
+	[[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"transactionsUpdated" object:nil]];
+
 }
 
 #pragma mark

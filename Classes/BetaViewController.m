@@ -33,37 +33,62 @@
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
-		NSLog(@"Parsing and adding transactions");
+	NSLog(@"Parsing and adding transactions");
+				
+	NSURL * dataLocation = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"sampleTransactions" ofType:@"xml"]];
+	NSXMLParser * parser = [[NSXMLParser alloc] initWithContentsOfURL:dataLocation]; 
 		
-		numberOfTransactionsAdded = 0;
-		
-		progressBar.hidden = NO;
-		progressBar.progress = 0.0;
-		
-		addDataButton.enabled = NO;
-		clearDataButton.enabled = NO;
-		
-		NSURL * dataLocation = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"sampleTransactions" ofType:@"xml"]];
-		NSXMLParser * parser = [[NSXMLParser alloc] initWithContentsOfURL:dataLocation]; 
-		
-		currentString = [[NSMutableString alloc] init];
+	currentString = [[NSMutableString alloc] init];
 
-		[parser setDelegate:self];
+	[parser setDelegate:self];
 
-		[parser setShouldProcessNamespaces:NO];
-		[parser setShouldReportNamespacePrefixes:NO];
-	    [parser setShouldResolveExternalEntities:NO];
+	[parser setShouldProcessNamespaces:NO];
+	[parser setShouldReportNamespacePrefixes:NO];
+	[parser setShouldResolveExternalEntities:NO];
 	
-		[parser parse];
+	[parser parse];
+	
+	progressBar.hidden = YES;
 }
 - (void)actionSheetCancel:(UIActionSheet *)actionSheet {
 	NSLog(@"Actionsheet cancelled");
 }
 
 -(IBAction)clearData:(id)sender {
+	NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Transaction" inManagedObjectContext:managedObjectContext];
+    [fetchRequest setEntity:entity];
 	
+    NSError *error;
+    NSArray *items = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    [fetchRequest release];
+
+	numberOfTransactionsAdded = 0;
+	int numTotal = [items count];
+	int stepSize = numTotal / 100;
+	
+	stepSize = stepSize == 0 ? 1 : stepSize;
+	
+    for (NSManagedObject *managedObject in items) {
+		numberOfTransactionsAdded += 1;
+        [managedObjectContext deleteObject:managedObject];
+		if ((numberOfTransactionsAdded % stepSize) == 0) {
+			[NSThread detachNewThreadSelector:@selector(increaseProgressBar:) toTarget:[BetaViewController class] withObject:self];
+		}
+    }
+    if (![managedObjectContext save:&error]) {
+        NSLog(@"Error deleting Transaction - error:%@",error);
+    }
+	
+	progressBar.hidden = YES;
+	[self sendDataUpdatedNotification];
 }
 
+-(void)sendDataUpdatedNotification {
+	// Notify the table views that the data has changed
+	[[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"transactionsUpdated" object:nil]];
+	
+}
 
 #pragma mark
 #pragma mark -
@@ -71,6 +96,7 @@
 
 +(void)increaseProgressBar:(BetaViewController*)view {
 	if (view.progressBar.hidden == YES) {
+		view.progressBar.progress = 0.0;
 		view.progressBar.hidden = NO;
 		view.addDataButton.enabled = NO;
 		view.clearDataButton.enabled = NO;
@@ -97,6 +123,7 @@
 		addDataButton.enabled = YES;
 		clearDataButton.enabled = YES;
 		[[[UIApplication sharedApplication] delegate] saveAction:self];
+		[self sendDataUpdatedNotification];
 		
 	} else if ([elementName isEqualToString:@"transaction"]) {
 		numberOfTransactionsAdded += 1;
@@ -143,14 +170,6 @@
 	NSLog(@"Error when parsing: %@", parseError);
 }
 
-
-
-- (void)didReceiveMemoryWarning {
-	// Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-	
-	// Release any cached data, images, etc that aren't in use.
-}
 
 - (void)dealloc {
 	[addDataButton release];

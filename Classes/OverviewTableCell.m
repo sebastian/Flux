@@ -73,7 +73,7 @@
 	year.text = [NSString stringWithFormat:@"%i", components.year];
 	month.text = monthName;
 	amount.text = amountString;
-	
+
 }
 
 -(void)setValuesWithTransaction:(Transaction*)transaction {

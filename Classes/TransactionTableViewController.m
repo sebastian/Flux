@@ -8,24 +8,70 @@
 
 #import "TransactionTableViewController.h"
 
+@interface TransactionTableViewController (Private)
+-(void)doReloadData:(id)param;
+@end
+
 
 @implementation TransactionTableViewController
 
 @synthesize resultsController;
 @synthesize managedObjectContext;
 
+// Method needed by children
+-(void)loadDataWithSortDescriptors:(NSArray*)sortDescriptors predicates:(NSPredicate*)predicate sectionNameKeyPath:(NSString*)sectionGroupingName cacheName:(NSString*)cacheName {
+	
+	// Load the expenses
+	NSFetchRequest *request = [[NSFetchRequest alloc] init]; 
+	NSEntityDescription *entity = [NSEntityDescription entityForName:@"Transaction" 
+											  inManagedObjectContext:self.managedObjectContext]; 
+	[request setEntity:entity];
+	
+	[request setSortDescriptors:sortDescriptors]; 
+	[request setPredicate:predicate];
+	
+	NSError *error; 
+	NSFetchedResultsController * localRC = [[NSFetchedResultsController alloc] 
+											initWithFetchRequest:request 
+											managedObjectContext:self.managedObjectContext 
+											sectionNameKeyPath:sectionGroupingName cacheName:cacheName]; 
+	localRC.delegate=self;
+	
+	self.resultsController = localRC;
+	[localRC release];
+	
+	if (![resultsController performFetch:&error]) { 
+		NSLog(@"Error when performing fetch in OverviewTableViewController");
+		NSLog(@"ERROR: %@", error);
+	} 	
+	// WHY?
+	//[request release];
+	
+	[self.tableView reloadData];
+}	
+
 - (id)initWithStyle:(UITableViewStyle)style andContext:(NSManagedObjectContext*)context {
 	
 	self = [super initWithStyle:style];
 	if (self != nil) {
 		self.managedObjectContext = context;
+		
+		[[NSNotificationCenter defaultCenter]
+		 addObserver:self
+		 selector:@selector(doReloadData:)
+		 name:@"transactionsUpdated"
+		 object:nil];
+		
 	}
 	return self;
 }
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
+-(void)doReloadData:(id)param {
+	NSLog(@"From parent: Updating data in %@", self);	
+	[self updateData];
 }
+// To be implemented by kids
+-(void)updateData {}
+
 
 #pragma mark Table view methods
 
@@ -35,8 +81,6 @@
     if (count == 0) {
         count = 1;
     }
-	
-	NSLog(@"There are %i sections", count);
     return count;
 	
 }
@@ -54,94 +98,16 @@
 // To be implemented by kids
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {return nil;}
 
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:YES];
-    }   
-}
-
-
-
 - (void)dealloc {
+	NSLog(@"Deallocing %@", self);
+	
+	// Remove as observer
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	
 	[managedObjectContext release];
 	[resultsController release];	
 	
 	[super dealloc];
-	
 }
 
-
-#pragma mark
-#pragma mark -
-#pragma mark NSFetchedResultsControllerDelegate methods
-
-///*
-// Assume self has a property 'tableView', as is the case for an instance of a UITableViewController
-// subclass, and a method configureCell:atIndexPath: which updates the contents of a given cell
-// with information from a managed object at the given index path in the fetched results controller.
-// */
-//
-//- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
-//    [self.tableView beginUpdates];
-//}
-//
-//
-//- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo
-//		   atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
-//	
-//    switch(type) {
-//        case NSFetchedResultsChangeInsert:
-//            [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex]
-//			 withRowAnimation:UITableViewRowAnimationFade];
-//            break;
-//			
-//        case NSFetchedResultsChangeDelete:
-//            [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex]
-//			 withRowAnimation:UITableViewRowAnimationFade];
-//            break;
-//    }
-//}
-//
-//
-//- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject
-//	   atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type
-//	  newIndexPath:(NSIndexPath *)newIndexPath {
-//	
-//    UITableView *tableView = self.tableView;
-//	
-//    switch(type) {
-//			
-//        case NSFetchedResultsChangeInsert:
-//            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
-//							 withRowAnimation:UITableViewRowAnimationFade];
-//            break;
-//			
-//        case NSFetchedResultsChangeDelete:
-//            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
-//							 withRowAnimation:UITableViewRowAnimationFade];
-//            break;
-//			
-//			//        case NSFetchedResultsChangeUpdate:
-//			//            [self configureCell:[tableView cellForRowAtIndexPath:indexPath]
-//			//					atIndexPath:indexPath];
-//			//            break;
-//			
-//        case NSFetchedResultsChangeMove:
-//            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
-//							 withRowAnimation:UITableViewRowAnimationFade];
-//            [tableView reloadSections:[NSIndexSet indexSetWithIndex:newIndexPath.section]
-//					 withRowAnimation:UITableViewRowAnimationFade];
-//            break;
-//    }
-//}
-//
-//
-//- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-//    [self.tableView endUpdates];
-//}
-
 @end
-

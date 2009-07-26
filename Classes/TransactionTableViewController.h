@@ -14,7 +14,10 @@
 	NSManagedObjectContext *managedObjectContext;
 }
 
-- (id)initWithStyle:(UITableViewStyle)style andContext:(NSManagedObjectContext*)context;
+-(void)loadDataWithSortDescriptors:(NSArray*)sortDescriptors predicates:(NSPredicate*)predicate sectionNameKeyPath:(NSString*)sectionGroupingName cacheName:(NSString*)cacheName;
+
+-(id)initWithStyle:(UITableViewStyle)style andContext:(NSManagedObjectContext*)context;
+-(void)updateData;
 
 @property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, retain) NSFetchedResultsController * resultsController;

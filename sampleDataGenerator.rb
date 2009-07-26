@@ -1,4 +1,4 @@
-HOW_MANY = 1000
+HOW_MANY = 3000
 
 tags = %w{snacks food tea flight vacation book movie music apps misc cinema dinner rent coffee}
 descriptions = ["Some sample description", "This is something I regret",
@@ -34,7 +34,7 @@ HOW_MANY.times do
   
   chosen_tags = ""
   (rand*4 + 1).floor.times do 
-    chosen_tags += "#{choose_one_of_the(tags)} " unless chosen_tags
+    chosen_tags += "#{choose_one_of_the(tags)} "
   end
   chosen_tags.strip!
   

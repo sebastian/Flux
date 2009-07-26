@@ -15,53 +15,22 @@
 
 @synthesize overviewTableCell;
 
-- (id)initWithStyle:(UITableViewStyle)style andContext:(NSManagedObjectContext*)context {
-	self = [super initWithStyle:style andContext:context];
-	if (self != nil) {
-	}
-	return self;
+-(void)updateData {	
+	NSSortDescriptor * sortByYearMonth = [[NSSortDescriptor alloc]
+										  initWithKey:@"yearMonth" ascending:NO];
+	
+	NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortByYearMonth, nil]; 
+	
+	[self loadDataWithSortDescriptors:sortDescriptors predicates:nil sectionNameKeyPath:@"yearMonth" cacheName:@"overviewTransactionCache"];
+	
+	[sortDescriptors release]; 
+	[sortByYearMonth release];
 }
+
 
 -(void)viewDidLoad {
 	self.title = NSLocalizedString(@"Overview", @"Overview table transaction view");
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-		
-	// Load the expenses
-	NSFetchRequest *request = [[NSFetchRequest alloc] init]; 
-	NSEntityDescription *entity = [NSEntityDescription entityForName:@"Transaction" 
-											  inManagedObjectContext:self.managedObjectContext]; 
-	[request setEntity:entity];
-	
-	NSSortDescriptor * sortByYearMonth = [[NSSortDescriptor alloc]
-									initWithKey:@"yearMonth" ascending:NO];
-	
-	NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortByYearMonth, nil]; 
-	[request setSortDescriptors:sortDescriptors]; 
-	[sortDescriptors release]; 
-	[sortByYearMonth release]; 
-	
-	NSError *error; 
-	NSFetchedResultsController * localRC = [[NSFetchedResultsController alloc] 
-											initWithFetchRequest:request 
-											managedObjectContext:self.managedObjectContext 
-											sectionNameKeyPath:@"yearMonth" cacheName:@"overviewTransactionCache"]; 
-	localRC.delegate=self;
-	
-	self.resultsController = localRC;
-	[localRC release];
-	
-	if (![resultsController performFetch:&error]) { 
-		NSLog(@"Error when performing fetch in OverviewTableViewController");
-		NSLog(@"ERROR: %@", [error localizedDescription]);
-		NSLog(@"ERROR: %@", error);
-	} 	
-	[request release];
-	
-	[self.tableView reloadData];
-
+	[self updateData];
 }
 
 #pragma mark Table view methods
@@ -98,8 +67,27 @@
 	Transaction * aTransaction = (Transaction*)[transactionsInSection objectAtIndex:0];
 	
 	// Sum the amount
-	int iKroner = [(NSNumber*)[transactionsInSection valueForKeyPath:@"@sum.kroner"] intValue];
-	int iOre = [(NSNumber*)[transactionsInSection valueForKeyPath:@"@sum.ore"] intValue];
+	int iKroner;
+	@try {
+		iKroner = [(NSNumber*)[transactionsInSection valueForKeyPath:@"@sum.kroner"] intValue];
+	}
+	@catch (NSException * e) {
+		NSLog(@"Error when summing kroner for row %i", indexPath.row);
+		NSLog(@"ERROR: %@", e);
+		NSLog(@"transactions: %@", transactionsInSection);
+		iKroner = 0;
+	}
+	
+	int iOre;
+	@try {
+		iOre = [(NSNumber*)[transactionsInSection valueForKeyPath:@"@sum.ore"] intValue];
+	}
+	@catch (NSException * e) {
+		NSLog(@"Error when summing ore for row %i", indexPath.row);
+		NSLog(@"ERROR: %@", e);
+		NSLog(@"transactions: %@", transactionsInSection);
+		iOre = 0;
+	}
 
 	double amount = iKroner + ((double)iOre/100);
 	
@@ -116,11 +104,17 @@
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 	
     DetailTableViewController * detailController = 
-	[[[DetailTableViewController alloc] initWithStyle:UITableViewStylePlain 
-										   andContext:self.managedObjectContext] autorelease];
+		[[DetailTableViewController alloc] initWithStyle:UITableViewStylePlain 
+											  andContext:managedObjectContext];
 
-	
-	// Must be able to cache this somehow... Dictionary? To save this extra traversal...
+	/*
+	 TODO:
+	 Goal:		I have to pass inn the yearMonth value to display
+	 How:		Right now I am looking at one of the objects in the current
+				section and subtrackting the value from it. Not very elegant...
+				A lot of unneeded object traversal
+	 Improve:	Could be improved by building up a dictionary with section -> yearMonth values
+	 */
 	NSArray * sections = [resultsController sections];
 	id <NSFetchedResultsSectionInfo> currenctSection = [sections objectAtIndex:indexPath.row];
 	NSArray * transactionsInSection = [currenctSection objects];	
@@ -129,7 +123,7 @@
 	detailController.yearMonthToDisplay = aTransaction.yearMonth;
 	
 	[self.navigationController pushViewController:detailController animated:YES];
-	
+	[detailController release];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {

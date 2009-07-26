@@ -46,9 +46,15 @@
 	}
 	
 	self.day = [NSNumber numberWithInt:components.day];
-	self.yearMonth = yearMonthValue;
-	// FIXME: Memory leak? Why can't I release this without it breaking?
-	//[yearMonthValue release];
+	self.yearMonth = yearMonthValue;	
+}
+
+-(NSString*)formattedDate {
+	NSDateFormatter * dateFormatter = [[NSDateFormatter alloc] init];
+	[dateFormatter setFormatterBehavior:[NSDateFormatter defaultFormatterBehavior]];
+	[dateFormatter setLocale:[NSLocale currentLocale]];
+	[dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+	return [dateFormatter stringFromDate:self.date];
 	
 }
 
