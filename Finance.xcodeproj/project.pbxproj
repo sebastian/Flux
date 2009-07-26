@@ -19,6 +19,8 @@
 		963B029A1019E10900CD5184 /* TransactionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 963B02991019E10900CD5184 /* TransactionsViewController.m */; };
 		963B02BD1019E8D600CD5184 /* DetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 963B02BC1019E8D600CD5184 /* DetailTableViewController.m */; };
 		963B03C81019EF8E00CD5184 /* TransactionTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 963B03C71019EF8E00CD5184 /* TransactionTableViewController.m */; };
+		96419A64101C4E2E0066D6D8 /* BetaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96419A62101C4E2E0066D6D8 /* BetaViewController.m */; };
+		96419A65101C4E2E0066D6D8 /* BetaViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96419A63101C4E2E0066D6D8 /* BetaViewController.xib */; };
 		9653EA691010F26700B714BB /* AddExpense.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9653EA681010F26700B714BB /* AddExpense.xib */; };
 		9653EBE6101104FB00B714BB /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9653EBE5101104FB00B714BB /* MainWindow.xib */; };
 		966D70E81008B23100D781B8 /* KeyboardButtonOKClicked.png in Resources */ = {isa = PBXBuildFile; fileRef = 966D70E61008B23100D781B8 /* KeyboardButtonOKClicked.png */; };
@@ -72,6 +74,9 @@
 		963B02BC1019E8D600CD5184 /* DetailTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailTableViewController.m; sourceTree = "<group>"; };
 		963B03C61019EF8E00CD5184 /* TransactionTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionTableViewController.h; sourceTree = "<group>"; };
 		963B03C71019EF8E00CD5184 /* TransactionTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionTableViewController.m; sourceTree = "<group>"; };
+		96419A61101C4E2E0066D6D8 /* BetaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BetaViewController.h; sourceTree = "<group>"; };
+		96419A62101C4E2E0066D6D8 /* BetaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BetaViewController.m; sourceTree = "<group>"; };
+		96419A63101C4E2E0066D6D8 /* BetaViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BetaViewController.xib; sourceTree = "<group>"; };
 		9653EA681010F26700B714BB /* AddExpense.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddExpense.xib; sourceTree = "<group>"; };
 		9653EBE5101104FB00B714BB /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		966D70E61008B23100D781B8 /* KeyboardButtonOKClicked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = KeyboardButtonOKClicked.png; path = Graphics/KeyboardButtonOKClicked.png; sourceTree = "<group>"; };
@@ -89,7 +94,7 @@
 		96AA710A1006616700206A37 /* Transaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Transaction.h; path = ../Transaction.h; sourceTree = "<group>"; };
 		96AA710B1006616700206A37 /* Transaction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Transaction.m; path = ../Transaction.m; sourceTree = "<group>"; };
 		96B1A639101B6DF500DB6787 /* DetailCellFooter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = DetailCellFooter.png; path = Graphics/DetailCellFooter.png; sourceTree = "<group>"; };
-		96B1A654101B71B900DB6787 /* sampleTransactions.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = sampleTransactions.xml; sourceTree = "<group>"; };
+		96B1A654101B71B900DB6787 /* sampleTransactions.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = sampleTransactions.xml; path = ../sampleTransactions.xml; sourceTree = "<group>"; };
 		96BD3E69101744DB00926A83 /* CurrencyKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrencyKeyboard.h; sourceTree = "<group>"; };
 		96BD3E6A101744DB00926A83 /* CurrencyKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrencyKeyboard.m; sourceTree = "<group>"; };
 		96BD3E6B101744DB00926A83 /* CurrencyKeyboard.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CurrencyKeyboard.xib; sourceTree = "<group>"; };
@@ -131,6 +136,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				96419A60101C4E200066D6D8 /* Beta */,
 				963B020A10185D6E00CD5184 /* Add Expenses */,
 				96BD3E67101744C600926A83 /* Keyboard */,
 				96FFFA771015ED0300A53779 /* Expenses tab */,
@@ -180,7 +186,6 @@
 				96885BB51004ED9E003090D8 /* NIBs */,
 				8D1107310486CEB800E47090 /* Finance-Info.plist */,
 				96AA70ED10065AB200206A37 /* Finance.xcdatamodel */,
-				96B1A654101B71B900DB6787 /* sampleTransactions.xml */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -206,6 +211,17 @@
 				28216C960DB411BC00E5133A /* ExpenseInputViewController.m */,
 			);
 			name = "Add Expenses";
+			sourceTree = "<group>";
+		};
+		96419A60101C4E200066D6D8 /* Beta */ = {
+			isa = PBXGroup;
+			children = (
+				96419A61101C4E2E0066D6D8 /* BetaViewController.h */,
+				96419A62101C4E2E0066D6D8 /* BetaViewController.m */,
+				96419A63101C4E2E0066D6D8 /* BetaViewController.xib */,
+				96B1A654101B71B900DB6787 /* sampleTransactions.xml */,
+			);
+			name = Beta;
 			sourceTree = "<group>";
 		};
 		96885BB51004ED9E003090D8 /* NIBs */ = {
@@ -255,16 +271,16 @@
 				963B03C71019EF8E00CD5184 /* TransactionTableViewController.m */,
 				963B02BB1019E8D600CD5184 /* DetailTableViewController.h */,
 				963B02BC1019E8D600CD5184 /* DetailTableViewController.m */,
-				96F84038100A5A08008862CC /* OverviewTableViewController.h */,
-				96F84039100A5A08008862CC /* OverviewTableViewController.m */,
-				96E55D901014AF3800E63DB8 /* OverviewTableCell.h */,
-				96E55D911014AF3800E63DB8 /* OverviewTableCell.m */,
 				96FFFA7A1015ED4600A53779 /* DetailHeaderView.h */,
 				96FFFA7B1015ED4600A53779 /* DetailHeaderView.m */,
 				96FFFA8C1015EDC600A53779 /* DetailContentTableCell.h */,
 				96FFFA8D1015EDC600A53779 /* DetailContentTableCell.m */,
 				96FFFA8F1015EDD000A53779 /* DetailFooterView.h */,
 				96FFFA901015EDD000A53779 /* DetailFooterView.m */,
+				96F84038100A5A08008862CC /* OverviewTableViewController.h */,
+				96F84039100A5A08008862CC /* OverviewTableViewController.m */,
+				96E55D901014AF3800E63DB8 /* OverviewTableCell.h */,
+				96E55D911014AF3800E63DB8 /* OverviewTableCell.m */,
 				963B02981019E10900CD5184 /* TransactionsViewController.h */,
 				963B02991019E10900CD5184 /* TransactionsViewController.m */,
 			);
@@ -343,6 +359,7 @@
 				969776A8101B662300F0DC3D /* DetailCellHeader.png in Resources */,
 				96B1A63A101B6DF500DB6787 /* DetailCellFooter.png in Resources */,
 				96B1A655101B71B900DB6787 /* sampleTransactions.xml in Resources */,
+				96419A65101C4E2E0066D6D8 /* BetaViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -368,6 +385,7 @@
 				963B029A1019E10900CD5184 /* TransactionsViewController.m in Sources */,
 				963B02BD1019E8D600CD5184 /* DetailTableViewController.m in Sources */,
 				963B03C81019EF8E00CD5184 /* TransactionTableViewController.m in Sources */,
+				96419A64101C4E2E0066D6D8 /* BetaViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

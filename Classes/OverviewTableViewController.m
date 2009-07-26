@@ -24,17 +24,6 @@
 
 -(void)viewDidLoad {
 	self.title = NSLocalizedString(@"Overview", @"Overview table transaction view");
-	
-	UIBarButtonItem * addBetaContentButton = 
-		[[UIBarButtonItem alloc] initWithTitle:@"Add beta content" 
-										 style:UIBarButtonItemStyleBordered 
-										target:self 
-										action:@selector(addBetaContent)];
-
-	
-	addBetaContentButton.enabled = YES;
-	self.navigationItem.leftBarButtonItem = addBetaContentButton;
-	
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -46,19 +35,19 @@
 											  inManagedObjectContext:self.managedObjectContext]; 
 	[request setEntity:entity];
 	
-	NSSortDescriptor *sortByDate = [[NSSortDescriptor alloc]
-									initWithKey:@"date" ascending:NO];
+	NSSortDescriptor * sortByYearMonth = [[NSSortDescriptor alloc]
+									initWithKey:@"yearMonth" ascending:NO];
 	
-	NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortByDate, nil]; 
+	NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortByYearMonth, nil]; 
 	[request setSortDescriptors:sortDescriptors]; 
 	[sortDescriptors release]; 
-	[sortByDate release]; 
+	[sortByYearMonth release]; 
 	
 	NSError *error; 
 	NSFetchedResultsController * localRC = [[NSFetchedResultsController alloc] 
 											initWithFetchRequest:request 
 											managedObjectContext:self.managedObjectContext 
-											sectionNameKeyPath:@"yearMonth" cacheName:@"transactionCache"]; 
+											sectionNameKeyPath:@"yearMonth" cacheName:@"overviewTransactionCache"]; 
 	localRC.delegate=self;
 	
 	self.resultsController = localRC;
@@ -67,15 +56,11 @@
 	if (![resultsController performFetch:&error]) { 
 		NSLog(@"Error when performing fetch in OverviewTableViewController");
 		NSLog(@"ERROR: %@", [error localizedDescription]);
+		NSLog(@"ERROR: %@", error);
 	} 	
 	[request release];
 	
 	[self.tableView reloadData];
-
-	if ([[resultsController fetchedObjects] count] > 20) {
-		self.navigationItem.leftBarButtonItem.enabled = NO;
-	}
-	
 
 }
 
@@ -155,90 +140,6 @@
 	[overviewTableCell release];
 	[super dealloc];
 }
-
-
-#pragma mark
-#pragma mark -
-#pragma mark Add beta transaction content
-
--(void)addBetaContent {
-	NSLog(@"Parsing and adding transactions");
-	
-	self.navigationItem.leftBarButtonItem.enabled = NO;
-	
-	NSURL * dataLocation = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"sampleTransactions" ofType:@"xml"]];
-	NSXMLParser * parser = [[NSXMLParser alloc] initWithContentsOfURL:dataLocation]; 
-	
-	currentString = [[NSMutableString alloc] init];
-	
-	[parser setDelegate:self];
-	
-	[parser setShouldProcessNamespaces:NO];
-    [parser setShouldReportNamespacePrefixes:NO];
-    [parser setShouldResolveExternalEntities:NO];
-		
-	[parser parse];
-}
-
-
-#pragma mark NSXMLParser methods
-
-- (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *) qualifiedName attributes:(NSDictionary *)attributeDict {
-	if ([elementName isEqualToString:@"transaction"]) {
-		betaTransaction = (Transaction*)[NSEntityDescription insertNewObjectForEntityForName:@"Transaction" inManagedObjectContext:self.managedObjectContext];
-    } else if ([elementName isEqualToString:@"transactionDescription"] || [elementName isEqualToString:@"kroner"] || [elementName isEqualToString:@"ore"] || [elementName isEqualToString:@"expense"] || [elementName isEqualToString:@"lat"] || [elementName isEqualToString:@"lng"] || [elementName isEqualToString:@"yearMonth"] || [elementName isEqualToString:@"day"] || [elementName isEqualToString:@"date"] || [elementName isEqualToString:@"tags"]) {
-		[currentString setString:@""];
-		storingCharacters = YES;
-	} else {
-		// Do nothing
-	}
-}
-
-- (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName {
-	if ([elementName isEqualToString:@"transactions"]) {
-		[self.tableView reloadData];
-	} else if ([elementName isEqualToString:@"transaction"]) {
-		[[[UIApplication sharedApplication] delegate] saveAction:self];
-		
-    } else if ([elementName isEqualToString:@"transactionDescription"]) {
-		betaTransaction.transactionDescription = [currentString copy];
-	} else if ([elementName isEqualToString:@"kroner"]) {
-		betaTransaction.kroner = [NSNumber numberWithInt:[currentString integerValue]];
-	} else if ([elementName isEqualToString:@"ore"]) {
-		betaTransaction.ore = [NSNumber numberWithInt:[currentString integerValue]];
-	} else if ([elementName isEqualToString:@"expense"]) {
-		betaTransaction.expense = [NSNumber numberWithInt:[currentString integerValue]];
-	} else if ([elementName isEqualToString:@"lat"]) {
-		betaTransaction.lat = [NSNumber numberWithFloat:[currentString floatValue]];
-	} else if ([elementName isEqualToString:@"lng"]) {
-		betaTransaction.lng = [NSNumber numberWithFloat:[currentString floatValue]];
-	} else if ([elementName isEqualToString:@"yearMonth"]) {
-		NSLog(@"Adding year month: %@", currentString);
-		betaTransaction.yearMonth = [currentString copy];
-	} else if ([elementName isEqualToString:@"day"]) {
-		betaTransaction.day = [NSNumber numberWithInt:[currentString integerValue]];
-	} else if ([elementName isEqualToString:@"date"]) {
-		NSDateFormatter *inputFormatter = [[NSDateFormatter alloc] init];
-		[inputFormatter setDateFormat:@"dd/MM/yyyy HH:mm"];
-		betaTransaction.date = [inputFormatter dateFromString:currentString];
-	} else if ([elementName isEqualToString:@"tags"]) {
-		betaTransaction.tags = [currentString copy];
-	}
-	[currentString setString:@""];
-	storingCharacters = NO;
-	
-}
-
-- (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string {
-	if (storingCharacters) {
-		[currentString appendString:string];
-	}
-}
-
-- (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError {
-	NSLog(@"Error when parsing: %@", parseError);
-}
-
 
 @end
 

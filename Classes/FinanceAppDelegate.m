@@ -9,6 +9,7 @@
 #import "FinanceAppDelegate.h"
 #import "ExpenseInputViewController.h"
 #import "TransactionsViewController.h"
+#import "BetaViewController.h"
 
 @implementation FinanceAppDelegate
 
@@ -50,7 +51,10 @@
 		
 	TransactionsViewController * transactionViewController = [[[TransactionsViewController alloc] initWithContext:context] autorelease];
 	
-	NSArray * controllers = [[NSArray arrayWithObjects:addExpenseController, transactionViewController, nil] autorelease];
+	BetaViewController * betaController = [[BetaViewController alloc] initWithNibName:@"BetaViewController" bundle:[NSBundle mainBundle]];
+	betaController.managedObjectContext = context;
+	
+	NSArray * controllers = [[NSArray arrayWithObjects:addExpenseController, transactionViewController, betaController, nil] autorelease];
 	
 	[self.tabBarController setViewControllers:controllers]; 
 	[self.tabBarController setSelectedIndex:0];

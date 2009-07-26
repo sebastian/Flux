@@ -42,7 +42,7 @@
 	NSFetchedResultsController * localRC = [[NSFetchedResultsController alloc] 
 											initWithFetchRequest:request 
 											managedObjectContext:self.managedObjectContext 
-											sectionNameKeyPath:@"day" cacheName:@"transactionCache"]; 
+											sectionNameKeyPath:@"day" cacheName:@"detailTransactionCache"]; 
 	localRC.delegate=self;
 	
 	self.resultsController = localRC;
@@ -63,6 +63,27 @@
 	self.title = NSLocalizedString(@"Detail view", @"Detail table transaction view");
 }
 
+// To get the section shower on the side
+- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
+	NSArray * sections = resultsController.sections;
+	NSInteger sectionCount = sections.count;
+	
+	NSMutableArray * titles = [[[NSMutableArray alloc] initWithCapacity:sectionCount] autorelease];
+	
+	NSLog(@"Returning an array of section names");
+	
+	for (NSInteger n = 0; n < sectionCount; n++) {
+		NSArray * objectsInSection = [[sections objectAtIndex:n] objects];
+		Transaction * trs = [objectsInSection objectAtIndex:0];
+		
+		[titles addObject:[NSString stringWithFormat:@"%i", [trs.day intValue]]];
+		
+		[trs release];
+	}
+		
+	return titles;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 
 	Transaction *trs = (Transaction *)[resultsController objectAtIndexPath:indexPath];
@@ -72,6 +93,7 @@
 	if (cell == nil) {
 		[[NSBundle mainBundle] loadNibNamed:@"DetailTableCell" owner:self options:nil]; 
 		cell = self.detailContentTableCell;
+		NSLog(@"Creating a new detail cell...");
 	}
 		
 	cell.amount.text = [trs toString];

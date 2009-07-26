@@ -49,7 +49,7 @@
 									<object class="IBUILabel" id="814294318">
 										<reference key="NSNextResponder" ref="29027030"/>
 										<int key="NSvFlags">292</int>
-										<string key="NSFrame">{{220, 5}, {80, 20}}</string>
+										<string key="NSFrame">{{200, 5}, {80, 20}}</string>
 										<reference key="NSSuperview" ref="29027030"/>
 										<object class="NSColor" key="IBUIBackgroundColor">
 											<int key="NSColorSpace">3</int>
@@ -80,7 +80,7 @@
 									<object class="IBUILabel" id="61885152">
 										<reference key="NSNextResponder" ref="29027030"/>
 										<int key="NSvFlags">292</int>
-										<string key="NSFrame">{{5, 5}, {205, 20}}</string>
+										<string key="NSFrame">{{5, 5}, {185, 20}}</string>
 										<reference key="NSSuperview" ref="29027030"/>
 										<object class="NSColor" key="IBUIBackgroundColor">
 											<int key="NSColorSpace">3</int>
@@ -144,6 +144,7 @@
 					<bytes key="NSWhite">MQA</bytes>
 					<reference key="NSCustomColorSpace" ref="342324201"/>
 				</object>
+				<string key="IBUIReuseIdentifier">DetailCell</string>
 			</object>
 		</object>
 		<object class="IBObjectContainer" key="IBDocument.Objects">
@@ -256,7 +257,7 @@
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>DetailContentTableCell</string>
-					<string>{{538, -280}, {320, 30}}</string>
+					<string>{{532, -385}, {320, 30}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				</object>
 			</object>

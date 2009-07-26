@@ -28,7 +28,6 @@
 // This method isn't called anyway, so it is a joke...
 
 - (void)awakeFromInsert {
-	NSLog(@"First time setup of Transaction object");
 	has_ore = NO;
 	numOfOre = 0;
 	
