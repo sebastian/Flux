@@ -24,10 +24,11 @@
 		96419CBE101C77530066D6D8 /* TransactionDisplay.m in Sources */ = {isa = PBXBuildFile; fileRef = 96419CBC101C77530066D6D8 /* TransactionDisplay.m */; };
 		96419CBF101C77530066D6D8 /* TransactionDisplay.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96419CBD101C77530066D6D8 /* TransactionDisplay.xib */; };
 		96419D1F101C7E9B0066D6D8 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96419D1E101C7E9B0066D6D8 /* MapKit.framework */; };
-		96419FF2101CC3F30066D6D8 /* TransactionDetailPageBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 96419FF1101CC3F30066D6D8 /* TransactionDetailPageBackground.png */; };
 		96419FF8101CC6140066D6D8 /* TransactionDetailTopBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 96419FF7101CC6140066D6D8 /* TransactionDetailTopBackground.png */; };
 		9641A067101CD2F30066D6D8 /* MapButtonBottom.png in Resources */ = {isa = PBXBuildFile; fileRef = 9641A065101CD2F30066D6D8 /* MapButtonBottom.png */; };
 		9641A068101CD2F30066D6D8 /* MapButtonTop.png in Resources */ = {isa = PBXBuildFile; fileRef = 9641A066101CD2F30066D6D8 /* MapButtonTop.png */; };
+		964F1E70101CDB75004EA5C3 /* LocationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 964F1E6F101CDB75004EA5C3 /* LocationController.m */; };
+		964F1E85101CDE31004EA5C3 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 964F1E84101CDE31004EA5C3 /* CoreLocation.framework */; };
 		9653EA691010F26700B714BB /* AddExpense.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9653EA681010F26700B714BB /* AddExpense.xib */; };
 		9653EBE6101104FB00B714BB /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9653EBE5101104FB00B714BB /* MainWindow.xib */; };
 		966D70E81008B23100D781B8 /* KeyboardButtonOKClicked.png in Resources */ = {isa = PBXBuildFile; fileRef = 966D70E61008B23100D781B8 /* KeyboardButtonOKClicked.png */; };
@@ -88,10 +89,12 @@
 		96419CBC101C77530066D6D8 /* TransactionDisplay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionDisplay.m; sourceTree = "<group>"; };
 		96419CBD101C77530066D6D8 /* TransactionDisplay.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = TransactionDisplay.xib; path = Classes/TransactionDisplay.xib; sourceTree = "<group>"; };
 		96419D1E101C7E9B0066D6D8 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		96419FF1101CC3F30066D6D8 /* TransactionDetailPageBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TransactionDetailPageBackground.png; path = Graphics/TransactionDetailPageBackground.png; sourceTree = "<group>"; };
 		96419FF7101CC6140066D6D8 /* TransactionDetailTopBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TransactionDetailTopBackground.png; path = Graphics/TransactionDetailTopBackground.png; sourceTree = "<group>"; };
 		9641A065101CD2F30066D6D8 /* MapButtonBottom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = MapButtonBottom.png; path = Graphics/MapButtonBottom.png; sourceTree = "<group>"; };
 		9641A066101CD2F30066D6D8 /* MapButtonTop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = MapButtonTop.png; path = Graphics/MapButtonTop.png; sourceTree = "<group>"; };
+		964F1E6E101CDB75004EA5C3 /* LocationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationController.h; sourceTree = "<group>"; };
+		964F1E6F101CDB75004EA5C3 /* LocationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationController.m; sourceTree = "<group>"; };
+		964F1E84101CDE31004EA5C3 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		9653EA681010F26700B714BB /* AddExpense.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddExpense.xib; sourceTree = "<group>"; };
 		9653EBE5101104FB00B714BB /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		966D70E61008B23100D781B8 /* KeyboardButtonOKClicked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = KeyboardButtonOKClicked.png; path = Graphics/KeyboardButtonOKClicked.png; sourceTree = "<group>"; };
@@ -143,6 +146,7 @@
 				96F84082100A66E8008862CC /* CoreData.framework in Frameworks */,
 				963B021810185DAA00CD5184 /* QuartzCore.framework in Frameworks */,
 				96419D1F101C7E9B0066D6D8 /* MapKit.framework in Frameworks */,
+				964F1E85101CDE31004EA5C3 /* CoreLocation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -152,6 +156,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				964F1E6D101CDB66004EA5C3 /* CoreLocation */,
 				96419A60101C4E200066D6D8 /* Beta */,
 				963B020A10185D6E00CD5184 /* Add Expenses */,
 				96BD3E67101744C600926A83 /* Keyboard */,
@@ -209,6 +214,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				964F1E84101CDE31004EA5C3 /* CoreLocation.framework */,
 				96419D1E101C7E9B0066D6D8 /* MapKit.framework */,
 				963B021710185DAA00CD5184 /* QuartzCore.framework */,
 				96F84081100A66E8008862CC /* CoreData.framework */,
@@ -276,6 +282,15 @@
 			name = TransactionDetail;
 			sourceTree = "<group>";
 		};
+		964F1E6D101CDB66004EA5C3 /* CoreLocation */ = {
+			isa = PBXGroup;
+			children = (
+				964F1E6E101CDB75004EA5C3 /* LocationController.h */,
+				964F1E6F101CDB75004EA5C3 /* LocationController.m */,
+			);
+			name = CoreLocation;
+			sourceTree = "<group>";
+		};
 		96885BB51004ED9E003090D8 /* NIBs */ = {
 			isa = PBXGroup;
 			children = (
@@ -293,7 +308,6 @@
 				9641A065101CD2F30066D6D8 /* MapButtonBottom.png */,
 				9641A066101CD2F30066D6D8 /* MapButtonTop.png */,
 				96419FF7101CC6140066D6D8 /* TransactionDetailTopBackground.png */,
-				96419FF1101CC3F30066D6D8 /* TransactionDetailPageBackground.png */,
 				96B1A639101B6DF500DB6787 /* DetailCellFooter.png */,
 				969776A7101B662300F0DC3D /* DetailCellHeader.png */,
 				96D937281014922F0062E7A4 /* OKOverlay.png */,
@@ -409,7 +423,6 @@
 				96B1A655101B71B900DB6787 /* sampleTransactions.xml in Resources */,
 				96419A65101C4E2E0066D6D8 /* BetaViewController.xib in Resources */,
 				96419CBF101C77530066D6D8 /* TransactionDisplay.xib in Resources */,
-				96419FF2101CC3F30066D6D8 /* TransactionDetailPageBackground.png in Resources */,
 				96419FF8101CC6140066D6D8 /* TransactionDetailTopBackground.png in Resources */,
 				9641A067101CD2F30066D6D8 /* MapButtonBottom.png in Resources */,
 				9641A068101CD2F30066D6D8 /* MapButtonTop.png in Resources */,
@@ -440,6 +453,7 @@
 				963B03C81019EF8E00CD5184 /* TransactionTableViewController.m in Sources */,
 				96419A64101C4E2E0066D6D8 /* BetaViewController.m in Sources */,
 				96419CBE101C77530066D6D8 /* TransactionDisplay.m in Sources */,
+				964F1E70101CDB75004EA5C3 /* LocationController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

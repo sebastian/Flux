@@ -11,13 +11,14 @@
 #import "FinanceCoreDataDelegate.h"
 #import "CurrencyKeyboardDelegateProtocol.h"
 #import "CurrencyKeyboard.h"
+#import "LocationController.h"
 
 static const CGFloat KEYBOARD_ANIMATION_DURATION = 0.3;
 static const CGFloat MAX_TEXTFIELD_WIDTH = 240;
 static const CGFloat MIN_TEXTFIELD_WIDTH = 40;
 static const CGFloat TEXTFIELD_PADDING = 10;
 
-@interface ExpenseInputViewController : UIViewController <UITextFieldDelegate, CurrencyKeyboardDelegate> {
+@interface ExpenseInputViewController : UIViewController <UITextFieldDelegate, CurrencyKeyboardDelegate, KleioCoreLocationDelegate> {
 	UITextField * amount;
 	UIView * textFieldBackground;
 	UIView * deleteButtonView;
@@ -28,12 +29,19 @@ static const CGFloat TEXTFIELD_PADDING = 10;
 	Transaction * newTransaction;
 	
 	NSManagedObjectContext *managedObjectContext;
-		
+
+	CLLocation * bestLocation;
+	
 	CurrencyKeyboard * currencyKeyboard;
 }
 
 // CoreData
 @property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
+
+// CoreLocation
+-(void)locationUpdate:(CLLocation *)location;
+-(void)locationError:(NSString *)error;
+@property (nonatomic, retain) CLLocation * bestLocation;
 
 
 // Outlets

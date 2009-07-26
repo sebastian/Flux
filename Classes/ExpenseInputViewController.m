@@ -8,6 +8,7 @@
 
 #import "ExpenseInputViewController.h"
 #import "ConfirmationView.h"
+#import "LocationController.h"
 
 @interface ExpenseInputViewController (Private)
 -(void)updateExpenseDisplay;
@@ -26,12 +27,25 @@
 @synthesize managedObjectContext;
 @synthesize currencyKeyboard;
 
+@synthesize bestLocation;
+
 #pragma mark
 #pragma mark -
 #pragma mark Actions
 -(IBAction)deleteButtonPushed:(id)sender {
 	[self.newTransaction eraseOneNum];
 	[self updateExpenseDisplay];
+}
+
+#pragma mark
+#pragma mark -
+#pragma mark CoreLocation - LocationController delegate methods
+-(void)locationUpdate:(CLLocation *)location {
+	NSLog(@"Got location: %@", location);
+	self.bestLocation = location;
+}
+-(void)locationError:(NSString *)error {
+	NSLog(@"Got location error: %@", error);
 }
 
 #pragma mark
@@ -64,6 +78,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+	// Try to get the location
+	[LocationController sharedInstance].delegate = self;
+	
 	self.newTransaction = [NSEntityDescription insertNewObjectForEntityForName:@"Transaction" inManagedObjectContext:self.managedObjectContext];
 	[self updateExpenseDisplay];
 	
@@ -73,6 +90,9 @@
 - (void)viewDidAppear:(BOOL)animated {
 	[super viewDidAppear:animated];
 	
+	[[LocationController sharedInstance].locationManager startUpdatingLocation];
+	NSLog(@"Started location controller to find the location");
+	
 	// Show the currency keyboard
 	[self.currencyKeyboard showKeyboard];
 	
@@ -80,6 +100,8 @@
 - (void)viewWillDisappear:(BOOL)animated {
 	[super viewWillDisappear:animated];
 
+	[[LocationController sharedInstance].locationManager stopUpdatingLocation];
+	
 	// Hide the currency keyboard
 	[self.currencyKeyboard hideKeyboard];
 }
@@ -146,8 +168,8 @@
 -(void)addExpense {
 
 	// TODO: Set up location
-	newTransaction.lat = [NSNumber numberWithFloat:0.0];
-	newTransaction.lng = [NSNumber numberWithFloat:0.0];
+	newTransaction.lat = [NSNumber numberWithFloat:fabs(bestLocation.coordinate.latitude)];
+	newTransaction.lng = [NSNumber numberWithFloat:fabs(bestLocation.coordinate.longitude)];
 	
 	// FIXME: use currency used on screen
 	newTransaction.currency = @"€";
@@ -201,6 +223,7 @@
 	[newTransaction release];
 }
 - (void)dealloc {
+	[bestLocation release];
 	[deleteButtonView release];
 	[amount release];
 	[textFieldBackground release];
