@@ -11,7 +11,7 @@
 #import "TransactionTableViewController.h"
 
 @interface OverviewTableViewController : TransactionTableViewController {
-	OverviewTableCell * overviewTableCell;
+	OverviewTableCell * overviewTableCell;	
 }
 
 //Different table cells

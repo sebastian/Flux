@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
+#import <CoreLocation/CoreLocation.h>
 
 @class Transaction;
 
-@interface TransactionDisplay : UIViewController {
+@interface TransactionDisplay : UIViewController <MKMapViewDelegate, MKReverseGeocoderDelegate>{
     IBOutlet UILabel *amount;
     IBOutlet UILabel *description;
     IBOutlet MKMapView *map;
@@ -19,6 +20,8 @@
     IBOutlet UILabel *what;
     IBOutlet UILabel *when;
 	IBOutlet UIButton *moveMapButton;
+	
+	MKReverseGeocoder * geoCoder;
 	
 	Transaction * currentTransaction;
 	

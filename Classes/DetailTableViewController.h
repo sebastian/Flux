@@ -20,7 +20,7 @@
 }
 
 
-@property (nonatomic, assign) NSString * yearMonthToDisplay;
+@property (nonatomic, retain) NSString * yearMonthToDisplay;
 
 //Different table cells
 @property (nonatomic, retain) IBOutlet DetailHeaderView * detailHeaderView;

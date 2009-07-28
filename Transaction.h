@@ -7,7 +7,7 @@
 //
 
 #import <CoreData/CoreData.h>
-
+#import <CoreLocation/CoreLocation.h>
 
 @interface Transaction :  NSManagedObject  
 {
@@ -18,6 +18,7 @@
 
 @property (nonatomic, retain) NSString * transactionDescription;
 @property (nonatomic, retain) NSString * tags;
+@property (nonatomic, retain) NSString * autotags;
 
 // Amount
 @property (nonatomic, retain) NSNumber * kroner;
@@ -27,8 +28,7 @@
 @property (nonatomic, retain) NSNumber * expense;
 
 // Location
-@property (nonatomic, retain) NSNumber * lat;
-@property (nonatomic, retain) NSNumber * lng;
+@property (nonatomic, retain) CLLocation * location;
 
 @property (nonatomic, retain) NSString * currency;
 

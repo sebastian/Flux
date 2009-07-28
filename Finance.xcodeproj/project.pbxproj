@@ -19,6 +19,7 @@
 		963B029A1019E10900CD5184 /* TransactionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 963B02991019E10900CD5184 /* TransactionsViewController.m */; };
 		963B02BD1019E8D600CD5184 /* DetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 963B02BC1019E8D600CD5184 /* DetailTableViewController.m */; };
 		963B03C81019EF8E00CD5184 /* TransactionTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 963B03C71019EF8E00CD5184 /* TransactionTableViewController.m */; };
+		963BFE88101DCB9000C187E0 /* MapAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 963BFE87101DCB9000C187E0 /* MapAnnotation.m */; };
 		96419A64101C4E2E0066D6D8 /* BetaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96419A62101C4E2E0066D6D8 /* BetaViewController.m */; };
 		96419A65101C4E2E0066D6D8 /* BetaViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96419A63101C4E2E0066D6D8 /* BetaViewController.xib */; };
 		96419CBE101C77530066D6D8 /* TransactionDisplay.m in Sources */ = {isa = PBXBuildFile; fileRef = 96419CBC101C77530066D6D8 /* TransactionDisplay.m */; };
@@ -35,6 +36,7 @@
 		966D70E91008B23100D781B8 /* KeyboardButtonOKUnclicked.png in Resources */ = {isa = PBXBuildFile; fileRef = 966D70E71008B23100D781B8 /* KeyboardButtonOKUnclicked.png */; };
 		966D71091008B5E600D781B8 /* DeleteButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 966D71081008B5E600D781B8 /* DeleteButton.png */; };
 		969776A8101B662300F0DC3D /* DetailCellHeader.png in Resources */ = {isa = PBXBuildFile; fileRef = 969776A7101B662300F0DC3D /* DetailCellHeader.png */; };
+		969C6C56101F8A79007B5CC8 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 969C6C55101F8A79007B5CC8 /* Icon.png */; };
 		96AA703B10061D0900206A37 /* KeyboardButtonBackgroundClicked.png in Resources */ = {isa = PBXBuildFile; fileRef = 96AA703910061D0900206A37 /* KeyboardButtonBackgroundClicked.png */; };
 		96AA703C10061D0900206A37 /* KeyboardButtonBackgroundUnclicked.png in Resources */ = {isa = PBXBuildFile; fileRef = 96AA703A10061D0900206A37 /* KeyboardButtonBackgroundUnclicked.png */; };
 		96AA70521006241A00206A37 /* KeyboardBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 96AA70511006241A00206A37 /* KeyboardBackground.png */; };
@@ -48,6 +50,7 @@
 		96B1A655101B71B900DB6787 /* sampleTransactions.xml in Resources */ = {isa = PBXBuildFile; fileRef = 96B1A654101B71B900DB6787 /* sampleTransactions.xml */; };
 		96BD3E6C101744DB00926A83 /* CurrencyKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 96BD3E6A101744DB00926A83 /* CurrencyKeyboard.m */; };
 		96BD3E6D101744DB00926A83 /* CurrencyKeyboard.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96BD3E6B101744DB00926A83 /* CurrencyKeyboard.xib */; };
+		96D28063101F621000B0A026 /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 96D28062101F621000B0A026 /* Entitlements.plist */; };
 		96D937291014922F0062E7A4 /* OKOverlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 96D937281014922F0062E7A4 /* OKOverlay.png */; };
 		96E55D8E1014AD8200E63DB8 /* OverviewTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96E55D8D1014AD8200E63DB8 /* OverviewTableCell.xib */; };
 		96E55D921014AF3800E63DB8 /* OverviewTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E55D911014AF3800E63DB8 /* OverviewTableCell.m */; };
@@ -82,6 +85,8 @@
 		963B02BC1019E8D600CD5184 /* DetailTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailTableViewController.m; sourceTree = "<group>"; };
 		963B03C61019EF8E00CD5184 /* TransactionTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionTableViewController.h; sourceTree = "<group>"; };
 		963B03C71019EF8E00CD5184 /* TransactionTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionTableViewController.m; sourceTree = "<group>"; };
+		963BFE86101DCB9000C187E0 /* MapAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapAnnotation.h; sourceTree = "<group>"; };
+		963BFE87101DCB9000C187E0 /* MapAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapAnnotation.m; sourceTree = "<group>"; };
 		96419A61101C4E2E0066D6D8 /* BetaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BetaViewController.h; sourceTree = "<group>"; };
 		96419A62101C4E2E0066D6D8 /* BetaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BetaViewController.m; sourceTree = "<group>"; };
 		96419A63101C4E2E0066D6D8 /* BetaViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BetaViewController.xib; sourceTree = "<group>"; };
@@ -101,6 +106,7 @@
 		966D70E71008B23100D781B8 /* KeyboardButtonOKUnclicked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = KeyboardButtonOKUnclicked.png; path = Graphics/KeyboardButtonOKUnclicked.png; sourceTree = "<group>"; };
 		966D71081008B5E600D781B8 /* DeleteButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = DeleteButton.png; path = Graphics/DeleteButton.png; sourceTree = "<group>"; };
 		969776A7101B662300F0DC3D /* DetailCellHeader.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = DetailCellHeader.png; path = Graphics/DetailCellHeader.png; sourceTree = "<group>"; };
+		969C6C55101F8A79007B5CC8 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = Graphics/Icon.png; sourceTree = "<group>"; };
 		96AA703910061D0900206A37 /* KeyboardButtonBackgroundClicked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = KeyboardButtonBackgroundClicked.png; path = Graphics/KeyboardButtonBackgroundClicked.png; sourceTree = "<group>"; };
 		96AA703A10061D0900206A37 /* KeyboardButtonBackgroundUnclicked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = KeyboardButtonBackgroundUnclicked.png; path = Graphics/KeyboardButtonBackgroundUnclicked.png; sourceTree = "<group>"; };
 		96AA70511006241A00206A37 /* KeyboardBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = KeyboardBackground.png; path = Graphics/KeyboardBackground.png; sourceTree = "<group>"; };
@@ -117,6 +123,8 @@
 		96BD3E6A101744DB00926A83 /* CurrencyKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrencyKeyboard.m; sourceTree = "<group>"; };
 		96BD3E6B101744DB00926A83 /* CurrencyKeyboard.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CurrencyKeyboard.xib; sourceTree = "<group>"; };
 		96BD3E98101749A900926A83 /* CurrencyKeyboardDelegateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrencyKeyboardDelegateProtocol.h; sourceTree = "<group>"; };
+		96D28058101F5DC900B0A026 /* Beta-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Beta-Info.plist"; sourceTree = "<group>"; };
+		96D28062101F621000B0A026 /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
 		96D937281014922F0062E7A4 /* OKOverlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = OKOverlay.png; path = Graphics/OKOverlay.png; sourceTree = "<group>"; };
 		96E55D8D1014AD8200E63DB8 /* OverviewTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OverviewTableCell.xib; sourceTree = "<group>"; };
 		96E55D901014AF3800E63DB8 /* OverviewTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OverviewTableCell.h; sourceTree = "<group>"; };
@@ -187,6 +195,8 @@
 				19C28FACFE9D520D11CA2CBB /* Products */,
 				96AA708F100656E600206A37 /* CoreData.framework */,
 				960080F4100A98E900740DCB /* TODO.rtf */,
+				96D28058101F5DC900B0A026 /* Beta-Info.plist */,
+				96D28062101F621000B0A026 /* Entitlements.plist */,
 			);
 			name = Finance;
 			sourceTree = "<group>";
@@ -278,6 +288,8 @@
 			children = (
 				96419CBB101C77530066D6D8 /* TransactionDisplay.h */,
 				96419CBC101C77530066D6D8 /* TransactionDisplay.m */,
+				963BFE86101DCB9000C187E0 /* MapAnnotation.h */,
+				963BFE87101DCB9000C187E0 /* MapAnnotation.m */,
 			);
 			name = TransactionDetail;
 			sourceTree = "<group>";
@@ -305,6 +317,7 @@
 		96AA703710061CF600206A37 /* Graphics */ = {
 			isa = PBXGroup;
 			children = (
+				969C6C55101F8A79007B5CC8 /* Icon.png */,
 				9641A065101CD2F30066D6D8 /* MapButtonBottom.png */,
 				9641A066101CD2F30066D6D8 /* MapButtonTop.png */,
 				96419FF7101CC6140066D6D8 /* TransactionDetailTopBackground.png */,
@@ -426,6 +439,8 @@
 				96419FF8101CC6140066D6D8 /* TransactionDetailTopBackground.png in Resources */,
 				9641A067101CD2F30066D6D8 /* MapButtonBottom.png in Resources */,
 				9641A068101CD2F30066D6D8 /* MapButtonTop.png in Resources */,
+				96D28063101F621000B0A026 /* Entitlements.plist in Resources */,
+				969C6C56101F8A79007B5CC8 /* Icon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -454,6 +469,7 @@
 				96419A64101C4E2E0066D6D8 /* BetaViewController.m in Sources */,
 				96419CBE101C77530066D6D8 /* TransactionDisplay.m in Sources */,
 				964F1E70101CDB75004EA5C3 /* LocationController.m in Sources */,
+				963BFE88101DCB9000C187E0 /* MapAnnotation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -487,6 +503,33 @@
 				PRODUCT_NAME = Finance;
 			};
 			name = Release;
+		};
+		96D2805E101F613500B0A026 /* Alpha distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Kleio";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E4A18EB0-EE8E-4A57-A527-32F66A5DA67F";
+				SDKROOT = iphoneos3.0;
+			};
+			name = "Alpha distribution";
+		};
+		96D2805F101F613500B0A026 /* Alpha distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_ENTITLEMENTS = Entitlements.plist;
+				COPY_PHASE_STRIP = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Finance_Prefix.pch;
+				INFOPLIST_FILE = "Finance-Info.plist";
+				PRODUCT_NAME = Finance;
+			};
+			name = "Alpha distribution";
 		};
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -522,6 +565,7 @@
 			buildConfigurations = (
 				1D6058940D05DD3E006BFB54 /* Debug */,
 				1D6058950D05DD3E006BFB54 /* Release */,
+				96D2805F101F613500B0A026 /* Alpha distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -531,6 +575,7 @@
 			buildConfigurations = (
 				C01FCF4F08A954540054247B /* Debug */,
 				C01FCF5008A954540054247B /* Release */,
+				96D2805E101F613500B0A026 /* Alpha distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

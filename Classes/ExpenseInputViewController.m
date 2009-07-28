@@ -41,7 +41,6 @@
 #pragma mark -
 #pragma mark CoreLocation - LocationController delegate methods
 -(void)locationUpdate:(CLLocation *)location {
-	NSLog(@"Got location: %@", location);
 	self.bestLocation = location;
 }
 -(void)locationError:(NSString *)error {
@@ -80,7 +79,9 @@
 
 	// Try to get the location
 	[LocationController sharedInstance].delegate = self;
+	[LocationController sharedInstance].locationManager.desiredAccuracy = kCLLocationAccuracyBest;
 	
+	// Create a new Transaction
 	self.newTransaction = [NSEntityDescription insertNewObjectForEntityForName:@"Transaction" inManagedObjectContext:self.managedObjectContext];
 	[self updateExpenseDisplay];
 	
@@ -91,7 +92,6 @@
 	[super viewDidAppear:animated];
 	
 	[[LocationController sharedInstance].locationManager startUpdatingLocation];
-	NSLog(@"Started location controller to find the location");
 	
 	// Show the currency keyboard
 	[self.currencyKeyboard showKeyboard];
@@ -104,8 +104,6 @@
 	
 	// Hide the currency keyboard
 	[self.currencyKeyboard hideKeyboard];
-}
-- (void)viewDidDisappear:(BOOL)animated {
 }
 
 
@@ -168,8 +166,7 @@
 -(void)addExpense {
 
 	// TODO: Set up location
-	newTransaction.lat = [NSNumber numberWithFloat:fabs(bestLocation.coordinate.latitude)];
-	newTransaction.lng = [NSNumber numberWithFloat:fabs(bestLocation.coordinate.longitude)];
+	newTransaction.location = bestLocation;
 	
 	// FIXME: use currency used on screen
 	newTransaction.currency = @"€";
@@ -190,9 +187,6 @@
 		
 	[self updateExpenseDisplay];
 	
-	// Notify the table views that the data has changed
-	[[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"transactionsUpdated" object:nil]];
-
 }
 
 #pragma mark

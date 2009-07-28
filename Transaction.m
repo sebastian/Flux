@@ -11,17 +11,21 @@
 
 @implementation Transaction 
 
-@dynamic lat;
 @dynamic expense;
 @dynamic kroner;
+@dynamic ore;
+
 @dynamic currency;
-@dynamic lng;
+
+@dynamic location;
+
 @dynamic yearMonth;
 @dynamic day;
 @dynamic date;
-@dynamic ore;
+
 @dynamic transactionDescription;
 @dynamic tags;
+@dynamic autotags;
 
 @synthesize formatter;
 
@@ -50,7 +54,7 @@
 }
 
 -(NSString*)formattedDate {
-	NSDateFormatter * dateFormatter = [[NSDateFormatter alloc] init];
+	NSDateFormatter * dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
 	[dateFormatter setFormatterBehavior:[NSDateFormatter defaultFormatterBehavior]];
 	[dateFormatter setLocale:[NSLocale currentLocale]];
 	[dateFormatter setDateStyle:NSDateFormatterMediumStyle];

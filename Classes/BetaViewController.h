@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
+#import <CoreLocation/CoreLocation.h>
 
 @class Transaction;
 
@@ -22,6 +23,8 @@
 	NSMutableString * currentString;
 	BOOL storingCharacters;
 	NSInteger numberOfTransactionsAdded;
+	
+	CLLocation * tempLocation;
 	
 	BOOL run;
 }
@@ -40,5 +43,4 @@
 -(IBAction)addData:(id)sender;
 -(IBAction)clearData:(id)sender;
 +(void)increaseProgressBar:(BetaViewController*)view;
--(void)sendDataUpdatedNotification;
 @end

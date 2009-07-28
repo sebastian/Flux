@@ -1,3 +1,5 @@
+require "time"
+
 HOW_MANY = 3000
 
 tags = %w{snacks food tea flight vacation book movie music apps misc cinema dinner rent coffee}
@@ -17,7 +19,8 @@ expenses = %w{1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 1 1 
 minutes = (0..59).to_a
 hours = (0..24).to_a
 seconds = (0..59).to_a
-
+weekday_names = %w{Monday Tuesday Wednesday Thursday Friday Saturday Sunday}
+month_names = %w{January February March April May June July August September October November December}
 
 def choose_one_of_the(what)
   what[(rand * what.size).floor]
@@ -38,6 +41,10 @@ HOW_MANY.times do
   end
   chosen_tags.strip!
   
+  time_string = "#{day}/#{month}/#{year} #{hour}:#{minute}:#{second}"
+  time = Time.parse("#{month}/#{day}/#{year}")
+  autotags = "#{weekday_names[(time.wday - 1)].downcase} #{month_names[(time.month - 1)].downcase}"
+  
   puts "\t<transaction>"
   puts "\t\t<transactionDescription>#{choose_one_of_the(descriptions)}</transactionDescription>"
   puts "\t\t\t<kroner>#{choose_one_of_the(kroners)}</kroner>"
@@ -47,9 +54,10 @@ HOW_MANY.times do
   puts "\t\t\t<lng>#{(rand*20).floor * rand}</lng>"
   puts "\t\t\t<yearMonth>#{year}#{month}</yearMonth>"
   puts "\t\t\t<day>#{day}</day>"
-  puts "\t\t\t<date>#{day}/#{month}/#{year} #{hour}:#{minute}:#{second}</date>"
+  puts "\t\t\t<date>#{time_string}</date>"
   puts "\t\t\t<currency>#{choose_one_of_the(currencies)}</currency>"
   puts "\t\t\t<tags>#{chosen_tags}</tags>"
+  puts "\t\t\t<autotags>#{autotags}</autotags>"
   puts "\t\t</transaction>"  
 end
 puts "</transactions>"

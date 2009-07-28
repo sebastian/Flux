@@ -18,4 +18,6 @@
 
 -(id)initWithContext:(NSManagedObjectContext*)context;
 
+- (void)objectContextUpdated:(NSNotification *)notification;
+
 @end

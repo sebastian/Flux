@@ -20,7 +20,9 @@
 #pragma mark Application life cycle
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
-		
+
+	[application setStatusBarStyle:UIStatusBarStyleBlackOpaque];	
+	
 	NSManagedObjectContext *context = [self managedObjectContext]; 
     if (!context) { 
         NSLog(@"Couldn't get a managedObjectContext number 1");
@@ -40,27 +42,30 @@
         NSLog(@"Couldn't get a managedObjectContext number 2");
     }
 	
-	[application setStatusBarStyle:UIStatusBarStyleBlackOpaque];
-
-	self.tabBarController = [[UITabBarController alloc] initWithNibName:nil 
-															bundle:nil]; 	
+	self.tabBarController = [[UITabBarController alloc] initWithNibName:nil bundle:nil]; 	
 
 	ExpenseInputViewController * addExpenseController = 
-		[[[ExpenseInputViewController alloc] initWithNibName:@"AddExpense" bundle:[NSBundle mainBundle]] autorelease];
+		[[ExpenseInputViewController alloc] initWithNibName:@"AddExpense" bundle:[NSBundle mainBundle]];
+	// Pass it the managed object context that is only for its privte use :)
 	addExpenseController.managedObjectContext = contextAddExpense;
-		
-	TransactionsViewController * transactionViewController = [[[TransactionsViewController alloc] initWithContext:context] autorelease];
+	[contextAddExpense release];
+	
+	TransactionsViewController * transactionViewController = [[TransactionsViewController alloc] initWithContext:context];
 	
 	BetaViewController * betaController = [[BetaViewController alloc] initWithNibName:@"BetaViewController" bundle:[NSBundle mainBundle]];
 	betaController.managedObjectContext = context;
 	
-	NSArray * controllers = [[NSArray arrayWithObjects:addExpenseController, transactionViewController, betaController, nil] autorelease];
+	NSArray * controllers = [NSArray arrayWithObjects:addExpenseController, transactionViewController, betaController, nil];
+
+	// The control over the view controllers is now the business of the controllers array
+	[addExpenseController release];
+	[transactionViewController release];
+	[betaController release];
 	
 	[self.tabBarController setViewControllers:controllers]; 
 	[self.tabBarController setSelectedIndex:0];
 	
 	[context release];
-	[contextAddExpense release];
 	
 	[window addSubview:self.tabBarController.view];
 

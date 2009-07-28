@@ -1,0 +1,12 @@
+Transaction user experiences :)
+
+- Not have the back space button move
+	put it at a fixed location
+- Make the tabbar name for Transactions stay the same
+- Make the map button bigger
+- adding transactions are slower with sample data!
+- improve scrolling performance with huge dataset
+- improve way to input data. 1500 for 15.00
+- Crashes when trying to add 10-digit number (if only type in 2's f.ex) (1111111111 works)
+- Edit transactions
+- Delete transactions

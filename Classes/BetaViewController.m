@@ -23,6 +23,16 @@
     }
     return self;
 }
+- (void)dealloc {
+	[addDataButton release];
+	[clearDataButton release];
+	
+	[managedObjectContext release];
+	[resultsController release];
+    [progressBar release];
+	
+	[super dealloc];
+}
 
 -(IBAction)addData:(id)sender {
 	UIActionSheet * confrmation = [[UIActionSheet alloc] initWithTitle:@"This will take a while!" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Do it!" otherButtonTitles:nil];
@@ -81,13 +91,6 @@
     }
 	
 	progressBar.hidden = YES;
-	[self sendDataUpdatedNotification];
-}
-
--(void)sendDataUpdatedNotification {
-	// Notify the table views that the data has changed
-	[[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"transactionsUpdated" object:nil]];
-	
 }
 
 #pragma mark
@@ -109,7 +112,8 @@
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *) qualifiedName attributes:(NSDictionary *)attributeDict {
 	if ([elementName isEqualToString:@"transaction"]) {
 		betaTransaction = (Transaction*)[NSEntityDescription insertNewObjectForEntityForName:@"Transaction" inManagedObjectContext:self.managedObjectContext];
-    } else if ([elementName isEqualToString:@"transactionDescription"] || [elementName isEqualToString:@"kroner"] || [elementName isEqualToString:@"ore"] || [elementName isEqualToString:@"expense"] || [elementName isEqualToString:@"lat"] || [elementName isEqualToString:@"lng"] || [elementName isEqualToString:@"yearMonth"] || [elementName isEqualToString:@"day"] || [elementName isEqualToString:@"date"] || [elementName isEqualToString:@"tags"]) {
+		tempLocation = [[CLLocation alloc] initWithLatitude:0.0 longitude:0.0];
+    } else if ([elementName isEqualToString:@"transactionDescription"] || [elementName isEqualToString:@"autotags"] || [elementName isEqualToString:@"kroner"] || [elementName isEqualToString:@"ore"] || [elementName isEqualToString:@"expense"] || [elementName isEqualToString:@"lat"] || [elementName isEqualToString:@"lng"] || [elementName isEqualToString:@"yearMonth"] || [elementName isEqualToString:@"day"] || [elementName isEqualToString:@"date"] || [elementName isEqualToString:@"tags"]) {
 		[currentString setString:@""];
 		storingCharacters = YES;
 	} else {
@@ -123,11 +127,14 @@
 		addDataButton.enabled = YES;
 		clearDataButton.enabled = YES;
 		[[[UIApplication sharedApplication] delegate] saveAction:self];
-		[self sendDataUpdatedNotification];
 		
 	} else if ([elementName isEqualToString:@"transaction"]) {
+		betaTransaction.location = tempLocation;
+		[tempLocation release];
 		numberOfTransactionsAdded += 1;
-		if ((numberOfTransactionsAdded % 10) == 0) {
+		if ((numberOfTransactionsAdded % 30) == 0) {
+			// Save for every thirty or what ever...
+			[[[UIApplication sharedApplication] delegate] saveAction:self];
 			[NSThread detachNewThreadSelector:@selector(increaseProgressBar:) toTarget:[BetaViewController class] withObject:self];
 		}
 		
@@ -141,9 +148,13 @@
 	} else if ([elementName isEqualToString:@"expense"]) {
 		betaTransaction.expense = [NSNumber numberWithInt:[currentString integerValue]];
 	} else if ([elementName isEqualToString:@"lat"]) {
-		betaTransaction.lat = [NSNumber numberWithFloat:[currentString floatValue]];
+		double tempLongitude = tempLocation.coordinate.longitude;
+		[tempLocation release];
+		tempLocation = [[CLLocation alloc] initWithLatitude:[currentString doubleValue] longitude:tempLongitude];
 	} else if ([elementName isEqualToString:@"lng"]) {
-		betaTransaction.lng = [NSNumber numberWithFloat:[currentString floatValue]];
+		double tempLatitude = tempLocation.coordinate.latitude;
+		[tempLocation release];
+		tempLocation = [[CLLocation alloc] initWithLatitude:tempLatitude longitude:[currentString doubleValue]];
 	} else if ([elementName isEqualToString:@"yearMonth"]) {
 		betaTransaction.yearMonth = [currentString copy];
 	} else if ([elementName isEqualToString:@"day"]) {
@@ -154,6 +165,8 @@
 		betaTransaction.date = [inputFormatter dateFromString:currentString];
 	} else if ([elementName isEqualToString:@"tags"]) {
 		betaTransaction.tags = [currentString copy];
+	} else if ([elementName isEqualToString:@"autotags"]) {
+		betaTransaction.autotags = [currentString copy];
 	}
 	[currentString setString:@""];
 	storingCharacters = NO;
@@ -168,18 +181,6 @@
 
 - (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError {
 	NSLog(@"Error when parsing: %@", parseError);
-}
-
-
-- (void)dealloc {
-	[addDataButton release];
-	[clearDataButton release];
-	
-	[managedObjectContext release];
-	[resultsController release];
-    [progressBar release];
-	
-	[super dealloc];
 }
 
 

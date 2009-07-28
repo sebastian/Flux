@@ -8,6 +8,7 @@
 
 #import "TransactionDisplay.h"
 #import "Transaction.h";
+#import "MapAnnotation.h"
 
 
 @implementation TransactionDisplay
@@ -17,30 +18,40 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
+	//
+	// Setup the view
 	mapHidden = YES;
 	mapInitialPosition = YES;
 	
 	NSString * newTitle = NSLocalizedString(@"Show map", @"Show map on transacation detail page button text");
 	[moveMapButton setTitle:newTitle forState:UIControlStateNormal];
-	[newTitle release];
 		
+
 	//
 	// Get the map location right
-	CLLocationCoordinate2D location;
-	location.latitude = [currentTransaction.lat floatValue];
-	location.longitude = [currentTransaction.lng floatValue];
+	CLLocationCoordinate2D location ;
+	location = currentTransaction.location.coordinate;
+	NSLog(@"The transactions location: %@", currentTransaction.location);
 	
+	
+	// FIXME: Is this really needed here? Prob not...
+	// Get geocoder
+//	geoCoder=[[MKReverseGeocoder alloc] initWithCoordinate:currentTransaction.location.coordinate];
+//	geoCoder.delegate=self;
+//	[geoCoder start];
+	
+	MapAnnotation * expenseAnnotation = [[MapAnnotation alloc] initWithTransaction:currentTransaction];
+	[map addAnnotation:expenseAnnotation];
+	[expenseAnnotation release];
+
 	MKCoordinateSpan span;
-	span.latitudeDelta = 0.5;
-	span.longitudeDelta = 0.5;
+	span.latitudeDelta = 0.0015;
 	
 	MKCoordinateRegion region;
 	region.center = location;
 	region.span = span;
 	
 	[map setRegion:region];
-	
-	NSLog(@"Showing transaction object: %@", currentTransaction);
 	
 	// 
 	// Set the textual data
@@ -59,15 +70,25 @@
 	
 	
 }
-
-/*
-// Override to allow orientations other than the default portrait orientation.
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+- (void)viewDidUnload {
+	// Release any retained subviews of the main view.
+	// e.g. self.myOutlet = nil;
 }
-*/
+- (void)dealloc {
+	[currentTransaction release];
+	[geoCoder release];
+    [super dealloc];
+}
+- (void)didReceiveMemoryWarning {
+	// Releases the view if it doesn't have a superview.
+    [super didReceiveMemoryWarning];
+	
+	// Release any cached data, images, etc that aren't in use.
+}
 
+
+//
+// Scales the map up or down
 -(IBAction)scaleMap:(id)sender {
 
 	// Is it the first time? In that case set up the shift register
@@ -86,14 +107,11 @@
 	if (mapHidden) {
 		NSString * newTitle = NSLocalizedString(@"Hide map", @"Hide map on transacation detail page button text");
 		[moveMapButton setTitle:newTitle forState:UIControlStateNormal];
-		[newTitle release];
 		[moveMapButton setBackgroundImage:[UIImage imageNamed:@"MapButtonTop.png"] forState:UIControlStateNormal];
 		mapHidden = NO;
 	} else {
 		NSString * newTitle = NSLocalizedString(@"Show map", @"Show map on transacation detail page button text");
 		[moveMapButton setTitle:newTitle forState:UIControlStateNormal];
-		[newTitle release];
-		
 		[moveMapButton setBackgroundImage:[UIImage imageNamed:@"MapButtonBottom.png"] forState:UIControlStateNormal];
 		mapHidden = YES;
 	}
@@ -115,22 +133,37 @@
 	mapLocation = currentMapLocation;
 }
 
-- (void)didReceiveMemoryWarning {
-	// Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
+
+
+#pragma mark
+#pragma mark -
+#pragma mark MKMapViewDelegate methods
+// Shows annotation
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation {
 	
-	// Release any cached data, images, etc that aren't in use.
+	static NSString * Identifier = @"transactionAnnotationView";
+	
+	NSLog(@"Wants annotation view for annotation: %@", annotation);
+	MKAnnotationView * annView = [[[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:Identifier] autorelease];
+	//MKPinAnnotationView *annView=[[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:Identifier];
+	//annView.animatesDrop=NO;
+	[annView setSelected:YES];
+	
+	return annView;
 }
 
-- (void)viewDidUnload {
-	// Release any retained subviews of the main view.
-	// e.g. self.myOutlet = nil;
+#pragma mark
+#pragma mark -
+#pragma mark MKReverseGeocoderDelegate methods
+- (void)reverseGeocoder:(MKReverseGeocoder *)geocoder didFailWithError:(NSError *)error{
+	NSLog(@"Reverse Geocoder Errored");
+	NSLog(@"Error: %@", error);
+	
 }
 
-
-- (void)dealloc {
-	[currentTransaction release];
-    [super dealloc];
+- (void)reverseGeocoder:(MKReverseGeocoder *)geocoder didFindPlacemark:(MKPlacemark *)placemark{
+	NSLog(@"Reverse Geocoder completed");
+	//[map addAnnotation:placemark];
 }
 
 

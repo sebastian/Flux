@@ -8,106 +8,96 @@
 
 #import "TransactionTableViewController.h"
 
-@interface TransactionTableViewController (Private)
--(void)doReloadData:(id)param;
-@end
-
-
 @implementation TransactionTableViewController
 
 @synthesize resultsController;
 @synthesize managedObjectContext;
 
-// Method needed by children
+
+#pragma mark -
+#pragma mark Setup and teardown
+- (id)initWithStyle:(UITableViewStyle)style andContext:(NSManagedObjectContext*)context {
+	
+	self = [super initWithStyle:style];
+	
+	if (self != nil) {
+		self.managedObjectContext = context;
+		self.resultsController = nil;
+	}
+	
+	return self;
+}
+- (void)dealloc {
+	NSLog(@"Deallocing %@", self);
+	
+	self.managedObjectContext = nil; // release
+	self.resultsController = nil; // release
+	
+	[super dealloc];
+}
+
+
+#pragma mark -
+#pragma mark NSFetchedResultsController delegate methods
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+	NSLog(@"%@ got sent a controllerDidChangeContent message. Reloading tableView data.", self);
+	[self.tableView reloadData];
+}
+
+
+#pragma mark -
+#pragma mark Powermethods for loading data from children
 -(void)loadDataWithSortDescriptors:(NSArray*)sortDescriptors predicates:(NSPredicate*)predicate sectionNameKeyPath:(NSString*)sectionGroupingName cacheName:(NSString*)cacheName {
 	
-	// Load the expenses
+	// Only load data once...
+	if (resultsController != nil) {NSLog(@"Trying to reload data...");return;} else {NSLog(@"Loading data for %@", self);}
+
+	NSEntityDescription *entity = [NSEntityDescription entityForName:@"Transaction" inManagedObjectContext:managedObjectContext]; 
+
+	// Create and setup the request
 	NSFetchRequest *request = [[NSFetchRequest alloc] init]; 
-	NSEntityDescription *entity = [NSEntityDescription entityForName:@"Transaction" 
-											  inManagedObjectContext:self.managedObjectContext]; 
 	[request setEntity:entity];
-	
 	[request setSortDescriptors:sortDescriptors]; 
 	[request setPredicate:predicate];
 	
 	NSError *error; 
 	NSFetchedResultsController * localRC = [[NSFetchedResultsController alloc] 
 											initWithFetchRequest:request 
-											managedObjectContext:self.managedObjectContext 
+											managedObjectContext:managedObjectContext 
 											sectionNameKeyPath:sectionGroupingName cacheName:cacheName]; 
-	localRC.delegate=self;
+	// Has been retained by the localRC, so we can release it here.
+	[request release];
 	
+	// Set self to delegate
+	localRC.delegate=self;
+
+	// Self takes control over the localRC, so we can release the local instance
 	self.resultsController = localRC;
 	[localRC release];
 	
+	// Get results
 	if (![resultsController performFetch:&error]) { 
-		NSLog(@"Error when performing fetch in OverviewTableViewController");
+		NSLog(@"Error when performing fetch in %@", self);
 		NSLog(@"ERROR: %@", error);
-	} 	
-	// WHY?
-	//[request release];
-	
-	[self.tableView reloadData];
+	}
+
+	// Nothing to do if it worked :)
 }	
 
-- (id)initWithStyle:(UITableViewStyle)style andContext:(NSManagedObjectContext*)context {
-	
-	self = [super initWithStyle:style];
-	if (self != nil) {
-		self.managedObjectContext = context;
-		
-		[[NSNotificationCenter defaultCenter]
-		 addObserver:self
-		 selector:@selector(doReloadData:)
-		 name:@"transactionsUpdated"
-		 object:nil];
-		
-	}
-	return self;
-}
--(void)doReloadData:(id)param {
-	NSLog(@"From parent: Updating data in %@", self);	
-	[self updateData];
-}
-// To be implemented by kids
--(void)updateData {}
 
-
-#pragma mark Table view methods
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	
-	NSUInteger count = [[resultsController sections] count];
-    if (count == 0) {
-        count = 1;
-    }
-    return count;
-	
-}
+#pragma mark -
+#pragma mark To be implemented by subclasses
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	
-	NSArray *sections = [resultsController sections];
-    NSUInteger count = 0;
-    if ([sections count]) {
-        id <NSFetchedResultsSectionInfo> sectionInfo = [sections objectAtIndex:section];
-        count = [sectionInfo numberOfObjects];
-    }
-	return count;
+    NSLog(@"Method called that should be implemented by child!");
+	return 0;
+}
+- (void)updateData {
+	NSLog(@"Method called that should be implemented by child!");
+}
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+	NSLog(@"Method called that should be implemented by child!");
+	return nil;
 }
 
-// To be implemented by kids
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {return nil;}
-
-- (void)dealloc {
-	NSLog(@"Deallocing %@", self);
-	
-	// Remove as observer
-	[[NSNotificationCenter defaultCenter] removeObserver:self];
-	
-	[managedObjectContext release];
-	[resultsController release];	
-	
-	[super dealloc];
-}
 
 @end
