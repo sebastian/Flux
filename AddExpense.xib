@@ -39,7 +39,7 @@
 					<object class="IBUILabel" id="26140608">
 						<reference key="NSNextResponder" ref="175991278"/>
 						<int key="NSvFlags">290</int>
-						<string key="NSFrame">{{20, 24}, {212, 43}}</string>
+						<string key="NSFrame">{{20, 24}, {144, 43}}</string>
 						<reference key="NSSuperview" ref="175991278"/>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">3</int>
@@ -51,7 +51,7 @@
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
-						<string key="IBUIText">Add expense</string>
+						<string key="IBUIText">Expense</string>
 						<object class="NSFont" key="IBUIFont">
 							<string key="NSName">Helvetica</string>
 							<double key="NSSize">3.600000e+01</double>

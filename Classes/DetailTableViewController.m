@@ -61,9 +61,11 @@
 -(void)updateData {
 	
 	// Sort descriptors
-	NSSortDescriptor *sortByDate = [[NSSortDescriptor alloc] initWithKey:@"day" ascending:NO];
-	NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortByDate, nil]; 
+	NSSortDescriptor *sortByDay = [[NSSortDescriptor alloc] initWithKey:@"day" ascending:NO];
+	NSSortDescriptor *sortByDate = [[NSSortDescriptor alloc] initWithKey:@"date" ascending:NO];
+	NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortByDay, sortByDate, nil]; 
 	[sortByDate release];
+	[sortByDay release];
 	
 	// Predicate(s)
 	NSPredicate * monthPredicate = [NSPredicate predicateWithFormat:@"yearMonth = %@", yearMonthToDisplay];

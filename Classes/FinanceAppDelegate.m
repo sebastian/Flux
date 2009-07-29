@@ -21,7 +21,8 @@
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
 
-	[application setStatusBarStyle:UIStatusBarStyleBlackOpaque];	
+	[application performSelector:@selector(setStatusBarStyle:) withObject:UIStatusBarStyleBlackOpaque];
+//	[application setStatusBarStyle:UIStatusBarStyleBlackOpaque];	
 	
 	NSManagedObjectContext *context = [self managedObjectContext]; 
     if (!context) { 

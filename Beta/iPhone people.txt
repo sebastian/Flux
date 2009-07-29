@@ -10,8 +10,9 @@ x	Marcis
 	Samuel Scherer
 x	Nicole Eide
 	Tom Alexander
-x	Mathias Reitan Jacobsen
+xx	Mathias Reitan Jacobsen
 	Christian Foskett
 	Pia Kuhn
+x	Tiril
 
 pluss last test on iBetaTest.com
