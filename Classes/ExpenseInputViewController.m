@@ -9,6 +9,7 @@
 #import "ExpenseInputViewController.h"
 #import "ConfirmationView.h"
 #import "LocationController.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface ExpenseInputViewController (Private)
 -(void)updateExpenseDisplay;
@@ -60,8 +61,9 @@
 - (void)okButtonPressed {
 	[self addExpense];
 }
-- (void)decimalButtonPressed {
-	[self.newTransaction addDecimal];
+- (void)doubleZeroButtonPressed {
+	[self.newTransaction addNumber:0];
+	[self.newTransaction addNumber:0];
 	[self updateExpenseDisplay];
 }
 

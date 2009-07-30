@@ -217,7 +217,7 @@
 							<bytes key="NSRGB">MC4xOTYwNzg0MyAwLjMwOTgwMzkzIDAuNTIxNTY4NjYAA</bytes>
 						</object>
 						<reference key="IBUINormalTitleShadowColor" ref="564394817"/>
-						<object class="NSCustomResource" key="IBUIHighlightedImage" id="596680209">
+						<object class="NSCustomResource" key="IBUIHighlightedImage" id="402985306">
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">SwitchTransition.png</string>
 						</object>
@@ -225,7 +225,7 @@
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">SwitchDisabled.png</string>
 						</object>
-						<reference key="IBUISelectedImage" ref="596680209"/>
+						<reference key="IBUISelectedImage" ref="402985306"/>
 						<object class="NSCustomResource" key="IBUINormalImage">
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">SwitchExpense.png</string>
@@ -303,9 +303,9 @@
 						<string key="label">toggleExpenseIncome:</string>
 						<reference key="source" ref="672444501"/>
 						<reference key="destination" ref="372490531"/>
-						<int key="IBEventType">7</int>
+						<int key="IBEventType">1</int>
 					</object>
-					<int key="connectionID">91</int>
+					<int key="connectionID">92</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -447,7 +447,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">91</int>
+			<int key="maxID">92</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">

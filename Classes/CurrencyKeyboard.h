@@ -27,6 +27,9 @@
 	UIButton * buttonAdd;
 	UIButton * buttonComma;
 	
+	IBOutlet UIImageView * pulseImage;
+	BOOL animateOKButton;
+	
 }
 
 // External methods for delegate
@@ -44,7 +47,7 @@
 
 // IBActions
 -(IBAction)numberButtonPushed:(id)sender;
--(IBAction)decimalButtonPushed:(id)sender;
+-(IBAction)doubleZeroButtonPushed:(id)sender;
 -(IBAction)okButtonPushed:(id)sender;
 
 // Delegate

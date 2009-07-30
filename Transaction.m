@@ -64,7 +64,8 @@
 
 -(NSString*)toString {
 	// TODO: Probably not optimal...
-	NSNumber * number = [NSNumber numberWithDouble:[self.kroner doubleValue] + [self.ore doubleValue]/100];
+	//NSNumber * number = [NSNumber numberWithDouble:[self.kroner doubleValue] + [self.ore doubleValue]/100];
+	NSNumber * number = [NSNumber numberWithDouble:[self.kroner doubleValue]/100];
 	return [self numberToMoney:number];
 }
 -(NSString*)numberToMoney:(NSNumber*)number {

@@ -50,6 +50,34 @@
 							<string key="NSResourceName">KeyboardBackground.png</string>
 						</object>
 					</object>
+					<object class="IBUIImageView" id="135569667">
+						<reference key="NSNextResponder" ref="1039347308"/>
+						<int key="NSvFlags">292</int>
+						<string key="NSFrame">{{213, 157}, {106, 50}}</string>
+						<reference key="NSSuperview" ref="1039347308"/>
+						<bool key="IBUIOpaque">NO</bool>
+						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
+						<int key="IBUIContentMode">4</int>
+						<bool key="IBUIUserInteractionEnabled">NO</bool>
+						<object class="NSCustomResource" key="IBUIImage">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">KBBCOKbackground.png</string>
+						</object>
+					</object>
+					<object class="IBUIImageView" id="252222737">
+						<reference key="NSNextResponder" ref="1039347308"/>
+						<int key="NSvFlags">-2147483356</int>
+						<string key="NSFrame">{{213, 157}, {106, 50}}</string>
+						<reference key="NSSuperview" ref="1039347308"/>
+						<bool key="IBUIOpaque">NO</bool>
+						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
+						<int key="IBUIContentMode">4</int>
+						<bool key="IBUIUserInteractionEnabled">NO</bool>
+						<object class="NSCustomResource" key="IBUIImage">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">KBBCPulse.png</string>
+						</object>
+					</object>
 					<object class="IBUIButton" id="730832071">
 						<reference key="NSNextResponder" ref="1039347308"/>
 						<int key="NSvFlags">292</int>
@@ -260,7 +288,7 @@
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<reference key="IBUIFont" ref="354317998"/>
-						<string key="IBUINormalTitle">.</string>
+						<string key="IBUINormalTitle">00</string>
 						<reference key="IBUIHighlightedTitleColor" ref="684676804"/>
 						<reference key="IBUIDisabledTitleColor" ref="791587563"/>
 						<reference key="IBUINormalTitleColor" ref="523197692"/>
@@ -294,6 +322,10 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{213, 157}, {106, 50}}</string>
 						<reference key="NSSuperview" ref="1039347308"/>
+						<object class="NSColor" key="IBUIBackgroundColor">
+							<int key="NSColorSpace">3</int>
+							<bytes key="NSWhite">MCAwAA</bytes>
+						</object>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 						<object class="IBUIAccessibilityConfiguration" key="IBUIAccessibilityConfiguration">
@@ -311,14 +343,16 @@
 						<reference key="IBUINormalTitleShadowColor" ref="652377121"/>
 						<object class="NSCustomResource" key="IBUIHighlightedImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">KeyboardButtonOKClicked.png</string>
+							<string key="NSResourceName">KeyboardButtonOKUnclicked.png</string>
 						</object>
 						<object class="NSCustomResource" key="IBUINormalImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">KeyboardButtonOKUnclicked.png</string>
+							<string key="NSResourceName">KeyboardButtonOKClicked.png</string>
 						</object>
-						<reference key="IBUIHighlightedBackgroundImage" ref="557341629"/>
-						<reference key="IBUINormalBackgroundImage" ref="24183727"/>
+						<object class="NSCustomResource" key="IBUIHighlightedBackgroundImage">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">KBBCOK.png</string>
+						</object>
 					</object>
 				</object>
 				<string key="NSFrameSize">{320, 220}</string>
@@ -328,6 +362,16 @@
 					<bytes key="NSWhite">MC4xMzMwNjQ1MgA</bytes>
 				</object>
 				<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
+			</object>
+			<object class="IBUIImageView" id="1037601917">
+				<nil key="NSNextResponder"/>
+				<int key="NSvFlags">292</int>
+				<string key="NSFrame">{{213, 157}, {106, 50}}</string>
+				<bool key="IBUIOpaque">NO</bool>
+				<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
+				<int key="IBUIContentMode">4</int>
+				<bool key="IBUIUserInteractionEnabled">NO</bool>
+				<reference key="IBUIImage" ref="557341629"/>
 			</object>
 		</object>
 		<object class="IBObjectContainer" key="IBDocument.Objects">
@@ -529,21 +573,29 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">decimalButtonPushed:</string>
-						<reference key="source" ref="365715162"/>
-						<reference key="destination" ref="372490531"/>
-						<int key="IBEventType">7</int>
-					</object>
-					<int key="connectionID">41</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">okButtonPushed:</string>
 						<reference key="source" ref="1065354617"/>
 						<reference key="destination" ref="372490531"/>
 						<int key="IBEventType">7</int>
 					</object>
 					<int key="connectionID">42</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">pulseImage</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="252222737"/>
+					</object>
+					<int key="connectionID">46</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">doubleZeroButtonPushed:</string>
+						<reference key="source" ref="365715162"/>
+						<reference key="destination" ref="372490531"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">47</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -586,6 +638,8 @@
 							<reference ref="730832071"/>
 							<reference ref="8561409"/>
 							<reference ref="365715162"/>
+							<reference ref="135569667"/>
+							<reference ref="252222737"/>
 						</object>
 						<reference key="parent" ref="317526666"/>
 					</object>
@@ -654,6 +708,21 @@
 						<reference key="object" ref="365715162"/>
 						<reference key="parent" ref="1039347308"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">43</int>
+						<reference key="object" ref="135569667"/>
+						<reference key="parent" ref="1039347308"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">44</int>
+						<reference key="object" ref="1037601917"/>
+						<reference key="parent" ref="317526666"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">45</int>
+						<reference key="object" ref="252222737"/>
+						<reference key="parent" ref="1039347308"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -672,6 +741,9 @@
 					<string>17.IBPluginDependency</string>
 					<string>4.IBEditorWindowLastContentRect</string>
 					<string>4.IBPluginDependency</string>
+					<string>43.IBPluginDependency</string>
+					<string>44.IBPluginDependency</string>
+					<string>45.IBPluginDependency</string>
 					<string>5.IBPluginDependency</string>
 					<string>6.IBPluginDependency</string>
 					<string>7.IBPluginDependency</string>
@@ -690,7 +762,10 @@
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>{{557, -638}, {320, 220}}</string>
+					<string>{{514, -472}, {320, 220}}</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -719,7 +794,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">42</int>
+			<int key="maxID">47</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -731,7 +806,7 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSMutableArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>decimalButtonPushed:</string>
+							<string>doubleZeroButtonPushed:</string>
 							<string>numberButtonPushed:</string>
 							<string>okButtonPushed:</string>
 						</object>
@@ -758,6 +833,8 @@
 							<string>button9</string>
 							<string>buttonAdd</string>
 							<string>buttonComma</string>
+							<string>delegate</string>
+							<string>pulseImage</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -773,6 +850,8 @@
 							<string>UIButton</string>
 							<string>UIButton</string>
 							<string>UIButton</string>
+							<string>id</string>
+							<string>UIImageView</string>
 						</object>
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">

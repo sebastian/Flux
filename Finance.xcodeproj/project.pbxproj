@@ -19,6 +19,9 @@
 		963135A21021C388007986A4 /* SwitchIncome.png in Resources */ = {isa = PBXBuildFile; fileRef = 963135A01021C388007986A4 /* SwitchIncome.png */; };
 		963135A31021C388007986A4 /* SwitchTransition.png in Resources */ = {isa = PBXBuildFile; fileRef = 963135A11021C388007986A4 /* SwitchTransition.png */; };
 		963135CE1021C611007986A4 /* SwitchDisabled.png in Resources */ = {isa = PBXBuildFile; fileRef = 963135CD1021C611007986A4 /* SwitchDisabled.png */; };
+		963136161021D506007986A4 /* KBBCOK.png in Resources */ = {isa = PBXBuildFile; fileRef = 963136141021D506007986A4 /* KBBCOK.png */; };
+		963136171021D506007986A4 /* KBBCPulse.png in Resources */ = {isa = PBXBuildFile; fileRef = 963136151021D506007986A4 /* KBBCPulse.png */; };
+		963136531021DA4D007986A4 /* KBBCOKbackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 963136521021DA4D007986A4 /* KBBCOKbackground.png */; };
 		963B020E10185D8C00CD5184 /* ConfirmationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 963B020D10185D8C00CD5184 /* ConfirmationView.m */; };
 		963B021810185DAA00CD5184 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 963B021710185DAA00CD5184 /* QuartzCore.framework */; };
 		963B029A1019E10900CD5184 /* TransactionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 963B02991019E10900CD5184 /* TransactionsViewController.m */; };
@@ -88,6 +91,9 @@
 		963135A01021C388007986A4 /* SwitchIncome.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SwitchIncome.png; path = Graphics/SwitchIncome.png; sourceTree = "<group>"; };
 		963135A11021C388007986A4 /* SwitchTransition.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SwitchTransition.png; path = Graphics/SwitchTransition.png; sourceTree = "<group>"; };
 		963135CD1021C611007986A4 /* SwitchDisabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SwitchDisabled.png; path = Graphics/SwitchDisabled.png; sourceTree = "<group>"; };
+		963136141021D506007986A4 /* KBBCOK.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = KBBCOK.png; path = Graphics/KBBCOK.png; sourceTree = "<group>"; };
+		963136151021D506007986A4 /* KBBCPulse.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = KBBCPulse.png; path = Graphics/KBBCPulse.png; sourceTree = "<group>"; };
+		963136521021DA4D007986A4 /* KBBCOKbackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = KBBCOKbackground.png; path = Graphics/KBBCOKbackground.png; sourceTree = "<group>"; };
 		963B020C10185D8C00CD5184 /* ConfirmationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfirmationView.h; sourceTree = "<group>"; };
 		963B020D10185D8C00CD5184 /* ConfirmationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfirmationView.m; sourceTree = "<group>"; };
 		963B021710185DAA00CD5184 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -340,6 +346,9 @@
 		96AA703710061CF600206A37 /* Graphics */ = {
 			isa = PBXGroup;
 			children = (
+				963136521021DA4D007986A4 /* KBBCOKbackground.png */,
+				963136141021D506007986A4 /* KBBCOK.png */,
+				963136151021D506007986A4 /* KBBCPulse.png */,
 				963135CD1021C611007986A4 /* SwitchDisabled.png */,
 				963135A01021C388007986A4 /* SwitchIncome.png */,
 				963135A11021C388007986A4 /* SwitchTransition.png */,
@@ -474,6 +483,9 @@
 				963135A21021C388007986A4 /* SwitchIncome.png in Resources */,
 				963135A31021C388007986A4 /* SwitchTransition.png in Resources */,
 				963135CE1021C611007986A4 /* SwitchDisabled.png in Resources */,
+				963136161021D506007986A4 /* KBBCOK.png in Resources */,
+				963136171021D506007986A4 /* KBBCPulse.png in Resources */,
+				963136531021DA4D007986A4 /* KBBCOKbackground.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

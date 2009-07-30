@@ -66,6 +66,6 @@ static const CGFloat TEXTFIELD_PADDING = 10;
 // CurrencyKeyboardDelegate methods
 - (void)numericButtonPressed:(NSInteger)key;
 - (void)okButtonPressed;
-- (void)decimalButtonPressed;
+//- (void)decimalButtonPressed;
 
 @end

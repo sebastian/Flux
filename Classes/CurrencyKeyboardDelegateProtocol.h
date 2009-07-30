@@ -9,7 +9,7 @@
 @protocol CurrencyKeyboardDelegate
 - (void)numericButtonPressed:(NSInteger)key;
 - (void)okButtonPressed;
-- (void)decimalButtonPressed;
+- (void)doubleZeroButtonPressed;
 
 - (UIView*)view;
 @end

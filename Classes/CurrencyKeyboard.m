@@ -7,9 +7,12 @@
 //
 
 #import "CurrencyKeyboard.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface CurrencyKeyboard (Private)
 -(void)moveKeyboardTo:(CGRect)keyboardFrame animated:(BOOL)animation;
+-(void)startAnimation;
+-(void)stopAnimation;
 @end
 
 
@@ -52,9 +55,12 @@
 	keyboardFrame.origin.y = delegateFrame.size.height - keyboardFrame.size.height;
 	
 	[self moveKeyboardTo:keyboardFrame animated:animation];
-
+	
+	[self startAnimation];
 }
 -(void)hideKeyboardWithAnimation:(BOOL)animation {
+	
+	[self stopAnimation];
 	
 	CGRect keyboardFrame = [self.view frame];
 	CGRect delegateFrame = [self.delegate.view frame];
@@ -112,6 +118,54 @@
 	[button9 setEnabled:YES];	
 }	
 
+-(void)startAnimation {
+	NSLog(@"Starting OK button animation");
+	animateOKButton = YES;
+	[self 
+	 performSelector:@selector(animateOut)
+	 withObject:nil
+	 afterDelay:0.0];
+}
+-(void)stopAnimation {
+	NSLog(@"Stopping OK button animation");
+	animateOKButton = NO;
+}
+
+-(void)animateIn {
+	if (animateOKButton == NO) {return;}
+	
+	pulseImage.hidden = NO;
+	
+	// Set up the animation
+	CATransition *animation = [CATransition animation];
+	[animation setType:kCATransitionFade];
+	[animation setDuration:1.0];
+	
+	[[self.view layer] addAnimation:animation forKey:@"layerAnimation"];	
+	
+	[self 
+	 performSelector:@selector(animateOut)
+	 withObject:nil
+	 afterDelay:3.0];
+	
+}
+-(void)animateOut {
+	if (animateOKButton == NO) {return;}
+	
+	pulseImage.hidden = YES;
+	
+	// Set up the animation
+	CATransition *animation = [CATransition animation];
+	[animation setType:kCATransitionFade];
+	[animation setDuration:1.0];
+	
+	[[self.view layer] addAnimation:animation forKey:@"layerAnimation"];	
+
+	[self 
+	 performSelector:@selector(animateIn)
+	 withObject:nil
+	 afterDelay:3.0];
+}
 
 #pragma mark
 #pragma mark -
@@ -120,8 +174,8 @@
 -(IBAction)numberButtonPushed:(UIButton *)button {
 	[self.delegate numericButtonPressed:button.tag];
 }
--(IBAction)decimalButtonPushed:(id)sender {
-	[self.delegate decimalButtonPressed];
+-(IBAction)doubleZeroButtonPushed:(id)sender {
+	[self.delegate doubleZeroButtonPressed];
 }
 -(IBAction)okButtonPushed:(id)sender {
 	[self.delegate okButtonPressed];
