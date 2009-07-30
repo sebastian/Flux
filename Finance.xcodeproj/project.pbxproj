@@ -15,6 +15,10 @@
 		288765080DF74369002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765070DF74369002DB57D /* CoreGraphics.framework */; };
 		960080F5100A98E900740DCB /* TODO.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 960080F4100A98E900740DCB /* TODO.rtf */; };
 		960C07FE1021AFF300B9C2A3 /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 960C07FD1021AFF300B9C2A3 /* Utilities.m */; };
+		960C08211021B8A600B9C2A3 /* SwitchExpense.png in Resources */ = {isa = PBXBuildFile; fileRef = 960C08201021B8A600B9C2A3 /* SwitchExpense.png */; };
+		963135A21021C388007986A4 /* SwitchIncome.png in Resources */ = {isa = PBXBuildFile; fileRef = 963135A01021C388007986A4 /* SwitchIncome.png */; };
+		963135A31021C388007986A4 /* SwitchTransition.png in Resources */ = {isa = PBXBuildFile; fileRef = 963135A11021C388007986A4 /* SwitchTransition.png */; };
+		963135CE1021C611007986A4 /* SwitchDisabled.png in Resources */ = {isa = PBXBuildFile; fileRef = 963135CD1021C611007986A4 /* SwitchDisabled.png */; };
 		963B020E10185D8C00CD5184 /* ConfirmationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 963B020D10185D8C00CD5184 /* ConfirmationView.m */; };
 		963B021810185DAA00CD5184 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 963B021710185DAA00CD5184 /* QuartzCore.framework */; };
 		963B029A1019E10900CD5184 /* TransactionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 963B02991019E10900CD5184 /* TransactionsViewController.m */; };
@@ -80,6 +84,10 @@
 		960080F4100A98E900740DCB /* TODO.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = TODO.rtf; sourceTree = "<group>"; };
 		960C07FC1021AFF300B9C2A3 /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
 		960C07FD1021AFF300B9C2A3 /* Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utilities.m; sourceTree = "<group>"; };
+		960C08201021B8A600B9C2A3 /* SwitchExpense.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SwitchExpense.png; path = Graphics/SwitchExpense.png; sourceTree = "<group>"; };
+		963135A01021C388007986A4 /* SwitchIncome.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SwitchIncome.png; path = Graphics/SwitchIncome.png; sourceTree = "<group>"; };
+		963135A11021C388007986A4 /* SwitchTransition.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SwitchTransition.png; path = Graphics/SwitchTransition.png; sourceTree = "<group>"; };
+		963135CD1021C611007986A4 /* SwitchDisabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SwitchDisabled.png; path = Graphics/SwitchDisabled.png; sourceTree = "<group>"; };
 		963B020C10185D8C00CD5184 /* ConfirmationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfirmationView.h; sourceTree = "<group>"; };
 		963B020D10185D8C00CD5184 /* ConfirmationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfirmationView.m; sourceTree = "<group>"; };
 		963B021710185DAA00CD5184 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -332,6 +340,10 @@
 		96AA703710061CF600206A37 /* Graphics */ = {
 			isa = PBXGroup;
 			children = (
+				963135CD1021C611007986A4 /* SwitchDisabled.png */,
+				963135A01021C388007986A4 /* SwitchIncome.png */,
+				963135A11021C388007986A4 /* SwitchTransition.png */,
+				960C08201021B8A600B9C2A3 /* SwitchExpense.png */,
 				9666E5FF1020B66E000B9325 /* Default.png */,
 				969C6C55101F8A79007B5CC8 /* Icon.png */,
 				9641A065101CD2F30066D6D8 /* MapButtonBottom.png */,
@@ -458,6 +470,10 @@
 				96D28063101F621000B0A026 /* Entitlements.plist in Resources */,
 				969C6C56101F8A79007B5CC8 /* Icon.png in Resources */,
 				9666E6001020B66E000B9325 /* Default.png in Resources */,
+				960C08211021B8A600B9C2A3 /* SwitchExpense.png in Resources */,
+				963135A21021C388007986A4 /* SwitchIncome.png in Resources */,
+				963135A31021C388007986A4 /* SwitchTransition.png in Resources */,
+				963135CE1021C611007986A4 /* SwitchDisabled.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

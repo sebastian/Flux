@@ -33,6 +33,9 @@ static const CGFloat TEXTFIELD_PADDING = 10;
 	CLLocation * bestLocation;
 	
 	CurrencyKeyboard * currencyKeyboard;
+	
+	UILabel * headerLabel;
+	UIButton * expenseIncomeButton;
 }
 
 // CoreData
@@ -48,12 +51,17 @@ static const CGFloat TEXTFIELD_PADDING = 10;
 @property (nonatomic, retain) IBOutlet UITextField * amount;
 @property (nonatomic, retain) IBOutlet UIView * textFieldBackground;
 @property (nonatomic, retain) IBOutlet UIView * deleteButtonView;
+@property (nonatomic, retain) IBOutlet UIButton * expenseIncomeButton;
+@property (nonatomic, retain) IBOutlet UILabel * headerLabel;
 
 @property (nonatomic, retain) CurrencyKeyboard * currencyKeyboard;
 @property (nonatomic, retain) Transaction * newTransaction;
 
+
+
 -(void)addExpense;
 -(IBAction)deleteButtonPushed:(id)sender;
+-(IBAction)toggleExpenseIncome:(id)sender;
 
 // CurrencyKeyboardDelegate methods
 - (void)numericButtonPressed:(NSInteger)key;

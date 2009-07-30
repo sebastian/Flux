@@ -13,6 +13,7 @@
 @interface ExpenseInputViewController (Private)
 -(void)updateExpenseDisplay;
 -(void)save;
+-(void)setHeader:(NSString*)heading;
 @end
 
 
@@ -22,6 +23,8 @@
 @synthesize amount;
 @synthesize textFieldBackground;
 @synthesize deleteButtonView;
+@synthesize expenseIncomeButton;
+@synthesize headerLabel;
 
 @synthesize newTransaction;
 @synthesize managedObjectContext;
@@ -77,6 +80,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+	// Set the heading right
+	newTransaction.expense = [NSNumber numberWithBool:NO];
+	[self toggleExpenseIncome:nil];
+	
 	// Try to get the location
 	[LocationController sharedInstance].delegate = self;
 	[LocationController sharedInstance].locationManager.desiredAccuracy = kCLLocationAccuracyBest;
@@ -188,6 +195,26 @@
 	[self updateExpenseDisplay];
 	
 }
+-(IBAction)toggleExpenseIncome:(id)sender {
+	if (newTransaction.expense == [NSNumber numberWithBool:YES]) {
+		[self setHeader:NSLocalizedString(@"Income", @"Add expenses screen header")];
+		newTransaction.expense = [NSNumber numberWithBool:NO];
+		[expenseIncomeButton setImage:[UIImage imageNamed:@"SwitchIncome.png"] forState:UIControlStateNormal];
+	} else {
+		[self setHeader:NSLocalizedString(@"Expense", @"Add expenses screen header")];
+		newTransaction.expense = [NSNumber numberWithBool:YES];
+		[expenseIncomeButton setImage:[UIImage imageNamed:@"SwitchExpense.png"] forState:UIControlStateNormal];
+	}
+}
+-(void)setHeader:(NSString*)heading {
+	UIFont * font = [UIFont fontWithName:@"Verdana" size:36];
+	CGSize textSize = [heading sizeWithFont:font];
+	NSLog(@"Setting header label to %@. Size should be %i", heading, textSize.width);
+	CGRect frame = headerLabel.frame;
+	frame.size.width = textSize.width;
+	headerLabel.frame = frame;
+	headerLabel.text = heading;
+}
 
 #pragma mark
 #pragma mark -
@@ -217,6 +244,8 @@
 	[newTransaction release];
 }
 - (void)dealloc {
+	[headerLabel release];
+	[expenseIncomeButton release];
 	[bestLocation release];
 	[deleteButtonView release];
 	[amount release];

@@ -22,8 +22,10 @@
 -(void)viewDidLoad {
 	self.title = NSLocalizedString(@"Overview", @"Overview table transaction view");
 
-	// Only show last three months of data at first
+	// Only show last three months of data?
+	// We don't know yet, depends on how many months there are...
 	onlyLast3Months = YES; 	
+
 	[self updateData];
 }
 - (void)dealloc {
@@ -80,7 +82,10 @@
 	 I selectively fake a result here
 	 */
 	NSUInteger count = [[resultsController sections] count];
-	if (onlyLast3Months) {
+	if (onlyLast3Months && (count < 3)) {
+		onlyLast3Months = NO;
+		return count;
+	} else if (onlyLast3Months) {
 		numOfSections = count;
 		return count + 1;
 	} else {
