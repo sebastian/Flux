@@ -14,6 +14,7 @@
 		28216C970DB411BC00E5133A /* ExpenseInputViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28216C960DB411BC00E5133A /* ExpenseInputViewController.m */; };
 		288765080DF74369002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765070DF74369002DB57D /* CoreGraphics.framework */; };
 		960080F5100A98E900740DCB /* TODO.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 960080F4100A98E900740DCB /* TODO.rtf */; };
+		960C07FE1021AFF300B9C2A3 /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 960C07FD1021AFF300B9C2A3 /* Utilities.m */; };
 		963B020E10185D8C00CD5184 /* ConfirmationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 963B020D10185D8C00CD5184 /* ConfirmationView.m */; };
 		963B021810185DAA00CD5184 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 963B021710185DAA00CD5184 /* QuartzCore.framework */; };
 		963B029A1019E10900CD5184 /* TransactionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 963B02991019E10900CD5184 /* TransactionsViewController.m */; };
@@ -77,6 +78,8 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Finance-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Finance-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		960080F4100A98E900740DCB /* TODO.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = TODO.rtf; sourceTree = "<group>"; };
+		960C07FC1021AFF300B9C2A3 /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
+		960C07FD1021AFF300B9C2A3 /* Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utilities.m; sourceTree = "<group>"; };
 		963B020C10185D8C00CD5184 /* ConfirmationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfirmationView.h; sourceTree = "<group>"; };
 		963B020D10185D8C00CD5184 /* ConfirmationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfirmationView.m; sourceTree = "<group>"; };
 		963B021710185DAA00CD5184 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -166,15 +169,12 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				960C07FF1021AFF900B9C2A3 /* Div */,
 				964F1E6D101CDB66004EA5C3 /* CoreLocation */,
 				96419A60101C4E200066D6D8 /* Beta */,
 				963B020A10185D6E00CD5184 /* Add Expenses */,
 				96BD3E67101744C600926A83 /* Keyboard */,
 				96FFFA771015ED0300A53779 /* Expenses tab */,
-				96AA710A1006616700206A37 /* Transaction.h */,
-				96AA710B1006616700206A37 /* Transaction.m */,
-				1D3623240D0F684500981E51 /* FinanceAppDelegate.h */,
-				1D3623250D0F684500981E51 /* FinanceAppDelegate.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -235,6 +235,19 @@
 				288765070DF74369002DB57D /* CoreGraphics.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		960C07FF1021AFF900B9C2A3 /* Div */ = {
+			isa = PBXGroup;
+			children = (
+				96AA710A1006616700206A37 /* Transaction.h */,
+				96AA710B1006616700206A37 /* Transaction.m */,
+				1D3623240D0F684500981E51 /* FinanceAppDelegate.h */,
+				1D3623250D0F684500981E51 /* FinanceAppDelegate.m */,
+				960C07FC1021AFF300B9C2A3 /* Utilities.h */,
+				960C07FD1021AFF300B9C2A3 /* Utilities.m */,
+			);
+			name = Div;
 			sourceTree = "<group>";
 		};
 		963B020A10185D6E00CD5184 /* Add Expenses */ = {
@@ -474,6 +487,7 @@
 				96419CBE101C77530066D6D8 /* TransactionDisplay.m in Sources */,
 				964F1E70101CDB75004EA5C3 /* LocationController.m in Sources */,
 				963BFE88101DCB9000C187E0 /* MapAnnotation.m in Sources */,
+				960C07FE1021AFF300B9C2A3 /* Utilities.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

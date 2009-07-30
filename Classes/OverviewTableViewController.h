@@ -7,11 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "OverviewTableCell.h"
 #import "TransactionTableViewController.h"
 
+@class OverviewTableCell;
+
 @interface OverviewTableViewController : TransactionTableViewController {
-	OverviewTableCell * overviewTableCell;	
+	OverviewTableCell * overviewTableCell;
+
+	BOOL onlyLast3Months;
+	NSInteger numOfSections;
 }
 
 //Different table cells

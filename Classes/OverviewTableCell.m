@@ -14,6 +14,7 @@
 @synthesize month;
 @synthesize year;
 @synthesize amount;
+@synthesize loadHistory;
 
 
 #define PRICE_FIELD_MARGIN 15.0
@@ -108,6 +109,7 @@
 }
 
 -(void)dealloc {	
+	[loadHistory release];
 	[month release];
 	[year release];
 	[amount release];

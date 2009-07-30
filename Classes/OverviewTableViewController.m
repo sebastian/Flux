@@ -7,9 +7,11 @@
 //
 
 #import <CoreData/CoreData.h>
+#import "OverviewTableCell.h"
 #import "OverviewTableViewController.h"
 #import "Transaction.h"
 #import "DetailTableViewController.h"
+#import "Utilities.h"
 
 @implementation OverviewTableViewController
 
@@ -19,6 +21,9 @@
 #pragma mark Init and teardown
 -(void)viewDidLoad {
 	self.title = NSLocalizedString(@"Overview", @"Overview table transaction view");
+
+	// Only show last three months of data at first
+	onlyLast3Months = YES; 	
 	[self updateData];
 }
 - (void)dealloc {
@@ -36,12 +41,23 @@
 	[sortByYearMonth release];
 	
 	// Predicates
-	// TODO: make auto select last X months... not staticly like now
-	NSPredicate * onlyLastSixMonths = [NSPredicate predicateWithFormat:@"yearMonth > %@", @"200906"];
-
-	// Perform the load
-	[self loadDataWithSortDescriptors:sortDescriptors predicates:onlyLastSixMonths sectionNameKeyPath:@"yearMonth" cacheName:@"overviewTransactionCache"];
+	const NSInteger numberOfMonthsToSubtract = 3;
+	NSCalendar * currentCalendar = [NSCalendar currentCalendar];
+	NSDateComponents * components = [currentCalendar components:(NSMonthCalendarUnit | NSDayCalendarUnit | NSYearCalendarUnit) fromDate:[NSDate dateWithTimeIntervalSinceNow:-(60 * 60 * 24 * 31 * numberOfMonthsToSubtract)]];
 	
+	NSString * yearMonthValue;
+	if (components.month < 10) {
+		yearMonthValue = [NSString stringWithFormat:@"%4i0%i", components.year, components.month];
+	} else {
+		yearMonthValue = [NSString stringWithFormat:@"%4i%i", components.year, components.month];
+	}
+	NSPredicate * onlyLastNMonths = [NSPredicate predicateWithFormat:@"yearMonth > %@", yearMonthValue];
+	
+	// Only use the predicate if we are asked to only display the last N months
+	if (!onlyLast3Months) {onlyLastNMonths = nil;}
+	
+	// Perform the load
+	[self loadDataWithSortDescriptors:sortDescriptors predicates:onlyLastNMonths sectionNameKeyPath:@"yearMonth" cacheName:@"overviewTransactionCache"];	
 }
 
 
@@ -59,19 +75,39 @@
  Each section is made into one row in the table view
  */
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+	/*
+	 Depending on if I only show the last three rows or not
+	 I selectively fake a result here
+	 */
 	NSUInteger count = [[resultsController sections] count];
-    return count;
+	if (onlyLast3Months) {
+		numOfSections = count;
+		return count + 1;
+	} else {
+		return count;
+	}
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-
+	
 	// Get a cell:
 	static NSString *CellIdentifier = @"OverviewCell";
 	OverviewTableCell *cell = (OverviewTableCell *) [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 	if (cell == nil) {
 		[[NSBundle mainBundle] loadNibNamed:@"OverviewTableCell" owner:self options:nil]; 
-		cell = [self.overviewTableCell autorelease];
+		cell = self.overviewTableCell;
+	}
+
+	if (onlyLast3Months && indexPath.row == numOfSections) {
+		// Remove old values
+		cell.amount.text = @"";
+		cell.year.text = @"";
+		cell.month.text = @"";
+		cell.loadHistory.text = NSLocalizedString(@"Load history", @"Load history table cell title");
+		return cell;
+	} else {
+		cell.loadHistory.text = @"";
 	}
 	
 	// Get info to put into cell:
@@ -80,32 +116,11 @@
 	NSArray * transactionsInSection = [currenctSection objects];
 
 	Transaction * aTransaction = (Transaction*)[transactionsInSection objectAtIndex:0];
+
 	
 	// Sum the amount
-	int iKroner;
-	@try {
-		iKroner = [(NSNumber*)[transactionsInSection valueForKeyPath:@"@sum.kroner"] intValue];
-	}
-	@catch (NSException * e) {
-		NSLog(@"Error when summing kroner for row %i", indexPath.row);
-		NSLog(@"ERROR: %@", e);
-		NSLog(@"transactions: %@", transactionsInSection);
-		iKroner = 0;
-	}
+	double amount = [Utilities sumAmountForTransactionArray:transactionsInSection];
 	
-	int iOre;
-	@try {
-		iOre = [(NSNumber*)[transactionsInSection valueForKeyPath:@"@sum.ore"] intValue];
-	}
-	@catch (NSException * e) {
-		NSLog(@"Error when summing ore for row %i", indexPath.row);
-		NSLog(@"ERROR: %@", e);
-		NSLog(@"transactions: %@", transactionsInSection);
-		iOre = 0;
-	}
-
-	double amount = iKroner + ((double)iOre/100);
-
 	NSDate * dateFromObject = aTransaction.date;
 	NSNumber * calculatedAmount = [NSNumber numberWithDouble:amount];
 	
@@ -118,6 +133,16 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 
+	/*
+	 Did the user click the load more data cell?
+	 */
+	if (onlyLast3Months && indexPath.row == numOfSections) {
+		onlyLast3Months = NO;
+		[self updateData];
+		[self.tableView reloadData];
+		return;
+	}
+	
     DetailTableViewController * detailController = 
 		[[DetailTableViewController alloc] initWithStyle:UITableViewStylePlain 
 											  andContext:managedObjectContext];

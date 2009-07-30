@@ -107,6 +107,15 @@
 	view.progressBar.progress += 0.01;
 }
 
+-(void)save {
+	NSError *error;
+	if (![[self managedObjectContext] save:&error]) {
+		// Handle error
+		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+		exit(-1);  // Fail
+	}
+}
+
 #pragma mark NSXMLParser methods
 
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *) qualifiedName attributes:(NSDictionary *)attributeDict {
@@ -123,18 +132,16 @@
 
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName {
 	if ([elementName isEqualToString:@"transactions"]) {
+		[self save];
 		progressBar.hidden = YES;
 		addDataButton.enabled = YES;
 		clearDataButton.enabled = YES;
-		[[[UIApplication sharedApplication] delegate] saveAction:self];
 		
 	} else if ([elementName isEqualToString:@"transaction"]) {
 		betaTransaction.location = tempLocation;
 		[tempLocation release];
 		numberOfTransactionsAdded += 1;
-		if ((numberOfTransactionsAdded % 30) == 0) {
-			// Save for every thirty or what ever...
-			[[[UIApplication sharedApplication] delegate] saveAction:self];
+		if ((numberOfTransactionsAdded % 5) == 0) {
 			[NSThread detachNewThreadSelector:@selector(increaseProgressBar:) toTarget:[BetaViewController class] withObject:self];
 		}
 		

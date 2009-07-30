@@ -10,6 +10,7 @@
 #import "DetailTableViewController.h"
 #import "Transaction.h"
 #import "TransactionDisplay.h"
+#import "Utilities.h"
 
 @implementation DetailTableViewController
 
@@ -124,10 +125,7 @@
 	Transaction * aTransaction = (Transaction*) [transactions objectAtIndex:0];
 		
 	// Calculate the amount
-	int iKroner = [(NSNumber*)[transactions valueForKeyPath:@"@sum.kroner"] intValue];
-	int iOre = [(NSNumber*)[transactions valueForKeyPath:@"@sum.ore"] intValue];
-	
-	double amount = iKroner + ((double)iOre/100);
+	double amount = [Utilities sumAmountForTransactionArray:transactions];
 	NSNumber * numAmount = [NSNumber numberWithDouble:amount];
 	
 	// Get a cell

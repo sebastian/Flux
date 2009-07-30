@@ -50,7 +50,7 @@
 -(void)loadDataWithSortDescriptors:(NSArray*)sortDescriptors predicates:(NSPredicate*)predicate sectionNameKeyPath:(NSString*)sectionGroupingName cacheName:(NSString*)cacheName {
 	
 	// Only load data once...
-	if (resultsController != nil) {NSLog(@"Trying to reload data...");return;} else {NSLog(@"Loading data for %@", self);}
+	if (resultsController != nil) {NSLog(@"Trying to reload data...");} else {NSLog(@"Loading data for %@", self);}
 
 	NSEntityDescription *entity = [NSEntityDescription entityForName:@"Transaction" inManagedObjectContext:managedObjectContext]; 
 

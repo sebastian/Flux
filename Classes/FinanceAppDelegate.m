@@ -20,14 +20,13 @@
 #pragma mark Application life cycle
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
-
-	[application performSelector:@selector(setStatusBarStyle:) withObject:UIStatusBarStyleBlackOpaque];
-//	[application setStatusBarStyle:UIStatusBarStyleBlackOpaque];	
 	
 	NSManagedObjectContext *context = [self managedObjectContext]; 
     if (!context) { 
         NSLog(@"Couldn't get a managedObjectContext number 1");
     }
+	TransactionsViewController * transactionViewController = [[TransactionsViewController alloc] initWithContext:context];
+	[context release];
 	
 	/*
 	 Why does the addContext need a context of it's own?
@@ -42,31 +41,36 @@
     if (!contextAddExpense) { 
         NSLog(@"Couldn't get a managedObjectContext number 2");
     }
-	
-	self.tabBarController = [[UITabBarController alloc] initWithNibName:nil bundle:nil]; 	
-
 	ExpenseInputViewController * addExpenseController = 
 		[[ExpenseInputViewController alloc] initWithNibName:@"AddExpense" bundle:[NSBundle mainBundle]];
 	// Pass it the managed object context that is only for its privte use :)
 	addExpenseController.managedObjectContext = contextAddExpense;
 	[contextAddExpense release];
 	
-	TransactionsViewController * transactionViewController = [[TransactionsViewController alloc] initWithContext:context];
-	
+	/*
+	 We also give the beta screen a context of its own
+	 */
+	NSManagedObjectContext *contextBeta = [[NSManagedObjectContext alloc] init];
+	[contextBeta setPersistentStoreCoordinator: [self persistentStoreCoordinator]];
+    if (!contextBeta) { 
+        NSLog(@"Couldn't get a managedObjectContext number 2");
+    }
 	BetaViewController * betaController = [[BetaViewController alloc] initWithNibName:@"BetaViewController" bundle:[NSBundle mainBundle]];
-	betaController.managedObjectContext = context;
+	betaController.managedObjectContext = contextBeta;
+	[contextBeta release];
 	
+
+	// Group all the view controllers
 	NSArray * controllers = [NSArray arrayWithObjects:addExpenseController, transactionViewController, betaController, nil];
 
 	// The control over the view controllers is now the business of the controllers array
-	[addExpenseController release];
 	[transactionViewController release];
+	[addExpenseController release];
 	[betaController release];
 	
+	self.tabBarController = [[UITabBarController alloc] initWithNibName:nil bundle:nil]; 	
 	[self.tabBarController setViewControllers:controllers]; 
 	[self.tabBarController setSelectedIndex:0];
-	
-	[context release];
 	
 	[window addSubview:self.tabBarController.view];
 

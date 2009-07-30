@@ -1,6 +1,6 @@
 require "time"
 
-HOW_MANY = 3000
+HOW_MANY = 500
 
 tags = %w{snacks food tea flight vacation book movie music apps misc cinema dinner rent coffee}
 descriptions = ["Some sample description", "This is something I regret",
@@ -12,8 +12,8 @@ ores = %{20 25 50 0 0 0 0 0 99 79 89 39 49 0 0 0 0 0 10 0 20 0 30}
 lats = %{1.0 1.020 4.00 6.234 1.23 0.24 52.02 34.34 0.001 23.24}
 lngs = %{1.0 1.020 4.00 6.234 1.23 0.24 52.02 34.34 0.001 23.24}
 days = (1..31).to_a
-months = %w{01 02 03 04 05 06 07 08 09 10 11 12}
-years = (2007..2009).to_a
+months = %w{01 02 03 04 05 06 07}
+years = (2009).to_a
 currencies = %w{EUR GBP GBP GBP GBP GBP NOK NOK NOK NOK NOK NOK NOK NOK NOK EUR EUR USD USD NOK}
 expenses = %w{1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1}
 minutes = (0..59).to_a
