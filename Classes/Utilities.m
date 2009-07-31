@@ -51,5 +51,5 @@
 
 	return amount;
 }
-
++(float)keyboardAnimationDuration {return 0.3;}
 @end

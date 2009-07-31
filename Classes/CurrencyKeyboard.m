@@ -7,7 +7,7 @@
 //
 
 #import "CurrencyKeyboard.h"
-#import <QuartzCore/QuartzCore.h>
+#import "Utilities.h"
 
 @interface CurrencyKeyboard (Private)
 -(void)moveKeyboardTo:(CGRect)keyboardFrame animated:(BOOL)animation;
@@ -19,7 +19,7 @@
 @implementation CurrencyKeyboard
 
 @synthesize button0, button1, button2, button3, button4, button5, button6, button7, button8, button9;
-@synthesize buttonAdd, buttonComma;
+@synthesize buttonClear, button00;
 @synthesize delegate;
 
 #pragma mark
@@ -45,6 +45,11 @@
 }
 -(void)showKeyboardWithAnimation:(BOOL)animation {
 
+	// Send notification
+	NSNumber * height = [NSNumber numberWithInt:self.view.frame.size.height];
+	NSDictionary * dict = [NSDictionary dictionaryWithObject:height forKey:@"height"];
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"CurrencyKeyboardWillShow" object:self userInfo:dict];
+	
 	CGRect keyboardFrame = [self.view frame];
 	CGRect delegateFrame = [self.delegate.view frame];
 	keyboardFrame.origin.y = delegateFrame.size.height;
@@ -55,12 +60,11 @@
 	keyboardFrame.origin.y = delegateFrame.size.height - keyboardFrame.size.height;
 	
 	[self moveKeyboardTo:keyboardFrame animated:animation];
-	
-	[self startAnimation];
 }
 -(void)hideKeyboardWithAnimation:(BOOL)animation {
-	
-	[self stopAnimation];
+		
+	// Send notification
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"CurrencyKeyboardWillHide" object:nil];
 	
 	CGRect keyboardFrame = [self.view frame];
 	CGRect delegateFrame = [self.delegate.view frame];
@@ -76,7 +80,7 @@
 	if (animation) {
 		[UIView beginAnimations:nil context:NULL];
 		[UIView setAnimationBeginsFromCurrentState:YES];
-		[UIView setAnimationDuration:0.03];
+		[UIView setAnimationDuration:[Utilities keyboardAnimationDuration]];
 		
 		self.view.frame = keyboardFrame;
 		
@@ -89,9 +93,11 @@
 	
 }
 
-
--(void)disableCommaButton {[self.buttonComma setEnabled:NO];}
--(void)enableCommaButton {[self.buttonComma setEnabled:YES];}
+/*
+ Disabling and enabling of keyboard buttons
+ */
+-(void)disableClearButton {[self.buttonClear setEnabled:NO];}
+-(void)enableClearButton {[self.buttonClear setEnabled:YES];}
 
 -(void)disableNumericButtons {
 	[button0 setEnabled:NO];
@@ -104,6 +110,7 @@
 	[button7 setEnabled:NO];
 	[button8 setEnabled:NO];
 	[button9 setEnabled:NO];	
+	[button00 setEnabled:NO];
 }
 -(void)enableNumericButtons {
 	[button0 setEnabled:YES];
@@ -116,56 +123,9 @@
 	[button7 setEnabled:YES];
 	[button8 setEnabled:YES];
 	[button9 setEnabled:YES];	
+	[button00 setEnabled:YES];
 }	
 
--(void)startAnimation {
-	NSLog(@"Starting OK button animation");
-	animateOKButton = YES;
-	[self 
-	 performSelector:@selector(animateOut)
-	 withObject:nil
-	 afterDelay:0.0];
-}
--(void)stopAnimation {
-	NSLog(@"Stopping OK button animation");
-	animateOKButton = NO;
-}
-
--(void)animateIn {
-	if (animateOKButton == NO) {return;}
-	
-	pulseImage.hidden = NO;
-	
-	// Set up the animation
-	CATransition *animation = [CATransition animation];
-	[animation setType:kCATransitionFade];
-	[animation setDuration:1.0];
-	
-	[[self.view layer] addAnimation:animation forKey:@"layerAnimation"];	
-	
-	[self 
-	 performSelector:@selector(animateOut)
-	 withObject:nil
-	 afterDelay:3.0];
-	
-}
--(void)animateOut {
-	if (animateOKButton == NO) {return;}
-	
-	pulseImage.hidden = YES;
-	
-	// Set up the animation
-	CATransition *animation = [CATransition animation];
-	[animation setType:kCATransitionFade];
-	[animation setDuration:1.0];
-	
-	[[self.view layer] addAnimation:animation forKey:@"layerAnimation"];	
-
-	[self 
-	 performSelector:@selector(animateIn)
-	 withObject:nil
-	 afterDelay:3.0];
-}
 
 #pragma mark
 #pragma mark -
@@ -177,8 +137,8 @@
 -(IBAction)doubleZeroButtonPushed:(id)sender {
 	[self.delegate doubleZeroButtonPressed];
 }
--(IBAction)okButtonPushed:(id)sender {
-	[self.delegate okButtonPressed];
+-(IBAction)deleteButtonPushed:(id)sender {
+	[self.delegate deleteButtonPressed];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -199,11 +159,12 @@
 	button7 = nil;
 	button8 = nil;
 	button9 = nil;
-	buttonAdd = nil;
-	buttonComma = nil;
+	buttonClear = nil;
+	button00 = nil;
 	
 }
 - (void)dealloc {
+	self.delegate = nil;
 	[button0 release];
 	[button1 release];
 	[button2 release];
@@ -214,8 +175,8 @@
 	[button7 release];
 	[button8 release];
 	[button9 release];
-	[buttonAdd release];
-	[buttonComma release];
+	[buttonClear release];
+	[button00 release];
 	
     [super dealloc];
 	

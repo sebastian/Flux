@@ -7,8 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CurrencyKeyboardDelegateProtocol.h"
+#import "CurrencyKeyboard.h"
 
+
+@protocol CurrencyKeyboardDelegate
+@required
+- (void)numericButtonPressed:(NSInteger)key;
+- (void)deleteButtonPressed;
+- (void)doubleZeroButtonPressed;
+
+- (UIView*)view;
+@end
 
 @interface CurrencyKeyboard : UIViewController {
 
@@ -24,11 +33,8 @@
 	UIButton * button8;
 	UIButton * button9;
 	UIButton * button0;
-	UIButton * buttonAdd;
-	UIButton * buttonComma;
-	
-	IBOutlet UIImageView * pulseImage;
-	BOOL animateOKButton;
+	UIButton * buttonClear;
+	UIButton * button00;
 	
 }
 
@@ -38,8 +44,8 @@
 -(void)showKeyboardWithAnimation:(BOOL)animation;
 -(void)hideKeyboardWithAnimation:(BOOL)animation;
 
--(void)disableCommaButton;
--(void)enableCommaButton;
+-(void)disableClearButton;
+-(void)enableClearButton;
 
 -(void)disableNumericButtons;
 -(void)enableNumericButtons;
@@ -48,10 +54,10 @@
 // IBActions
 -(IBAction)numberButtonPushed:(id)sender;
 -(IBAction)doubleZeroButtonPushed:(id)sender;
--(IBAction)okButtonPushed:(id)sender;
+-(IBAction)deleteButtonPushed:(id)sender;
 
 // Delegate
-@property (nonatomic, retain) IBOutlet id <CurrencyKeyboardDelegate> delegate;
+@property (nonatomic, assign) IBOutlet id <CurrencyKeyboardDelegate> delegate;
 
 // Keyboard buttons
 @property (nonatomic, retain) IBOutlet UIButton * button1;
@@ -64,8 +70,8 @@
 @property (nonatomic, retain) IBOutlet UIButton * button8;
 @property (nonatomic, retain) IBOutlet UIButton * button9;
 @property (nonatomic, retain) IBOutlet UIButton * button0;
-@property (nonatomic, retain) IBOutlet UIButton * buttonAdd;
-@property (nonatomic, retain) IBOutlet UIButton * buttonComma;
+@property (nonatomic, retain) IBOutlet UIButton * buttonClear;
+@property (nonatomic, retain) IBOutlet UIButton * button00;
 
 
 @end

@@ -14,5 +14,6 @@
 }
 
 +(double)sumAmountForTransactionArray:(NSArray*)transactions;
++(float)keyboardAnimationDuration;
 
 @end

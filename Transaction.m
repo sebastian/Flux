@@ -29,8 +29,9 @@
 
 @synthesize formatter;
 
-// This method isn't called anyway, so it is a joke...
-
+#pragma mark
+#pragma mark -
+#pragma mark Setup and teardown
 - (void)awakeFromInsert {
 	has_ore = NO;
 	numOfOre = 0;
@@ -51,8 +52,18 @@
 	
 	self.day = [NSNumber numberWithInt:components.day];
 	self.yearMonth = yearMonthValue;	
+	
+	self.transactionDescription = @"";
+	self.tags = @"";
+}
+-(void)dealloc {
+	[formatter dealloc];
+	[super dealloc];
 }
 
+#pragma mark
+#pragma mark -
+#pragma mark Convenience methods
 -(NSString*)formattedDate {
 	NSDateFormatter * dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
 	[dateFormatter setFormatterBehavior:[NSDateFormatter defaultFormatterBehavior]];
@@ -61,7 +72,6 @@
 	return [dateFormatter stringFromDate:self.date];
 	
 }
-
 -(NSString*)toString {
 	// TODO: Probably not optimal...
 	//NSNumber * number = [NSNumber numberWithDouble:[self.kroner doubleValue] + [self.ore doubleValue]/100];
@@ -80,7 +90,17 @@
 	[formatter setNumberStyle:NSNumberFormatterCurrencyStyle];
 	return [formatter stringFromNumber:number];
 }
+-(NSString*)tagsAndDescription {
+	NSMutableString * tagsAndDescription = [[[NSMutableString alloc] init] autorelease];
+	[tagsAndDescription appendString:NSLocalizedString(@"Tags and description", @"Tags and description")];
+	[tagsAndDescription appendFormat:@": %@", self.tags];
+	return tagsAndDescription;
+}
 
+
+#pragma mark
+#pragma mark -
+#pragma mark Alter numeric value
 -(void)addNumber:(NSInteger)num {
 
 	if (has_ore == NO) {
@@ -122,17 +142,21 @@
 		self. kroner = [NSNumber numberWithInt:[self.kroner intValue] / 10];
 	}
 }
-
 -(void)addDecimal {
 	has_ore = YES;
 }
 
+
+
+#pragma mark
+#pragma mark -
+#pragma mark Methods for keyboard state and general state
 // Methods for display
 -(bool)hasDecimals {
 	return has_ore;
 }
 -(bool)canBeAddedTo {
-	if ([self.kroner intValue] / 1000000000 != 0 && has_ore == NO) {return NO;}
+	if ([self.kroner intValue] / 100000000 != 0 && has_ore == NO) {return NO;}
 	if (has_ore == NO) {return YES;}
 	if (has_ore == YES && numOfOre < 2) {return YES;} 
 	
@@ -142,11 +166,6 @@
 -(bool)needsDeleteButton {
 	if ([self.kroner intValue] == 0 && has_ore == NO) {return NO;} 
 	return YES;
-}
-
--(void)dealloc {
-	[formatter dealloc];
-	[super dealloc];
 }
 
 @end
