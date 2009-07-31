@@ -216,7 +216,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>963136B81021E24A007986A4</string>
+						<string>963136C1102202F5007986A4</string>
 						<key>history</key>
 						<array>
 							<string>9631368E1021DFD1007986A4</string>
@@ -235,7 +235,7 @@
 				<key>PBXModuleWindowStatusBarHidden2</key>
 				<false/>
 				<key>RubberWindowFrame</key>
-				<string>38 491 934 661 0 0 1920 1178 </string>
+				<string>218 -665 934 661 205 -800 1280 800 </string>
 			</dict>
 		</dict>
 		<dict>
@@ -256,7 +256,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>963136B91021E24A007986A4</string>
+						<string>963136C2102202F5007986A4</string>
 						<key>history</key>
 						<array>
 							<string>963136471021D9BD007986A4</string>
@@ -281,7 +281,7 @@
 				<key>PBXModuleWindowStatusBarHidden2</key>
 				<false/>
 				<key>RubberWindowFrame</key>
-				<string>852 235 934 661 0 0 1920 1178 </string>
+				<string>504 -711 934 661 205 -800 1280 800 </string>
 			</dict>
 		</dict>
 	</array>
@@ -371,7 +371,7 @@
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 0}, {352, 1006}}</string>
+							<string>{{0, 0}, {352, 664}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -381,14 +381,14 @@
 					<key>GeometryConfiguration</key>
 					<dict>
 						<key>Frame</key>
-						<string>{{0, 0}, {369, 1024}}</string>
+						<string>{{0, 0}, {369, 682}}</string>
 						<key>GroupTreeTableConfiguration</key>
 						<array>
 							<string>MainColumn</string>
 							<real>352</real>
 						</array>
 						<key>RubberWindowFrame</key>
-						<string>3 113 1278 1065 0 0 1920 1178 </string>
+						<string>205 -723 1278 723 205 -800 1280 800 </string>
 					</dict>
 					<key>Module</key>
 					<string>PBXSmartGroupTreeModule</string>
@@ -418,7 +418,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>963136B71021E24A007986A4</string>
+										<string>963136C0102202F5007986A4</string>
 										<key>history</key>
 										<array>
 											<string>96B17872100608FF00994A6E</string>
@@ -589,14 +589,14 @@
 							<key>GeometryConfiguration</key>
 							<dict>
 								<key>Frame</key>
-								<string>{{0, 0}, {904, 860}}</string>
+								<string>{{0, 0}, {904, 518}}</string>
 								<key>RubberWindowFrame</key>
-								<string>3 113 1278 1065 0 0 1920 1178 </string>
+								<string>205 -723 1278 723 205 -800 1280 800 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
 							<key>Proportion</key>
-							<string>860pt</string>
+							<string>518pt</string>
 						</dict>
 						<dict>
 							<key>Proportion</key>
@@ -672,7 +672,7 @@
 										<key>Frame</key>
 										<string>{{10, 27}, {904, 132}}</string>
 										<key>RubberWindowFrame</key>
-										<string>3 113 1278 1065 0 0 1920 1178 </string>
+										<string>205 -723 1278 723 205 -800 1280 800 </string>
 									</dict>
 									<key>Module</key>
 									<string>PBXBuildResultsModule</string>
@@ -896,7 +896,7 @@
 		<string>/Users/seb/Programmering/Kleio/Finance/iPhone/Finance.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
-	<string>3 113 1278 1065 0 0 1920 1178 </string>
+	<string>205 -723 1278 723 205 -800 1280 800 </string>
 	<key>WindowToolsV3</key>
 	<array>
 		<dict>
