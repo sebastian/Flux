@@ -41,6 +41,19 @@
 		9653EA691010F26700B714BB /* AddExpense.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9653EA681010F26700B714BB /* AddExpense.xib */; };
 		9653EBE6101104FB00B714BB /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9653EBE5101104FB00B714BB /* MainWindow.xib */; };
 		9666E6001020B66E000B9325 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 9666E5FF1020B66E000B9325 /* Default.png */; };
+		96676E9C1022DA96000C6FF5 /* deleteButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 96676E9B1022DA96000C6FF5 /* deleteButton.png */; };
+		96676E9E1022DB99000C6FF5 /* deleteButtonHighlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 96676E9D1022DB99000C6FF5 /* deleteButtonHighlighted.png */; };
+		96676F101022E5F4000C6FF5 /* controlViewBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 96676F0F1022E5F4000C6FF5 /* controlViewBackground.png */; };
+		96676F3C1022F323000C6FF5 /* ControlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96676F3A1022F323000C6FF5 /* ControlViewController.m */; };
+		96676F3D1022F323000C6FF5 /* ControlViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96676F3B1022F323000C6FF5 /* ControlViewController.xib */; };
+		966770AC102321C2000C6FF5 /* AddActive.png in Resources */ = {isa = PBXBuildFile; fileRef = 966770A8102321C2000C6FF5 /* AddActive.png */; };
+		966770AD102321C2000C6FF5 /* AddPulse.png in Resources */ = {isa = PBXBuildFile; fileRef = 966770A9102321C2000C6FF5 /* AddPulse.png */; };
+		966770AE102321C2000C6FF5 /* WhatActive.png in Resources */ = {isa = PBXBuildFile; fileRef = 966770AA102321C2000C6FF5 /* WhatActive.png */; };
+		966770AF102321C2000C6FF5 /* WhatNormal.png in Resources */ = {isa = PBXBuildFile; fileRef = 966770AB102321C2000C6FF5 /* WhatNormal.png */; };
+		966770B610232416000C6FF5 /* AddHighlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 966770B510232416000C6FF5 /* AddHighlighted.png */; };
+		966770B810232425000C6FF5 /* AddDisabled.png in Resources */ = {isa = PBXBuildFile; fileRef = 966770B710232425000C6FF5 /* AddDisabled.png */; };
+		9667715D102332FC000C6FF5 /* TagDescriptionBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 9667715C102332FC000C6FF5 /* TagDescriptionBackground.png */; };
+		9667723E10234EB6000C6FF5 /* TagDescriptionBackgroundActive.png in Resources */ = {isa = PBXBuildFile; fileRef = 9667723D10234EB6000C6FF5 /* TagDescriptionBackgroundActive.png */; };
 		966D70E81008B23100D781B8 /* KeyboardButtonOKClicked.png in Resources */ = {isa = PBXBuildFile; fileRef = 966D70E61008B23100D781B8 /* KeyboardButtonOKClicked.png */; };
 		966D70E91008B23100D781B8 /* KeyboardButtonOKUnclicked.png in Resources */ = {isa = PBXBuildFile; fileRef = 966D70E71008B23100D781B8 /* KeyboardButtonOKUnclicked.png */; };
 		966D71091008B5E600D781B8 /* DeleteButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 966D71081008B5E600D781B8 /* DeleteButton.png */; };
@@ -121,6 +134,20 @@
 		9653EA681010F26700B714BB /* AddExpense.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddExpense.xib; sourceTree = "<group>"; };
 		9653EBE5101104FB00B714BB /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		9666E5FF1020B66E000B9325 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = Graphics/Default.png; sourceTree = "<group>"; };
+		96676E9B1022DA96000C6FF5 /* deleteButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = deleteButton.png; path = Graphics/deleteButton.png; sourceTree = "<group>"; };
+		96676E9D1022DB99000C6FF5 /* deleteButtonHighlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = deleteButtonHighlighted.png; path = Graphics/deleteButtonHighlighted.png; sourceTree = "<group>"; };
+		96676F0F1022E5F4000C6FF5 /* controlViewBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = controlViewBackground.png; path = Graphics/controlViewBackground.png; sourceTree = "<group>"; };
+		96676F391022F323000C6FF5 /* ControlViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControlViewController.h; sourceTree = "<group>"; };
+		96676F3A1022F323000C6FF5 /* ControlViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ControlViewController.m; sourceTree = "<group>"; };
+		96676F3B1022F323000C6FF5 /* ControlViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ControlViewController.xib; sourceTree = "<group>"; };
+		966770A8102321C2000C6FF5 /* AddActive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AddActive.png; path = Graphics/AddActive.png; sourceTree = "<group>"; };
+		966770A9102321C2000C6FF5 /* AddPulse.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AddPulse.png; path = Graphics/AddPulse.png; sourceTree = "<group>"; };
+		966770AA102321C2000C6FF5 /* WhatActive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = WhatActive.png; path = Graphics/WhatActive.png; sourceTree = "<group>"; };
+		966770AB102321C2000C6FF5 /* WhatNormal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = WhatNormal.png; path = Graphics/WhatNormal.png; sourceTree = "<group>"; };
+		966770B510232416000C6FF5 /* AddHighlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AddHighlighted.png; path = Graphics/AddHighlighted.png; sourceTree = "<group>"; };
+		966770B710232425000C6FF5 /* AddDisabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AddDisabled.png; path = Graphics/AddDisabled.png; sourceTree = "<group>"; };
+		9667715C102332FC000C6FF5 /* TagDescriptionBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TagDescriptionBackground.png; path = Graphics/TagDescriptionBackground.png; sourceTree = "<group>"; };
+		9667723D10234EB6000C6FF5 /* TagDescriptionBackgroundActive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TagDescriptionBackgroundActive.png; path = Graphics/TagDescriptionBackgroundActive.png; sourceTree = "<group>"; };
 		966D70E61008B23100D781B8 /* KeyboardButtonOKClicked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = KeyboardButtonOKClicked.png; path = Graphics/KeyboardButtonOKClicked.png; sourceTree = "<group>"; };
 		966D70E71008B23100D781B8 /* KeyboardButtonOKUnclicked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = KeyboardButtonOKUnclicked.png; path = Graphics/KeyboardButtonOKUnclicked.png; sourceTree = "<group>"; };
 		966D71081008B5E600D781B8 /* DeleteButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = DeleteButton.png; path = Graphics/DeleteButton.png; sourceTree = "<group>"; };
@@ -141,7 +168,6 @@
 		96BD3E69101744DB00926A83 /* CurrencyKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrencyKeyboard.h; sourceTree = "<group>"; };
 		96BD3E6A101744DB00926A83 /* CurrencyKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrencyKeyboard.m; sourceTree = "<group>"; };
 		96BD3E6B101744DB00926A83 /* CurrencyKeyboard.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CurrencyKeyboard.xib; sourceTree = "<group>"; };
-		96BD3E98101749A900926A83 /* CurrencyKeyboardDelegateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrencyKeyboardDelegateProtocol.h; sourceTree = "<group>"; };
 		96D28058101F5DC900B0A026 /* Beta-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Beta-Info.plist"; sourceTree = "<group>"; };
 		96D28062101F621000B0A026 /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
 		96D937281014922F0062E7A4 /* OKOverlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = OKOverlay.png; path = Graphics/OKOverlay.png; sourceTree = "<group>"; };
@@ -187,7 +213,6 @@
 				964F1E6D101CDB66004EA5C3 /* CoreLocation */,
 				96419A60101C4E200066D6D8 /* Beta */,
 				963B020A10185D6E00CD5184 /* Add Expenses */,
-				96BD3E67101744C600926A83 /* Keyboard */,
 				96FFFA771015ED0300A53779 /* Expenses tab */,
 			);
 			path = Classes;
@@ -267,6 +292,8 @@
 		963B020A10185D6E00CD5184 /* Add Expenses */ = {
 			isa = PBXGroup;
 			children = (
+				96676F381022F311000C6FF5 /* ControlViev */,
+				96BD3E67101744C600926A83 /* Keyboard */,
 				963B020C10185D8C00CD5184 /* ConfirmationView.h */,
 				963B020D10185D8C00CD5184 /* ConfirmationView.m */,
 				28216C950DB411BC00E5133A /* ExpenseInputViewController.h */,
@@ -332,6 +359,16 @@
 			name = CoreLocation;
 			sourceTree = "<group>";
 		};
+		96676F381022F311000C6FF5 /* ControlViev */ = {
+			isa = PBXGroup;
+			children = (
+				96676F391022F323000C6FF5 /* ControlViewController.h */,
+				96676F3A1022F323000C6FF5 /* ControlViewController.m */,
+				96676F3B1022F323000C6FF5 /* ControlViewController.xib */,
+			);
+			name = ControlViev;
+			sourceTree = "<group>";
+		};
 		96885BB51004ED9E003090D8 /* NIBs */ = {
 			isa = PBXGroup;
 			children = (
@@ -346,6 +383,17 @@
 		96AA703710061CF600206A37 /* Graphics */ = {
 			isa = PBXGroup;
 			children = (
+				9667723D10234EB6000C6FF5 /* TagDescriptionBackgroundActive.png */,
+				9667715C102332FC000C6FF5 /* TagDescriptionBackground.png */,
+				966770B710232425000C6FF5 /* AddDisabled.png */,
+				966770B510232416000C6FF5 /* AddHighlighted.png */,
+				966770A8102321C2000C6FF5 /* AddActive.png */,
+				966770A9102321C2000C6FF5 /* AddPulse.png */,
+				966770AA102321C2000C6FF5 /* WhatActive.png */,
+				966770AB102321C2000C6FF5 /* WhatNormal.png */,
+				96676F0F1022E5F4000C6FF5 /* controlViewBackground.png */,
+				96676E9D1022DB99000C6FF5 /* deleteButtonHighlighted.png */,
+				96676E9B1022DA96000C6FF5 /* deleteButton.png */,
 				963136521021DA4D007986A4 /* KBBCOKbackground.png */,
 				963136141021D506007986A4 /* KBBCOK.png */,
 				963136151021D506007986A4 /* KBBCPulse.png */,
@@ -380,7 +428,6 @@
 				96BD3E69101744DB00926A83 /* CurrencyKeyboard.h */,
 				96BD3E6A101744DB00926A83 /* CurrencyKeyboard.m */,
 				96BD3E6B101744DB00926A83 /* CurrencyKeyboard.xib */,
-				96BD3E98101749A900926A83 /* CurrencyKeyboardDelegateProtocol.h */,
 			);
 			name = Keyboard;
 			sourceTree = "<group>";
@@ -486,6 +533,18 @@
 				963136161021D506007986A4 /* KBBCOK.png in Resources */,
 				963136171021D506007986A4 /* KBBCPulse.png in Resources */,
 				963136531021DA4D007986A4 /* KBBCOKbackground.png in Resources */,
+				96676E9C1022DA96000C6FF5 /* deleteButton.png in Resources */,
+				96676E9E1022DB99000C6FF5 /* deleteButtonHighlighted.png in Resources */,
+				96676F101022E5F4000C6FF5 /* controlViewBackground.png in Resources */,
+				96676F3D1022F323000C6FF5 /* ControlViewController.xib in Resources */,
+				966770AC102321C2000C6FF5 /* AddActive.png in Resources */,
+				966770AD102321C2000C6FF5 /* AddPulse.png in Resources */,
+				966770AE102321C2000C6FF5 /* WhatActive.png in Resources */,
+				966770AF102321C2000C6FF5 /* WhatNormal.png in Resources */,
+				966770B610232416000C6FF5 /* AddHighlighted.png in Resources */,
+				966770B810232425000C6FF5 /* AddDisabled.png in Resources */,
+				9667715D102332FC000C6FF5 /* TagDescriptionBackground.png in Resources */,
+				9667723E10234EB6000C6FF5 /* TagDescriptionBackgroundActive.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -516,6 +575,7 @@
 				964F1E70101CDB75004EA5C3 /* LocationController.m in Sources */,
 				963BFE88101DCB9000C187E0 /* MapAnnotation.m in Sources */,
 				960C07FE1021AFF300B9C2A3 /* Utilities.m in Sources */,
+				96676F3C1022F323000C6FF5 /* ControlViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
