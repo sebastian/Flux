@@ -258,6 +258,10 @@
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<reference key="IBUIFont" ref="354317998"/>
+						<string key="IBUIHighlightedTitle">C</string>
+						<string key="IBUIDisabledTitle">C</string>
+						<string key="IBUISelectedTitle">C</string>
+						<string key="IBUINormalTitle">C</string>
 						<reference key="IBUIHighlightedTitleColor" ref="684676804"/>
 						<object class="NSColor" key="IBUIDisabledTitleColor">
 							<int key="NSColorSpace">3</int>
@@ -266,14 +270,6 @@
 						</object>
 						<reference key="IBUINormalTitleColor" ref="523197692"/>
 						<reference key="IBUINormalTitleShadowColor" ref="652377121"/>
-						<object class="NSCustomResource" key="IBUIHighlightedImage">
-							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">deleteButtonHighlighted.png</string>
-						</object>
-						<object class="NSCustomResource" key="IBUINormalImage">
-							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">deleteButton.png</string>
-						</object>
 						<reference key="IBUIHighlightedBackgroundImage" ref="557341629"/>
 						<reference key="IBUINormalBackgroundImage" ref="24183727"/>
 					</object>
@@ -689,7 +685,7 @@
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>{{547, -322}, {320, 210}}</string>
+					<string>{{534, -305}, {320, 210}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>

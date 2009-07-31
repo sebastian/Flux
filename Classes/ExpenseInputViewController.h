@@ -73,6 +73,7 @@ static const CGFloat TEXTFIELD_PADDING = 10;
 -(void)addExpense;
 -(IBAction)deleteButtonPressed;
 //-(IBAction)toggleExpenseIncome:(id)sender;
+-(void)textFieldsResign;
 
 // CurrencyKeyboardDelegate methods
 - (void)numericButtonPressed:(NSInteger)key;

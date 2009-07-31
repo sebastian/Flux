@@ -133,6 +133,9 @@
 	[self animateTo:frame];
 }
 -(void)animateTo:(CGRect)frame {
+
+	frame.origin.y = frame.origin.y + 60;
+	
 	[UIView beginAnimations:nil context:NULL];
     [UIView setAnimationDuration:[Utilities keyboardAnimationDuration]];
     
@@ -235,6 +238,7 @@
 -(void)disableAddButton {
 	[self stopAnimation];
 	addActive.hidden = YES;
+	addPulse.hidden = YES;
 	addButton.enabled = NO;
 }
 

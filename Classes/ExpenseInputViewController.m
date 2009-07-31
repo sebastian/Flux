@@ -55,6 +55,11 @@
 	tagsAndDescriptionViewFrame = tagsAndDescriptionView.frame;
 	tagsAndDescriptionViewFrame.origin.y = 10;
 	
+	// Set the same font for textview and textfield
+	// I do it programatically because I can't find a way
+	// To do it in Interface builder...
+	descriptionField.font = tagsField.font;
+	
 	
 	// Set the heading right
 	newTransaction.expense = [NSNumber numberWithBool:NO];
@@ -145,6 +150,8 @@
 }
 
 -(void)addButtonPushed {
+//	// Resign first responder from tags and description textfields
+//	[self textFieldsResign];
 	[self addExpense];
 }
 -(void)whatButtonPushed {
@@ -153,9 +160,17 @@
 	CGRect newFrame = tagsAndDescriptionViewFrame;
 	tagsAndDescriptionViewFrame = tempFrame;
 	
+	[UIView beginAnimations:nil context:NULL];
+	[UIView setAnimationBeginsFromCurrentState:YES];
+	[UIView setAnimationDuration:0.03];
+	
+	tagsAndDescriptionView.frame = newFrame;
+	
+	[UIView commitAnimations];
+		
 	if (tagsAndDescriptionInDisplay) {
-		[tagsField resignFirstResponder];
-		[descriptionField resignFirstResponder];
+		// Resign first responder from tags and description textfields
+		[self textFieldsResign];
 		
 		[currencyKeyboard showKeyboardWithAnimation:YES]; 
 
@@ -173,15 +188,6 @@
 
 		[tagsField becomeFirstResponder];
 	}
-	
-	
-	[UIView beginAnimations:nil context:NULL];
-	[UIView setAnimationBeginsFromCurrentState:YES];
-	[UIView setAnimationDuration:0.03];
-	
-	tagsAndDescriptionView.frame = newFrame;
-	
-	[UIView commitAnimations];
 	
 }
 
@@ -238,6 +244,12 @@
 }
 -(void)addExpense {
 
+	// If it was in tag mode, then get out of it
+	if (tagsAndDescriptionInDisplay) {
+		//FIXME: Tight coupling nightmare!
+		[controller whatAction];
+	}
+	
 	// TODO: Set up location
 	newTransaction.location = bestLocation;
 	
@@ -269,6 +281,11 @@
 	frame.size.width = textSize.width;
 	headerLabel.frame = frame;
 	headerLabel.text = heading;
+}
+-(void)textFieldsResign {
+	[tagsField resignFirstResponder];
+	[currencyKeyboard showKeyboard];
+	[descriptionField resignFirstResponder];
 }
 
 #pragma mark
