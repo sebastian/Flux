@@ -22,7 +22,7 @@
 @implementation ExpenseInputViewController
 
 #pragma mark Synthesized methods
-@synthesize amount;
+@synthesize amountLabel;
 @synthesize headerLabel;
 @synthesize tagsAndDescription, tagsAndDescriptionView;
 @synthesize tagsAndDescriptionBackgroundPicture;
@@ -49,7 +49,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+	
 	// State that the tags and description is not shown by default
 	tagsAndDescriptionInDisplay = NO;
 	tagsAndDescriptionViewFrame = tagsAndDescriptionView.frame;
@@ -59,24 +59,26 @@
 	// I do it programatically because I can't find a way
 	// To do it in Interface builder...
 	descriptionField.font = tagsField.font;
-	
-	
-	// Set the heading right
-	newTransaction.expense = [NSNumber numberWithBool:NO];
-	
+			
 	// Try to get the location
 	[LocationController sharedInstance].delegate = self;
 	[LocationController sharedInstance].locationManager.desiredAccuracy = kCLLocationAccuracyBest;
 	
-	// Create a new Transaction
-	self.newTransaction = [NSEntityDescription insertNewObjectForEntityForName:@"Transaction" inManagedObjectContext:self.managedObjectContext];
-	
+	// Create the currency keyboard
 	self.currencyKeyboard = [[CurrencyKeyboard alloc] initWithNibName:@"CurrencyKeyboard" bundle:[NSBundle mainBundle]];
 	self.currencyKeyboard.delegate = self;
 	
+	// Create the controller bar
 	self.controller = [[ControlViewController alloc] initWithNibName:@"ControlViewController" bundle:[NSBundle mainBundle]];
 	self.controller.delegate = self;
 	[controller addControlBar];
+
+	// Create a new Transaction
+	self.newTransaction = [NSEntityDescription insertNewObjectForEntityForName:@"Transaction" inManagedObjectContext:self.managedObjectContext];
+	
+	// Setup controllers for transaction
+	[self setupControllersForNewTransaction];
+
 	
 }
 - (void)viewDidAppear:(BOOL)animated {
@@ -92,7 +94,7 @@
 - (void)viewDidUnload {
 	tagsAndDescriptionBackgroundPicture = nil;
 	controller = nil;
-	amount = nil;
+	amountLabel = nil;
 	[currencyKeyboard release];
 	[newTransaction release];
 }
@@ -113,7 +115,7 @@
 	[tagsAndDescription release];
 	[headerLabel release];
 	[bestLocation release];
-	[amount release];
+	[amountLabel release];
 	[managedObjectContext release];
     [super dealloc];
 }
@@ -144,18 +146,16 @@
 	[self.newTransaction addNumber:0];
 	[self updateExpenseDisplay];
 }
--(IBAction)deleteButtonPressed {
+-(void)deleteButtonPressed {
 	[self.newTransaction eraseOneNum];
 	[self updateExpenseDisplay];
 }
 
 -(void)addButtonPushed {
-//	// Resign first responder from tags and description textfields
-//	[self textFieldsResign];
 	[self addExpense];
 }
 -(void)whatButtonPushed {
-
+	
 	CGRect tempFrame = tagsAndDescriptionView.frame;
 	CGRect newFrame = tagsAndDescriptionViewFrame;
 	tagsAndDescriptionViewFrame = tempFrame;
@@ -171,6 +171,9 @@
 	if (tagsAndDescriptionInDisplay) {
 		// Resign first responder from tags and description textfields
 		[self textFieldsResign];
+
+		// Set the tags and description field to mimic the newly typed in descriptions
+		[self updateTagsAndDescriptionLabel];
 		
 		[currencyKeyboard showKeyboardWithAnimation:YES]; 
 
@@ -190,8 +193,19 @@
 	}
 	
 }
+-(void)expenseIncomeSetToExpense:(BOOL)expense {
+	newTransaction.expense = [NSNumber numberWithBool:expense];
+}
 
-
+#pragma mark
+#pragma mark -
+#pragma mark TextField and TextViewDelegates
+- (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
+	NSLog(@"Done button pushed");
+	[self textFieldsResign];
+	[controller whatAction];
+	return YES;
+}
 
 #pragma mark
 #pragma mark -
@@ -199,7 +213,7 @@
 
 -(void)updateExpenseDisplay {
 	NSString * text = [self.newTransaction toString];
-	CGSize textSize = [text sizeWithFont:[amount font]];
+	CGSize textSize = [text sizeWithFont:[amountLabel font]];
 	
 	float width = textSize.width + TEXTFIELD_PADDING;
 	
@@ -210,35 +224,33 @@
 		width = MAX_TEXTFIELD_WIDTH;
 	}
 	
-	CGRect viewFrame = [amount frame];
+	CGRect viewFrame = [amountLabel frame];
 	viewFrame.size.width = width;
 		
-	tagsAndDescription.text = [newTransaction tagsAndDescription];
-
 	// Show delete button if there is a value
-	if ([self.newTransaction needsDeleteButton]) {
-		[self.currencyKeyboard enableClearButton];
+	if ([newTransaction needsDeleteButton]) {
+		[currencyKeyboard enableClearButton];
 		[controller enableAddButton];
 	} else {
-		[self.currencyKeyboard disableClearButton];
+		[currencyKeyboard disableClearButton];
 		[controller disableAddButton];
 	}
 	
 	// Check if it can be added to?
-	if ([self.newTransaction canBeAddedTo] == YES) {
-		[self.currencyKeyboard enableNumericButtons];
+	if ([newTransaction canBeAddedTo] == YES) {
+		[currencyKeyboard enableNumericButtons];
 	} else {
-		[self.currencyKeyboard disableNumericButtons];
+		[currencyKeyboard disableNumericButtons];
 	}
 	
-	[amount setText:text];
+	[amountLabel setText:text];
 	
 	// Things to be animated
 	[UIView beginAnimations:nil context:NULL];
 	[UIView setAnimationBeginsFromCurrentState:YES];
 	[UIView setAnimationDuration:0.03];
 	
-	[amount setFrame:viewFrame];
+	[amountLabel setFrame:viewFrame];
 		
 	[UIView commitAnimations];
 }
@@ -250,8 +262,12 @@
 		[controller whatAction];
 	}
 	
-	// TODO: Set up location
+	// Set the location
 	newTransaction.location = bestLocation;
+	
+	// Set tags and description
+	newTransaction.tags = tagsField.text;
+	newTransaction.transactionDescription = descriptionField.text;
 	
 	// FIXME: use currency used on screen
 	newTransaction.currency = @"€";
@@ -269,9 +285,8 @@
 		performSelector:@selector(removeView)
 		withObject:nil
 		afterDelay:1.0];
-		
-	[self updateExpenseDisplay];
 	
+	[self setupControllersForNewTransaction];	
 }
 -(void)setHeader:(NSString*)heading {
 	UIFont * font = [UIFont fontWithName:@"Verdana" size:36];
@@ -287,6 +302,55 @@
 	[currencyKeyboard showKeyboard];
 	[descriptionField resignFirstResponder];
 }
+-(void)updateTagsAndDescriptionLabel {
+	NSMutableString * tagsDescription = [NSMutableString stringWithString:NSLocalizedString(@"Tags", @"Tags label in add expenses thing")];
+	[tagsDescription appendString:@": "];
+	
+	NSLog(@"Setting tags and description field");
+	
+	// First check and see if there are tags and descriptions
+	// from the transaction object
+	if (![tagsField.text isEqualToString:@""]) {
+		// There are tags... check if there are updated tags in the tags field
+		if ([tagsField.text isEqualToString:newTransaction.tags]) {
+			// They are equal...
+			// They are the same... hence we use what we have
+			[tagsDescription appendFormat:@"%@", newTransaction.tags];
+			tagsAndDescription.text = tagsDescription;
+		} else {
+			// They are not equal... That means that is must have been updated
+			// because at launch they were set to equal.
+			// Use the new one:
+			[tagsDescription appendString:tagsField.text];
+			tagsAndDescription.text = tagsDescription;			
+		}
+	} else {
+		NSString * nothingThere = NSLocalizedString(@"(currently no tags assigned)", @"No tags");
+		[tagsDescription appendString:nothingThere];
+		tagsAndDescription.text = tagsDescription;
+	}
+	
+}
+-(void)setupControllersForNewTransaction {
+	
+	if (newTransaction.expense == [NSNumber numberWithBool:YES]) {
+		[controller setSelectExpenseIncomeSegment:0];
+	} else {
+		[controller setSelectExpenseIncomeSegment:1];
+	}
+	
+	// Clear the tags and description fields for next use
+	tagsField.text = @"";
+	descriptionField.text = @"";
+	
+	[self updateExpenseDisplay];
+	[self updateTagsAndDescriptionLabel];
+}
+
+-(IBAction)doneKeyboardButtonAction {
+	NSLog(@"Keyboard pushed DONE");
+}
+
 
 #pragma mark
 #pragma mark -

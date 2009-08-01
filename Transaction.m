@@ -53,8 +53,12 @@
 	self.day = [NSNumber numberWithInt:components.day];
 	self.yearMonth = yearMonthValue;	
 	
+	// Set them to empty strings
+	NSLog(@"Setting the tags and description fields to empty strings...");
 	self.transactionDescription = @"";
 	self.tags = @"";
+
+	self.expense = [NSNumber numberWithBool:YES];
 }
 -(void)dealloc {
 	[formatter dealloc];
@@ -85,16 +89,10 @@
 
 	// TODO: Set it to something smart based on where the user is 
 	// and also based on what the user chooses manually...
-	[formatter setCurrencyCode:@"EUR"];
+	//[formatter setCurrencyCode:@"€"];
 	
 	[formatter setNumberStyle:NSNumberFormatterCurrencyStyle];
 	return [formatter stringFromNumber:number];
-}
--(NSString*)tagsAndDescription {
-	NSMutableString * tagsAndDescription = [[[NSMutableString alloc] init] autorelease];
-	[tagsAndDescription appendString:NSLocalizedString(@"Tags and description", @"Tags and description")];
-	[tagsAndDescription appendFormat:@": %@", self.tags];
-	return tagsAndDescription;
 }
 
 

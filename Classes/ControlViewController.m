@@ -10,6 +10,9 @@
 #import "Utilities.h"
 #import <QuartzCore/QuartzCore.h>
 
+#define kleioExpenseSelectedSegment 0
+#define kleioIncomeSelectedSegment 1
+
 @interface ControlViewController (Private)
 -(void)animateTo:(CGRect)frame;
 -(void)startAnimation;
@@ -105,9 +108,7 @@
 	NSDictionary*  dict = notification.userInfo;
     NSValue*       nval = [dict objectForKey:UIKeyboardBoundsUserInfoKey];
     CGRect         rect = CGRectZero;
-    
-	NSLog(@"Notification: %@", notification);
-	
+    	
     [nval getValue:&rect];
 
 	int appleKeyboardHeight = rect.size.height;
@@ -150,13 +151,14 @@
 	 down to the bottom of the screen!
 	 */
 	
-	NSLog(@"Hiding keyboard");
+	NSLog(@"Hiding keyboard - NOT IN USE.");
 	
 	CGRect parentViewFrame = delegate.view.frame;
 	CGRect frame = self.view.frame;
 	// Set new frame location
 	frame.origin.y = parentViewFrame.size.height - frame.size.height;
 	
+	// We don't need the hide action actually. So we don't activate the animation...
 	//[self animateTo:frame];
 }
 
@@ -241,7 +243,19 @@
 	addPulse.hidden = YES;
 	addButton.enabled = NO;
 }
-
+-(void)setSelectExpenseIncomeSegment:(NSInteger)segment {
+	switch (segment) {
+		case kleioIncomeSelectedSegment:
+			[expenseIncomeControl setSelectedSegmentIndex:segment];
+			break;
+		case kleioExpenseSelectedSegment:
+			[expenseIncomeControl setSelectedSegmentIndex:segment];
+			break;
+		default:
+			NSLog(@"Illegal segment chosen");
+			break;
+	}	
+}
 
 #pragma mark
 #pragma mark -
@@ -252,6 +266,15 @@
 -(IBAction)whatAction {
 	whatActive.hidden = !whatActive.hidden;
 	[delegate whatButtonPushed];
+}
+-(IBAction)expenseIncomeAction {
+	if ([expenseIncomeControl selectedSegmentIndex] == kleioIncomeSelectedSegment) {
+		[delegate expenseIncomeSetToExpense:NO];
+	} else if ([expenseIncomeControl selectedSegmentIndex] == kleioExpenseSelectedSegment) {
+		[delegate expenseIncomeSetToExpense:YES];
+	} else {
+		NSLog(@"Nonexistent segment selected in Expense/Income toggle");
+	}
 }
 
 @end

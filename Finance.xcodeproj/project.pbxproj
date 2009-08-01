@@ -57,6 +57,7 @@
 		966D70E81008B23100D781B8 /* KeyboardButtonOKClicked.png in Resources */ = {isa = PBXBuildFile; fileRef = 966D70E61008B23100D781B8 /* KeyboardButtonOKClicked.png */; };
 		966D70E91008B23100D781B8 /* KeyboardButtonOKUnclicked.png in Resources */ = {isa = PBXBuildFile; fileRef = 966D70E71008B23100D781B8 /* KeyboardButtonOKUnclicked.png */; };
 		966D71091008B5E600D781B8 /* DeleteButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 966D71081008B5E600D781B8 /* DeleteButton.png */; };
+		9676AB6F10246586009A3429 /* WhatHighlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 9676AB6E10246586009A3429 /* WhatHighlighted.png */; };
 		969776A8101B662300F0DC3D /* DetailCellHeader.png in Resources */ = {isa = PBXBuildFile; fileRef = 969776A7101B662300F0DC3D /* DetailCellHeader.png */; };
 		969C6C56101F8A79007B5CC8 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 969C6C55101F8A79007B5CC8 /* Icon.png */; };
 		96AA703B10061D0900206A37 /* KeyboardButtonBackgroundClicked.png in Resources */ = {isa = PBXBuildFile; fileRef = 96AA703910061D0900206A37 /* KeyboardButtonBackgroundClicked.png */; };
@@ -151,6 +152,7 @@
 		966D70E61008B23100D781B8 /* KeyboardButtonOKClicked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = KeyboardButtonOKClicked.png; path = Graphics/KeyboardButtonOKClicked.png; sourceTree = "<group>"; };
 		966D70E71008B23100D781B8 /* KeyboardButtonOKUnclicked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = KeyboardButtonOKUnclicked.png; path = Graphics/KeyboardButtonOKUnclicked.png; sourceTree = "<group>"; };
 		966D71081008B5E600D781B8 /* DeleteButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = DeleteButton.png; path = Graphics/DeleteButton.png; sourceTree = "<group>"; };
+		9676AB6E10246586009A3429 /* WhatHighlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = WhatHighlighted.png; path = Graphics/WhatHighlighted.png; sourceTree = "<group>"; };
 		969776A7101B662300F0DC3D /* DetailCellHeader.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = DetailCellHeader.png; path = Graphics/DetailCellHeader.png; sourceTree = "<group>"; };
 		969C6C55101F8A79007B5CC8 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = Graphics/Icon.png; sourceTree = "<group>"; };
 		96AA703910061D0900206A37 /* KeyboardButtonBackgroundClicked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = KeyboardButtonBackgroundClicked.png; path = Graphics/KeyboardButtonBackgroundClicked.png; sourceTree = "<group>"; };
@@ -383,6 +385,7 @@
 		96AA703710061CF600206A37 /* Graphics */ = {
 			isa = PBXGroup;
 			children = (
+				9676AB6E10246586009A3429 /* WhatHighlighted.png */,
 				9667723D10234EB6000C6FF5 /* TagDescriptionBackgroundActive.png */,
 				9667715C102332FC000C6FF5 /* TagDescriptionBackground.png */,
 				966770B710232425000C6FF5 /* AddDisabled.png */,
@@ -545,6 +548,7 @@
 				966770B810232425000C6FF5 /* AddDisabled.png in Resources */,
 				9667715D102332FC000C6FF5 /* TagDescriptionBackground.png in Resources */,
 				9667723E10234EB6000C6FF5 /* TagDescriptionBackgroundActive.png in Resources */,
+				9676AB6F10246586009A3429 /* WhatHighlighted.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

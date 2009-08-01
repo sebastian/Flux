@@ -13,6 +13,7 @@
 -(UIView*)view;
 -(void)addButtonPushed;
 -(void)whatButtonPushed;
+-(void)expenseIncomeSetToExpense:(BOOL)expense;
 @end
 
 @interface ControlViewController : UIViewController {
@@ -25,6 +26,8 @@
 	IBOutlet UIButton * addButton;
 	IBOutlet UIButton * whatButton;
 	
+	IBOutlet UISegmentedControl * expenseIncomeControl;
+	
 	BOOL animateOKButton;
 }
 
@@ -35,10 +38,11 @@
 // Normal methods
 -(void)enableAddButton;
 -(void)disableAddButton;
-
+-(void)setSelectExpenseIncomeSegment:(NSInteger)segment;
 
 // Actions
 -(IBAction)addAction;
 -(IBAction)whatAction;
+-(IBAction)expenseIncomeAction;
 
 @end

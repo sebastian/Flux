@@ -14,13 +14,14 @@
 #import "ControlViewController.h"
 
 static const CGFloat KEYBOARD_ANIMATION_DURATION = 0.3;
-static const CGFloat MAX_TEXTFIELD_WIDTH = 240;
+static const CGFloat MAX_TEXTFIELD_WIDTH = 300;
 static const CGFloat MIN_TEXTFIELD_WIDTH = 40;
 static const CGFloat TEXTFIELD_PADDING = 10;
 
-@interface ExpenseInputViewController : UIViewController <UITextFieldDelegate, CurrencyKeyboardDelegate, KleioCoreLocationDelegate, ControlViewDelegate> {
-	UILabel * amount;
+@interface ExpenseInputViewController : UIViewController <UITextFieldDelegate, UITextViewDelegate, CurrencyKeyboardDelegate, KleioCoreLocationDelegate, ControlViewDelegate> {
+	UILabel * amountLabel;
 	ControlViewController * controller;
+
 	UILabel * tagsAndDescription;
 	UIView * tagsAndDescriptionView;
 	UIImageView * tagsAndDescriptionBackgroundPicture;
@@ -56,7 +57,7 @@ static const CGFloat TEXTFIELD_PADDING = 10;
 
 
 // Outlets
-@property (nonatomic, retain) IBOutlet UILabel * amount;
+@property (nonatomic, retain) IBOutlet UILabel * amountLabel;
 @property (nonatomic, retain) IBOutlet UILabel * headerLabel;
 @property (nonatomic, retain) IBOutlet UILabel * tagsAndDescription;
 @property (nonatomic, retain) IBOutlet UIView * tagsAndDescriptionView;
@@ -69,15 +70,20 @@ static const CGFloat TEXTFIELD_PADDING = 10;
 // ControlViewDelegate methods
 -(void)addButtonPushed;
 -(void)whatButtonPushed;
+-(void)expenseIncomeSetToExpense:(BOOL)expense;
 
 -(void)addExpense;
--(IBAction)deleteButtonPressed;
-//-(IBAction)toggleExpenseIncome:(id)sender;
 -(void)textFieldsResign;
+-(void)updateTagsAndDescriptionLabel;
+-(void)setupControllersForNewTransaction;
+
+-(IBAction)doneKeyboardButtonAction;
+
 
 // CurrencyKeyboardDelegate methods
 - (void)numericButtonPressed:(NSInteger)key;
 - (void)okButtonPressed;
+- (void)deleteButtonPressed;
 //- (void)decimalButtonPressed;
 
 
