@@ -52,7 +52,21 @@
 	[dateFormatter setLocale:userLocale];
 	
 	NSString * monthName = [[dateFormatter monthSymbols] objectAtIndex:components.month-1];
-	
+
+	switch (random()&03) {
+		case 0:
+			break;
+		case 1:
+			backgroundImage.image = [UIImage imageNamed:@"OverviewCellSlice1.png"];
+			break;
+		case 2:
+			backgroundImage.image = [UIImage imageNamed:@"OverviewCellSlice2.png"];
+			break;
+		case 3:
+			backgroundImage.image = [UIImage imageNamed:@"OverviewCellSlice3.png"];
+			break;	
+	}
+		
 	/*
 	 Make the month and year have the right size
 	 */

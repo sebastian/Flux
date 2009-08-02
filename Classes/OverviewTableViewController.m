@@ -24,6 +24,21 @@
 	
 	self.title = NSLocalizedString(@"Overview", @"Overview table transaction view");
 
+	UIImageView * headerView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"OverviewCellTopp.png"]];
+	self.tableView.tableHeaderView = headerView;
+	[headerView release];
+	
+	UIImageView * footerView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"OverviewCellBunn.png"]];
+	self.tableView.tableFooterView = footerView;
+	[footerView release];
+	
+	self.tableView.opaque = NO;
+	
+//	UIImageView * backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"OverviewBackground.png"]];
+//	[self.tableView addSubview:backgroundView];
+//	[self.view sendSubviewToBack:backgroundView];
+//	[backgroundView release];
+	
 	// Only show last three months of data?
 	// We don't know yet, depends on how many months there are...
 	onlyLast3Months = YES; 	
@@ -177,7 +192,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-	return 40;
+	return 70;
 }
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {

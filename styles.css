@@ -1,0 +1,25 @@
+html {
+	width: 320px;
+}
+body {
+	font: 1.2em "Lucida Grande", Lucida, Verdana, sans-serif;
+	margin: 0;
+	padding: 0;
+}
+
+h1 {
+	background-color: black;
+	color: white;
+	margin-top: 0;
+	padding: 10px;
+}
+
+h2 {
+	padding: 10px 10px 0;
+	font-size: 1.0em;
+}
+
+p {
+	padding: 10px 10px 0;
+	font-size: 0.7em;
+}

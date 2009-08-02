@@ -10,7 +10,6 @@
 #import "Transaction.h"
 #import "Utilities.h"
 
-
 @implementation BetaViewController
 
 @synthesize managedObjectContext, resultsController, progressBar, progressView;
@@ -38,6 +37,23 @@
 - (void)viewDidUnload {
 	// Save the context to make sure last minute changes get saved too
 	[[Utilities toolbox] save:managedObjectContext];
+}
+- (void)viewDidLoad {
+	NSLog(@"Did load... starting webview");
+	
+	NSString *htmlFile = [[NSBundle mainBundle] pathForResource:@"betascreen" ofType:@"html"];
+	NSURL * url = [NSURL fileURLWithPath:htmlFile];
+	NSURLRequest * request = [NSURLRequest requestWithURL:url];
+	[webview loadRequest:request];
+	
+//	NSData *htmlData = [NSData dataWithContentsOfFile:htmlFile];
+//	[webview loadData:htmlData MIMEType:@"text/html" textEncodingName:@"UTF-8" baseURL:[NSURL URLWithString:@""]]; 
+	
+	
+	
+}
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
+	NSLog(@"ERROR: %@", error);
 }
 
 -(IBAction)addData:(id)sender {

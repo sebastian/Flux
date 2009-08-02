@@ -197,20 +197,16 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the managed object for the given index path
-		NSManagedObjectContext *context = [resultsController managedObjectContext];
-		[context deleteObject:[resultsController objectAtIndexPath:indexPath]];
-		
-		// Save the context.
-		NSError *error;
-		if (![context save:&error]) {
-			// Handle the error...
-		}
-		
-		[tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-}
 
+		// Delete the managed object for the given index path
+		[self.managedObjectContext deleteObject:[self.filteredSearchResults objectAtIndex:indexPath.row]];
+
+		// Save changes
+		[[Utilities toolbox] save:self.managedObjectContext];
+	
+	}   
+
+}
 
 @end
 

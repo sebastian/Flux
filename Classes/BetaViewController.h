@@ -12,7 +12,7 @@
 
 @class Transaction;
 
-@interface BetaViewController : UIViewController <UIActionSheetDelegate> {
+@interface BetaViewController : UIViewController <UIActionSheetDelegate, UIWebViewDelegate> {
 	NSManagedObjectContext * managedObjectContext;
 	NSFetchedResultsController * resultsController;
 	
@@ -22,6 +22,7 @@
 	UIButton * addDataButton;
 	UIButton * clearDataButton;
 	
+	IBOutlet UIWebView * webview;
 	
 	Transaction * betaTransaction;
 	NSMutableString * currentString;

@@ -81,7 +81,7 @@
 	NSDictionary * predicateDict = notification.userInfo;
 	self.filteringPredicate = [predicateDict objectForKey:@"predicate"];
 	
-	self.filteredSearchResults = [[resultsController fetchedObjects] filteredArrayUsingPredicate:self.filteringPredicate];
+	[self updateFilteredDataArray];
 	
 	// Reload data :)
 	[self.tableView reloadData];
@@ -92,7 +92,14 @@
 #pragma mark NSFetchedResultsController delegate methods
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
 	NSLog(@"%@ got sent a controllerDidChangeContent message. Reloading tableView data.", self);
+	
+	[self updateFilteredDataArray];
 	[self.tableView reloadData];
+}
+
+- (void) updateFilteredDataArray {
+	NSLog(@"Updated the filtered data array");
+	self.filteredSearchResults = [[resultsController fetchedObjects] filteredArrayUsingPredicate:self.filteringPredicate];
 }
 
 
@@ -133,7 +140,7 @@
 	}
 
 	// Get the filtered result, in case there is a filter
-	self.filteredSearchResults = [[resultsController fetchedObjects] filteredArrayUsingPredicate:self.filteringPredicate];
+	[self updateFilteredDataArray];
 	
 	// DONE
 }	

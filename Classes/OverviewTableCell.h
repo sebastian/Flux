@@ -14,6 +14,8 @@
 	UILabel * year;
 	UILabel * amount;
 	UILabel * loadHistory;
+	
+	IBOutlet UIImageView * backgroundImage;
 }
 
 @property (nonatomic, retain) IBOutlet UILabel * loadHistory;
