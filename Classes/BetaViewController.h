@@ -15,9 +15,13 @@
 @interface BetaViewController : UIViewController <UIActionSheetDelegate> {
 	NSManagedObjectContext * managedObjectContext;
 	NSFetchedResultsController * resultsController;
+	
 	UIProgressView * progressBar;
+	UIView * progressView;
+
 	UIButton * addDataButton;
 	UIButton * clearDataButton;
+	
 	
 	Transaction * betaTransaction;
 	NSMutableString * currentString;
@@ -37,6 +41,7 @@
 
 // IBOutlets
 @property (nonatomic, retain) IBOutlet UIProgressView * progressBar;
+@property (nonatomic, retain) IBOutlet UIView * progressView;
 @property (nonatomic, retain) IBOutlet UIButton * addDataButton;
 @property (nonatomic, retain) IBOutlet UIButton * clearDataButton;
 

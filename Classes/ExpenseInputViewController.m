@@ -11,11 +11,10 @@
 #import "LocationController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "ControlViewController.h"
+#import "Utilities.h"
 
 @interface ExpenseInputViewController (Private)
 -(void)updateExpenseDisplay;
--(void)save;
--(void)setHeader:(NSString*)heading;
 @end
 
 
@@ -92,6 +91,9 @@
 	
 }
 - (void)viewDidUnload {
+	// Save the context to make sure last minute changes get saved too
+	[[Utilities toolbox] save:managedObjectContext];
+	
 	tagsAndDescriptionBackgroundPicture = nil;
 	controller = nil;
 	amountLabel = nil;
@@ -201,7 +203,6 @@
 #pragma mark -
 #pragma mark TextField and TextViewDelegates
 - (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
-	NSLog(@"Done button pushed");
 	[self textFieldsResign];
 	[controller whatAction];
 	return YES;
@@ -273,7 +274,7 @@
 	newTransaction.currency = @"€";
 	
 	// Save the expense
-	[self save];
+	[[Utilities toolbox] save:managedObjectContext];
 	
 	// Now we should assign a fresh Transaction to add
 	Transaction *trs = [NSEntityDescription insertNewObjectForEntityForName:@"Transaction" inManagedObjectContext:self.managedObjectContext];
@@ -288,15 +289,6 @@
 	
 	[self setupControllersForNewTransaction];	
 }
--(void)setHeader:(NSString*)heading {
-	UIFont * font = [UIFont fontWithName:@"Verdana" size:36];
-	CGSize textSize = [heading sizeWithFont:font];
-	NSLog(@"Setting header label to %@. Size should be %i", heading, textSize.width);
-	CGRect frame = headerLabel.frame;
-	frame.size.width = textSize.width;
-	headerLabel.frame = frame;
-	headerLabel.text = heading;
-}
 -(void)textFieldsResign {
 	[tagsField resignFirstResponder];
 	[currencyKeyboard showKeyboard];
@@ -305,9 +297,7 @@
 -(void)updateTagsAndDescriptionLabel {
 	NSMutableString * tagsDescription = [NSMutableString stringWithString:NSLocalizedString(@"Tags", @"Tags label in add expenses thing")];
 	[tagsDescription appendString:@": "];
-	
-	NSLog(@"Setting tags and description field");
-	
+		
 	// First check and see if there are tags and descriptions
 	// from the transaction object
 	if (![tagsField.text isEqualToString:@""]) {
@@ -351,19 +341,5 @@
 	NSLog(@"Keyboard pushed DONE");
 }
 
-
-#pragma mark
-#pragma mark -
-#pragma mark CoreData
-
-- (void)save {
-	
-    NSError *error;
-    if (![self.managedObjectContext save:&error]) {
-		// Handle error
-		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-		exit(-1);  // Fail
-    }
-}
 
 @end

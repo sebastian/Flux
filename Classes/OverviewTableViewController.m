@@ -20,6 +20,8 @@
 #pragma mark -
 #pragma mark Init and teardown
 -(void)viewDidLoad {
+	[super viewDidLoad];
+	
 	self.title = NSLocalizedString(@"Overview", @"Overview table transaction view");
 
 	// Only show last three months of data?
@@ -118,13 +120,13 @@
 	// Get info to put into cell:
 	NSArray * sections = [resultsController sections];
 	id <NSFetchedResultsSectionInfo> currenctSection = [sections objectAtIndex:indexPath.row];
-	NSArray * transactionsInSection = [currenctSection objects];
+	NSArray * _transactionsInSection = [currenctSection objects];
+	NSArray * transactionsInSection = [_transactionsInSection filteredArrayUsingPredicate:self.filteringPredicate];
 
-	Transaction * aTransaction = (Transaction*)[transactionsInSection objectAtIndex:0];
-
+	Transaction * aTransaction = (Transaction*)[_transactionsInSection objectAtIndex:0];
 	
 	// Sum the amount
-	double amount = [Utilities sumAmountForTransactionArray:transactionsInSection];
+	double amount = [[Utilities toolbox] sumAmountForTransactionArray:transactionsInSection];
 	
 	NSDate * dateFromObject = aTransaction.date;
 	NSNumber * calculatedAmount = [NSNumber numberWithDouble:amount];
@@ -147,17 +149,13 @@
 		[self.tableView reloadData];
 		return;
 	}
-	
-    DetailTableViewController * detailController = 
-		[[DetailTableViewController alloc] initWithStyle:UITableViewStylePlain 
-											  andContext:managedObjectContext];
 
 	/*
 	 TODO:
 	 Goal:		I have to pass inn the yearMonth value to display
 	 How:		Right now I am looking at one of the objects in the current
-				section and subtrackting the value from it. Not very elegant...
-				A lot of unneeded object traversal
+	 section and subtrackting the value from it. Not very elegant...
+	 A lot of unneeded object traversal
 	 Improve:	Could be improved by building up a dictionary with section -> yearMonth values
 	 */
 	NSArray * sections = [resultsController sections];
@@ -165,7 +163,15 @@
 	NSArray * transactionsInSection = [currenctSection objects];	
 	Transaction * aTransaction = (Transaction*)[transactionsInSection objectAtIndex:0];
 	
+    DetailTableViewController * detailController = [[DetailTableViewController alloc] initWithStyle:UITableViewStylePlain 
+																						 andContext:managedObjectContext];
+
+	// Needed to get the right search results and to display the right header
 	detailController.yearMonthToDisplay = aTransaction.yearMonth;
+	
+	// Passing along the filtering predicates so searches can be passed on
+	detailController.filteringPredicate = self.filteringPredicate;
+	
 	[self.navigationController pushViewController:detailController animated:YES];
 	[detailController release];
 }

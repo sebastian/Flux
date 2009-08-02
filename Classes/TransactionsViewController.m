@@ -31,7 +31,7 @@
 
 -(void)viewDidLoad {
 	[super viewDidLoad];
-	
+		
 	[[NSNotificationCenter defaultCenter]
 	 addObserver:self
 	 selector:@selector(objectContextUpdated:)
@@ -45,6 +45,7 @@
 	
 	[super viewDidUnload];
 }
+
 - (void)objectContextUpdated:(NSNotification *)notification {
 	NSLog(@"merging new changes into the managedObjectContext");
 	[managedObjectContext mergeChangesFromContextDidSaveNotification:notification];

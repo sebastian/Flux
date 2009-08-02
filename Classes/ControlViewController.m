@@ -124,8 +124,6 @@
 	NSDictionary * dict = notification.userInfo;
 	NSNumber * keyboardHeight = [dict objectForKey:@"height"];
 	
-	NSLog(@"Currency keyboard loading with height %i", [keyboardHeight intValue]);
-	
 	CGRect parentViewFrame = delegate.view.frame;
 	CGRect frame = self.view.frame;
 	// Set new frame location
@@ -138,7 +136,7 @@
 	frame.origin.y = frame.origin.y + 60;
 	
 	[UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationDuration:[Utilities keyboardAnimationDuration]];
+    [UIView setAnimationDuration:[[Utilities toolbox] keyboardAnimationDuration]];
     
 	self.view.frame = frame;
     
@@ -150,8 +148,6 @@
 	 The only thing we have to do now is move the controller 
 	 down to the bottom of the screen!
 	 */
-	
-	NSLog(@"Hiding keyboard - NOT IN USE.");
 	
 	CGRect parentViewFrame = delegate.view.frame;
 	CGRect frame = self.view.frame;
@@ -177,14 +173,12 @@
 	 afterDelay:0.0];
 }
 -(void)stopAnimation {
-	NSLog(@"Stopping OK button animation");
 	animateOKButton = NO;
 }
 
 -(void)animateIn {
 	if (animateOKButton == NO) {return;}
 	
-	NSLog(@"Animating in");
 	addPulse.hidden = NO;
 	
 	// Set up the animation

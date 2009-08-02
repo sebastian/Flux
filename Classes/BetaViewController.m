@@ -8,11 +8,12 @@
 
 #import "BetaViewController.h"
 #import "Transaction.h"
+#import "Utilities.h"
 
 
 @implementation BetaViewController
 
-@synthesize managedObjectContext, resultsController, progressBar;
+@synthesize managedObjectContext, resultsController, progressBar, progressView;
 @synthesize addDataButton, clearDataButton;
 
 @synthesize numberOfTransactionsAdded, run;
@@ -30,8 +31,13 @@
 	[managedObjectContext release];
 	[resultsController release];
     [progressBar release];
+	[progressView release];
 	
 	[super dealloc];
+}
+- (void)viewDidUnload {
+	// Save the context to make sure last minute changes get saved too
+	[[Utilities toolbox] save:managedObjectContext];
 }
 
 -(IBAction)addData:(id)sender {
@@ -58,7 +64,7 @@
 	
 	[parser parse];
 	
-	progressBar.hidden = YES;
+	progressView.hidden = YES;
 }
 - (void)actionSheetCancel:(UIActionSheet *)actionSheet {
 	NSLog(@"Actionsheet cancelled");
@@ -90,7 +96,7 @@
         NSLog(@"Error deleting Transaction - error:%@",error);
     }
 	
-	progressBar.hidden = YES;
+	progressView.hidden = YES;
 }
 
 #pragma mark
@@ -98,9 +104,9 @@
 #pragma mark Add beta transaction content
 
 +(void)increaseProgressBar:(BetaViewController*)view {
-	if (view.progressBar.hidden == YES) {
+	if (view.progressView.hidden == YES) {
 		view.progressBar.progress = 0.0;
-		view.progressBar.hidden = NO;
+		view.progressView.hidden = NO;
 		view.addDataButton.enabled = NO;
 		view.clearDataButton.enabled = NO;
 	}
@@ -133,7 +139,9 @@
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName {
 	if ([elementName isEqualToString:@"transactions"]) {
 		[self save];
-		progressBar.hidden = YES;
+		// Have to save a second time to get the new tags saved
+		[self save];
+		progressView.hidden = YES;
 		addDataButton.enabled = YES;
 		clearDataButton.enabled = YES;
 		

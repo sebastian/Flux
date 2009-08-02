@@ -80,7 +80,7 @@
 	if (animation) {
 		[UIView beginAnimations:nil context:NULL];
 		[UIView setAnimationBeginsFromCurrentState:YES];
-		[UIView setAnimationDuration:[Utilities keyboardAnimationDuration]];
+		[UIView setAnimationDuration:[[Utilities toolbox] keyboardAnimationDuration]];
 		
 		self.view.frame = keyboardFrame;
 		

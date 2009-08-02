@@ -27,4 +27,7 @@
 @property (nonatomic, retain) IBOutlet DetailContentTableCell * detailContentTableCell;
 @property (nonatomic, retain) IBOutlet DetailFooterView * detailFooterView;
 
+// Custom init
+//- (id)initWithStyle:(UITableViewStyle)style yearMonthToDisplay:(NSString*)yearMonth andContext:(NSManagedObjectContext*)context;
+
 @end

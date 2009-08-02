@@ -7,7 +7,7 @@
 //
 
 #import "Transaction.h"
-
+#import "Utilities.h"
 
 @implementation Transaction 
 
@@ -54,7 +54,6 @@
 	self.yearMonth = yearMonthValue;	
 	
 	// Set them to empty strings
-	NSLog(@"Setting the tags and description fields to empty strings...");
 	self.transactionDescription = @"";
 	self.tags = @"";
 
@@ -64,6 +63,24 @@
 	[formatter dealloc];
 	[super dealloc];
 }
+-(void)didSave {
+	if (!self.isDeleted) {
+		/*
+		 Tags:
+		 Go through all the tags:
+		 Check if there already is a tag object by that name
+		 YES: Then add the location to it
+		 NO: Create it
+		 */
+		NSLog(@"Going through tags for a transaction");
+		NSArray * tags = [[Utilities toolbox] tagStringToArray:self.tags];
+		for (NSString * tag in tags) {
+			// Does the tag exist?
+			[[Utilities toolbox] addTag:tag location:self.location];
+		}		
+	}
+}
+	
 
 #pragma mark
 #pragma mark -

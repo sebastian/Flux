@@ -20,7 +20,8 @@
 #pragma mark -
 #pragma mark Init and teardown
 -(void)viewDidLoad {
-
+	[super viewDidLoad];
+	
 	// Get the calendar values
 	NSLocale * userLocale = [NSLocale currentLocale];
 	NSDateFormatter * dateFormatter = [[NSDateFormatter alloc] init];
@@ -46,6 +47,7 @@
 	[self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
 	
 	[dateFormatter release];
+	
 	[self updateData];
 }
 -(void)dealloc {
@@ -88,18 +90,20 @@
 	
 	for (NSInteger n = 0; n < sectionCount; n++) {
 		NSArray * objectsInSection = [[sections objectAtIndex:n] objects];
-		Transaction * trs = [objectsInSection objectAtIndex:0];
 		
+		Transaction * trs = [objectsInSection objectAtIndex:0];
 		[titles addObject:[NSString stringWithFormat:@"%i", [trs.day intValue]]];
 	}
 		
 	return titles;
 }
 
+
 // Content cell
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 
-	Transaction *trs = (Transaction *)[resultsController objectAtIndexPath:indexPath];
+	// Access the object from the filtered array
+	Transaction *trs = (Transaction *)[self.filteredSearchResults objectAtIndex:indexPath.row];
     
 	static NSString *CellIdentifier = @"DetailCell";
     DetailContentTableCell * cell = (DetailContentTableCell *) [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -118,14 +122,15 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 	return 30;
 }
-// Header view
+// section header view
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
 
-	NSArray * transactions = [[[resultsController sections] objectAtIndex:section] objects];
-	Transaction * aTransaction = (Transaction*) [transactions objectAtIndex:0];
+	NSArray * _transactions = [[[resultsController sections] objectAtIndex:section] objects];
+	NSArray * transactions = [_transactions filteredArrayUsingPredicate:self.filteringPredicate];
+	Transaction * aTransaction = (Transaction*) [_transactions objectAtIndex:0];
 		
 	// Calculate the amount
-	double amount = [Utilities sumAmountForTransactionArray:transactions];
+	double amount = [[Utilities toolbox] sumAmountForTransactionArray:transactions];
 	NSNumber * numAmount = [NSNumber numberWithDouble:amount];
 	
 	// Get a cell
@@ -183,7 +188,7 @@
     NSUInteger count = 0;
     if ([sections count]) {
         id <NSFetchedResultsSectionInfo> sectionInfo = [sections objectAtIndex:section];
-        count = [sectionInfo numberOfObjects];
+        count = [[sectionInfo objects] filteredArrayUsingPredicate:self.filteringPredicate].count;
     }
 	return count;
 }

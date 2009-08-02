@@ -7,24 +7,31 @@
 //
 
 #import "TransactionTableViewController.h"
+#import "Utilities.h"
+
+@interface TransactionTableViewController (PrivateMethods)
+-(void)toggleSearch;
+-(void)updatePredicate:(NSNotification*)notification;
+@end
+
+
 
 @implementation TransactionTableViewController
 
 @synthesize resultsController;
 @synthesize managedObjectContext;
 
+@synthesize	filteringPredicate;
+@synthesize filteredSearchResults;
 
 #pragma mark -
 #pragma mark Setup and teardown
 - (id)initWithStyle:(UITableViewStyle)style andContext:(NSManagedObjectContext*)context {
-	
 	self = [super initWithStyle:style];
-	
 	if (self != nil) {
 		self.managedObjectContext = context;
-		self.resultsController = nil;
-	}
-	
+		self.filteringPredicate = [NSPredicate predicateWithValue:YES];
+	}	
 	return self;
 }
 - (void)dealloc {
@@ -32,8 +39,52 @@
 	
 	self.managedObjectContext = nil; // release
 	self.resultsController = nil; // release
+	self.filteringPredicate = nil;
+	self.filteredSearchResults = nil;
 	
 	[super dealloc];
+}
+- (void)viewDidLoad {
+	UIBarButtonItem * searchButton = 
+		[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch 
+													  target:self 
+													  action:@selector(toggleSearch)];
+	self.navigationItem.rightBarButtonItem = searchButton;
+	[searchButton release];
+	
+	// Register to get a notification whenever the predicate is changed!
+	[[NSNotificationCenter defaultCenter]
+		addObserver:self
+		selector:@selector(updatePredicate:)
+		name:@"KleioPredicateUpdated"
+		object:nil];
+	
+}
+- (void)viewDidUnload {
+	
+	// Remove from NotificationCenter
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	
+}
+
+
+#pragma mark
+#pragma mark -
+#pragma mark Private methods
+-(void)toggleSearch {
+	// Send show notification
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"KleioToggleFilterView" object:self];		
+}
+-(void)updatePredicate:(NSNotification*)notification {
+
+	// Store the new predicate
+	NSDictionary * predicateDict = notification.userInfo;
+	self.filteringPredicate = [predicateDict objectForKey:@"predicate"];
+	
+	self.filteredSearchResults = [[resultsController fetchedObjects] filteredArrayUsingPredicate:self.filteringPredicate];
+	
+	// Reload data :)
+	[self.tableView reloadData];
 }
 
 
@@ -81,7 +132,10 @@
 		NSLog(@"ERROR: %@", error);
 	}
 
-	// Nothing to do if it worked :)
+	// Get the filtered result, in case there is a filter
+	self.filteredSearchResults = [[resultsController fetchedObjects] filteredArrayUsingPredicate:self.filteringPredicate];
+	
+	// DONE
 }	
 
 

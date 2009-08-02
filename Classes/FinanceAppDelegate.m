@@ -10,6 +10,8 @@
 #import "ExpenseInputViewController.h"
 #import "TransactionsViewController.h"
 #import "BetaViewController.h"
+#import "Utilities.h"
+#import "TransactionFilterViewController.h"
 
 @implementation FinanceAppDelegate
 
@@ -25,8 +27,28 @@
     if (!context) { 
         NSLog(@"Couldn't get a managedObjectContext number 1");
     }
-	TransactionsViewController * transactionViewController = [[TransactionsViewController alloc] initWithContext:context];
+	TransactionFilterViewController * transactionViewController = 
+		[[TransactionFilterViewController alloc] initWithNibName:@"TransactionFilterViewController" 
+														  bundle:[NSBundle mainBundle]
+													  andContext:context];
+	//TransactionsViewController * transactionViewController = [[TransactionsViewController alloc] initWithContext:context];
 	[context release];
+
+	/*
+	 Why does the addContext need a context of it's own?
+	 There are several reasons:
+	 * I don't want the temporary transactions to be autosaved
+	 * I don't want the temporary transactions to show up in the table views
+	 * I want to be able to make changes to transaction objects in the table views
+	 and have them autosaved on app termination
+	 */
+	NSManagedObjectContext *utilitiesContext = [[NSManagedObjectContext alloc] init];
+	[utilitiesContext setPersistentStoreCoordinator: [self persistentStoreCoordinator]];
+    if (!utilitiesContext) { 
+        NSLog(@"Couldn't get a managedObjectContext for the utilities context");
+    }
+	[Utilities toolbox].managedObjectContext = utilitiesContext;
+	[utilitiesContext release];
 	
 	/*
 	 Why does the addContext need a context of it's own?
