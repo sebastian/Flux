@@ -17,6 +17,10 @@
 	DetailContentTableCell * detailContentTableCell;
 	DetailFooterView * detailFooterView;
 	NSString * yearMonthToDisplay;
+	
+	// Remember the state of the search bar
+	NSString * filterString;
+	BOOL filterActive;
 }
 
 

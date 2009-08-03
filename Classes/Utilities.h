@@ -16,6 +16,8 @@
 	NSMutableDictionary * tagExistance;
 	NSMutableDictionary * tagCache;
 	NSManagedObjectContext * managedObjectContext;
+	
+	BOOL searchIsVisible;
 }
 
 @property (nonatomic, retain) NSManagedObjectContext * managedObjectContext;

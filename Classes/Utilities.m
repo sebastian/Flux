@@ -10,6 +10,7 @@
 #import "Tag.h"
 #import "Location.h"
 
+
 @implementation Utilities
 
 @synthesize managedObjectContext;

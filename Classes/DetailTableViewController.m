@@ -11,6 +11,7 @@
 #import "Transaction.h"
 #import "TransactionDisplay.h"
 #import "Utilities.h"
+#import "FilterField.h"
 
 @implementation DetailTableViewController
 
@@ -19,8 +20,11 @@
 
 #pragma mark -
 #pragma mark Init and teardown
--(void)viewDidLoad {
+- (void) viewDidLoad {
 	[super viewDidLoad];
+		
+	NSLog(@"View did load... could have checked if search was needed...");
+	NSLog(@"Navigation controller from detail view: %@", self.navigationController);
 	
 	// Get the calendar values
 	NSLocale * userLocale = [NSLocale currentLocale];
@@ -50,7 +54,21 @@
 	
 	[self updateData];
 }
--(void)dealloc {
+- (void) viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+
+	// Check if the filter was active
+	if (filterActive) {
+		// Reset
+		filterActive = NO;
+		if (filterString != nil) {[[FilterField sharedFilterBar] setSearchString:filterString];}
+		[filterString release];
+		[[FilterField sharedFilterBar] show];
+	}
+	
+}
+
+- (void) dealloc {
 	[detailHeaderView release];
 	[detailContentTableCell release];
 	[detailFooterView release];
@@ -160,16 +178,24 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 	
+	// We are now going to show another page where the search bar is not required
+	// Save search state:
+	filterActive = [[FilterField sharedFilterBar] isVisible];
+	filterString = [[[FilterField sharedFilterBar] searchString] retain];
+	[[FilterField sharedFilterBar] hide];
+	
+	// Create new display that shows the transaction
 	TransactionDisplay * infoDisplay =
 		[[TransactionDisplay alloc] initWithNibName:@"TransactionDisplay" 
 											 bundle:[NSBundle mainBundle]];
 	
 	Transaction * theTransaction = (Transaction*)[resultsController objectAtIndexPath:indexPath];
 	
+	// Give it the current transaction to speed things up
 	infoDisplay.currentTransaction = theTransaction;
 	
+	// Show it
 	[self.navigationController pushViewController:infoDisplay animated:YES];
-	
 	[infoDisplay release];
 	
 }

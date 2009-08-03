@@ -1,103 +1,66 @@
 //
-//  TestViewController.m
+//  FilterField.m
 //  Finance
 //
-//  Created by Sebastian Probst Eide on 02.08.09.
+//  Created by Sebastian Probst Eide on 03.08.09.
 //  Copyright 2009 Kle.io. All rights reserved.
 //
 
-#import "TransactionFilterViewController.h"
-#import "TransactionsViewController.h"
+#import "FilterField.h"
 #import "Utilities.h"
 
-@interface TransactionFilterViewController (PrivateMethods)
--(void)moveMainContentDown:(BOOL)down;
--(void)animateContentToFrame:(CGRect)frame;
--(void)hideSearch;
--(void)showSearch;
--(void)toggleSearch:(NSNotification*)notification;
--(void)clearSearchState;
-@end
 
+@implementation FilterField
 
-
-@implementation TransactionFilterViewController
-
+@synthesize delegate;
 @synthesize searchBarField;
-@synthesize contentView;
 @synthesize tagsToFilterBy;
-@synthesize managedObjectContext;
 @synthesize realTags;
 
-#pragma mark
-#pragma mark -
-#pragma mark Setup init and teardown
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil andContext:(NSManagedObjectContext*)context {
-    if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
+static FilterField * sharedFilterField = nil;
 
-		self.managedObjectContext = context;
-		
-		TransactionsViewController * transactionViewController = [[TransactionsViewController alloc] initWithContext:context];
-		self.contentView = transactionViewController.view;
-		
-		// Add the contentview to the subview
-		[self.view addSubview:self.contentView];
-		
+- (id) initWithNibName:(NSString*)nibname bundle:(NSBundle*)bundle {
+	self = [super initWithNibName:nibname bundle:bundle];
+	if (self != nil) {
 		self.tagsToFilterBy = [[NSArray alloc] init];
-		
-		self.realTags = [[NSMutableArray alloc] init];
-		
-		self.title = NSLocalizedString(@"Transactions",@"Tab bar title");
-    }
-    return self;
+		self.realTags = [[NSMutableArray alloc] init];	
+		self.searchBarField.placeholder = NSLocalizedString(@"Tags to filter by", @"Placeholder text for search bar");
+	}
+	return self;
 }
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-	
-	[self showSearch];
-	
-	[[NSNotificationCenter defaultCenter]
-	 addObserver:self
-	 selector:@selector(toggleSearch:)
-	 name:@"KleioToggleFilterView"
-	 object:nil];
-	
-	searchBarField.placeholder = NSLocalizedString(@"Tags to filter by", @"Placeholder text for search bar");
-
-	[self updateFilterByField];
 }
--(void)viewDidUnload {
-	[[NSNotificationCenter defaultCenter] removeObserver:self];
+- (void)didReceiveMemoryWarning {
+	// Releases the view if it doesn't have a superview.
+    [super didReceiveMemoryWarning];
+	
+	// Release any cached data, images, etc that aren't in use.
 }
-
-- (void)dealloc {
-	[realTags release];
-	[managedObjectContext release];
-	[tagsToFilterBy release];
-	[contentView release];
-	[searchBarField release];
-
-    [super dealloc];
+- (void)viewDidUnload {
+	// Release any retained subviews of the main view.
+	// e.g. self.myOutlet = nil;
 }
 
 
 #pragma mark
 #pragma mark -
 #pragma mark Selected tags display
--(void)updateFilterByField {
+- (void)updateFilterByField {
 	NSMutableString * filteredByString = [NSMutableString stringWithString:NSLocalizedString(@"Filtered by tags",@"")];
 	[filteredByString appendString:@": "];
-		
+	
 	if ([realTags count] == 0) {
 		[filteredByString appendString:NSLocalizedString(@"(currently none)",@"")];
 		
 		// Move the main content so the label is hidden
-		[self moveMainContentDown:NO];
+		[delegate finishedUsingExtraSpace];
 		
 	} else {
 		
 		// Move the main content so that the label shows
-		[self moveMainContentDown:YES];
+		[delegate needExtraSpace];
 		
 		for (NSString * tag in realTags) {
 			[filteredByString appendFormat:@" %@", tag];
@@ -106,67 +69,14 @@
 	
 	filteredTagsField.text = filteredByString;	
 }
-// Move the main content in or out of view
--(void)moveMainContentDown:(BOOL)down {
+- (void)resignFirstResponder { [searchBarField resignFirstResponder]; }
+- (void)clearSearchState {
 	
-	CGRect frame = self.contentView.frame;
-	
-	if (down == YES) {
-		frame.origin.y = 70;
-	} else {
-		frame.origin.y = 44;
-	}
-	
-	NSLog(@"Moving content to: %i", frame.origin.y);
-	
-	[self animateContentToFrame:frame];
-}
--(void)animateContentToFrame:(CGRect)frame {
-	[UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationDuration:[[Utilities toolbox] keyboardAnimationDuration]];
-	self.contentView.frame = frame;
-    [UIView commitAnimations];	
-}
--(void)hideSearch {
-	
-	searchIsVisible = NO;
-	
-	[searchBarField resignFirstResponder];
-	
-	CGRect frame = self.contentView.frame;
-	frame.origin.y = 0;
-	[self animateContentToFrame:frame];
-	
-	[self clearSearchState];
-		
-}
--(void)showSearch {
-	
-	searchIsVisible = YES;
-	
-	CGRect frame = self.contentView.frame;
-	frame.origin.y = 44;
-	
-	[self animateContentToFrame:frame];	
-
-	//[filteredTagsField setNeedsLayout];
-	
-	[self updateFilterByField];
-}
--(void)toggleSearch:(NSNotification*)notification {
-	if (searchIsVisible) {
-		[self hideSearch];
-	} else {
-		[self showSearch];
-	}
-}
--(void)clearSearchState {
-
 	// Clear the search when it is hidden
 	searchBarField.text = @"";
 	self.tagsToFilterBy = nil;
 	[self.realTags removeAllObjects];
-		
+	
 	// Send out notification that the filtering is over
 	NSPredicate * filteringPredicate = [NSPredicate predicateWithValue:YES];
 	NSDictionary * predicateDict = [NSDictionary dictionaryWithObject:filteringPredicate 
@@ -176,6 +86,28 @@
 														object:self 
 													  userInfo:predicateDict];
 }
+- (void)setSearchString:(NSString*)text {
+	[searchBarField becomeFirstResponder];
+	[searchBarField setText:text];
+	[searchBarField resignFirstResponder];
+}
+- (BOOL)isVisible {
+	return [self.delegate isVisible];
+}
+- (NSString*)searchString {
+	return searchBarField.text;
+}
+
+- (void) hide {
+	[delegate wantsToBeHidden];
+}
+- (void) show {
+	[delegate wantsToBeShown];
+}
+- (void) toggle {
+	[delegate wantsToBeToggled];
+}
+
 
 #pragma mark
 #pragma mark -
@@ -183,7 +115,7 @@
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
 	
 	NSPredicate * filteringPredicate;
-		
+	
 	NSArray * tags = [[Utilities toolbox] tagStringToArray:searchText];
 	
 	if ([tags isEqualToArray:tagsToFilterBy]) {
@@ -213,10 +145,10 @@
 					
 					// Create a predicate
 					NSPredicate * tagPredicate = [NSPredicate predicateWithFormat:@"tags contains[cd] %@", tag];
-
+					
 					// Add to predicate list
 					[tagPredicates addObject:tagPredicate];
-
+					
 				}
 			}
 			
@@ -224,7 +156,7 @@
 			filteringPredicate = filterPredicate;
 			
 		}
-
+		
 		NSDictionary * predicateDict = [NSDictionary dictionaryWithObject:filteringPredicate 
 																   forKey:@"predicate"];
 		
@@ -243,11 +175,60 @@
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
 	searchBar.text = @"";
 	[searchBar resignFirstResponder];
-
-	[self hideSearch];
+	
+	[self.delegate cancelClicked];
 }
 - (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {
 	[self updateFilterByField];
 }
+
+
+#pragma mark
+#pragma mark -
+#pragma mark Singleton methods
+
++ (FilterField*)sharedFilterBar {
+    @synchronized(self) {
+        if (sharedFilterField == nil) {
+            [[self alloc] initWithNibName:@"FilterField" bundle:[NSBundle mainBundle]]; // assignment not done here
+        }
+    }
+    return sharedFilterField;
+}
++ (id)allocWithZone:(NSZone *)zone {
+    @synchronized(self) {
+        if (sharedFilterField == nil) {
+            sharedFilterField = [super allocWithZone:zone];
+            return sharedFilterField;  // assignment and return on first allocation
+        }
+    }
+    return nil; //on subsequent allocation attempts return nil
+}
+- (id)copyWithZone:(NSZone *)zone {
+    return self;
+}
+- (id)retain {
+    return self;
+}
+- (unsigned)retainCount {
+    return UINT_MAX;  //denotes an object that cannot be released
+}
+- (void)release {
+    //do nothing
+}
+- (id)autorelease{
+    return self;
+}
+
+- (void)dealloc {
+	
+	[filteredTagsField release];
+	[searchBarField release];
+	[tagsToFilterBy release];
+	[realTags release];
+	
+	[super dealloc];
+}
+
 
 @end

@@ -24,7 +24,7 @@
 		963136531021DA4D007986A4 /* KBBCOKbackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 963136521021DA4D007986A4 /* KBBCOKbackground.png */; };
 		963B020E10185D8C00CD5184 /* ConfirmationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 963B020D10185D8C00CD5184 /* ConfirmationView.m */; };
 		963B021810185DAA00CD5184 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 963B021710185DAA00CD5184 /* QuartzCore.framework */; };
-		963B029A1019E10900CD5184 /* TransactionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 963B02991019E10900CD5184 /* TransactionsViewController.m */; };
+		963B029A1019E10900CD5184 /* TransactionsNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 963B02991019E10900CD5184 /* TransactionsNavigationController.m */; };
 		963B02BD1019E8D600CD5184 /* DetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 963B02BC1019E8D600CD5184 /* DetailTableViewController.m */; };
 		963B03C81019EF8E00CD5184 /* TransactionTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 963B03C71019EF8E00CD5184 /* TransactionTableViewController.m */; };
 		963BFE88101DCB9000C187E0 /* MapAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 963BFE87101DCB9000C187E0 /* MapAnnotation.m */; };
@@ -49,6 +49,8 @@
 		964F1E85101CDE31004EA5C3 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 964F1E84101CDE31004EA5C3 /* CoreLocation.framework */; };
 		9653EA691010F26700B714BB /* AddExpense.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9653EA681010F26700B714BB /* AddExpense.xib */; };
 		9653EBE6101104FB00B714BB /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9653EBE5101104FB00B714BB /* MainWindow.xib */; };
+		9662FEF81026CCCE00B670D6 /* FilterField.m in Sources */ = {isa = PBXBuildFile; fileRef = 9662FEF61026CCCE00B670D6 /* FilterField.m */; };
+		9662FEF91026CCCE00B670D6 /* FilterField.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9662FEF71026CCCE00B670D6 /* FilterField.xib */; };
 		9666E6001020B66E000B9325 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 9666E5FF1020B66E000B9325 /* Default.png */; };
 		96676E9C1022DA96000C6FF5 /* deleteButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 96676E9B1022DA96000C6FF5 /* deleteButton.png */; };
 		96676E9E1022DB99000C6FF5 /* deleteButtonHighlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 96676E9D1022DB99000C6FF5 /* deleteButtonHighlighted.png */; };
@@ -70,7 +72,7 @@
 		969776A8101B662300F0DC3D /* DetailCellHeader.png in Resources */ = {isa = PBXBuildFile; fileRef = 969776A7101B662300F0DC3D /* DetailCellHeader.png */; };
 		969C6C56101F8A79007B5CC8 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 969C6C55101F8A79007B5CC8 /* Icon.png */; };
 		96A98D241025BE8700FFA6D0 /* Transactions.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96A98D231025BE8700FFA6D0 /* Transactions.xib */; };
-		96A98E591025D45100FFA6D0 /* TransactionFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96A98E571025D45100FFA6D0 /* TransactionFilterViewController.m */; };
+		96A98E591025D45100FFA6D0 /* TransactionsMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96A98E571025D45100FFA6D0 /* TransactionsMainViewController.m */; };
 		96A98E5A1025D45100FFA6D0 /* TransactionFilterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96A98E581025D45100FFA6D0 /* TransactionFilterViewController.xib */; };
 		96AA703B10061D0900206A37 /* KeyboardButtonBackgroundClicked.png in Resources */ = {isa = PBXBuildFile; fileRef = 96AA703910061D0900206A37 /* KeyboardButtonBackgroundClicked.png */; };
 		96AA703C10061D0900206A37 /* KeyboardButtonBackgroundUnclicked.png in Resources */ = {isa = PBXBuildFile; fileRef = 96AA703A10061D0900206A37 /* KeyboardButtonBackgroundUnclicked.png */; };
@@ -126,8 +128,8 @@
 		963B020C10185D8C00CD5184 /* ConfirmationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfirmationView.h; sourceTree = "<group>"; };
 		963B020D10185D8C00CD5184 /* ConfirmationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfirmationView.m; sourceTree = "<group>"; };
 		963B021710185DAA00CD5184 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		963B02981019E10900CD5184 /* TransactionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionsViewController.h; sourceTree = "<group>"; };
-		963B02991019E10900CD5184 /* TransactionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionsViewController.m; sourceTree = "<group>"; };
+		963B02981019E10900CD5184 /* TransactionsNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionsNavigationController.h; sourceTree = "<group>"; };
+		963B02991019E10900CD5184 /* TransactionsNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionsNavigationController.m; sourceTree = "<group>"; };
 		963B02BB1019E8D600CD5184 /* DetailTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailTableViewController.h; sourceTree = "<group>"; };
 		963B02BC1019E8D600CD5184 /* DetailTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailTableViewController.m; sourceTree = "<group>"; };
 		963B03C61019EF8E00CD5184 /* TransactionTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionTableViewController.h; sourceTree = "<group>"; };
@@ -158,6 +160,9 @@
 		964F1E84101CDE31004EA5C3 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		9653EA681010F26700B714BB /* AddExpense.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddExpense.xib; sourceTree = "<group>"; };
 		9653EBE5101104FB00B714BB /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
+		9662FEF51026CCCE00B670D6 /* FilterField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterField.h; sourceTree = "<group>"; };
+		9662FEF61026CCCE00B670D6 /* FilterField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterField.m; sourceTree = "<group>"; };
+		9662FEF71026CCCE00B670D6 /* FilterField.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilterField.xib; sourceTree = "<group>"; };
 		9666E5FF1020B66E000B9325 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = Graphics/Default.png; sourceTree = "<group>"; };
 		96676E9B1022DA96000C6FF5 /* deleteButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = deleteButton.png; path = Graphics/deleteButton.png; sourceTree = "<group>"; };
 		96676E9D1022DB99000C6FF5 /* deleteButtonHighlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = deleteButtonHighlighted.png; path = Graphics/deleteButtonHighlighted.png; sourceTree = "<group>"; };
@@ -180,8 +185,8 @@
 		969776A7101B662300F0DC3D /* DetailCellHeader.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = DetailCellHeader.png; path = Graphics/DetailCellHeader.png; sourceTree = "<group>"; };
 		969C6C55101F8A79007B5CC8 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = Graphics/Icon.png; sourceTree = "<group>"; };
 		96A98D231025BE8700FFA6D0 /* Transactions.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Transactions.xib; sourceTree = "<group>"; };
-		96A98E561025D45100FFA6D0 /* TransactionFilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionFilterViewController.h; sourceTree = "<group>"; };
-		96A98E571025D45100FFA6D0 /* TransactionFilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionFilterViewController.m; sourceTree = "<group>"; };
+		96A98E561025D45100FFA6D0 /* TransactionsMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionsMainViewController.h; sourceTree = "<group>"; };
+		96A98E571025D45100FFA6D0 /* TransactionsMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionsMainViewController.m; sourceTree = "<group>"; };
 		96A98E581025D45100FFA6D0 /* TransactionFilterViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = TransactionFilterViewController.xib; path = Classes/TransactionFilterViewController.xib; sourceTree = "<group>"; };
 		96AA703910061D0900206A37 /* KeyboardButtonBackgroundClicked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = KeyboardButtonBackgroundClicked.png; path = Graphics/KeyboardButtonBackgroundClicked.png; sourceTree = "<group>"; };
 		96AA703A10061D0900206A37 /* KeyboardButtonBackgroundUnclicked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = KeyboardButtonBackgroundUnclicked.png; path = Graphics/KeyboardButtonBackgroundUnclicked.png; sourceTree = "<group>"; };
@@ -395,6 +400,27 @@
 			name = CoreLocation;
 			sourceTree = "<group>";
 		};
+		966200A21026E15600B670D6 /* FilterField */ = {
+			isa = PBXGroup;
+			children = (
+				9662FEF51026CCCE00B670D6 /* FilterField.h */,
+				9662FEF61026CCCE00B670D6 /* FilterField.m */,
+				9662FEF71026CCCE00B670D6 /* FilterField.xib */,
+			);
+			name = FilterField;
+			sourceTree = "<group>";
+		};
+		966200A31026E16A00B670D6 /* TableViews */ = {
+			isa = PBXGroup;
+			children = (
+				963B03C61019EF8E00CD5184 /* TransactionTableViewController.h */,
+				963B03C71019EF8E00CD5184 /* TransactionTableViewController.m */,
+				96419CBA101C770B0066D6D8 /* DetailTable */,
+				96419CB9101C76FE0066D6D8 /* OverviewTable */,
+			);
+			name = TableViews;
+			sourceTree = "<group>";
+		};
 		96676F381022F311000C6FF5 /* ControlViev */ = {
 			isa = PBXGroup;
 			children = (
@@ -495,15 +521,13 @@
 		96FFFA771015ED0300A53779 /* Expenses tab */ = {
 			isa = PBXGroup;
 			children = (
+				966200A31026E16A00B670D6 /* TableViews */,
+				966200A21026E15600B670D6 /* FilterField */,
 				96419CC0101C775A0066D6D8 /* TransactionDetail */,
-				96419CBA101C770B0066D6D8 /* DetailTable */,
-				96419CB9101C76FE0066D6D8 /* OverviewTable */,
-				963B03C61019EF8E00CD5184 /* TransactionTableViewController.h */,
-				963B03C71019EF8E00CD5184 /* TransactionTableViewController.m */,
-				963B02981019E10900CD5184 /* TransactionsViewController.h */,
-				963B02991019E10900CD5184 /* TransactionsViewController.m */,
-				96A98E561025D45100FFA6D0 /* TransactionFilterViewController.h */,
-				96A98E571025D45100FFA6D0 /* TransactionFilterViewController.m */,
+				963B02981019E10900CD5184 /* TransactionsNavigationController.h */,
+				963B02991019E10900CD5184 /* TransactionsNavigationController.m */,
+				96A98E561025D45100FFA6D0 /* TransactionsMainViewController.h */,
+				96A98E571025D45100FFA6D0 /* TransactionsMainViewController.m */,
 			);
 			name = "Expenses tab";
 			sourceTree = "<group>";
@@ -620,6 +644,7 @@
 				96405D37102626B9004E440C /* OverviewBackground.png in Resources */,
 				96405D9010262ECC004E440C /* betascreen.html in Resources */,
 				96405E0A102635C6004E440C /* styles.css in Resources */,
+				9662FEF91026CCCE00B670D6 /* FilterField.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -642,7 +667,7 @@
 				96FFFA911015EDD000A53779 /* DetailFooterView.m in Sources */,
 				96BD3E6C101744DB00926A83 /* CurrencyKeyboard.m in Sources */,
 				963B020E10185D8C00CD5184 /* ConfirmationView.m in Sources */,
-				963B029A1019E10900CD5184 /* TransactionsViewController.m in Sources */,
+				963B029A1019E10900CD5184 /* TransactionsNavigationController.m in Sources */,
 				963B02BD1019E8D600CD5184 /* DetailTableViewController.m in Sources */,
 				963B03C81019EF8E00CD5184 /* TransactionTableViewController.m in Sources */,
 				96419A64101C4E2E0066D6D8 /* BetaViewController.m in Sources */,
@@ -653,7 +678,8 @@
 				96676F3C1022F323000C6FF5 /* ControlViewController.m in Sources */,
 				96FAE6DC1024C2970060384F /* Location.m in Sources */,
 				96FAE6E01024C30A0060384F /* Tag.m in Sources */,
-				96A98E591025D45100FFA6D0 /* TransactionFilterViewController.m in Sources */,
+				96A98E591025D45100FFA6D0 /* TransactionsMainViewController.m in Sources */,
+				9662FEF81026CCCE00B670D6 /* FilterField.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

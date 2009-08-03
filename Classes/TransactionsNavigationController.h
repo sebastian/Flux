@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
 
-@interface TransactionsViewController : UINavigationController 
+@interface TransactionsNavigationController : UINavigationController <UINavigationControllerDelegate>
 {
 	NSManagedObjectContext *managedObjectContext;
 }

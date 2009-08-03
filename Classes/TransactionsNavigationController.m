@@ -6,10 +6,10 @@
 //  Copyright 2009 Kle.io. All rights reserved.
 //
 
-#import "TransactionsViewController.h"
+#import "TransactionsNavigationController.h"
 #import "OverviewTableViewController.h"
 
-@implementation TransactionsViewController
+@implementation TransactionsNavigationController
 
 @synthesize managedObjectContext;
 
@@ -21,7 +21,14 @@
 	[overviewController release];
 	
 	if (self != nil) {	
+		// Setting the delegate to self so that I can inform the views that they will be appearing
+		self.delegate = self;
+		
+		// Setup style
 		self.navigationBar.barStyle = UIBarStyleBlackOpaque;
+
+		// Needed so that I can receive the info about changes in the managedObjectContext and
+		// propagate them!
 		self.managedObjectContext = context;
 		self.title = NSLocalizedString(@"Transactions", @"Transaction table view header");
 	}
@@ -56,4 +63,10 @@
     [super dealloc];
 }
 
+#pragma mark
+#pragma mark -
+#pragma mark NavigationControllerDelegate method 
+- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+	[viewController viewWillAppear:animated];
+}
 @end

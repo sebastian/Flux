@@ -8,6 +8,7 @@
 
 #import "TransactionTableViewController.h"
 #import "Utilities.h"
+#import "FilterField.h"
 
 @interface TransactionTableViewController (PrivateMethods)
 -(void)toggleSearch;
@@ -73,7 +74,7 @@
 #pragma mark Private methods
 -(void)toggleSearch {
 	// Send show notification
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"KleioToggleFilterView" object:self];		
+	[[FilterField sharedFilterBar] toggle];
 }
 -(void)updatePredicate:(NSNotification*)notification {
 
