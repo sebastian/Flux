@@ -13,19 +13,23 @@
 #import "Utilities.h"
 #import "FilterField.h"
 
+@interface DetailTableViewController (PrivateMethods)
+- (NSDictionary*)dataForSection:(NSInteger)_section;
+- (void)clearDataCache;
+@end
+
+
 @implementation DetailTableViewController
 
 @synthesize detailHeaderView, detailContentTableCell, detailFooterView;
 @synthesize yearMonthToDisplay;
+@synthesize transactionsDataCache, headerViewCache, footerViewCache;
 
 #pragma mark -
 #pragma mark Init and teardown
 - (void) viewDidLoad {
 	[super viewDidLoad];
-		
-	NSLog(@"View did load... could have checked if search was needed...");
-	NSLog(@"Navigation controller from detail view: %@", self.navigationController);
-	
+			
 	// Get the calendar values
 	NSLocale * userLocale = [NSLocale currentLocale];
 	NSDateFormatter * dateFormatter = [[NSDateFormatter alloc] init];
@@ -48,11 +52,21 @@
 		self.title = NSLocalizedString(@"ERROR", @"Some error...");
 	}
 	
-	[self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-	
 	[dateFormatter release];
 	
 	[self updateData];
+	
+	UIImageView * paperTop = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DetailCellTop.png"]];
+	self.tableView.tableHeaderView = paperTop;
+	[paperTop release];
+	
+	UIImageView * paperBottom = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DetailCellBottom.png"]];
+	self.tableView.tableFooterView = paperBottom;
+	[paperBottom release];
+	
+	[self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+	self.tableView.backgroundColor = [UIColor clearColor];
+	
 }
 - (void) viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
@@ -66,20 +80,33 @@
 		[[FilterField sharedFilterBar] show];
 	}
 	
+	/*
+	 Hide the top view that is just for making it look nice
+	 */
+	[self.tableView setContentOffset:CGPointMake(0, 40.f) animated:NO];
+	
+	NSIndexPath *tableSelection = [self.tableView indexPathForSelectedRow];
+	[self.tableView deselectRowAtIndexPath:tableSelection animated:NO];
+	
+	
 }
 
+
 - (void) dealloc {
-	[detailHeaderView release];
+	[transactionsDataCache release];
 	[detailContentTableCell release];
 	[detailFooterView release];
 	[yearMonthToDisplay release];
+	[headerViewCache release];
+	[detailHeaderView release];
+	[footerViewCache release];
 	
 	[super dealloc];
 }
 
 #pragma mark -
 #pragma mark Populate data
--(void)updateData {
+-(void) updateData {
 	
 	// Sort descriptors
 	NSSortDescriptor *sortByDay = [[NSSortDescriptor alloc] initWithKey:@"day" ascending:NO];
@@ -100,7 +127,7 @@
 
 #pragma mark Table view methods
 // To get the section shower on the side
-- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
+- (NSArray *) sectionIndexTitlesForTableView:(UITableView *)tableView {
 	NSArray * sections = resultsController.sections;
 	NSInteger sectionCount = sections.count;
 	
@@ -116,66 +143,163 @@
 	return titles;
 }
 
+/*
+ Optimize by only ever calculating the data once!
+ */
+- (NSDictionary*) dataForSection:(NSInteger)_section {
+	
+	NSString * section = [NSString stringWithFormat:@"%i", _section];
+	
+	// Init if it doesn't exist
+	if (self.transactionsDataCache == nil) {
+		self.transactionsDataCache = [NSMutableDictionary dictionary];
+	}
+	
+	if ([transactionsDataCache objectForKey:section] == nil) {
+			
+		NSLog(@"Generating data for section %i", _section);
+		
+		// General data
+		NSArray * _transactions = [[[resultsController sections] objectAtIndex:_section] objects];
+		NSArray * transactions = [_transactions filteredArrayUsingPredicate:self.filteringPredicate];
+		
+		// Data for header
+		Transaction * aTransaction = (Transaction*) [_transactions objectAtIndex:0];
+		
+		// Calculate the amount
+		double dAmount = [[Utilities toolbox] sumAmountForTransactionArray:transactions];
+		NSNumber * numAmount = [NSNumber numberWithDouble:dAmount];
+			
+		// TODO: Localize the date format display
+		NSString * date = [aTransaction.day stringValue];
+		NSString * amount = [aTransaction numberToMoney:numAmount];
+			
+		// Data that has been worked on
+		NSArray * objects = [NSArray arrayWithObjects:transactions, date, amount,nil];
+		NSArray * keys = [NSArray arrayWithObjects:@"transactions", @"date", @"amount", nil];
+		NSDictionary * data = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
+			
+		// Insert into dictionary
+		[transactionsDataCache setObject:data forKey:section];
+
+	} 
+		
+	return [transactionsDataCache objectForKey:section];
+		
+}
+- (void)clearDataCache {
+	[self.transactionsDataCache removeAllObjects];
+	[self.headerViewCache removeAllObjects];
+}
 
 // Content cell
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-
+- (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+		
 	// Access the object from the filtered array
-	Transaction *trs = (Transaction *)[self.filteredSearchResults objectAtIndex:indexPath.row];
+	NSDictionary * data = [self dataForSection:indexPath.section];
+	Transaction *trs = (Transaction *)[[data objectForKey:@"transactions"] objectAtIndex:indexPath.row];
     
 	static NSString *CellIdentifier = @"DetailCell";
     DetailContentTableCell * cell = (DetailContentTableCell *) [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 	if (cell == nil) {
 		[[NSBundle mainBundle] loadNibNamed:@"DetailTableCell" owner:self options:nil]; 
 		cell = self.detailContentTableCell;
+		NSLog(@"Generating a new cell... ohno!");
 	}
-		
-	cell.amount.text = [trs toString];
-	cell.what.text = trs.transactionDescription;
-		
-	[cell setBackgroundColorForCellNumber:indexPath.row];
-		
+
+	[cell configureCellForTransaction:trs];
+				
     return cell;
 }
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-	return 30;
+
+- (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+	return 40;
 }
 // section header view
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+- (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)_section {
+	/*
+	 If there are no elements in the section, then we don't want to display it
+	 */
+	NSDictionary * data = [self dataForSection:_section];
+	NSInteger count = [[data objectForKey:@"transactions"] count];
+	if (count == 0) {return nil;}
+	
+	
+	NSString * section = [NSString stringWithFormat:@"%i", _section];
+	
+	if (self.headerViewCache == nil) { self.headerViewCache = [[NSMutableDictionary alloc] init];}
+	
+	if ([headerViewCache objectForKey:section] == nil) {
 
-	NSArray * _transactions = [[[resultsController sections] objectAtIndex:section] objects];
-	NSArray * transactions = [_transactions filteredArrayUsingPredicate:self.filteringPredicate];
-	Transaction * aTransaction = (Transaction*) [_transactions objectAtIndex:0];
+		[[NSBundle mainBundle] loadNibNamed:@"DetailHeaderAndFooter" owner:self options:nil]; 
 		
-	// Calculate the amount
-	double amount = [[Utilities toolbox] sumAmountForTransactionArray:transactions];
-	NSNumber * numAmount = [NSNumber numberWithDouble:amount];
+//		// Get data for view
+//		NSDictionary * data = [self dataForSection:_section];
+		
+		// TODO: Localize the date format display
+		detailHeaderView.monthYear.text = self.title;
+		detailHeaderView.date.text = [data objectForKey:@"date"];
+		detailHeaderView.amount.text = [data objectForKey:@"amount"];
+		
+		// Store view
+		[headerViewCache setObject:detailHeaderView forKey:section];
+		
+	}
 	
-	// Get a cell
-	[[NSBundle mainBundle] loadNibNamed:@"DetailHeaderAndFooter" owner:self options:nil]; 
-	
-	// TODO: Localize the date format display
-	detailHeaderView.monthYear.text = self.title;
-	detailHeaderView.date.text = [aTransaction.day stringValue];
-	detailHeaderView.amount.text = [aTransaction numberToMoney:numAmount];
-	
-	return detailHeaderView;
+	return [headerViewCache objectForKey:section];
 	
 }
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-	return 30;
+- (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+	/*
+	 Conditional height...
+	 If there are elements, then it has a height. Otherwise make it 0
+	 */
+	NSDictionary * data = [self dataForSection:section];
+	NSInteger count = [[data objectForKey:@"transactions"] count];
+
+	if (count != 0) {
+		return 30;		
+	} else {
+		return 0;
+	}
+
 }
 // Footer view
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-	[[NSBundle mainBundle] loadNibNamed:@"DetailHeaderAndFooter" owner:self options:nil]; 
-	return detailFooterView;
+- (UIView *) tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)_section {
+	/*
+	 If there are no elements in the section, then we don't want to display it
+	 */
+	NSDictionary * data = [self dataForSection:_section];
+	NSInteger count = [[data objectForKey:@"transactions"] count];
+	if (count == 0) {return nil;}
+	
+	NSString * section = [NSString stringWithFormat:@"%i", _section];	
+	if (self.footerViewCache == nil) { self.footerViewCache = [[NSMutableDictionary alloc] init];}
+	
+	if ([footerViewCache objectForKey:section] == nil) {
+		UIImageView * bottom = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DetailCellFooter.png"]];
+		// Store view
+		[footerViewCache setObject:bottom forKey:section];
+	}
+	return [footerViewCache objectForKey:section];
 }
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-	return 20;
-}
+- (CGFloat) tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+	/*
+	 Conditional height...
+	 If there are elements, then it has a height. Otherwise make it 0
+	 */
+	NSDictionary * data = [self dataForSection:section];
+	NSInteger count = [[data objectForKey:@"transactions"] count];
+	
+	if (count != 0) {
+		return 20;		
+	} else {
+		return 0;
+	}}
 
 // Chose a row to inspect. Show the detail view
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 	
 	// We are now going to show another page where the search bar is not required
@@ -189,7 +313,8 @@
 		[[TransactionDisplay alloc] initWithNibName:@"TransactionDisplay" 
 											 bundle:[NSBundle mainBundle]];
 	
-	Transaction * theTransaction = (Transaction*)[resultsController objectAtIndexPath:indexPath];
+	NSDictionary * data = [self dataForSection:indexPath.section];
+	Transaction * theTransaction = (Transaction*)[[data objectForKey:@"transactions"] objectAtIndex:indexPath.row];
 	
 	// Give it the current transaction to speed things up
 	infoDisplay.currentTransaction = theTransaction;
@@ -200,7 +325,7 @@
 	
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+- (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView {
 	
 	NSUInteger count = [[resultsController sections] count];
     if (count == 0) {
@@ -209,18 +334,14 @@
     return count;
 	
 }
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	NSArray *sections = [resultsController sections];
-    NSUInteger count = 0;
-    if ([sections count]) {
-        id <NSFetchedResultsSectionInfo> sectionInfo = [sections objectAtIndex:section];
-        count = [[sectionInfo objects] filteredArrayUsingPredicate:self.filteringPredicate].count;
-    }
+- (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+	NSDictionary * data = [self dataForSection:section];
+	NSInteger count = [[data objectForKey:@"transactions"] count];
 	return count;
 }
 
 // Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void) tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (editingStyle == UITableViewCellEditingStyleDelete) {
 
@@ -235,4 +356,3 @@
 }
 
 @end
-

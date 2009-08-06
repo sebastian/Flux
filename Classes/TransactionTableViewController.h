@@ -27,7 +27,6 @@
 
 -(id)initWithStyle:(UITableViewStyle)style andContext:(NSManagedObjectContext*)context;
 -(void)updateData;
-- (void) updateFilteredDataArray;
 
 @property (nonatomic, retain) NSArray * filteredSearchResults;
 @property (nonatomic, retain) NSManagedObjectContext * managedObjectContext;

@@ -8,6 +8,7 @@
 
 #import "TransactionsNavigationController.h"
 #import "OverviewTableViewController.h"
+#import "DetailTableViewController.h"
 
 @implementation TransactionsNavigationController
 
@@ -17,6 +18,7 @@
 	
 	OverviewTableViewController * overviewController = 
 		[[OverviewTableViewController alloc] initWithStyle:UITableViewStylePlain andContext:context];
+	
 	self = [super initWithRootViewController:overviewController];
 	[overviewController release];
 	
@@ -62,6 +64,12 @@
 	self.managedObjectContext = nil; // release
     [super dealloc];
 }
+
+- (void)didReceiveMemoryWarning {
+	NSLog(@"didReceiveMemoryWarning: %@", self);
+    [super didReceiveMemoryWarning];
+}
+
 
 #pragma mark
 #pragma mark -

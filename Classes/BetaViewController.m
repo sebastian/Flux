@@ -39,17 +39,11 @@
 	[[Utilities toolbox] save:managedObjectContext];
 }
 - (void)viewDidLoad {
-	NSLog(@"Did load... starting webview");
 	
 	NSString *htmlFile = [[NSBundle mainBundle] pathForResource:@"betascreen" ofType:@"html"];
 	NSURL * url = [NSURL fileURLWithPath:htmlFile];
 	NSURLRequest * request = [NSURLRequest requestWithURL:url];
 	[webview loadRequest:request];
-	
-//	NSData *htmlData = [NSData dataWithContentsOfFile:htmlFile];
-//	[webview loadData:htmlData MIMEType:@"text/html" textEncodingName:@"UTF-8" baseURL:[NSURL URLWithString:@""]]; 
-	
-	
 	
 }
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
@@ -113,6 +107,8 @@
     }
 	
 	progressView.hidden = YES;
+	addDataButton.enabled = YES;
+	clearDataButton.enabled = YES;
 }
 
 #pragma mark

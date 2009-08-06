@@ -10,9 +10,10 @@
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
 
+@class MapAnnotation;
 @class Transaction;
 
-@interface TransactionDisplay : UIViewController <MKMapViewDelegate, MKReverseGeocoderDelegate>{
+@interface TransactionDisplay : UIViewController {
     IBOutlet UILabel *amount;
     IBOutlet UILabel *description;
     IBOutlet MKMapView *map;
@@ -20,6 +21,10 @@
     IBOutlet UILabel *what;
     IBOutlet UILabel *when;
 	IBOutlet UIButton *moveMapButton;
+	
+	// For map
+	MapAnnotation * annotation;
+	MKCoordinateRegion region;
 	
 	MKReverseGeocoder * geoCoder;
 	
@@ -32,6 +37,9 @@
 }
 
 @property (nonatomic, retain) Transaction * currentTransaction;
+@property (nonatomic, retain) MapAnnotation * annotation;
+@property (nonatomic, assign) MKCoordinateRegion region;
+
 
 -(IBAction)scaleMap:(id)sender;
 

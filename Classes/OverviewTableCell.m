@@ -14,7 +14,6 @@
 @synthesize month;
 @synthesize year;
 @synthesize amount;
-@synthesize loadHistory;
 
 
 #define PRICE_FIELD_MARGIN 15.0
@@ -22,25 +21,25 @@
 
 -(void)updateCellWithDate:(NSDate*)date andAmount:(NSString*)amountString {
 
-	// Resize the amount text field
-	CGSize textSize = [amountString sizeWithFont:amount.font];
-	
-	CGRect cellSize = [self frame];
-	
-	float x_location = cellSize.size.width - PRICE_FIELD_MAX_WIDTH - PRICE_FIELD_MARGIN;
-	float price_field_width = PRICE_FIELD_MAX_WIDTH;
-	
-	if (textSize.width < PRICE_FIELD_MAX_WIDTH) {
-		// Adjust new price size
-		x_location = cellSize.size.width - PRICE_FIELD_MARGIN - textSize.width;
-		price_field_width = textSize.width;
-	}
-	
-	CGRect price_frame = [amount frame];
-	price_frame.origin.x = x_location;
-	price_frame.size.width = price_field_width;
-	
-	[amount setFrame:price_frame];
+//	// Resize the amount text field
+//	CGSize textSize = [amountString sizeWithFont:amount.font];
+//	
+//	CGRect cellSize = [self frame];
+//	
+//	float x_location = cellSize.size.width - PRICE_FIELD_MAX_WIDTH - PRICE_FIELD_MARGIN;
+//	float price_field_width = PRICE_FIELD_MAX_WIDTH;
+//	
+//	if (textSize.width < PRICE_FIELD_MAX_WIDTH) {
+//		// Adjust new price size
+//		x_location = cellSize.size.width - PRICE_FIELD_MARGIN - textSize.width;
+//		price_field_width = textSize.width;
+//	}
+//	
+//	CGRect price_frame = [amount frame];
+//	price_frame.origin.x = x_location;
+//	price_frame.size.width = price_field_width;
+//	
+//	[amount setFrame:price_frame];
 
 	///////////////////////////////////////////
 	// Get the calendar values
@@ -52,20 +51,6 @@
 	[dateFormatter setLocale:userLocale];
 	
 	NSString * monthName = [[dateFormatter monthSymbols] objectAtIndex:components.month-1];
-
-	switch (random()&03) {
-		case 0:
-			break;
-		case 1:
-			backgroundImage.image = [UIImage imageNamed:@"OverviewCellSlice1.png"];
-			break;
-		case 2:
-			backgroundImage.image = [UIImage imageNamed:@"OverviewCellSlice2.png"];
-			break;
-		case 3:
-			backgroundImage.image = [UIImage imageNamed:@"OverviewCellSlice3.png"];
-			break;	
-	}
 		
 	/*
 	 Make the month and year have the right size
@@ -79,7 +64,7 @@
 	month.frame = monthFrame;
 	
 	// Year move to right location
-	x_location = monthFrame.origin.x + monthFrame.size.width + 8;
+	float x_location = monthFrame.origin.x + monthFrame.size.width + 8;
 	CGRect yearFrame = year.frame;
 	yearFrame.origin.x = x_location;
 	year.frame = yearFrame;
@@ -123,10 +108,10 @@
 }
 
 -(void)dealloc {	
-	[loadHistory release];
 	[month release];
 	[year release];
 	[amount release];
+
 	[super dealloc];
 }
 

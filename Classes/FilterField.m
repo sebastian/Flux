@@ -24,20 +24,16 @@ static FilterField * sharedFilterField = nil;
 	if (self != nil) {
 		self.tagsToFilterBy = [[NSArray alloc] init];
 		self.realTags = [[NSMutableArray alloc] init];	
-		self.searchBarField.placeholder = NSLocalizedString(@"Tags to filter by", @"Placeholder text for search bar");
 	}
 	return self;
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
+-(void)viewDidLoad {
+	self.searchBarField.placeholder = NSLocalizedString(@"Tags to filter by", @"Placeholder text for search bar");
+	[self hide];
 }
-- (void)didReceiveMemoryWarning {
-	// Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-	
-	// Release any cached data, images, etc that aren't in use.
-}
+
+
 - (void)viewDidUnload {
 	// Release any retained subviews of the main view.
 	// e.g. self.myOutlet = nil;
@@ -54,13 +50,17 @@ static FilterField * sharedFilterField = nil;
 	if ([realTags count] == 0) {
 		[filteredByString appendString:NSLocalizedString(@"(currently none)",@"")];
 		
+		filteredTagsField.hidden = YES;
+		
 		// Move the main content so the label is hidden
-		[delegate finishedUsingExtraSpace];
+		//[delegate finishedUsingExtraSpace];
+		
 		
 	} else {
 		
 		// Move the main content so that the label shows
-		[delegate needExtraSpace];
+		//filteredTagsField.hidden = NO;
+		//[delegate needExtraSpace];
 		
 		for (NSString * tag in realTags) {
 			[filteredByString appendFormat:@" %@", tag];
@@ -229,6 +229,12 @@ static FilterField * sharedFilterField = nil;
 	
 	[super dealloc];
 }
+
+- (void)didReceiveMemoryWarning {
+	NSLog(@"didReceiveMemoryWarning: %@", self);
+    [super didReceiveMemoryWarning];
+}
+
 
 
 @end

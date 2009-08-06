@@ -16,6 +16,9 @@
 		960080F5100A98E900740DCB /* TODO.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 960080F4100A98E900740DCB /* TODO.rtf */; };
 		960C07FE1021AFF300B9C2A3 /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 960C07FD1021AFF300B9C2A3 /* Utilities.m */; };
 		960C08211021B8A600B9C2A3 /* SwitchExpense.png in Resources */ = {isa = PBXBuildFile; fileRef = 960C08201021B8A600B9C2A3 /* SwitchExpense.png */; };
+		960CCB2B1027264F00A6B945 /* CellSeparator.png in Resources */ = {isa = PBXBuildFile; fileRef = 960CCB2A1027264F00A6B945 /* CellSeparator.png */; };
+		960CCB5710272A2E00A6B945 /* CellSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = 960CCB5610272A2E00A6B945 /* CellSelected.png */; };
+		960CCBE310273B5400A6B945 /* CellSelectedDetail.png in Resources */ = {isa = PBXBuildFile; fileRef = 960CCBE210273B5400A6B945 /* CellSelectedDetail.png */; };
 		963135A21021C388007986A4 /* SwitchIncome.png in Resources */ = {isa = PBXBuildFile; fileRef = 963135A01021C388007986A4 /* SwitchIncome.png */; };
 		963135A31021C388007986A4 /* SwitchTransition.png in Resources */ = {isa = PBXBuildFile; fileRef = 963135A11021C388007986A4 /* SwitchTransition.png */; };
 		963135CE1021C611007986A4 /* SwitchDisabled.png in Resources */ = {isa = PBXBuildFile; fileRef = 963135CD1021C611007986A4 /* SwitchDisabled.png */; };
@@ -47,7 +50,7 @@
 		9641A068101CD2F30066D6D8 /* MapButtonTop.png in Resources */ = {isa = PBXBuildFile; fileRef = 9641A066101CD2F30066D6D8 /* MapButtonTop.png */; };
 		964F1E70101CDB75004EA5C3 /* LocationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 964F1E6F101CDB75004EA5C3 /* LocationController.m */; };
 		964F1E85101CDE31004EA5C3 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 964F1E84101CDE31004EA5C3 /* CoreLocation.framework */; };
-		9653EA691010F26700B714BB /* AddExpense.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9653EA681010F26700B714BB /* AddExpense.xib */; };
+		9653EA691010F26700B714BB /* ExpenseEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9653EA681010F26700B714BB /* ExpenseEditor.xib */; };
 		9653EBE6101104FB00B714BB /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9653EBE5101104FB00B714BB /* MainWindow.xib */; };
 		9662FEF81026CCCE00B670D6 /* FilterField.m in Sources */ = {isa = PBXBuildFile; fileRef = 9662FEF61026CCCE00B670D6 /* FilterField.m */; };
 		9662FEF91026CCCE00B670D6 /* FilterField.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9662FEF71026CCCE00B670D6 /* FilterField.xib */; };
@@ -88,6 +91,22 @@
 		96BD3E6C101744DB00926A83 /* CurrencyKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 96BD3E6A101744DB00926A83 /* CurrencyKeyboard.m */; };
 		96BD3E6D101744DB00926A83 /* CurrencyKeyboard.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96BD3E6B101744DB00926A83 /* CurrencyKeyboard.xib */; };
 		96D28063101F621000B0A026 /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 96D28062101F621000B0A026 /* Entitlements.plist */; };
+		96D7A91B10281F04000FCC42 /* TransactionDisplay.png in Resources */ = {isa = PBXBuildFile; fileRef = 96D7A91A10281F04000FCC42 /* TransactionDisplay.png */; };
+		96D7A93110282732000FCC42 /* MapOverlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 96D7A93010282732000FCC42 /* MapOverlay.png */; };
+		96D7A938102829B1000FCC42 /* MapOverlayRemove.png in Resources */ = {isa = PBXBuildFile; fileRef = 96D7A937102829B1000FCC42 /* MapOverlayRemove.png */; };
+		96D7A94410282D28000FCC42 /* MapFullScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D7A94210282D28000FCC42 /* MapFullScreen.m */; };
+		96D7A94510282D28000FCC42 /* MapFullScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96D7A94310282D28000FCC42 /* MapFullScreen.xib */; };
+		96D7A9A010283463000FCC42 /* Zoom.png in Resources */ = {isa = PBXBuildFile; fileRef = 96D7A99F10283463000FCC42 /* Zoom.png */; };
+		96D7A9A810285949000FCC42 /* EditTransaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D7A9A610285949000FCC42 /* EditTransaction.m */; };
+		96D7A9A910285949000FCC42 /* EditTransaction.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96D7A9A710285949000FCC42 /* EditTransaction.xib */; };
+		96D7AA1010285EF3000FCC42 /* DarkBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 96D7AA0F10285EF3000FCC42 /* DarkBackground.png */; };
+		96D7AA1410285FC9000FCC42 /* CellBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 96D7AA1310285FC9000FCC42 /* CellBackground.png */; };
+		96D7AA18102863BC000FCC42 /* CellBunn.png in Resources */ = {isa = PBXBuildFile; fileRef = 96D7AA17102863BC000FCC42 /* CellBunn.png */; };
+		96D7AA24102867AC000FCC42 /* CellOverviewFooter.png in Resources */ = {isa = PBXBuildFile; fileRef = 96D7AA22102867AC000FCC42 /* CellOverviewFooter.png */; };
+		96D7AA25102867AC000FCC42 /* CellOverviewHeader.png in Resources */ = {isa = PBXBuildFile; fileRef = 96D7AA23102867AC000FCC42 /* CellOverviewHeader.png */; };
+		96D7AAE21028752A000FCC42 /* CellDetail.png in Resources */ = {isa = PBXBuildFile; fileRef = 96D7AAE11028752A000FCC42 /* CellDetail.png */; };
+		96D7AAE610287694000FCC42 /* DetailCellTop.png in Resources */ = {isa = PBXBuildFile; fileRef = 96D7AAE510287694000FCC42 /* DetailCellTop.png */; };
+		96D7AB4910287BEB000FCC42 /* DetailCellBottom.png in Resources */ = {isa = PBXBuildFile; fileRef = 96D7AB4810287BEB000FCC42 /* DetailCellBottom.png */; };
 		96D937291014922F0062E7A4 /* OKOverlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 96D937281014922F0062E7A4 /* OKOverlay.png */; };
 		96E2D66D102581C7007465F5 /* KleioSearchBar.png in Resources */ = {isa = PBXBuildFile; fileRef = 96E2D66C102581C7007465F5 /* KleioSearchBar.png */; };
 		96E55D8E1014AD8200E63DB8 /* OverviewTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96E55D8D1014AD8200E63DB8 /* OverviewTableCell.xib */; };
@@ -98,7 +117,6 @@
 		96FAE6E01024C30A0060384F /* Tag.m in Sources */ = {isa = PBXBuildFile; fileRef = 96FAE6DF1024C30A0060384F /* Tag.m */; };
 		96FFFA7C1015ED4600A53779 /* DetailHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96FFFA7B1015ED4600A53779 /* DetailHeaderView.m */; };
 		96FFFA8E1015EDC600A53779 /* DetailContentTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 96FFFA8D1015EDC600A53779 /* DetailContentTableCell.m */; };
-		96FFFA911015EDD000A53779 /* DetailFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96FFFA901015EDD000A53779 /* DetailFooterView.m */; };
 		96FFFA941015EDF500A53779 /* DetailTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96FFFA931015EDF500A53779 /* DetailTableCell.xib */; };
 		96FFFAE01015F8E200A53779 /* DetailHeaderAndFooter.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96FFFADF1015F8E200A53779 /* DetailHeaderAndFooter.xib */; };
 /* End PBXBuildFile section */
@@ -119,6 +137,9 @@
 		960C07FC1021AFF300B9C2A3 /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
 		960C07FD1021AFF300B9C2A3 /* Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utilities.m; sourceTree = "<group>"; };
 		960C08201021B8A600B9C2A3 /* SwitchExpense.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SwitchExpense.png; path = Graphics/SwitchExpense.png; sourceTree = "<group>"; };
+		960CCB2A1027264F00A6B945 /* CellSeparator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CellSeparator.png; sourceTree = "<group>"; };
+		960CCB5610272A2E00A6B945 /* CellSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = CellSelected.png; path = Graphics/CellSelected.png; sourceTree = "<group>"; };
+		960CCBE210273B5400A6B945 /* CellSelectedDetail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = CellSelectedDetail.png; path = Graphics/CellSelectedDetail.png; sourceTree = "<group>"; };
 		963135A01021C388007986A4 /* SwitchIncome.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SwitchIncome.png; path = Graphics/SwitchIncome.png; sourceTree = "<group>"; };
 		963135A11021C388007986A4 /* SwitchTransition.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SwitchTransition.png; path = Graphics/SwitchTransition.png; sourceTree = "<group>"; };
 		963135CD1021C611007986A4 /* SwitchDisabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SwitchDisabled.png; path = Graphics/SwitchDisabled.png; sourceTree = "<group>"; };
@@ -158,7 +179,7 @@
 		964F1E6E101CDB75004EA5C3 /* LocationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationController.h; sourceTree = "<group>"; };
 		964F1E6F101CDB75004EA5C3 /* LocationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationController.m; sourceTree = "<group>"; };
 		964F1E84101CDE31004EA5C3 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		9653EA681010F26700B714BB /* AddExpense.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddExpense.xib; sourceTree = "<group>"; };
+		9653EA681010F26700B714BB /* ExpenseEditor.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExpenseEditor.xib; sourceTree = "<group>"; };
 		9653EBE5101104FB00B714BB /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		9662FEF51026CCCE00B670D6 /* FilterField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterField.h; sourceTree = "<group>"; };
 		9662FEF61026CCCE00B670D6 /* FilterField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterField.m; sourceTree = "<group>"; };
@@ -205,6 +226,24 @@
 		96BD3E6B101744DB00926A83 /* CurrencyKeyboard.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CurrencyKeyboard.xib; sourceTree = "<group>"; };
 		96D28058101F5DC900B0A026 /* Beta-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Beta-Info.plist"; sourceTree = "<group>"; };
 		96D28062101F621000B0A026 /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
+		96D7A91A10281F04000FCC42 /* TransactionDisplay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TransactionDisplay.png; path = Graphics/TransactionDisplay.png; sourceTree = "<group>"; };
+		96D7A93010282732000FCC42 /* MapOverlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = MapOverlay.png; path = Graphics/MapOverlay.png; sourceTree = "<group>"; };
+		96D7A937102829B1000FCC42 /* MapOverlayRemove.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = MapOverlayRemove.png; path = Graphics/MapOverlayRemove.png; sourceTree = "<group>"; };
+		96D7A94110282D28000FCC42 /* MapFullScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapFullScreen.h; sourceTree = "<group>"; };
+		96D7A94210282D28000FCC42 /* MapFullScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapFullScreen.m; sourceTree = "<group>"; };
+		96D7A94310282D28000FCC42 /* MapFullScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MapFullScreen.xib; sourceTree = "<group>"; };
+		96D7A99F10283463000FCC42 /* Zoom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Zoom.png; path = Graphics/Zoom.png; sourceTree = "<group>"; };
+		96D7A9A510285949000FCC42 /* EditTransaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditTransaction.h; sourceTree = "<group>"; };
+		96D7A9A610285949000FCC42 /* EditTransaction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditTransaction.m; sourceTree = "<group>"; };
+		96D7A9A710285949000FCC42 /* EditTransaction.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditTransaction.xib; sourceTree = "<group>"; };
+		96D7AA0F10285EF3000FCC42 /* DarkBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = DarkBackground.png; path = Graphics/DarkBackground.png; sourceTree = "<group>"; };
+		96D7AA1310285FC9000FCC42 /* CellBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = CellBackground.png; path = Graphics/CellBackground.png; sourceTree = "<group>"; };
+		96D7AA17102863BC000FCC42 /* CellBunn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = CellBunn.png; path = Graphics/CellBunn.png; sourceTree = "<group>"; };
+		96D7AA22102867AC000FCC42 /* CellOverviewFooter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = CellOverviewFooter.png; path = Graphics/CellOverviewFooter.png; sourceTree = "<group>"; };
+		96D7AA23102867AC000FCC42 /* CellOverviewHeader.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = CellOverviewHeader.png; path = Graphics/CellOverviewHeader.png; sourceTree = "<group>"; };
+		96D7AAE11028752A000FCC42 /* CellDetail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = CellDetail.png; path = Graphics/CellDetail.png; sourceTree = "<group>"; };
+		96D7AAE510287694000FCC42 /* DetailCellTop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = DetailCellTop.png; path = Graphics/DetailCellTop.png; sourceTree = "<group>"; };
+		96D7AB4810287BEB000FCC42 /* DetailCellBottom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = DetailCellBottom.png; path = Graphics/DetailCellBottom.png; sourceTree = "<group>"; };
 		96D937281014922F0062E7A4 /* OKOverlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = OKOverlay.png; path = Graphics/OKOverlay.png; sourceTree = "<group>"; };
 		96E2D66C102581C7007465F5 /* KleioSearchBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = KleioSearchBar.png; path = Graphics/KleioSearchBar.png; sourceTree = "<group>"; };
 		96E55D8D1014AD8200E63DB8 /* OverviewTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OverviewTableCell.xib; sourceTree = "<group>"; };
@@ -221,8 +260,6 @@
 		96FFFA7B1015ED4600A53779 /* DetailHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailHeaderView.m; sourceTree = "<group>"; };
 		96FFFA8C1015EDC600A53779 /* DetailContentTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailContentTableCell.h; sourceTree = "<group>"; };
 		96FFFA8D1015EDC600A53779 /* DetailContentTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailContentTableCell.m; sourceTree = "<group>"; };
-		96FFFA8F1015EDD000A53779 /* DetailFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailFooterView.h; sourceTree = "<group>"; };
-		96FFFA901015EDD000A53779 /* DetailFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailFooterView.m; sourceTree = "<group>"; };
 		96FFFA931015EDF500A53779 /* DetailTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailTableCell.xib; sourceTree = "<group>"; };
 		96FFFADF1015F8E200A53779 /* DetailHeaderAndFooter.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailHeaderAndFooter.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -249,7 +286,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				96FAE6DD1024C29F0060384F /* CoreData */,
+				96FAE6DD1024C29F0060384F /* Models */,
 				960C07FF1021AFF900B9C2A3 /* Div */,
 				964F1E6D101CDB66004EA5C3 /* CoreLocation */,
 				96419A60101C4E200066D6D8 /* Beta */,
@@ -374,8 +411,6 @@
 				96FFFA7B1015ED4600A53779 /* DetailHeaderView.m */,
 				96FFFA8C1015EDC600A53779 /* DetailContentTableCell.h */,
 				96FFFA8D1015EDC600A53779 /* DetailContentTableCell.m */,
-				96FFFA8F1015EDD000A53779 /* DetailFooterView.h */,
-				96FFFA901015EDD000A53779 /* DetailFooterView.m */,
 			);
 			name = DetailTable;
 			sourceTree = "<group>";
@@ -387,6 +422,12 @@
 				96419CBC101C77530066D6D8 /* TransactionDisplay.m */,
 				963BFE86101DCB9000C187E0 /* MapAnnotation.h */,
 				963BFE87101DCB9000C187E0 /* MapAnnotation.m */,
+				96D7A94110282D28000FCC42 /* MapFullScreen.h */,
+				96D7A94210282D28000FCC42 /* MapFullScreen.m */,
+				96D7A94310282D28000FCC42 /* MapFullScreen.xib */,
+				96D7A9A510285949000FCC42 /* EditTransaction.h */,
+				96D7A9A610285949000FCC42 /* EditTransaction.m */,
+				96D7A9A710285949000FCC42 /* EditTransaction.xib */,
 			);
 			name = TransactionDetail;
 			sourceTree = "<group>";
@@ -437,7 +478,7 @@
 				96A98E581025D45100FFA6D0 /* TransactionFilterViewController.xib */,
 				96419CBD101C77530066D6D8 /* TransactionDisplay.xib */,
 				96FFFA921015EDE000A53779 /* TableCells */,
-				9653EA681010F26700B714BB /* AddExpense.xib */,
+				9653EA681010F26700B714BB /* ExpenseEditor.xib */,
 				9653EBE5101104FB00B714BB /* MainWindow.xib */,
 				96A98D231025BE8700FFA6D0 /* Transactions.xib */,
 			);
@@ -447,6 +488,21 @@
 		96AA703710061CF600206A37 /* Graphics */ = {
 			isa = PBXGroup;
 			children = (
+				96D7AB4810287BEB000FCC42 /* DetailCellBottom.png */,
+				96D7AAE510287694000FCC42 /* DetailCellTop.png */,
+				96D7AAE11028752A000FCC42 /* CellDetail.png */,
+				96D7AA22102867AC000FCC42 /* CellOverviewFooter.png */,
+				96D7AA23102867AC000FCC42 /* CellOverviewHeader.png */,
+				96D7AA17102863BC000FCC42 /* CellBunn.png */,
+				96D7AA1310285FC9000FCC42 /* CellBackground.png */,
+				96D7AA0F10285EF3000FCC42 /* DarkBackground.png */,
+				96D7A99F10283463000FCC42 /* Zoom.png */,
+				96D7A937102829B1000FCC42 /* MapOverlayRemove.png */,
+				96D7A93010282732000FCC42 /* MapOverlay.png */,
+				96D7A91A10281F04000FCC42 /* TransactionDisplay.png */,
+				960CCBE210273B5400A6B945 /* CellSelectedDetail.png */,
+				960CCB5610272A2E00A6B945 /* CellSelected.png */,
+				960CCB2A1027264F00A6B945 /* CellSeparator.png */,
 				96405D36102626B9004E440C /* OverviewBackground.png */,
 				96405D1610262484004E440C /* OverviewCellBunn.png */,
 				96405D1710262484004E440C /* OverviewCellSlice1.png */,
@@ -505,7 +561,7 @@
 			name = Keyboard;
 			sourceTree = "<group>";
 		};
-		96FAE6DD1024C29F0060384F /* CoreData */ = {
+		96FAE6DD1024C29F0060384F /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				96FAE6DE1024C30A0060384F /* Tag.h */,
@@ -515,7 +571,7 @@
 				96FAE6D91024C2970060384F /* Location.h */,
 				96FAE6DA1024C2970060384F /* Location.m */,
 			);
-			name = CoreData;
+			name = Models;
 			sourceTree = "<group>";
 		};
 		96FFFA771015ED0300A53779 /* Expenses tab */ = {
@@ -594,7 +650,7 @@
 				966D70E91008B23100D781B8 /* KeyboardButtonOKUnclicked.png in Resources */,
 				966D71091008B5E600D781B8 /* DeleteButton.png in Resources */,
 				960080F5100A98E900740DCB /* TODO.rtf in Resources */,
-				9653EA691010F26700B714BB /* AddExpense.xib in Resources */,
+				9653EA691010F26700B714BB /* ExpenseEditor.xib in Resources */,
 				9653EBE6101104FB00B714BB /* MainWindow.xib in Resources */,
 				96D937291014922F0062E7A4 /* OKOverlay.png in Resources */,
 				96E55D8E1014AD8200E63DB8 /* OverviewTableCell.xib in Resources */,
@@ -645,6 +701,23 @@
 				96405D9010262ECC004E440C /* betascreen.html in Resources */,
 				96405E0A102635C6004E440C /* styles.css in Resources */,
 				9662FEF91026CCCE00B670D6 /* FilterField.xib in Resources */,
+				960CCB2B1027264F00A6B945 /* CellSeparator.png in Resources */,
+				960CCB5710272A2E00A6B945 /* CellSelected.png in Resources */,
+				960CCBE310273B5400A6B945 /* CellSelectedDetail.png in Resources */,
+				96D7A91B10281F04000FCC42 /* TransactionDisplay.png in Resources */,
+				96D7A93110282732000FCC42 /* MapOverlay.png in Resources */,
+				96D7A938102829B1000FCC42 /* MapOverlayRemove.png in Resources */,
+				96D7A94510282D28000FCC42 /* MapFullScreen.xib in Resources */,
+				96D7A9A010283463000FCC42 /* Zoom.png in Resources */,
+				96D7A9A910285949000FCC42 /* EditTransaction.xib in Resources */,
+				96D7AA1010285EF3000FCC42 /* DarkBackground.png in Resources */,
+				96D7AA1410285FC9000FCC42 /* CellBackground.png in Resources */,
+				96D7AA18102863BC000FCC42 /* CellBunn.png in Resources */,
+				96D7AA24102867AC000FCC42 /* CellOverviewFooter.png in Resources */,
+				96D7AA25102867AC000FCC42 /* CellOverviewHeader.png in Resources */,
+				96D7AAE21028752A000FCC42 /* CellDetail.png in Resources */,
+				96D7AAE610287694000FCC42 /* DetailCellTop.png in Resources */,
+				96D7AB4910287BEB000FCC42 /* DetailCellBottom.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -664,7 +737,6 @@
 				96E55D921014AF3800E63DB8 /* OverviewTableCell.m in Sources */,
 				96FFFA7C1015ED4600A53779 /* DetailHeaderView.m in Sources */,
 				96FFFA8E1015EDC600A53779 /* DetailContentTableCell.m in Sources */,
-				96FFFA911015EDD000A53779 /* DetailFooterView.m in Sources */,
 				96BD3E6C101744DB00926A83 /* CurrencyKeyboard.m in Sources */,
 				963B020E10185D8C00CD5184 /* ConfirmationView.m in Sources */,
 				963B029A1019E10900CD5184 /* TransactionsNavigationController.m in Sources */,
@@ -680,6 +752,8 @@
 				96FAE6E01024C30A0060384F /* Tag.m in Sources */,
 				96A98E591025D45100FFA6D0 /* TransactionsMainViewController.m in Sources */,
 				9662FEF81026CCCE00B670D6 /* FilterField.m in Sources */,
+				96D7A94410282D28000FCC42 /* MapFullScreen.m in Sources */,
+				96D7A9A810285949000FCC42 /* EditTransaction.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

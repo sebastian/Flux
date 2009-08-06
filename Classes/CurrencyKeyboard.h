@@ -15,6 +15,7 @@
 - (void)numericButtonPressed:(NSInteger)key;
 - (void)deleteButtonPressed;
 - (void)doubleZeroButtonPressed;
+- (CGFloat)viewHeight;
 
 - (UIView*)view;
 @end

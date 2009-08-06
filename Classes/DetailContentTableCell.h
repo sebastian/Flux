@@ -8,19 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
-
+@class Transaction;
 @interface DetailContentTableCell : UITableViewCell {
 	UILabel * what;
 	UILabel * amount;
-	
-	UIColor * amountBackgroundColor;
+	UILabel * time;
 }
 
+@property (nonatomic, retain) IBOutlet UILabel * time;
 @property (nonatomic, retain) IBOutlet UILabel * what;
 @property (nonatomic, retain) IBOutlet UILabel * amount;
 
-@property (nonatomic, retain) UIColor * amountBackgroundColor;
-
--(void)setBackgroundColorForCellNumber:(NSInteger)number;
+// Methods
+-(void)configureCellForTransaction:(Transaction*)trs;
 
 @end

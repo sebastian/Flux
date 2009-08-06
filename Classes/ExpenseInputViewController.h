@@ -33,7 +33,7 @@ static const CGFloat TEXTFIELD_PADDING = 10;
 	CGRect originalViewFrame;
 	CGRect keyboardBounds;
 	
-	Transaction * newTransaction;
+	Transaction * currentTransaction;
 	
 	NSManagedObjectContext *managedObjectContext;
 
@@ -45,6 +45,7 @@ static const CGFloat TEXTFIELD_PADDING = 10;
 	CurrencyKeyboard * currencyKeyboard;
 	
 	UILabel * headerLabel;
+	
 }
 
 // CoreData
@@ -65,7 +66,7 @@ static const CGFloat TEXTFIELD_PADDING = 10;
 
 @property (nonatomic, retain) ControlViewController * controller;
 @property (nonatomic, retain) CurrencyKeyboard * currencyKeyboard;
-@property (nonatomic, retain) Transaction * newTransaction;
+@property (nonatomic, retain) Transaction * currentTransaction;
 
 // ControlViewDelegate methods
 -(void)addButtonPushed;
@@ -75,7 +76,7 @@ static const CGFloat TEXTFIELD_PADDING = 10;
 -(void)addExpense;
 -(void)textFieldsResign;
 -(void)updateTagsAndDescriptionLabel;
--(void)setupControllersForNewTransaction;
+-(void)setupControllersForTransaction;
 
 -(IBAction)doneKeyboardButtonAction;
 

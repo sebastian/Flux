@@ -34,7 +34,7 @@
 {
 	self = [super initWithNibName:nibName bundle:bundle];
 	if (self != nil) {
-		// Anything to do?
+		// INIT... nothing really to do...
 	}
 	return self;
 }
@@ -66,17 +66,16 @@
 		addObserver:self
 		selector:@selector(currencyKeyboardShow:)
 		name:@"CurrencyKeyboardWillShow"
-		object:nil];
+		object:delegate.currencyKeyboard];
 
 	[center
 		addObserver:self
 		selector:@selector(keyboardHides:)
 		name:@"CurrencyKeyboardWillHide"
-		object:nil];
+		object:delegate.currencyKeyboard];
 	
 	// Setup right names and titles
-	addButton.titleLabel.text = NSLocalizedString(@"Add", @"Add button");
-	whatButton.titleLabel.text = NSLocalizedString(@"What", @"What button");
+	[self setEditMode:NO];
 	
 	addActive.hidden = YES;
 	addPulse.hidden = YES;
@@ -120,11 +119,14 @@
 	[self animateTo:frame];
 }
 -(void)currencyKeyboardShow:(NSNotification*)notification {
-	
+		
 	NSDictionary * dict = notification.userInfo;
 	NSNumber * keyboardHeight = [dict objectForKey:@"height"];
 	
 	CGRect parentViewFrame = delegate.view.frame;
+	parentViewFrame.size.height = [delegate viewHeight]; // Have to cheat here, because for some reason
+														 // the height changes over time... bug in my code somewhere.
+														 // What an ugly hack.
 	CGRect frame = self.view.frame;
 	// Set new frame location
 	frame.origin.y = parentViewFrame.size.height - frame.size.height - [keyboardHeight intValue];
@@ -149,10 +151,10 @@
 	 down to the bottom of the screen!
 	 */
 	
-	CGRect parentViewFrame = delegate.view.frame;
-	CGRect frame = self.view.frame;
-	// Set new frame location
-	frame.origin.y = parentViewFrame.size.height - frame.size.height;
+//	CGRect parentViewFrame = delegate.view.frame;
+//	CGRect frame = self.view.frame;
+//	// Set new frame location
+//	frame.origin.y = parentViewFrame.size.height - frame.size.height;
 	
 	// We don't need the hide action actually. So we don't activate the animation...
 	//[self animateTo:frame];
@@ -250,6 +252,16 @@
 			break;
 	}	
 }
+-(void)setEditMode:(BOOL)edit {
+	if (edit) {
+		[addButton setTitle:NSLocalizedString(@"Save", @"Save changes button for transaction in edit mode") forState:UIControlStateNormal];
+		addButton.enabled = YES;
+	} else {
+		[addButton setTitle:NSLocalizedString(@"Add", @"Add button for new transactions") forState:UIControlStateNormal];
+	}
+	[whatButton setTitle:NSLocalizedString(@"What", @"What button. Title for tags and description button") forState:UIControlStateNormal];
+}
+
 
 #pragma mark
 #pragma mark -

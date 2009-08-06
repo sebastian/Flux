@@ -59,10 +59,10 @@
 	NSManagedObjectContext *contextAddExpense = [[NSManagedObjectContext alloc] init];
 	[contextAddExpense setPersistentStoreCoordinator: [self persistentStoreCoordinator]];
     if (!contextAddExpense) { 
-        NSLog(@"Couldn't get a managedObjectContext number 2");
+        NSLog(@"Couldn't get a managedObjectContext number 2 for addExpenseController");
     }
 	ExpenseInputViewController * addExpenseController = 
-		[[ExpenseInputViewController alloc] initWithNibName:@"AddExpense" bundle:[NSBundle mainBundle]];
+		[[ExpenseInputViewController alloc] initWithNibName:@"ExpenseEditor" bundle:[NSBundle mainBundle]];
 	// Pass it the managed object context that is only for its privte use :)
 	addExpenseController.managedObjectContext = contextAddExpense;
 	[contextAddExpense release];

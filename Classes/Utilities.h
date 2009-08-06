@@ -17,11 +17,14 @@
 	NSMutableDictionary * tagCache;
 	NSManagedObjectContext * managedObjectContext;
 	
+	NSDateFormatter * dateFormatter;
+	
 	BOOL searchIsVisible;
+	BOOL saving;
 }
 
 @property (nonatomic, retain) NSManagedObjectContext * managedObjectContext;
-
+@property (nonatomic, retain) NSDateFormatter * dateFormatter;
 
 // The one public init method
 + (Utilities*)toolbox;
@@ -37,4 +40,5 @@
 // CoreData
 - (void)save:(NSManagedObjectContext*)context;
 - (void)privateSave;
+- (void)setSavignIsFalse;
 @end

@@ -37,6 +37,20 @@
 #pragma mark -
 #pragma mark External methods for delegate
 
+- (void)setDelegate:(id<CurrencyKeyboardDelegate>)_delegate {
+	if (delegate != _delegate) {
+		// Remove view from old delegate
+		[self.view removeFromSuperview];
+		
+		// Assign new delegate
+		delegate = _delegate;
+		
+		// Add myself to its view
+		[delegate.view addSubview:self.view];	
+		[delegate.view bringSubviewToFront:self.view];
+	}
+}
+
 -(void)showKeyboard {
 	[self showKeyboardWithAnimation:NO];
 }
@@ -52,19 +66,21 @@
 	
 	CGRect keyboardFrame = [self.view frame];
 	CGRect delegateFrame = [self.delegate.view frame];
+	delegateFrame.size.height = [delegate viewHeight];
 	keyboardFrame.origin.y = delegateFrame.size.height;
 	self.view.frame = keyboardFrame;
-	[self.delegate.view addSubview:self.view];
 	
 	// Update the keyboard location
-	keyboardFrame.origin.y = delegateFrame.size.height - keyboardFrame.size.height;
+	keyboardFrame.origin.y = [delegate viewHeight] - keyboardFrame.size.height; //delegateFrame.size.height - keyboardFrame.size.height;
+	
+	[delegate.view bringSubviewToFront:self.view];
 	
 	[self moveKeyboardTo:keyboardFrame animated:animation];
 }
 -(void)hideKeyboardWithAnimation:(BOOL)animation {
 		
 	// Send notification
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"CurrencyKeyboardWillHide" object:nil];
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"CurrencyKeyboardWillHide" object:self];
 	
 	CGRect keyboardFrame = [self.view frame];
 	CGRect delegateFrame = [self.delegate.view frame];

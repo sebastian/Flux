@@ -12,6 +12,8 @@
 @interface TransactionsNavigationController : UINavigationController <UINavigationControllerDelegate>
 {
 	NSManagedObjectContext *managedObjectContext;
+	
+	UIImageView * backgroundImageView;
 }
 
 @property (nonatomic, retain) NSManagedObjectContext * managedObjectContext;

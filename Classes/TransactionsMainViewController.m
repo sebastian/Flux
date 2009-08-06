@@ -22,7 +22,7 @@
 
 @implementation TransactionsMainViewController
 
-@synthesize contentView;
+@synthesize contentView, navController, backgroundImage;
 
 #pragma mark
 #pragma mark -
@@ -30,9 +30,9 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil andContext:(NSManagedObjectContext*)context {
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
 		
-		TransactionsNavigationController * transactionViewController = [[TransactionsNavigationController alloc] initWithContext:context];
-		self.contentView = transactionViewController.view;
-		
+		self.navController = [[TransactionsNavigationController alloc] initWithContext:context];
+		self.contentView = self.navController.view;
+				
 		// Register as the delegate of the filter field
 		[[FilterField sharedFilterBar] setDelegate:self];
 		
@@ -58,7 +58,9 @@
 }
 
 - (void)dealloc {
+	[backgroundImage release];
 	[contentView release];
+	[navController release];
 
     [super dealloc];
 }
@@ -67,15 +69,16 @@
 -(void)moveMainContentDown:(BOOL)down {
 	
 	CGRect frame = self.contentView.frame;
-	
+	CGRect selfFrame = self.view.frame;
+		
 	if (down == YES) {
 		frame.origin.y = 70;
+		frame.size.height = selfFrame.size.height - 70;
 	} else {
 		frame.origin.y = 44;
+		frame.size.height = selfFrame.size.height - 44;
 	}
-	
-	NSLog(@"Moving content to: %i", frame.origin.y);
-	
+		
 	[self animateContentToFrame:frame];
 }
 -(void)animateContentToFrame:(CGRect)frame {
@@ -92,6 +95,7 @@
 	
 	CGRect frame = self.contentView.frame;
 	frame.origin.y = 0;
+	frame.size.height = self.view.frame.size.height;
 	[self animateContentToFrame:frame];
 	
 	[[FilterField sharedFilterBar] clearSearchState];
@@ -103,6 +107,7 @@
 	
 	CGRect frame = self.contentView.frame;
 	frame.origin.y = 44;
+	frame.size.height = self.view.frame.size.height - 44;
 	
 	[self animateContentToFrame:frame];	
 	
@@ -134,6 +139,12 @@
 	
 	[self showSearch];
 }
+
+- (void)didReceiveMemoryWarning {
+	NSLog(@"didReceiveMemoryWarning: %@", self);
+    [super didReceiveMemoryWarning];
+}
+
 
 #pragma mark
 #pragma mark -

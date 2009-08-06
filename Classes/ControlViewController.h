@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CurrencyKeyboard.h"
 
 @protocol ControlViewDelegate
 @required
@@ -14,6 +15,9 @@
 -(void)addButtonPushed;
 -(void)whatButtonPushed;
 -(void)expenseIncomeSetToExpense:(BOOL)expense;
+-(CurrencyKeyboard*)currencyKeyboard;
+
+-(CGFloat)viewHeight;
 @end
 
 @interface ControlViewController : UIViewController {
@@ -39,6 +43,7 @@
 -(void)enableAddButton;
 -(void)disableAddButton;
 -(void)setSelectExpenseIncomeSegment:(NSInteger)segment;
+-(void)setEditMode:(BOOL)edit;
 
 // Actions
 -(IBAction)addAction;

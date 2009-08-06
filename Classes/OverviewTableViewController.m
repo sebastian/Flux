@@ -13,22 +13,30 @@
 #import "DetailTableViewController.h"
 #import "Utilities.h"
 
+@interface OverviewTableViewController (PrivateMethods)
+- (void)clearDataCache;
+@end
+
+
 @implementation OverviewTableViewController
 
-@synthesize overviewTableCell;
+@synthesize overviewTableCell, cellCalculations;
 
 #pragma mark -
 #pragma mark Init and teardown
 -(void)viewDidLoad {
 	[super viewDidLoad];
 	
+	[self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+	self.tableView.backgroundColor = [UIColor clearColor];
+		
 	self.title = NSLocalizedString(@"Overview", @"Overview table transaction view");
 
-	UIImageView * headerView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"OverviewCellTopp.png"]];
+	UIImageView * headerView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"CellOverviewHeader.png"]];
 	self.tableView.tableHeaderView = headerView;
 	[headerView release];
 	
-	UIImageView * footerView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"OverviewCellBunn.png"]];
+	UIImageView * footerView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"CellOverviewFooter.png"]];
 	self.tableView.tableFooterView = footerView;
 	[footerView release];
 	
@@ -41,11 +49,26 @@
 	
 	// Only show last three months of data?
 	// We don't know yet, depends on how many months there are...
-	onlyLast3Months = YES; 	
+	//onlyLast3Months = YES; 	
+	onlyLast3Months = NO;
 
 	[self updateData];
 }
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+	
+	/*
+	 Hide the top view that is just for making it look nice
+	 */
+	[self.tableView setContentOffset:CGPointMake(0, 31.f) animated:NO];
+	
+	NSIndexPath *tableSelection = [self.tableView indexPathForSelectedRow];
+	[self.tableView deselectRowAtIndexPath:tableSelection animated:NO];
+	
+}
+
 - (void)dealloc {
+	[cellCalculations release];
 	[overviewTableCell release];
 	[super dealloc];
 }
@@ -60,17 +83,18 @@
 	[sortByYearMonth release];
 	
 	// Predicates
-	const NSInteger numberOfMonthsToSubtract = 3;
-	NSCalendar * currentCalendar = [NSCalendar currentCalendar];
-	NSDateComponents * components = [currentCalendar components:(NSMonthCalendarUnit | NSDayCalendarUnit | NSYearCalendarUnit) fromDate:[NSDate dateWithTimeIntervalSinceNow:-(60 * 60 * 24 * 31 * numberOfMonthsToSubtract)]];
-	
-	NSString * yearMonthValue;
-	if (components.month < 10) {
-		yearMonthValue = [NSString stringWithFormat:@"%4i0%i", components.year, components.month];
-	} else {
-		yearMonthValue = [NSString stringWithFormat:@"%4i%i", components.year, components.month];
-	}
-	NSPredicate * onlyLastNMonths = [NSPredicate predicateWithFormat:@"yearMonth > %@", yearMonthValue];
+//	const NSInteger numberOfMonthsToSubtract = 3;
+//	NSCalendar * currentCalendar = [NSCalendar currentCalendar];
+//	NSDateComponents * components = [currentCalendar components:(NSMonthCalendarUnit | NSDayCalendarUnit | NSYearCalendarUnit) fromDate:[NSDate dateWithTimeIntervalSinceNow:-(60 * 60 * 24 * 31 * numberOfMonthsToSubtract)]];
+//	
+//	NSString * yearMonthValue;
+//	if (components.month < 10) {
+//		yearMonthValue = [NSString stringWithFormat:@"%4i0%i", components.year, components.month];
+//	} else {
+//		yearMonthValue = [NSString stringWithFormat:@"%4i%i", components.year, components.month];
+//	}
+//	NSPredicate * onlyLastNMonths = [NSPredicate predicateWithFormat:@"yearMonth > %@", yearMonthValue];
+	NSPredicate * onlyLastNMonths = [NSPredicate predicateWithValue:YES];
 	
 	// Only use the predicate if we are asked to only display the last N months
 	if (!onlyLast3Months) {onlyLastNMonths = nil;}
@@ -112,6 +136,57 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+	if (self.cellCalculations == nil) { self.cellCalculations = [[NSMutableDictionary alloc] init];}
+	
+	if ([cellCalculations objectForKey:indexPath] == nil) {
+		
+		// Get info to put into cell:
+		NSArray * sections = [resultsController sections];
+		id <NSFetchedResultsSectionInfo> currenctSection = [sections objectAtIndex:indexPath.row];
+		NSArray * _transactionsInSection = [currenctSection objects];
+		NSArray * transactionsInSection = [_transactionsInSection filteredArrayUsingPredicate:self.filteringPredicate];
+		
+		Transaction * aTransaction = (Transaction*)[_transactionsInSection objectAtIndex:0];
+		
+		// Sum the amount
+		double amount = [[Utilities toolbox] sumAmountForTransactionArray:transactionsInSection];
+		
+		NSDate * dateFromObject = aTransaction.date;
+		// Do we have a valid date?
+		int n = 0;
+		/*
+		 For some strange reason, some transactions don't have a date
+		 Therefore we have to look through the transactions to see if we can find
+		 a transaction with a date so that we can display the month name
+		 */
+		while (dateFromObject == nil) {
+			n++;
+			if (n > [_transactionsInSection count]) {
+				break;
+			}
+			
+			Transaction * anotherTransaction = (Transaction*)[_transactionsInSection objectAtIndex:n];
+			dateFromObject = anotherTransaction.date;
+			
+		}
+		if (dateFromObject == nil) {
+			// None of the transactions had a date, so we have to fake it...
+			NSLog(@"ERROR: None of the transactions had a date! We had to fake one");
+			dateFromObject = [NSDate date];
+		}
+		
+		NSString * calculatedAmount = [aTransaction numberToMoney:[NSNumber numberWithDouble:amount]];
+		
+		NSArray * data = [NSArray arrayWithObjects:dateFromObject, calculatedAmount, nil];
+		NSArray * keys = [NSArray arrayWithObjects:@"date", @"amount", nil];
+		NSDictionary * dict = [NSDictionary dictionaryWithObjects:data forKeys:keys];
+		
+		[cellCalculations setObject:dict forKey:indexPath];
+				
+	}
+
+	// Values to use
+	NSDictionary * dict = [cellCalculations objectForKey:indexPath];
 	
 	// Get a cell:
 	static NSString *CellIdentifier = @"OverviewCell";
@@ -120,37 +195,16 @@
 		[[NSBundle mainBundle] loadNibNamed:@"OverviewTableCell" owner:self options:nil]; 
 		cell = self.overviewTableCell;
 	}
-
-	if (onlyLast3Months && indexPath.row == numOfSections) {
-		// Remove old values
-		cell.amount.text = @"";
-		cell.year.text = @"";
-		cell.month.text = @"";
-		cell.loadHistory.text = NSLocalizedString(@"Load history", @"Load history table cell title");
-		return cell;
-	} else {
-		cell.loadHistory.text = @"";
-	}
-	
-	// Get info to put into cell:
-	NSArray * sections = [resultsController sections];
-	id <NSFetchedResultsSectionInfo> currenctSection = [sections objectAtIndex:indexPath.row];
-	NSArray * _transactionsInSection = [currenctSection objects];
-	NSArray * transactionsInSection = [_transactionsInSection filteredArrayUsingPredicate:self.filteringPredicate];
-
-	Transaction * aTransaction = (Transaction*)[_transactionsInSection objectAtIndex:0];
-	
-	// Sum the amount
-	double amount = [[Utilities toolbox] sumAmountForTransactionArray:transactionsInSection];
-	
-	NSDate * dateFromObject = aTransaction.date;
-	NSNumber * calculatedAmount = [NSNumber numberWithDouble:amount];
-	
-	[cell updateCellWithDate:dateFromObject andAmount:[aTransaction numberToMoney:calculatedAmount]];
-	
+		
+	[cell updateCellWithDate:[dict objectForKey:@"date"] andAmount:[dict objectForKey:@"amount"]];
+		
     return cell;
 		
 }
+- (void)clearDataCache {
+	[self.cellCalculations removeAllObjects];
+}
+
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -192,7 +246,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-	return 70;
+	return 80;
 }
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {

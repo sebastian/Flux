@@ -10,12 +10,31 @@
 #import "Tag.h"
 #import "Location.h"
 
+@interface Utilities (PrivateMethods)
+- (void)doSave:(NSManagedObjectContext*)context;
+- (void)doSaveStart:(NSManagedObjectContext*)context;
+@end
+
+
 
 @implementation Utilities
 
 @synthesize managedObjectContext;
+@synthesize dateFormatter;
 
 static Utilities *sharedUtilitiesToolbox = nil;
+
+- (id) init {
+	self = [super init];
+	if (self != nil) {
+		[self setSavignIsFalse];
+	}
+	return self;
+}
+- (void)setSavignIsFalse {
+	saving = NO;
+}
+
 
 -(double)sumAmountForTransactionArray:(NSArray*)transactions {
 	
@@ -38,22 +57,9 @@ static Utilities *sharedUtilitiesToolbox = nil;
 		iKronerIncome = 0;
 	}
 	
-	int iOreExpense;
-	int iOreIncome;
-	@try {
-		iOreExpense = [(NSNumber*)[expenseTransactions valueForKeyPath:@"@sum.ore"] intValue];
-		iOreIncome = [(NSNumber*)[incomeTransactions valueForKeyPath:@"@sum.ore"] intValue];
-	}
-	@catch (NSException * e) {
-		NSLog(@"Error summing ore for transactions");
-		iOreExpense = 0;
-		iOreIncome = 0;
-	}
+	int iKroner = iKronerIncome - iKronerExpense;
 	
-	int iKroner = iKronerExpense - iKronerIncome;
-	int iOre = iOreExpense - iOreIncome;
-	
-	double amount = iKroner + ((double)iOre/100);
+	double amount = ((double)iKroner)/100.0;
 
 	return amount;
 }
@@ -64,8 +70,6 @@ static Utilities *sharedUtilitiesToolbox = nil;
 	if (tagExistance == nil) { tagExistance = [[NSMutableDictionary alloc] init]; }
 	// Look up in cache
 	if ([tagExistance objectForKey:tag] != nil) {return [(NSNumber*)[tagExistance objectForKey:tag] boolValue];}
-	
-	NSLog(@"No recollection of tag %@. Checking...", tag);
 	
 	if ([[Utilities toolbox] tagObjectforTag:tag] == nil) {
 		[tagExistance setValue:[NSNumber numberWithBool:NO] forKey:tag];
@@ -89,7 +93,6 @@ static Utilities *sharedUtilitiesToolbox = nil;
 
 	if (currentTag == nil) {
 
-		NSLog(@"Creating a new tag");
 		Tag * newTag = [NSEntityDescription insertNewObjectForEntityForName:@"Tag" 
 													 inManagedObjectContext:self.managedObjectContext];
 		
@@ -99,7 +102,6 @@ static Utilities *sharedUtilitiesToolbox = nil;
 		
 	} else {
 		
-		NSLog(@"Using precreated tag");
 		[currentTag addLocationObject:newLocation];
 		
 	}
@@ -114,8 +116,6 @@ static Utilities *sharedUtilitiesToolbox = nil;
 	if (tagCache == nil) { tagCache = [[NSMutableDictionary alloc] init]; }
 	// Hit cache
 	if ([tagCache objectForKey:tag] != nil) {return [tagCache objectForKey:tag];}
-	
-	NSLog(@"No cache hit for tag object for %@", tag);
 	
 	NSEntityDescription *entity = [NSEntityDescription entityForName:@"Tag" 
 											  inManagedObjectContext:self.managedObjectContext]; 
@@ -150,34 +150,84 @@ static Utilities *sharedUtilitiesToolbox = nil;
 	// lowercase, or downcase all the tags
 	NSString * lowerCaseTags = [tagString lowercaseString];
 	
-	// Remove all illegal punctuations and suchs
-	NSString * tagsWithoutPunctuation = [lowerCaseTags stringByTrimmingCharactersInSet:[NSCharacterSet punctuationCharacterSet]];
-
 	// Split by whitespace
-	NSArray * localTags = [tagsWithoutPunctuation componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+	NSArray * localTags = [lowerCaseTags componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+	
+	// Remove white space and only return tags that are not empty
+	NSMutableArray * strippedTags = [[[NSMutableArray alloc] init] autorelease];
+	
+	for (NSString * tag in localTags) {
 
-	return localTags;
+		// Remove all illegal punctuations and suchs
+		NSString * tagsWithoutPunctuation = [tag stringByTrimmingCharactersInSet:[NSCharacterSet punctuationCharacterSet]];
+		
+		// Remove white space from ends
+		NSString * strippedTag  = [tagsWithoutPunctuation stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+		if (![strippedTag isEqualToString:@""]) {
+			[strippedTags addObject:strippedTag];
+		}
+	}
+	
+	return strippedTags;
 	
 }
-
+-(NSDateFormatter*)dateFormatter {
+	if (dateFormatter == nil) { 
+		NSDateFormatter * df = [[NSDateFormatter alloc] init];
+		self.dateFormatter = df;
+		[df setTimeStyle:NSDateFormatterShortStyle];
+	}
+	return dateFormatter;
+}
 
 #pragma mark
 #pragma mark -
 #pragma mark CoreData methods
 - (void)privateSave {
+	if (saving == NO) {
+		saving = YES;
+		[self performSelectorInBackground:@selector(doSaveStart:) withObject:self.managedObjectContext];
+	}
 	[self save:self.managedObjectContext];
 }
 - (void)save:(NSManagedObjectContext*)context {
-	
+
 	NSError *error;
     if (context != nil) {
-        if ([context hasChanges] && ![context save:&error]) {
-			// Handle error
-			NSLog(@"Unresolved error: %@, %@", error, [error userInfo]);
-			exit(-1);  // Fail
-        } 
-    }
+		if ([context hasChanges]) {
+			if (![context save:&error]) {
+				// Handle error
+				NSLog(@"Unresolved error: %@, %@", error, [error userInfo]);
+				exit(-1);  // Fail
+			} 
+		} 
+    }	
 	
+}
+- (void)doSaveStart:(NSManagedObjectContext*)context {
+	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+	[self doSave:context];
+	[pool release];
+}
+- (void)doSave:(NSManagedObjectContext*)context {
+	NSError *error;
+    if (context != nil) {
+		if ([context hasChanges]) {
+
+			if (![context save:&error]) {
+				// Handle error
+				NSLog(@"Unresolved error: %@, %@", error, [error userInfo]);
+				exit(-1);  // Fail
+			
+			} else {
+				// Trying to perform another save in 2 seconds time
+				sleep(2);
+				[self doSave:context];
+			}
+		} else {
+			saving = NO;
+		}
+    }	
 }
 
 
@@ -219,6 +269,7 @@ static Utilities *sharedUtilitiesToolbox = nil;
 }
 
 - (void)dealloc {
+	[dateFormatter release];
 	[managedObjectContext release];
 	[tagExistance release];
 	[tagCache release];

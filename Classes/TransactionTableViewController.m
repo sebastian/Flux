@@ -11,8 +11,9 @@
 #import "FilterField.h"
 
 @interface TransactionTableViewController (PrivateMethods)
--(void)toggleSearch;
--(void)updatePredicate:(NSNotification*)notification;
+- (void)clearCacheIfAvailable;
+- (void)toggleSearch;
+- (void)updatePredicate:(NSNotification*)notification;
 @end
 
 
@@ -80,27 +81,33 @@
 
 	// Store the new predicate
 	NSDictionary * predicateDict = notification.userInfo;
-	self.filteringPredicate = [predicateDict objectForKey:@"predicate"];
 	
-	[self updateFilteredDataArray];
+	if (![self.filteringPredicate isEqual:[predicateDict objectForKey:@"predicate"]]) {
+		self.filteringPredicate = [predicateDict objectForKey:@"predicate"];
+			
+		[self clearCacheIfAvailable];
+		
+		// Reload data :)
+		NSLog(@"RELOADING DATA: %@", self);
+		[self.tableView reloadData];
+		
+	} 
+}
+
+- (void)clearCacheIfAvailable {
+
+	if ([self respondsToSelector:@selector(clearDataCache)]) {
+		[self performSelector:@selector(clearDataCache)];
+	} 	
 	
-	// Reload data :)
-	[self.tableView reloadData];
 }
 
 
 #pragma mark -
 #pragma mark NSFetchedResultsController delegate methods
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-	NSLog(@"%@ got sent a controllerDidChangeContent message. Reloading tableView data.", self);
-	
-	[self updateFilteredDataArray];
+	[self clearCacheIfAvailable];
 	[self.tableView reloadData];
-}
-
-- (void) updateFilteredDataArray {
-	NSLog(@"Updated the filtered data array");
-	self.filteredSearchResults = [[resultsController fetchedObjects] filteredArrayUsingPredicate:self.filteringPredicate];
 }
 
 
@@ -140,9 +147,6 @@
 		NSLog(@"ERROR: %@", error);
 	}
 
-	// Get the filtered result, in case there is a filter
-	[self updateFilteredDataArray];
-	
 	// DONE
 }	
 
@@ -161,5 +165,10 @@
 	return nil;
 }
 
+
+- (void)didReceiveMemoryWarning {
+	NSLog(@"didReceiveMemoryWarning: %@", self);
+    [super didReceiveMemoryWarning];
+}
 
 @end

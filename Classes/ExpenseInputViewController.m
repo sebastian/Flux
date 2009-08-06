@@ -15,6 +15,7 @@
 
 @interface ExpenseInputViewController (Private)
 -(void)updateExpenseDisplay;
+-(CGFloat)viewHeight;
 @end
 
 
@@ -26,7 +27,7 @@
 @synthesize tagsAndDescription, tagsAndDescriptionView;
 @synthesize tagsAndDescriptionBackgroundPicture;
 
-@synthesize newTransaction;
+@synthesize currentTransaction;
 @synthesize managedObjectContext;
 
 @synthesize controller;
@@ -42,6 +43,7 @@
 	self = [super initWithNibName:nibName bundle:bundle];
 	if (self) {
 		self.title = NSLocalizedString(@"Add transaction", @"Add transaction view controller title");
+		self.currentTransaction = nil;
 	}
 	return self;	
 }
@@ -58,11 +60,7 @@
 	// I do it programatically because I can't find a way
 	// To do it in Interface builder...
 	descriptionField.font = tagsField.font;
-			
-	// Try to get the location
-	[LocationController sharedInstance].delegate = self;
-	[LocationController sharedInstance].locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-	
+		
 	// Create the currency keyboard
 	self.currencyKeyboard = [[CurrencyKeyboard alloc] initWithNibName:@"CurrencyKeyboard" bundle:[NSBundle mainBundle]];
 	self.currencyKeyboard.delegate = self;
@@ -72,11 +70,29 @@
 	self.controller.delegate = self;
 	[controller addControlBar];
 
-	// Create a new Transaction
-	self.newTransaction = [NSEntityDescription insertNewObjectForEntityForName:@"Transaction" inManagedObjectContext:self.managedObjectContext];
+	// if there is no transaction, then create a new one
+	if (currentTransaction == nil) {
+		// Try to get the location
+		[LocationController sharedInstance].delegate = self;
+		[LocationController sharedInstance].locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+		
+		// Create a new Transaction
+		self.currentTransaction = [NSEntityDescription insertNewObjectForEntityForName:@"Transaction" inManagedObjectContext:self.managedObjectContext];		
+	}
+	
+	// If it has a navigation bar (ie is in edit mode... then we should hide it!
+	if (self.navigationController != nil) {
+		[self.navigationController setNavigationBarHidden:YES animated:YES];
+		
+		// We are in edit mode!
+		// Show keyboard! (WHY DOESN'T IT SHOW BY ITSELF?)
+		[currencyKeyboard showKeyboard];
+		
+		[controller setEditMode:YES];
+	}
 	
 	// Setup controllers for transaction
-	[self setupControllersForNewTransaction];
+	[self setupControllersForTransaction];
 
 	
 }
@@ -98,7 +114,7 @@
 	controller = nil;
 	amountLabel = nil;
 	[currencyKeyboard release];
-	[newTransaction release];
+	[currentTransaction release];
 }
 - (void)viewWillDisappear:(BOOL)animated {
 	[super viewWillDisappear:animated];
@@ -137,19 +153,19 @@
 #pragma mark -
 #pragma mark CurrencyKeyboardDelegate methods
 - (void)numericButtonPressed:(NSInteger)key {
-	[self.newTransaction addNumber:key];
+	[self.currentTransaction addNumber:key];
 	[self updateExpenseDisplay];
 }
 - (void)okButtonPressed {
 	[self addExpense];
 }
 - (void)doubleZeroButtonPressed {
-	[self.newTransaction addNumber:0];
-	[self.newTransaction addNumber:0];
+	[self.currentTransaction addNumber:0];
+	[self.currentTransaction addNumber:0];
 	[self updateExpenseDisplay];
 }
 -(void)deleteButtonPressed {
-	[self.newTransaction eraseOneNum];
+	[self.currentTransaction eraseOneNum];
 	[self updateExpenseDisplay];
 }
 
@@ -167,6 +183,7 @@
 	[UIView setAnimationDuration:0.03];
 	
 	tagsAndDescriptionView.frame = newFrame;
+	
 	
 	[UIView commitAnimations];
 		
@@ -196,7 +213,12 @@
 	
 }
 -(void)expenseIncomeSetToExpense:(BOOL)expense {
-	newTransaction.expense = [NSNumber numberWithBool:expense];
+	currentTransaction.expense = [NSNumber numberWithBool:expense];
+}
+
+//The height is changing for some reason or another, so we have to fake it
+-(CGFloat)viewHeight {	
+	return 411.f;
 }
 
 #pragma mark
@@ -213,7 +235,7 @@
 #pragma mark Normal methods
 
 -(void)updateExpenseDisplay {
-	NSString * text = [self.newTransaction toString];
+	NSString * text = [self.currentTransaction toString];
 	CGSize textSize = [text sizeWithFont:[amountLabel font]];
 	
 	float width = textSize.width + TEXTFIELD_PADDING;
@@ -229,7 +251,7 @@
 	viewFrame.size.width = width;
 		
 	// Show delete button if there is a value
-	if ([newTransaction needsDeleteButton]) {
+	if ([currentTransaction needsDeleteButton]) {
 		[currencyKeyboard enableClearButton];
 		[controller enableAddButton];
 	} else {
@@ -238,7 +260,7 @@
 	}
 	
 	// Check if it can be added to?
-	if ([newTransaction canBeAddedTo] == YES) {
+	if ([currentTransaction canBeAddedTo] == YES) {
 		[currencyKeyboard enableNumericButtons];
 	} else {
 		[currencyKeyboard disableNumericButtons];
@@ -264,21 +286,17 @@
 	}
 	
 	// Set the location
-	newTransaction.location = bestLocation;
+	currentTransaction.location = bestLocation;
 	
 	// Set tags and description
-	newTransaction.tags = tagsField.text;
-	newTransaction.transactionDescription = descriptionField.text;
+	currentTransaction.tags = tagsField.text;
+	currentTransaction.transactionDescription = descriptionField.text;
 	
 	// FIXME: use currency used on screen
-	newTransaction.currency = @"€";
+	currentTransaction.currency = @"€";
 	
 	// Save the expense
 	[[Utilities toolbox] save:managedObjectContext];
-	
-	// Now we should assign a fresh Transaction to add
-	Transaction *trs = [NSEntityDescription insertNewObjectForEntityForName:@"Transaction" inManagedObjectContext:self.managedObjectContext];
-	self.newTransaction = trs;
 	
 	ConfirmationView *confirmationView = [ConfirmationView loadingViewInView:[self.view.window.subviews objectAtIndex:0]];
 	
@@ -287,7 +305,22 @@
 		withObject:nil
 		afterDelay:1.0];
 	
-	[self setupControllersForNewTransaction];	
+	// Is it for saving, or is it for creating?
+	if (self.navigationController != nil) {
+		// Just editing, so pop out
+		[self.navigationController setNavigationBarHidden:NO animated:YES];
+		[self.navigationController popViewControllerAnimated:YES];
+		
+	} else {
+		// In add mode, so create a fresh transaction
+	
+		// Now we should assign a fresh Transaction to add
+		Transaction *trs = [NSEntityDescription insertNewObjectForEntityForName:@"Transaction" inManagedObjectContext:self.managedObjectContext];
+		self.currentTransaction = trs;
+		
+		[self setupControllersForTransaction];	
+		
+	}
 }
 -(void)textFieldsResign {
 	[tagsField resignFirstResponder];
@@ -302,10 +335,10 @@
 	// from the transaction object
 	if (![tagsField.text isEqualToString:@""]) {
 		// There are tags... check if there are updated tags in the tags field
-		if ([tagsField.text isEqualToString:newTransaction.tags]) {
+		if ([tagsField.text isEqualToString:currentTransaction.tags]) {
 			// They are equal...
 			// They are the same... hence we use what we have
-			[tagsDescription appendFormat:@"%@", newTransaction.tags];
+			[tagsDescription appendFormat:@"%@", currentTransaction.tags];
 			tagsAndDescription.text = tagsDescription;
 		} else {
 			// They are not equal... That means that is must have been updated
@@ -321,25 +354,25 @@
 	}
 	
 }
--(void)setupControllersForNewTransaction {
+-(void)setupControllersForTransaction {
 	
-	if (newTransaction.expense == [NSNumber numberWithBool:YES]) {
+	if (currentTransaction.expense == [NSNumber numberWithBool:YES]) {
 		[controller setSelectExpenseIncomeSegment:0];
 	} else {
 		[controller setSelectExpenseIncomeSegment:1];
 	}
 	
 	// Clear the tags and description fields for next use
-	tagsField.text = @"";
-	descriptionField.text = @"";
+	tagsField.text = currentTransaction.tags;
+	descriptionField.text = currentTransaction.transactionDescription;
 	
 	[self updateExpenseDisplay];
 	[self updateTagsAndDescriptionLabel];
 }
 
--(IBAction)doneKeyboardButtonAction {
-	NSLog(@"Keyboard pushed DONE");
+- (void)didReceiveMemoryWarning {
+	NSLog(@"didReceiveMemoryWarning: %@", self);
+    [super didReceiveMemoryWarning];
 }
-
 
 @end

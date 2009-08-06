@@ -10,12 +10,20 @@
 #import <CoreData/CoreData.h>
 #import "FilterField.h"
 
+@class TransactionsNavigationController;
+
 @interface TransactionsMainViewController : UIViewController <FilterFieldDelegate> {
 	UIView * contentView;
 	BOOL searchIsVisible;
+	
+	UIImageView * backgroundImage;
+	
+	TransactionsNavigationController * navController;
 }
 
 @property (nonatomic, retain) UIView * contentView;
+@property (nonatomic, retain) TransactionsNavigationController * navController;
+@property (nonatomic, retain) IBOutlet UIImageView * backgroundImage;
 
 - (id)initWithNibName:(NSString*)nibNameOrNil bundle:(NSBundle*)nibBundleOrNil andContext:(NSManagedObjectContext*)context;
 

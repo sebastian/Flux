@@ -16,9 +16,13 @@
 
 	BOOL onlyLast3Months;
 	NSInteger numOfSections;
+	
+	NSMutableDictionary * cellCalculations;
+	
 }
 
 //Different table cells
 @property (nonatomic, retain) IBOutlet OverviewTableCell * overviewTableCell;
+@property (nonatomic, retain) NSMutableDictionary * cellCalculations;
 
 @end

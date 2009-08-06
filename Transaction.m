@@ -72,7 +72,6 @@
 		 YES: Then add the location to it
 		 NO: Create it
 		 */
-		NSLog(@"Going through tags for a transaction");
 		NSArray * tags = [[Utilities toolbox] tagStringToArray:self.tags];
 		for (NSString * tag in tags) {
 			// Does the tag exist?
@@ -95,8 +94,11 @@
 }
 -(NSString*)toString {
 	// TODO: Probably not optimal...
-	//NSNumber * number = [NSNumber numberWithDouble:[self.kroner doubleValue] + [self.ore doubleValue]/100];
-	NSNumber * number = [NSNumber numberWithDouble:[self.kroner doubleValue]/100];
+	double amount = [self.kroner doubleValue]/100;
+	if ([self.expense boolValue] == YES) {
+		amount = amount * (-1);
+	}
+	NSNumber * number = [NSNumber numberWithDouble:amount];
 	return [self numberToMoney:number];
 }
 -(NSString*)numberToMoney:(NSNumber*)number {
@@ -111,7 +113,10 @@
 	[formatter setNumberStyle:NSNumberFormatterCurrencyStyle];
 	return [formatter stringFromNumber:number];
 }
-
+-(NSString*)timeToString {	
+	NSDateFormatter * dateFormatter = [[Utilities toolbox] dateFormatter];
+	return [dateFormatter stringFromDate:self.date];
+}
 
 #pragma mark
 #pragma mark -
