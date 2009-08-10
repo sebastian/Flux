@@ -29,7 +29,7 @@
 	return currentTransaction.tags;
 }
 - (NSString *)title {
-	return [currentTransaction toString];
+	return [currentTransaction amountInLocalCurrency];
 }
 
 

@@ -12,6 +12,7 @@
 #import "Transaction.h"
 #import "DetailTableViewController.h"
 #import "Utilities.h"
+#import "CurrencyManager.h"
 
 @interface OverviewTableViewController (PrivateMethods)
 - (void)clearDataCache;
@@ -38,12 +39,7 @@
 	[footerView release];
 	
 	self.tableView.opaque = NO;
-	
-//	UIImageView * backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"OverviewBackground.png"]];
-//	[self.tableView addSubview:backgroundView];
-//	[self.view sendSubviewToBack:backgroundView];
-//	[backgroundView release];
-	
+		
 	// Only show last three months of data?
 	// We don't know yet, depends on how many months there are...
 	//onlyLast3Months = YES; 	
@@ -172,7 +168,9 @@
 			dateFromObject = [NSDate date];
 		}
 		
-		NSString * calculatedAmount = [aTransaction numberToMoney:[NSNumber numberWithDouble:amount]];
+		NSNumber * numAmount = [NSNumber numberWithDouble:amount];
+		NSString * calculatedAmount = [[CurrencyManager sharedManager] baseCurrencyDescriptionForAmount:numAmount withFraction:YES];
+		//NSString * calculatedAmount = [aTransaction numberToMoney:[NSNumber numberWithDouble:amount]];
 		
 		NSArray * data = [NSArray arrayWithObjects:dateFromObject, calculatedAmount, nil];
 		NSArray * keys = [NSArray arrayWithObjects:@"date", @"amount", nil];

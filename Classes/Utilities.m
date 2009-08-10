@@ -37,31 +37,46 @@ static Utilities *sharedUtilitiesToolbox = nil;
 
 
 -(double)sumAmountForTransactionArray:(NSArray*)transactions {
-	
-	// Predicates
-	NSPredicate * expensePredicate = [NSPredicate predicateWithFormat:@"expense = YES"];
-	NSPredicate * incomePredicate = [NSPredicate predicateWithFormat:@"expense = NO"];
-	
-	NSArray * expenseTransactions = [transactions filteredArrayUsingPredicate:expensePredicate];
-	NSArray * incomeTransactions = [transactions filteredArrayUsingPredicate:incomePredicate];
-	
-	int iKronerExpense;
-	int iKronerIncome;
+
+	double dKroner;
 	@try {
-		iKronerExpense = [(NSNumber*)[expenseTransactions valueForKeyPath:@"@sum.kroner"] intValue];
-		iKronerIncome = [(NSNumber*)[incomeTransactions valueForKeyPath:@"@sum.kroner"] intValue];
+		dKroner = [(NSNumber*)[transactions valueForKeyPath:@"@sum.kronerInBaseCurrency"] doubleValue];
 	}
 	@catch (NSException * e) {
 		NSLog(@"Error summing kroner for transactions");
-		iKronerExpense = 0;
-		iKronerIncome = 0;
+		NSLog(@"Error: %@", e);
+		dKroner = 0.0;
 	}
 	
-	int iKroner = iKronerIncome - iKronerExpense;
+	return dKroner;
 	
-	double amount = ((double)iKroner)/100.0;
-
-	return amount;
+	
+//	// Predicates
+//	NSPredicate * expensePredicate = [NSPredicate predicateWithFormat:@"expense = YES"];
+//	NSPredicate * incomePredicate = [NSPredicate predicateWithFormat:@"expense = NO"];
+//	
+//	NSArray * expenseTransactions = [transactions filteredArrayUsingPredicate:expensePredicate];
+//	NSArray * incomeTransactions = [transactions filteredArrayUsingPredicate:incomePredicate];
+//
+//	double dKronerExpense;
+//	double dKronerIncome;
+//	@try {
+//		dKronerExpense = [(NSNumber*)[expenseTransactions valueForKeyPath:@"@sum.kronerInBaseCurrency"] doubleValue];
+//		dKronerIncome = [(NSNumber*)[incomeTransactions valueForKeyPath:@"@sum.kronerInBaseCurrency"] doubleValue];
+//	}
+//	@catch (NSException * e) {
+//		NSLog(@"Error summing kroner for transactions");
+//		NSLog(@"Error: %@", e);
+//		dKronerExpense = 0.0;
+//		dKronerIncome = 0.0;
+//	}
+//	
+//	double dKroner = dKronerIncome + dKronerExpense;
+//	double amount = dKroner;
+//
+//	
+//	
+//	return amount;
 }
 -(float)keyboardAnimationDuration {return 0.3;}
 -(BOOL)doesTagExist:(NSString*)tag {

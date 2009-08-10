@@ -71,11 +71,11 @@
 
 	
 	month.text = @"Something";
-	amount.text = [transaction toString];
+	amount.text = [transaction amountInLocalCurrency];
 	
 	// Resize the price field to match the price value
 	UIFont * font = [UIFont fontWithName:@"Helvetica" size:17.0];
-	NSString * text = [transaction toString];
+	NSString * text = [transaction amountInLocalCurrency];
 	
 	CGSize textSize = [text sizeWithFont:font];
 	

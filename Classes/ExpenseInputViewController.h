@@ -12,13 +12,14 @@
 #import "CurrencyKeyboard.h"
 #import "LocationController.h"
 #import "ControlViewController.h"
+#import "CurrencySelectionDialog.h"
 
 static const CGFloat KEYBOARD_ANIMATION_DURATION = 0.3;
 static const CGFloat MAX_TEXTFIELD_WIDTH = 300;
 static const CGFloat MIN_TEXTFIELD_WIDTH = 40;
 static const CGFloat TEXTFIELD_PADDING = 10;
 
-@interface ExpenseInputViewController : UIViewController <UITextFieldDelegate, UITextViewDelegate, CurrencyKeyboardDelegate, KleioCoreLocationDelegate, ControlViewDelegate> {
+@interface ExpenseInputViewController : UIViewController <CurrencySelectionDialogDelegate, UITextFieldDelegate, UITextViewDelegate, CurrencyKeyboardDelegate, KleioCoreLocationDelegate, ControlViewDelegate> {
 	UILabel * amountLabel;
 	ControlViewController * controller;
 
@@ -79,6 +80,8 @@ static const CGFloat TEXTFIELD_PADDING = 10;
 -(void)setupControllersForTransaction;
 
 //-(IBAction)doneKeyboardButtonAction;
+
+-(IBAction)changeCurrency;
 
 
 // CurrencyKeyboardDelegate methods

@@ -24,7 +24,7 @@
 -(void)configureCellForTransaction:(Transaction*)trs {
 	self.time.text = [trs timeToString];
 	self.what.text = [trs descriptionAndTags]; 
-	self.amount.text = [trs toString];
+	self.amount.text = [trs amountInLocalCurrency];
 
 	// Calculate the right size and location for the what field depending on the 
 	// way time is displayed in the users locale

@@ -214,6 +214,7 @@
 }
 -(void)expenseIncomeSetToExpense:(BOOL)expense {
 	currentTransaction.expense = [NSNumber numberWithBool:expense];
+	[self updateExpenseDisplay];
 }
 
 //The height is changing for some reason or another, so we have to fake it
@@ -232,10 +233,32 @@
 
 #pragma mark
 #pragma mark -
-#pragma mark Normal methods
+#pragma mark  Change the currency (CurrencySelectionDialogDelegate method)
+-(IBAction)changeCurrency {
+	/* 
+	 Called when the user clicks on the amount
+	 Let the user select another input currency
+	 */ 
+	
+	CurrencySelectionDialog *currencySelectionDialog = [[CurrencySelectionDialog new] autorelease];
+	// So we can report back the currency change
+	currencySelectionDialog.delegate = self;
+	
+	UINavigationController *navController = [[[UINavigationController alloc] initWithRootViewController:currencySelectionDialog] autorelease];
+	navController.navigationBar.barStyle = UIBarStyleBlackOpaque;
+	[self presentModalViewController:navController animated:YES];
+}
+-(void)currencySelected:(NSString*)currencyCode {
+	// Set the currency in the current transaction
+	self.currentTransaction.currency = currencyCode;
+}
 
+
+#pragma mark
+#pragma mark -
+#pragma mark Normal methods
 -(void)updateExpenseDisplay {
-	NSString * text = [self.currentTransaction toString];
+	NSString * text = [self.currentTransaction amountInLocalCurrency];
 	CGSize textSize = [text sizeWithFont:[amountLabel font]];
 	
 	float width = textSize.width + TEXTFIELD_PADDING;
@@ -291,10 +314,7 @@
 	// Set tags and description
 	currentTransaction.tags = tagsField.text;
 	currentTransaction.transactionDescription = descriptionField.text;
-	
-	// FIXME: use currency used on screen
-	currentTransaction.currency = @"€";
-	
+		
 	// Save the expense
 	[[Utilities toolbox] save:managedObjectContext];
 	

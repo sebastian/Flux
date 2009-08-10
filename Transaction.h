@@ -11,8 +11,6 @@
 
 @interface Transaction :  NSManagedObject  
 {
-	bool has_ore;
-	int numOfOre;
 	NSNumberFormatter * formatter;
 }
 
@@ -22,7 +20,6 @@
 
 // Amount
 @property (nonatomic, retain) NSNumber * kroner;
-@property (nonatomic, retain) NSNumber * ore;
 
 // Is it an expense (or income)? YES / NO
 @property (nonatomic, retain) NSNumber * expense;
@@ -41,17 +38,17 @@
 @property (nonatomic, retain) NSNumberFormatter * formatter;
 
 // Methods
--(NSString*)toString;
+-(NSString*)amountInLocalCurrency;
 -(void)addNumber:(NSInteger)num;
 -(void)eraseOneNum;
--(void)addDecimal;
 -(NSString*)formattedDate;
 -(NSString*)timeToString;
 -(NSString*)descriptionAndTags;
-
+-(NSString*)amountInBaseCurrency;
+-(double)normalizedAmount;
+-(NSNumber*)kronerInBaseCurrency;
 
 // Methods for display
--(bool)hasDecimals;
 -(bool)canBeAddedTo;
 -(bool)needsDeleteButton;
 

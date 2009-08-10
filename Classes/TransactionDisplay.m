@@ -11,6 +11,7 @@
 #import "MapAnnotation.h"
 #import "EditTransaction.h"
 #import "MapFullScreen.h"
+#import "CurrencyManager.h"
 
 @interface TransactionDisplay (PrivateMethods)
 - (void) edit;
@@ -55,7 +56,12 @@
 	// Set the textual data
 	description.text = currentTransaction.transactionDescription;
 	when.text = [currentTransaction formattedDate];
-	amount.text = [currentTransaction toString];
+	amount.text = [currentTransaction amountInLocalCurrency];
+	
+	// Add in base currency if different
+	if (![currentTransaction.currency isEqualToString:[[CurrencyManager sharedManager] baseCurrency]]) {
+		amount.text = [amount.text stringByAppendingFormat:@" (%@)", [currentTransaction amountInBaseCurrency]];
+	}
 	
 	self.title = currentTransaction.transactionDescription;
 	if ([currentTransaction.transactionDescription isEqualToString:@""]) {

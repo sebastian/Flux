@@ -12,6 +12,7 @@
 #import "TransactionDisplay.h"
 #import "Utilities.h"
 #import "FilterField.h"
+#import "CurrencyManager.h"
 
 @interface DetailTableViewController (PrivateMethods)
 - (NSDictionary*)dataForSection:(NSInteger)_section;
@@ -181,7 +182,8 @@
 			
 		// TODO: Localize the date format display
 		NSString * date = [aTransaction.day stringValue];
-		NSString * amount = [aTransaction numberToMoney:numAmount];
+		//NSString * amount = [aTransaction numberToMoney:numAmount];
+		NSString * amount = [[CurrencyManager sharedManager] baseCurrencyDescriptionForAmount:numAmount withFraction:YES];
 			
 		// Data that has been worked on
 		NSArray * objects = [NSArray arrayWithObjects:transactions, date, amount,nil];

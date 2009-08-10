@@ -8,12 +8,12 @@
 
 #import "Transaction.h"
 #import "Utilities.h"
+#import "CurrencyManager.h"
 
 @implementation Transaction 
 
 @dynamic expense;
 @dynamic kroner;
-@dynamic ore;
 
 @dynamic currency;
 
@@ -33,8 +33,6 @@
 #pragma mark -
 #pragma mark Setup and teardown
 - (void)awakeFromInsert {
-	has_ore = NO;
-	numOfOre = 0;
 	
 	// Set date to the current date
 	self.date = [NSDate date];
@@ -52,6 +50,9 @@
 	
 	self.day = [NSNumber numberWithInt:components.day];
 	self.yearMonth = yearMonthValue;	
+	
+	// Set the currency
+	self.currency = [[CurrencyManager sharedManager] baseCurrency];
 	
 	// Set them to empty strings
 	self.transactionDescription = @"";
@@ -92,14 +93,25 @@
 	return [dateFormatter stringFromDate:self.date];
 	
 }
--(NSString*)toString {
-	// TODO: Probably not optimal...
-	double amount = [self.kroner doubleValue]/100;
+-(double)normalizedAmount {
+	double dAmount = [self.kroner doubleValue]/100;
 	if ([self.expense boolValue] == YES) {
-		amount = amount * (-1);
+		dAmount = dAmount * (-1);
 	}
-	NSNumber * number = [NSNumber numberWithDouble:amount];
-	return [self numberToMoney:number];
+	return dAmount;
+}
+-(NSString*)amountInLocalCurrency {
+	NSNumber * amount = [NSNumber numberWithDouble:[self normalizedAmount]];
+	return [[CurrencyManager sharedManager] currencyDescriptionForAmount:amount withFraction:YES currency:self.currency];
+}
+-(NSString*)amountInBaseCurrency {
+	NSNumber * convertedValue = [self kronerInBaseCurrency];
+	return [[CurrencyManager sharedManager] baseCurrencyDescriptionForAmount:convertedValue withFraction:YES];
+}
+-(NSNumber*)kronerInBaseCurrency {
+	double amount = [[CurrencyManager sharedManager] convertValue:[self normalizedAmount] fromCurrency:self.currency];
+	NSLog(@"Returning money conversion from (%@) %i to (%@) %f", self.currency, self.kroner, [[CurrencyManager sharedManager] baseCurrency], amount);
+	return [NSNumber numberWithDouble:amount];
 }
 -(NSString*)numberToMoney:(NSNumber*)number {
 	if (formatter == nil) {
@@ -130,47 +142,13 @@
 #pragma mark Alter numeric value
 -(void)addNumber:(NSInteger)num {
 
-	if (has_ore == NO) {
-		NSInteger kroner = [self.kroner integerValue] * 10 + num; 
-		self.kroner = [NSNumber numberWithInt:kroner];		
-	} else {
-		// Can it be added to?
-		if (numOfOre == 0) {
-			self.ore = [NSNumber numberWithInt:num*10];
-			numOfOre += 1;
-		} else if (numOfOre == 1) {
-			self.ore = [NSNumber numberWithInt:[self.ore integerValue] + num];
-			numOfOre += 1;
-		} else {
-			NSLog(@"Tried to add a decimal after it had already added two!");
-		}
-	}
+	NSInteger kroner = [self.kroner integerValue] * 10 + num; 
+	self.kroner = [NSNumber numberWithInt:kroner];		
 		
 }
 -(void)eraseOneNum {
-	if (has_ore == YES) {
-		// Do øre stuff
-		switch (numOfOre) {
-			case 1:
-				self.ore = [NSNumber numberWithInt:0];
-				break;
-			case 2:
-				self.ore = [NSNumber numberWithInt:(([self.ore intValue] / 10) * 10)];
-				break;
-			default:
-				break;
-		}
-		
-		numOfOre -= 1;
-		if (numOfOre < 1) {has_ore = NO;}
-		
-	} else {
-		// Remove from the main num
-		self. kroner = [NSNumber numberWithInt:[self.kroner intValue] / 10];
-	}
-}
--(void)addDecimal {
-	has_ore = YES;
+	// Remove from the main num
+	self. kroner = [NSNumber numberWithInt:[self.kroner intValue] / 10];
 }
 
 
@@ -179,19 +157,12 @@
 #pragma mark -
 #pragma mark Methods for keyboard state and general state
 // Methods for display
--(bool)hasDecimals {
-	return has_ore;
-}
 -(bool)canBeAddedTo {
-	if ([self.kroner intValue] / 100000000 != 0 && has_ore == NO) {return NO;}
-	if (has_ore == NO) {return YES;}
-	if (has_ore == YES && numOfOre < 2) {return YES;} 
-	
-	return NO;
-	
+	if ([self.kroner intValue] / 100000000 != 0) {return NO;}
+	return YES;
 }
 -(bool)needsDeleteButton {
-	if ([self.kroner intValue] == 0 && has_ore == NO) {return NO;} 
+	if ([self.kroner intValue] == 0) {return NO;} 
 	return YES;
 }
 

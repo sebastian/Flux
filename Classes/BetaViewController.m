@@ -170,8 +170,6 @@
 		betaTransaction.transactionDescription = [currentString copy];
 	} else if ([elementName isEqualToString:@"kroner"]) {
 		betaTransaction.kroner = [NSNumber numberWithInt:[currentString integerValue]];
-	} else if ([elementName isEqualToString:@"ore"]) {
-		betaTransaction.ore = [NSNumber numberWithInt:[currentString integerValue]];
 	} else if ([elementName isEqualToString:@"expense"]) {
 		betaTransaction.expense = [NSNumber numberWithInt:[currentString integerValue]];
 	} else if ([elementName isEqualToString:@"lat"]) {

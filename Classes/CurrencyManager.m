@@ -141,32 +141,61 @@
 
 - (NSString *)baseCurrencyDescription
 {
-	if ([baseCurrency isEqual:@"EUR"])
+	return [self currencyDescription:baseCurrency];
+//	if ([baseCurrency isEqual:@"EUR"])
+//		return @"€";
+//	else if ([baseCurrency isEqual:@"USD"])
+//		return @"$";
+//	else if ([baseCurrency isEqual:@"JPY"])
+//		return @"¥";
+//	else if ([baseCurrency isEqual:@"GBP"])
+//		return @"£";
+//	
+//	return baseCurrency;
+}
+- (NSString *)currencyDescription:(NSString*)currencyCode {
+	if ([currencyCode isEqual:@"EUR"])
 		return @"€";
-	else if ([baseCurrency isEqual:@"USD"])
+	else if ([currencyCode isEqual:@"USD"])
 		return @"$";
-	else if ([baseCurrency isEqual:@"JPY"])
+	else if ([currencyCode isEqual:@"JPY"])
 		return @"¥";
-	else if ([baseCurrency isEqual:@"GBP"])
+	else if ([currencyCode isEqual:@"GBP"])
 		return @"£";
 	
-	return baseCurrency;
+	return currencyCode;	
 }
 
 - (NSString *)baseCurrencyDescriptionForAmount:(NSString *)amount
 {
-	if ([baseCurrency isEqual:@"USD"]) {
+	return [self currencyDescriptionForAmount:amount currency:baseCurrency];
+//	if ([baseCurrency isEqual:@"USD"]) {
+//		return [NSString stringWithFormat:@"$%@", amount];
+//	} else {
+//		return [NSString stringWithFormat:@"%@ %@", amount, [self baseCurrencyDescription]];
+//	}
+}
+- (NSString *)currencyDescriptionForAmount:(NSString*)amount currency:(NSString*)currencyCode {
+	if ([currencyCode isEqual:@"USD"]) {
 		return [NSString stringWithFormat:@"$%@", amount];
 	} else {
-		return [NSString stringWithFormat:@"%@ %@", amount, [self baseCurrencyDescription]];
+		return [NSString stringWithFormat:@"%@ %@", amount, [self currencyDescription:currencyCode]];
 	}
 }
 
+
 - (NSString *)baseCurrencyDescriptionForAmount:(NSNumber *)amount withFraction:(BOOL)withFraction
+{
+	return [self currencyDescriptionForAmount:amount withFraction:withFraction currency:baseCurrency];
+//	NSNumberFormatter *numberFormatter = (withFraction) ? (numberFormatterWithFraction) : (numberFormatterWithoutFraction);
+//	NSString *formattedAmount = [numberFormatter stringFromNumber:amount];
+//	return [self baseCurrencyDescriptionForAmount:formattedAmount];
+}
+- (NSString *)currencyDescriptionForAmount:(NSNumber *)amount withFraction:(BOOL)withFraction currency:(NSString*)currencyCode
 {
 	NSNumberFormatter *numberFormatter = (withFraction) ? (numberFormatterWithFraction) : (numberFormatterWithoutFraction);
 	NSString *formattedAmount = [numberFormatter stringFromNumber:amount];
-	return [self baseCurrencyDescriptionForAmount:formattedAmount];
+	return [self currencyDescriptionForAmount:formattedAmount currency:currencyCode];
 }
 
 - (void)refreshIfNeeded
@@ -248,6 +277,8 @@
 
 - (float)convertValue:(float)sourceValue fromCurrency:(NSString *)sourceCurrency
 {
+	NSLog(@"Inside converter. Converting from %@ to %@", sourceCurrency, self.baseCurrency);
+	
 	/* short-circuit if the source is the same as the destination */
 	if ([sourceCurrency isEqualToString:self.baseCurrency])
 		return sourceValue;
