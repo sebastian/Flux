@@ -26,10 +26,7 @@
 #pragma mark Init and teardown
 -(void)viewDidLoad {
 	[super viewDidLoad];
-	
-	[self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-	self.tableView.backgroundColor = [UIColor clearColor];
-		
+			
 	self.title = NSLocalizedString(@"Overview", @"Overview table transaction view");
 
 	UIImageView * headerView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"CellOverviewHeader.png"]];
@@ -237,6 +234,7 @@
 
 	// Needed to get the right search results and to display the right header
 	detailController.yearMonthToDisplay = aTransaction.yearMonth;
+	detailController.delegate = self;
 	
 	// Passing along the filtering predicates so searches can be passed on
 	detailController.filteringPredicate = self.filteringPredicate;

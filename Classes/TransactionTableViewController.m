@@ -61,6 +61,10 @@
 		name:@"KleioPredicateUpdated"
 		object:nil];
 	
+	[self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+	self.tableView.backgroundColor = [UIColor clearColor];
+
+	
 }
 - (void)viewDidUnload {
 	

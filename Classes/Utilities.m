@@ -97,9 +97,15 @@ static Utilities *sharedUtilitiesToolbox = nil;
 													 inManagedObjectContext:self.managedObjectContext];
 		
 		newTag.name = tag;
-						
-		[newTag addLocationObject:newLocation];
 		
+		// Save the tag...
+//		[self save:self.managedObjectContext];
+		
+		// Add the tag to the tag cache
+		[tagCache setObject:newTag forKey:tag];
+		
+		[newTag addLocationObject:newLocation];
+				
 	} else {
 		
 		[currentTag addLocationObject:newLocation];
@@ -107,7 +113,8 @@ static Utilities *sharedUtilitiesToolbox = nil;
 	}
 	
 	// Save the changes we have made
-	[self privateSave];
+	//[self privateSave];
+	[self save:self.managedObjectContext];
 	
 }
 -(Tag*)tagObjectforTag:(NSString*)tag {
@@ -188,7 +195,7 @@ static Utilities *sharedUtilitiesToolbox = nil;
 		saving = YES;
 		[self performSelectorInBackground:@selector(doSaveStart:) withObject:self.managedObjectContext];
 	}
-	[self save:self.managedObjectContext];
+	//[self save:self.managedObjectContext];
 }
 - (void)save:(NSManagedObjectContext*)context {
 

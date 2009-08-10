@@ -3,14 +3,14 @@ require "time"
 HOW_MANY = 500
 
 tags = %w{snacks food tea flight vacation book movie music apps misc cinema dinner rent coffee}
-descriptions = ["Some sample description", "This is something I regret",
+descriptions = ["Incredibly nice item", "This is something I regret",
   "My mother told me NOT to buy this", "Gifts for friends", "Cinema tickets, yet again",
   "Books (fun ones)", "Dinner with THA LEMON PIE", "Sweets", "Yet another expense",
-  "Have to start saving now..."]
-kroners = %w{20 30 23 342 21 4 0 12 43 5 21 12 424 29 3 69 3 22 34 34 48 19 73 6 82}
-ores = %{20 25 50 0 0 0 0 0 99 79 89 39 49 0 0 0 0 0 10 0 20 0 30}
-lats = %{1.0 1.020 4.00 6.234 1.23 0.24 52.02 34.34 0.001 23.24}
-lngs = %{1.0 1.020 4.00 6.234 1.23 0.24 52.02 34.34 0.001 23.24}
+  "Have to start saving now...", "I wish I had bought this last year", "This is the bestest",
+  "I'll buy another tomorrow", "Maybe this will work?"]
+kroners = (50..250000).to_a
+lat = 59.9
+lng = 10.7
 days = (1..31).to_a
 months = %w{01 02 03 04 05 06 07}
 years = (2009).to_a
@@ -48,10 +48,9 @@ HOW_MANY.times do
   puts "\t<transaction>"
   puts "\t\t<transactionDescription>#{choose_one_of_the(descriptions)}</transactionDescription>"
   puts "\t\t\t<kroner>#{choose_one_of_the(kroners)}</kroner>"
-  puts "\t\t\t<ore>#{choose_one_of_the(ores)}</ore>"
   puts "\t\t\t<expense>#{choose_one_of_the(expenses)}</expense>"
-  puts "\t\t\t<lat>#{(rand*20).floor * rand}</lat>"
-  puts "\t\t\t<lng>#{(rand*20).floor * rand}</lng>"
+  puts "\t\t\t<lat>#{lat}#{(rand*100000).floor}</lat>"
+  puts "\t\t\t<lng>#{lng}#{(rand*100000).floor}</lng>"
   puts "\t\t\t<yearMonth>#{year}#{month}</yearMonth>"
   puts "\t\t\t<day>#{day}</day>"
   puts "\t\t\t<date>#{time_string}</date>"

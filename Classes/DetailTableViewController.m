@@ -16,7 +16,9 @@
 @interface DetailTableViewController (PrivateMethods)
 - (NSDictionary*)dataForSection:(NSInteger)_section;
 - (void)clearDataCache;
+- (void)clearDataCacheForSection:(NSInteger)section;
 @end
+
 
 
 @implementation DetailTableViewController
@@ -24,12 +26,16 @@
 @synthesize detailHeaderView, detailContentTableCell, detailFooterView;
 @synthesize yearMonthToDisplay;
 @synthesize transactionsDataCache, headerViewCache, footerViewCache;
+@synthesize delegate;
 
 #pragma mark -
 #pragma mark Init and teardown
 - (void) viewDidLoad {
 	[super viewDidLoad];
-			
+		
+	// Set local delete to a logic state;
+	localDelete = NO;
+	
 	// Get the calendar values
 	NSLocale * userLocale = [NSLocale currentLocale];
 	NSDateFormatter * dateFormatter = [[NSDateFormatter alloc] init];
@@ -63,10 +69,7 @@
 	UIImageView * paperBottom = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DetailCellBottom.png"]];
 	self.tableView.tableFooterView = paperBottom;
 	[paperBottom release];
-	
-	[self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-	self.tableView.backgroundColor = [UIColor clearColor];
-	
+		
 }
 - (void) viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
@@ -100,6 +103,8 @@
 	[headerViewCache release];
 	[detailHeaderView release];
 	[footerViewCache release];
+
+	self.delegate = nil;
 	
 	[super dealloc];
 }
@@ -128,16 +133,20 @@
 #pragma mark Table view methods
 // To get the section shower on the side
 - (NSArray *) sectionIndexTitlesForTableView:(UITableView *)tableView {
+	NSLog(@"Asked to regenerate the index titles");
+	
 	NSArray * sections = resultsController.sections;
 	NSInteger sectionCount = sections.count;
 	
 	NSMutableArray * titles = [[[NSMutableArray alloc] initWithCapacity:sectionCount] autorelease];
 	
 	for (NSInteger n = 0; n < sectionCount; n++) {
-		NSArray * objectsInSection = [[sections objectAtIndex:n] objects];
-		
-		Transaction * trs = [objectsInSection objectAtIndex:0];
-		[titles addObject:[NSString stringWithFormat:@"%i", [trs.day intValue]]];
+		NSDictionary * data = [self dataForSection:n];
+		NSArray * objectsInSection = [data objectForKey:@"transactions"];
+		if ([objectsInSection count] > 0) {
+			Transaction * trs = [objectsInSection objectAtIndex:0];
+			[titles addObject:[NSString stringWithFormat:@"%i", [trs.day intValue]]];			
+		}
 	}
 		
 	return titles;
@@ -190,6 +199,17 @@
 - (void)clearDataCache {
 	[self.transactionsDataCache removeAllObjects];
 	[self.headerViewCache removeAllObjects];
+	[self.footerViewCache removeAllObjects];
+}
+- (void)clearDataCacheForSection:(NSInteger)_section {
+	NSString * section = [NSString stringWithFormat:@"%i", _section];
+
+	// Remove data for all sections
+	[self.transactionsDataCache removeObjectForKey:section];
+	[self.headerViewCache removeObjectForKey:section];
+
+	// It is fast to regenerate, and clearing it might fix some bugs...
+	[self.footerViewCache removeAllObjects];
 }
 
 // Content cell
@@ -204,7 +224,6 @@
 	if (cell == nil) {
 		[[NSBundle mainBundle] loadNibNamed:@"DetailTableCell" owner:self options:nil]; 
 		cell = self.detailContentTableCell;
-		NSLog(@"Generating a new cell... ohno!");
 	}
 
 	[cell configureCellForTransaction:trs];
@@ -262,7 +281,7 @@
 	} else {
 		return 0;
 	}
-
+	
 }
 // Footer view
 - (UIView *) tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)_section {
@@ -271,7 +290,9 @@
 	 */
 	NSDictionary * data = [self dataForSection:_section];
 	NSInteger count = [[data objectForKey:@"transactions"] count];
-	if (count == 0) {return nil;}
+	if (count == 0) {
+		return nil;
+	}
 	
 	NSString * section = [NSString stringWithFormat:@"%i", _section];	
 	if (self.footerViewCache == nil) { self.footerViewCache = [[NSMutableDictionary alloc] init];}
@@ -328,9 +349,6 @@
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView {
 	
 	NSUInteger count = [[resultsController sections] count];
-    if (count == 0) {
-        count = 1;
-    }
     return count;
 	
 }
@@ -345,14 +363,87 @@
     
     if (editingStyle == UITableViewCellEditingStyleDelete) {
 
+		/*
+		 We are doing a local delete
+		 In which case I don't want to reload the whole table view
+		 because we can just remove one row locally!
+		 */
+		localDelete = YES;
+		[self.delegate clearDataCache];
+		[[self.delegate tableView] reloadData];
+		
+		NSDictionary * data = [self dataForSection:indexPath.section];
+		Transaction *trs = (Transaction *)[[data objectForKey:@"transactions"] objectAtIndex:indexPath.row];
+		
+		// Delete cache for section
+		[self clearDataCacheForSection:indexPath.section];
+		
 		// Delete the managed object for the given index path
-		[self.managedObjectContext deleteObject:[self.filteredSearchResults objectAtIndex:indexPath.row]];
+		[self.managedObjectContext deleteObject:trs];
 
 		// Save changes
 		[[Utilities toolbox] save:self.managedObjectContext];
-	
+		
 	}   
+}
 
+
+#pragma mark
+#pragma mark -
+#pragma mark Fetched results controller delegate methods...
+/**
+ Delegate methods of NSFetchedResultsController to respond to additions, removals and so on.
+ */
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
+	if (localDelete) {
+		[self.tableView beginUpdates];
+	} else {
+		[super controllerWillChangeContent:controller];
+	}
+}
+- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
+	
+	if (localDelete) {
+		switch(type) {
+			case NSFetchedResultsChangeDelete:
+				[self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationBottom];
+				[self.tableView performSelector:@selector(reloadData) withObject:nil afterDelay:0.3];
+				
+				break;
+		}
+	} else {
+		[super controller:controller didChangeObject:anObject atIndexPath:indexPath forChangeType:type newIndexPath:newIndexPath];
+	}
+}
+- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
+	if (localDelete) {
+		switch(type) {
+				
+			case NSFetchedResultsChangeDelete:
+				/*
+				 I am removing a section, so the section caches are all wrong
+				 because the indexes aren't the same anymore!
+				 */
+				[self clearDataCache];
+				
+				/*
+				 All the cached data has been removed, so we can just as well reload the whole table
+				 */
+				[self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationBottom];
+				[self.tableView performSelector:@selector(reloadData) withObject:nil afterDelay:0.3];
+				break;
+		}
+	} else {
+		[super controller:controller didChangeSection:sectionInfo atIndex:sectionIndex forChangeType:type];
+	}
+}
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+	if (localDelete) {
+		[self.tableView endUpdates];
+	} else {
+		[super controllerDidChangeContent:controller];
+	}
+	localDelete = NO;
 }
 
 @end

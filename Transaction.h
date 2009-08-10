@@ -47,6 +47,7 @@
 -(void)addDecimal;
 -(NSString*)formattedDate;
 -(NSString*)timeToString;
+-(NSString*)descriptionAndTags;
 
 
 // Methods for display

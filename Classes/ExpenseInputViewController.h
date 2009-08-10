@@ -78,7 +78,7 @@ static const CGFloat TEXTFIELD_PADDING = 10;
 -(void)updateTagsAndDescriptionLabel;
 -(void)setupControllersForTransaction;
 
--(IBAction)doneKeyboardButtonAction;
+//-(IBAction)doneKeyboardButtonAction;
 
 
 // CurrencyKeyboardDelegate methods

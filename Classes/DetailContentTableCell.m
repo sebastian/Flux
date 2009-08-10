@@ -23,7 +23,7 @@
 
 -(void)configureCellForTransaction:(Transaction*)trs {
 	self.time.text = [trs timeToString];
-	self.what.text = trs.transactionDescription;
+	self.what.text = [trs descriptionAndTags]; 
 	self.amount.text = [trs toString];
 
 	// Calculate the right size and location for the what field depending on the 

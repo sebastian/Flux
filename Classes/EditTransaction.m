@@ -8,6 +8,7 @@
 
 #import "EditTransaction.h"
 #import "CurrencyKeyboard.h"
+#import "Transaction.h"
 
 @interface EditTransaction (PrivateMethods)
 -(void)cancel;
@@ -41,20 +42,20 @@
 	[cancelButton release];
 	
 	self.view.backgroundColor = [UIColor clearColor];
+	
+	// Set up all the textfields to contain the current data
+	amountField.text = [currentTransaction.kroner stringValue];
+	descriptionField.text = currentTransaction.transactionDescription;
+	tagsField.text = currentTransaction.tags;
+	//dateField.text = 
+	locationField.text = [NSString stringWithFormat:@"lat: %f, lng: %f", currentTransaction.location.coordinate.latitude, currentTransaction.location.coordinate.longitude];
+	
 }
 
 -(void)cancel {
 	[self.navigationController popViewControllerAnimated:YES];	
 }
 
-
-/*
-// Override to allow orientations other than the default portrait orientation.
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-*/
 
 - (void)didReceiveMemoryWarning {
 	NSLog(@"didReceiveMemoryWarning: %@", self);
@@ -64,6 +65,12 @@
 - (void)viewDidUnload {
 	// Release any retained subviews of the main view.
 	// e.g. self.myOutlet = nil;
+}
+
+- (IBAction)saveAction {
+	
+	// TODO: Save changes
+	
 }
 
 

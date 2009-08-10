@@ -117,6 +117,13 @@
 	NSDateFormatter * dateFormatter = [[Utilities toolbox] dateFormatter];
 	return [dateFormatter stringFromDate:self.date];
 }
+-(NSString*)descriptionAndTags {
+	NSString * description = self.transactionDescription;
+	if (![self.tags isEqualToString:@""]) {
+		description = [[description stringByAppendingFormat:@" (%@)", self.tags] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+	}
+	return description;
+}
 
 #pragma mark
 #pragma mark -

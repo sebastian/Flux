@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "TransactionTableViewController.h"
+#import "DetailTableViewController.h"
 
 @class OverviewTableCell;
 
-@interface OverviewTableViewController : TransactionTableViewController {
+@interface OverviewTableViewController : TransactionTableViewController <DetailTableViewDelegate> {
 	OverviewTableCell * overviewTableCell;
 
 	BOOL onlyLast3Months;
