@@ -19,6 +19,9 @@
 	OverviewTableViewController * overviewController = 
 		[[OverviewTableViewController alloc] initWithStyle:UITableViewStylePlain andContext:context];
 	
+	NSLog(@"Updating data in background thread");
+	[overviewController performSelectorInBackground:@selector(updateData) withObject:nil];
+	
 	self = [super initWithRootViewController:overviewController];
 	[overviewController release];
 	
@@ -49,6 +52,9 @@
 	
 }
 -(void)viewDidUnload {
+	
+	NSLog(@"View DID UNLOAD called for nav controller");
+	
 	// Remove as observer
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	
@@ -57,7 +63,7 @@
 
 - (void)objectContextUpdated:(NSNotification *)notification {
 	NSLog(@"merging new changes into the managedObjectContext");
-	[managedObjectContext mergeChangesFromContextDidSaveNotification:notification];
+	[self.managedObjectContext mergeChangesFromContextDidSaveNotification:notification];
 }
 
 - (void)dealloc {

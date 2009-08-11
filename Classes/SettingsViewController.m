@@ -35,6 +35,20 @@
 	autoTagLabel.text = NSLocalizedString(@"Auto tags:", nil);
 	autoTagDescriptionLabel.text = NSLocalizedString(@"When using autotags the application will suggest tags matching to the location you are at when adding a transaction.", nil);
 	autoTagSwitch.on = [[[NSUserDefaults standardUserDefaults] objectForKey:@"KleioTransactionsAutoTags"] boolValue];
+
+	// Local currency
+	localCurrencyLabel.text = NSLocalizedString(@"Use local currency:",nil);
+	localCurrencyDescriptionLabel.text = NSLocalizedString(@"Automatically uses the local currency when adding new transactions.", nil);
+	localCurrencySwitch.on = [[[NSUserDefaults standardUserDefaults] objectForKey:@"KleioTransactionsUseLocalCurrency"] boolValue];
+	
+	// Balance badge
+	balanceLabel.text = NSLocalizedString(@"Show balance on icon:", nil);
+	balanceDescriptionLabel.text = NSLocalizedString(@"When activated your current positive balance will be displayed on the application icon badge. Only positive balances up to 9999 will be displayed. This is because of limitations set by Apple", nil);
+	balanceSwitch.on = [[[NSUserDefaults standardUserDefaults] objectForKey:@"KleioTransactionsBalanceBadge"] boolValue];
+	
+	// Setup the scrolling behaviuor
+	scrollview.contentSize = CGSizeMake(settingsView.frame.size.width, settingsView.frame.size.height);
+	[scrollview addSubview:settingsView];
 	
 	// Set the segment control to show the right currency
 	[self baseCurrencyChanged];
@@ -83,6 +97,16 @@
 - (IBAction) toggleAutoTag {
 	[[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:autoTagSwitch.on]
 											  forKey:@"KleioTransactionsAutoTags"];
+
+}
+- (IBAction) toggleLocalCurrency {
+	[[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:localCurrencySwitch.on]
+											  forKey:@"KleioTransactionsUseLocalCurrency"];
+	
+}
+- (IBAction) toggleBalanceBadge {
+	[[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:balanceSwitch.on]
+											  forKey:@"KleioTransactionsBalanceBadge"];
 
 }
 

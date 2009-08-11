@@ -50,33 +50,6 @@ static Utilities *sharedUtilitiesToolbox = nil;
 	
 	return dKroner;
 	
-	
-//	// Predicates
-//	NSPredicate * expensePredicate = [NSPredicate predicateWithFormat:@"expense = YES"];
-//	NSPredicate * incomePredicate = [NSPredicate predicateWithFormat:@"expense = NO"];
-//	
-//	NSArray * expenseTransactions = [transactions filteredArrayUsingPredicate:expensePredicate];
-//	NSArray * incomeTransactions = [transactions filteredArrayUsingPredicate:incomePredicate];
-//
-//	double dKronerExpense;
-//	double dKronerIncome;
-//	@try {
-//		dKronerExpense = [(NSNumber*)[expenseTransactions valueForKeyPath:@"@sum.kronerInBaseCurrency"] doubleValue];
-//		dKronerIncome = [(NSNumber*)[incomeTransactions valueForKeyPath:@"@sum.kronerInBaseCurrency"] doubleValue];
-//	}
-//	@catch (NSException * e) {
-//		NSLog(@"Error summing kroner for transactions");
-//		NSLog(@"Error: %@", e);
-//		dKronerExpense = 0.0;
-//		dKronerIncome = 0.0;
-//	}
-//	
-//	double dKroner = dKronerIncome + dKronerExpense;
-//	double amount = dKroner;
-//
-//	
-//	
-//	return amount;
 }
 -(float)keyboardAnimationDuration {return 0.3;}
 -(BOOL)doesTagExist:(NSString*)tag {
@@ -113,9 +86,6 @@ static Utilities *sharedUtilitiesToolbox = nil;
 		
 		newTag.name = tag;
 		
-		// Save the tag...
-//		[self save:self.managedObjectContext];
-		
 		// Add the tag to the tag cache
 		[tagCache setObject:newTag forKey:tag];
 		
@@ -128,7 +98,6 @@ static Utilities *sharedUtilitiesToolbox = nil;
 	}
 	
 	// Save the changes we have made
-	//[self privateSave];
 	[self save:self.managedObjectContext];
 	
 }

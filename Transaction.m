@@ -110,17 +110,12 @@
 }
 -(NSNumber*)kronerInBaseCurrency {
 	double amount = [[CurrencyManager sharedManager] convertValue:[self normalizedAmount] fromCurrency:self.currency];
-	NSLog(@"Returning money conversion from (%@) %i to (%@) %f", self.currency, self.kroner, [[CurrencyManager sharedManager] baseCurrency], amount);
 	return [NSNumber numberWithDouble:amount];
 }
 -(NSString*)numberToMoney:(NSNumber*)number {
 	if (formatter == nil) {
 		self.formatter = [[NSNumberFormatter alloc] init];
 	}
-
-	// TODO: Set it to something smart based on where the user is 
-	// and also based on what the user chooses manually...
-	//[formatter setCurrencyCode:@"€"];
 	
 	[formatter setNumberStyle:NSNumberFormatterCurrencyStyle];
 	return [formatter stringFromNumber:number];

@@ -36,11 +36,13 @@
 	BOOL isRefreshing;
 	NSArray *availableCurrencies;
 	
+	NSDictionary * countryToCurrency;
+	
 	NSMutableDictionary *conversionDict;
 	NSNumberFormatter *numberFormatterWithFraction;
 	NSNumberFormatter *numberFormatterWithoutFraction;
 }
-
+@property (nonatomic, retain) NSDictionary * countryToCurrency;
 @property (retain) NSString *baseCurrency;
 @property (nonatomic, retain) NSDate *lastRefresh;
 @property (retain) NSMutableDictionary *exchangeRates;

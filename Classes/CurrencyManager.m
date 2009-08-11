@@ -38,6 +38,7 @@
 @synthesize exchangeRates;
 @synthesize availableCurrencies;
 @synthesize conversionDict;
+@synthesize countryToCurrency;
 
 - (id)init
 {
@@ -62,6 +63,26 @@
 								  @"SAR", @"ILS", @"SEK", @"CHF", @"SGD", @"SKK", 
 								  @"LKR", @"KRW", @"KZT", @"CZK", @"AED", @"JPY", 
 								  @"CYP", @"INR", nil];
+	
+	self.countryToCurrency = [NSDictionary dictionaryWithObjectsAndKeys:
+							  @"USD",@"AS",@"USD",@"EC",@"USD",@"SV",@"USD",@"GU",@"USD",@"MH",
+							  @"USD",@"FM",@"USD",@"MP",@"USD",@"PW",@"USD",@"PA",@"USD",@"PR",@"USD",
+							  @"TC",@"USD",@"US",@"USD",@"UM",@"USD",@"VG",@"USD",@"VI",@"AUD",@"CX",
+							  @"AUD",@"CC",@"AUD",@"HM",@"AUD",@"KI",@"AUD",@"NR",@"AUD",@"NF",@"AUD",@"TV",
+							  @"AUD",@"AU",@"BHD",@"BH",@"THB",@"TH",@"BND",@"BN",@"CLP",@"CL",@"DKK",@"DK",
+							  @"DKK",@"FO",@"DKK",@"GL",@"EUR",@"AD",@"EUR",@"AT",@"EUR",@"BE",@"EUR",@"CY",
+							  @"EUR",@"FI",@"EUR",@"FR",@"EUR",@"FX",@"EUR",@"GF",@"EUR",@"TF",@"EUR",@"DE",
+							  @"EUR",@"GR",@"EUR",@"GP",@"EUR",@"VA",@"EUR",@"IE",@"EUR",@"IT",@"EUR",@"LU",
+							  @"EUR",@"MT",@"EUR",@"MQ",@"EUR",@"YT",@"EUR",@"MC",@"EUR",@"NL",@"EUR",@"PT",
+							  @"EUR",@"RE",@"EUR",@"SM",@"EUR",@"CS",@"EUR",@"SK",@"EUR",@"SI",@"EUR",@"ES",
+							  @"EUR",@"PM",@"HUF",@"HU",@"HKD",@"HK",@"ISK",@"IS",@"CAD",@"CA",@"QAR",@"QA",
+							  @"KWD",@"KW",@"MYR",@"MY",@"MUR",@"MU",@"MXN",@"MX",@"NPR",@"NP",@"TWD",@"TW",
+							  @"NZD",@"CK",@"NZD",@"NZ",@"NZD",@"NU",@"NZD",@"PN",@"NZD",@"TK",@"NOK",@"AQ",
+							  @"NOK",@"BV",@"NOK",@"NO",@"NOK",@"SJ",@"PKR",@"PK",@"GBP",@"IO",@"GBP",@"GS",
+							  @"GBP",@"GB",@"ZAR",@"LS",@"ZAR",@"NA",@"ZAR",@"ZA",@"CNY",@"CN",@"OMR",@"OM",
+							  @"IDR",@"ID",@"RUB",@"RU",@"SAR",@"SA",@"ILS",@"IL",@"SEK",@"SE",@"CHF",@"LI",
+							  @"CHR",@"CH",@"SGD",@"SG",@"LKR",@"LK",@"KRW",@"KR",@"KZT",@"KZ",@"CKZ",@"CZ",
+							  @"AED",@"AE",@"JPY",@"JP",@"INR",@"IN",nil];
 	
 	isRefreshing = NO;
 	self.baseCurrency = [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrencyManagerBaseCurrency"];
@@ -277,7 +298,6 @@
 
 - (float)convertValue:(float)sourceValue fromCurrency:(NSString *)sourceCurrency
 {
-	NSLog(@"Inside converter. Converting from %@ to %@", sourceCurrency, self.baseCurrency);
 	
 	/* short-circuit if the source is the same as the destination */
 	if ([sourceCurrency isEqualToString:self.baseCurrency])

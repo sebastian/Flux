@@ -16,6 +16,7 @@
 -(void)hideSearch;
 -(void)showSearch;
 -(void)toggleSearch;
+-(void)hideSearchBar;
 @end
 
 
@@ -88,7 +89,14 @@
     [UIView commitAnimations];	
 }
 -(void)hideSearch {
-			
+	// Move the search bar out of the way
+	[self hideSearchBar];
+	
+	// Signal to everyone that the search has cleared
+	[[FilterField sharedFilterBar] clearSearchState];
+	
+}
+-(void)hideSearchBar {
 	searchIsVisible = NO;
 	
 	[[FilterField sharedFilterBar] resignFirstResponder];
@@ -98,8 +106,6 @@
 	frame.size.height = self.view.frame.size.height;
 	[self animateContentToFrame:frame];
 	
-	[[FilterField sharedFilterBar] clearSearchState];
-			
 }
 -(void)showSearch {
 	
@@ -166,5 +172,8 @@
 }
 - (void)wantsToBeToggled {
 	[self toggleSearch];
+}
+- (void)wantsToBeHiddenWithoutClearingState {
+	[self hideSearchBar];
 }
 @end

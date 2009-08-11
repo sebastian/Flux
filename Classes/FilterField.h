@@ -15,6 +15,7 @@
 
 - (void)wantsToBeShown;
 - (void)wantsToBeHidden;
+- (void)wantsToBeHiddenWithoutClearingState;
 - (void)wantsToBeToggled;
 
 - (BOOL)isVisible;
@@ -56,6 +57,7 @@
 - (BOOL)isVisible;
 
 - (void) hide;
+- (void) hideButRetainState;
 - (void) show;
 - (void) toggle;
 @end

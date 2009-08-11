@@ -105,7 +105,7 @@ CGPathRef NewPathWithRoundRect(CGRect rect, CGFloat cornerRadius)
 		autorelease];
 
 	// FIXME: Add an image instead...
-	loadingLabel.text = NSLocalizedString(@"Transaction saved", @"Transaction saved confirmation view");
+	loadingLabel.text = NSLocalizedString(@"Transaction added", @"Transaction saved confirmation view");
 	loadingLabel.textColor = [UIColor whiteColor];
 	loadingLabel.backgroundColor = [UIColor clearColor];
 	loadingLabel.textAlignment = UITextAlignmentCenter;

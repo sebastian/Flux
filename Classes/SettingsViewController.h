@@ -19,12 +19,25 @@
 	IBOutlet UISwitch * autoTagSwitch;
 	IBOutlet UILabel * autoTagLabel;
 	IBOutlet UILabel * autoTagDescriptionLabel;
+
+	IBOutlet UISwitch * localCurrencySwitch;
+	IBOutlet UILabel * localCurrencyLabel;
+	IBOutlet UILabel * localCurrencyDescriptionLabel;
+	
+	IBOutlet UISwitch * balanceSwitch;
+	IBOutlet UILabel * balanceLabel;
+	IBOutlet UILabel * balanceDescriptionLabel;
+	
+	IBOutlet UIScrollView * scrollview;
+	IBOutlet UIView * settingsView;
 }
 
 - (IBAction) changeCurrency;
 - (void)baseCurrencyChanged;
 
 - (IBAction) toggleAutoTag;
+- (IBAction) toggleLocalCurrency;
+- (IBAction) toggleBalanceBadge;
 
 // CurrencySelectionDialogDelegate method
 -(void)currencySelected:(NSString*)currencyCode;

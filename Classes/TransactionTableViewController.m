@@ -68,6 +68,7 @@
 }
 - (void)viewDidUnload {
 	
+	NSLog(@"View Did Unload called in %@", self);
 	// Remove from NotificationCenter
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	
@@ -120,7 +121,12 @@
 -(void)loadDataWithSortDescriptors:(NSArray*)sortDescriptors predicates:(NSPredicate*)predicate sectionNameKeyPath:(NSString*)sectionGroupingName cacheName:(NSString*)cacheName {
 	
 	// Only load data once...
-	if (resultsController != nil) {NSLog(@"Trying to reload data...");} else {NSLog(@"Loading data for %@", self);}
+	if (resultsController != nil) {
+		NSLog(@"Trying to reload data...");
+		NSLog(@"\tNot allowed! Returning");
+		return;
+		
+	} else {NSLog(@"Loading data for %@", self);}
 
 	NSEntityDescription *entity = [NSEntityDescription entityForName:@"Transaction" inManagedObjectContext:managedObjectContext]; 
 

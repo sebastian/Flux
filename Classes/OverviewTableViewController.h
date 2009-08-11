@@ -22,6 +22,14 @@
 	
 }
 
+// Clears cache and reloads table cells
+- (void) baseCurrencyChanged;
+- (NSString*)cellCachePath;
+- (void) makeCachePersistent;
+
+- (void) setBadgeBalance;
+- (void) computeDataForIndexPath:(NSIndexPath *)indexPath;
+
 //Different table cells
 @property (nonatomic, retain) IBOutlet OverviewTableCell * overviewTableCell;
 @property (nonatomic, retain) NSMutableDictionary * cellCalculations;

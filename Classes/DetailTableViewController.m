@@ -325,11 +325,7 @@
 	
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 	
-	// We are now going to show another page where the search bar is not required
-	// Save search state:
-	filterActive = [[FilterField sharedFilterBar] isVisible];
-	filterString = [[[FilterField sharedFilterBar] searchString] retain];
-	[[FilterField sharedFilterBar] hide];
+	NSLog(@"Selected <%i:%i>", indexPath.section, indexPath.row);
 	
 	// Create new display that shows the transaction
 	TransactionDisplay * infoDisplay =
@@ -341,6 +337,13 @@
 	
 	// Give it the current transaction to speed things up
 	infoDisplay.currentTransaction = theTransaction;
+
+	// We are now going to show another page where the search bar is not required
+	// Save search state:
+	filterActive = [[FilterField sharedFilterBar] isVisible];
+	filterString = [[[FilterField sharedFilterBar] searchString] retain];
+	//[[FilterField sharedFilterBar] hide];
+	[[FilterField sharedFilterBar] hideButRetainState];
 	
 	// Show it
 	[self.navigationController pushViewController:infoDisplay animated:YES];
@@ -399,8 +402,6 @@
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
 	if (localDelete) {
 		[self.tableView beginUpdates];
-	} else {
-		[super controllerWillChangeContent:controller];
 	}
 }
 - (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
@@ -413,8 +414,6 @@
 				
 				break;
 		}
-	} else {
-		[super controller:controller didChangeObject:anObject atIndexPath:indexPath forChangeType:type newIndexPath:newIndexPath];
 	}
 }
 - (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
@@ -435,8 +434,6 @@
 				[self.tableView performSelector:@selector(reloadData) withObject:nil afterDelay:0.3];
 				break;
 		}
-	} else {
-		[super controller:controller didChangeSection:sectionInfo atIndex:sectionIndex forChangeType:type];
 	}
 }
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {

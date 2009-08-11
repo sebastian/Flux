@@ -16,6 +16,14 @@
 -(void)viewDidLoad {
 	[super viewDidLoad];
 	[map addAnnotation:annotation];
+	
+	/*
+	 Zoom out a bit so that we can get a better view
+	 */
+	MKCoordinateSpan span = region.span;
+	span.latitudeDelta = span.latitudeDelta * 1.8;
+	region.span = span;
+	
 	[map setRegion:region];
 }
 

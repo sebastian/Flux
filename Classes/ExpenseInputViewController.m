@@ -12,6 +12,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "ControlViewController.h"
 #import "Utilities.h"
+#import "CurrencyManager.h"
 
 @interface ExpenseInputViewController (Private)
 -(void)updateExpenseDisplay;
@@ -35,6 +36,9 @@
 
 @synthesize bestLocation;
 
+@synthesize geoCoder;
+@synthesize localCurrency;
+
 
 #pragma mark
 #pragma mark -
@@ -50,6 +54,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+	
+	// Used to set the currency for new transactions
+	self.localCurrency = [[CurrencyManager sharedManager] baseCurrency];
 	
 	// State that the tags and description is not shown by default
 	tagsAndDescriptionInDisplay = NO;
@@ -79,21 +86,15 @@
 		// Create a new Transaction
 		self.currentTransaction = [NSEntityDescription insertNewObjectForEntityForName:@"Transaction" inManagedObjectContext:self.managedObjectContext];		
 	}
-	
-	// If it has a navigation bar (ie is in edit mode... then we should hide it!
-	if (self.navigationController != nil) {
-		[self.navigationController setNavigationBarHidden:YES animated:YES];
 		
-		// We are in edit mode!
-		// Show keyboard! (WHY DOESN'T IT SHOW BY ITSELF?)
-		[currencyKeyboard showKeyboard];
-		
-		[controller setEditMode:YES];
-	}
-	
 	// Setup controllers for transaction
 	[self setupControllersForTransaction];
 
+	/*
+	 If the base currency is updated we have to delete our cache...
+	 */
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(baseCurrencyChanged) name:@"CurrencyManagerDidChangeBaseCurrency" object:nil];	
+	
 	
 }
 - (void)viewDidAppear:(BOOL)animated {
@@ -129,12 +130,15 @@
 	self.controller = nil;
 	self.tagsAndDescriptionBackgroundPicture = nil;
 	
+	self.geoCoder = nil;
+	
 	[tagsAndDescriptionView release];
 	[tagsAndDescription release];
 	[headerLabel release];
 	[bestLocation release];
 	[amountLabel release];
 	[managedObjectContext release];
+	[localCurrency release];
     [super dealloc];
 }
 
@@ -143,11 +147,63 @@
 #pragma mark -
 #pragma mark CoreLocation - LocationController delegate methods
 -(void)locationUpdate:(CLLocation *)location {
-	self.bestLocation = location;
+	/*
+	 Only use locations that are less than five minutes old
+	 */
+	NSLog(@"Got a timestamp! (%i)", [location.timestamp timeIntervalSinceNow]);
+	if (abs([location.timestamp timeIntervalSinceNow]) > 5 * 60) { return; }
+	NSLog(@"It was less than fivem minutes old, use it! (%i)", [location.timestamp timeIntervalSinceNow]);
+	NSLog(@"The location: %@", location);
+	
+	
+	if (self.bestLocation == nil) {
+		self.bestLocation = location;
+		
+		NSLog(@"Starting geocoding");
+		// We have to geocode as well!
+		self.geoCoder = [[MKReverseGeocoder alloc] initWithCoordinate:location.coordinate];
+		geoCoder.delegate = self;
+		[geoCoder start];
+		
+	} else {
+		if (location.timestamp > self.bestLocation.timestamp) {
+			self.bestLocation = location;
+			
+			// And we should do a reverse geocoding as well!
+			
+		}
+	}
 }
 -(void)locationError:(NSString *)error {
 	NSLog(@"Got location error: %@", error);
 }
+-(void)reverseGeocoder:(MKReverseGeocoder *)geocoder didFindPlacemark:(MKPlacemark *)placemark {
+	/*
+	 We have to find the currency corrensponding to the country!
+	 */
+	NSString * countryCode = placemark.countryCode;
+	NSLog(@"Found countrycode: %@", countryCode);
+	
+	NSString * currencyCode = [[[CurrencyManager sharedManager] countryToCurrency] objectForKey:countryCode];
+	
+	if (!(currencyCode == nil)) {
+		
+		// Only if the user wants it!
+		if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"KleioTransactionsUseLocalCurrency"] boolValue] == YES) {
+			self.currentTransaction.currency = currencyCode;
+			self.localCurrency = currencyCode;
+			[self updateExpenseDisplay];			
+		}
+		
+	} else {
+		NSLog(@"Couldn't find a currency for %@", countryCode);
+	}
+	
+}
+- (void)reverseGeocoder:(MKReverseGeocoder *)geocoder didFailWithError:(NSError *)error {
+	// Nothing much to do...
+}
+
 
 #pragma mark
 #pragma mark -
@@ -196,6 +252,7 @@
 		
 		[currencyKeyboard showKeyboardWithAnimation:YES]; 
 
+		changeCurrencyButton.hidden = NO;
 		tagsAndDescription.hidden = NO;
 		tagsEditView.hidden = YES;
 		tagsAndDescriptionInDisplay = NO;
@@ -203,6 +260,7 @@
 	} else {
 		[currencyKeyboard hideKeyboardWithAnimation:YES];
 
+		changeCurrencyButton.hidden = YES;
 		tagsEditView.hidden = NO;
 		tagsAndDescription.hidden = YES;
 		tagsAndDescriptionInDisplay = YES;		
@@ -325,22 +383,13 @@
 		withObject:nil
 		afterDelay:1.0];
 	
-	// Is it for saving, or is it for creating?
-	if (self.navigationController != nil) {
-		// Just editing, so pop out
-		[self.navigationController setNavigationBarHidden:NO animated:YES];
-		[self.navigationController popViewControllerAnimated:YES];
-		
-	} else {
-		// In add mode, so create a fresh transaction
+
+	// Now we should assign a fresh Transaction to add
+	Transaction *trs = [NSEntityDescription insertNewObjectForEntityForName:@"Transaction" inManagedObjectContext:self.managedObjectContext];
+	trs.currency = self.localCurrency;
+	self.currentTransaction = trs;
 	
-		// Now we should assign a fresh Transaction to add
-		Transaction *trs = [NSEntityDescription insertNewObjectForEntityForName:@"Transaction" inManagedObjectContext:self.managedObjectContext];
-		self.currentTransaction = trs;
-		
-		[self setupControllersForTransaction];	
-		
-	}
+	[self setupControllersForTransaction];	
 }
 -(void)textFieldsResign {
 	[tagsField resignFirstResponder];
@@ -389,6 +438,21 @@
 	[self updateExpenseDisplay];
 	[self updateTagsAndDescriptionLabel];
 }
+-(void)baseCurrencyChanged {
+	/*
+	 This really is an edge case!
+	 CASE: the user does not want to use the local currency
+	 SCENARIO: The user changed his base currency. Hence the currency of the temporary
+	 transaction should be updated to reflect that...
+	 */
+	// Only if the user wants it!
+	if (![[[NSUserDefaults standardUserDefaults] objectForKey:@"KleioTransactionsUseLocalCurrency"] boolValue] == YES) {
+		self.currentTransaction.currency = [[CurrencyManager sharedManager] baseCurrency];
+		self.localCurrency = [[CurrencyManager sharedManager] baseCurrency];
+		[self updateExpenseDisplay];			
+	}
+}
+
 
 - (void)didReceiveMemoryWarning {
 	NSLog(@"didReceiveMemoryWarning: %@", self);

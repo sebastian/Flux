@@ -13,6 +13,7 @@
 #import "DetailTableViewController.h"
 #import "Utilities.h"
 #import "CurrencyManager.h"
+#import "FinanceAppDelegate.h"
 
 @interface OverviewTableViewController (PrivateMethods)
 - (void)clearDataCache;
@@ -25,6 +26,17 @@
 
 #pragma mark -
 #pragma mark Init and teardown
+
+- (void)loadView {
+	NSLog(@"Loading cell cache");
+	// Load in the cell calculations to get speed up!
+	self.cellCalculations = [NSKeyedUnarchiver unarchiveObjectWithFile:[self cellCachePath]];
+	if (self.cellCalculations == nil) { 
+		NSLog(@"Cache was nil... has to be regenerated!");
+		self.cellCalculations = [[NSMutableDictionary alloc] init];
+	}
+	[super loadView];
+}
 -(void)viewDidLoad {
 	[super viewDidLoad];
 			
@@ -45,7 +57,14 @@
 	//onlyLast3Months = YES; 	
 	onlyLast3Months = NO;
 
+	/*
+	 If the base currency is updated we have to delete our cache...
+	 */
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(baseCurrencyChanged) name:@"CurrencyManagerDidChangeBaseCurrency" object:nil];	
+
 	[self updateData];
+	
+	[self setBadgeBalance];
 }
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
@@ -59,6 +78,22 @@
 	[self.tableView deselectRowAtIndexPath:tableSelection animated:NO];
 	
 }
+- (void)viewDidUnload {
+	[super viewDidUnload];
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
+		
+}
+- (NSString*)cellCachePath {
+	FinanceAppDelegate * app = (FinanceAppDelegate*)[[UIApplication sharedApplication] delegate];
+	NSString *archivePath = [app.applicationDocumentsDirectory stringByAppendingPathComponent:@"OverviewTableCache.archive"];
+	return archivePath;
+}
+- (void) makeCachePersistent {
+	// Save the cell calculations cache to get super speed up :D
+	[NSKeyedArchiver archiveRootObject:self.cellCalculations
+								toFile:[self cellCachePath]];
+	NSLog(@"Saved cache!");
+}
 
 - (void)dealloc {
 	[cellCalculations release];
@@ -70,30 +105,17 @@
 #pragma mark Populate data
 // Initiates the fetch of results for the table view
 - (void)updateData {
+	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+	
 	// Sort descriptors
 	NSSortDescriptor * sortByYearMonth = [[NSSortDescriptor alloc] initWithKey:@"yearMonth" ascending:NO];	
 	NSArray * sortDescriptors = [NSArray arrayWithObjects:sortByYearMonth, nil];
 	[sortByYearMonth release];
-	
-	// Predicates
-//	const NSInteger numberOfMonthsToSubtract = 3;
-//	NSCalendar * currentCalendar = [NSCalendar currentCalendar];
-//	NSDateComponents * components = [currentCalendar components:(NSMonthCalendarUnit | NSDayCalendarUnit | NSYearCalendarUnit) fromDate:[NSDate dateWithTimeIntervalSinceNow:-(60 * 60 * 24 * 31 * numberOfMonthsToSubtract)]];
-//	
-//	NSString * yearMonthValue;
-//	if (components.month < 10) {
-//		yearMonthValue = [NSString stringWithFormat:@"%4i0%i", components.year, components.month];
-//	} else {
-//		yearMonthValue = [NSString stringWithFormat:@"%4i%i", components.year, components.month];
-//	}
-//	NSPredicate * onlyLastNMonths = [NSPredicate predicateWithFormat:@"yearMonth > %@", yearMonthValue];
-	NSPredicate * onlyLastNMonths = [NSPredicate predicateWithValue:YES];
-	
-	// Only use the predicate if we are asked to only display the last N months
-	if (!onlyLast3Months) {onlyLastNMonths = nil;}
-	
+		
 	// Perform the load
-	[self loadDataWithSortDescriptors:sortDescriptors predicates:onlyLastNMonths sectionNameKeyPath:@"yearMonth" cacheName:@"overviewTransactionCache"];	
+	[self loadDataWithSortDescriptors:sortDescriptors predicates:nil sectionNameKeyPath:@"yearMonth" cacheName:@"overviewTransactionCache"];	
+	
+	[pool release];
 }
 
 
@@ -115,23 +137,20 @@
 	 Depending on if I only show the last three rows or not
 	 I selectively fake a result here
 	 */
-	NSUInteger count = [[resultsController sections] count];
-	if (onlyLast3Months && (count < 3)) {
-		onlyLast3Months = NO;
-		return count;
-	} else if (onlyLast3Months) {
-		numOfSections = count;
-		return count + 1;
-	} else {
-		return count;
-	}
-}
-
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (self.cellCalculations == nil) { self.cellCalculations = [[NSMutableDictionary alloc] init];}
 	
+	if ([self.cellCalculations objectForKey:@"numOfRows"] == nil) {
+		NSLog(@"Had to calculate number of rows");
+		NSUInteger iCount = [[resultsController sections] count];
+		NSNumber * count = [NSNumber numberWithInt:iCount];
+		[self.cellCalculations setObject:count forKey:@"numOfRows"];
+		[self makeCachePersistent];
+	}
+	return [[self.cellCalculations objectForKey:@"numOfRows"] intValue];
+}
+- (void) computeDataForIndexPath:(NSIndexPath *)indexPath {
 	if ([cellCalculations objectForKey:indexPath] == nil) {
+		
+		NSLog(@"Generating overview data for row: %i", indexPath.row);
 		
 		// Get info to put into cell:
 		NSArray * sections = [resultsController sections];
@@ -170,16 +189,27 @@
 		
 		NSNumber * numAmount = [NSNumber numberWithDouble:amount];
 		NSString * calculatedAmount = [[CurrencyManager sharedManager] baseCurrencyDescriptionForAmount:numAmount withFraction:YES];
-		//NSString * calculatedAmount = [aTransaction numberToMoney:[NSNumber numberWithDouble:amount]];
 		
-		NSArray * data = [NSArray arrayWithObjects:dateFromObject, calculatedAmount, nil];
-		NSArray * keys = [NSArray arrayWithObjects:@"date", @"amount", nil];
+		NSArray * data = [NSArray arrayWithObjects:dateFromObject, calculatedAmount, numAmount, nil];
+		NSArray * keys = [NSArray arrayWithObjects:@"date", @"amount", @"rawAmount", nil];
 		NSDictionary * dict = [NSDictionary dictionaryWithObjects:data forKeys:keys];
 		
 		[cellCalculations setObject:dict forKey:indexPath];
-				
+		
+		// Make the cache persistant so it is saved for later
+		/*
+		 FIXME: Save on exit or something, but can't figure out how to trigger that...
+		 viewDidUnload is never triggered, and dealloc is not the place to do it because 
+		 it isn't guaranteed to be called...
+		 */
+		
+		[self makeCachePersistent];
 	}
+}
 
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+	[self computeDataForIndexPath:indexPath];
+	
 	// Values to use
 	NSDictionary * dict = [cellCalculations objectForKey:indexPath];
 	
@@ -198,21 +228,44 @@
 }
 - (void)clearDataCache {
 	[self.cellCalculations removeAllObjects];
+	// Save changes so that the cache is clear on next load as well
+	[self makeCachePersistent];
+	[self setBadgeBalance];
 }
-
+- (void) baseCurrencyChanged {
+	[self clearDataCache];
+	[self.tableView reloadData];
+}
+- (void) setBadgeBalance {
+	
+	if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"KleioTransactionsBalanceBadge"] boolValue] == YES) {
+		// We have to set the application badge to the current ballance
+		NSInteger numberOfRows = [self tableView:self.tableView numberOfRowsInSection:0];
+		
+		double amount;
+		
+		for (int n = 0; n < numberOfRows; n++) {
+			NSIndexPath * path = [NSIndexPath indexPathForRow:n inSection:0];
+			[self computeDataForIndexPath:path];
+			NSDictionary * dict = [self.cellCalculations objectForKey:path];
+			NSNumber * rawAmount = [dict objectForKey:@"rawAmount"];
+			amount += [rawAmount doubleValue];
+			
+		}
+		
+		NSInteger finalAmount = (NSInteger)amount;
+		
+		if ((finalAmount > 0) && (finalAmount < 10000)) {
+			[[UIApplication sharedApplication] setApplicationIconBadgeNumber:finalAmount];
+		} else {
+			[[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+		}
+		
+	}
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
-
-	/*
-	 Did the user click the load more data cell?
-	 */
-	if (onlyLast3Months && indexPath.row == numOfSections) {
-		onlyLast3Months = NO;
-		[self updateData];
-		[self.tableView reloadData];
-		return;
-	}
 
 	/*
 	 TODO:

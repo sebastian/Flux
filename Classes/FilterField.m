@@ -107,7 +107,9 @@ static FilterField * sharedFilterField = nil;
 - (void) toggle {
 	[delegate wantsToBeToggled];
 }
-
+- (void) hideButRetainState {
+	[delegate wantsToBeHiddenWithoutClearingState];
+}
 
 #pragma mark
 #pragma mark -

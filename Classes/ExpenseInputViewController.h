@@ -13,16 +13,19 @@
 #import "LocationController.h"
 #import "ControlViewController.h"
 #import "CurrencySelectionDialog.h"
+#import <MapKit/MapKit.h>
 
 static const CGFloat KEYBOARD_ANIMATION_DURATION = 0.3;
 static const CGFloat MAX_TEXTFIELD_WIDTH = 300;
 static const CGFloat MIN_TEXTFIELD_WIDTH = 40;
 static const CGFloat TEXTFIELD_PADDING = 10;
 
-@interface ExpenseInputViewController : UIViewController <CurrencySelectionDialogDelegate, UITextFieldDelegate, UITextViewDelegate, CurrencyKeyboardDelegate, KleioCoreLocationDelegate, ControlViewDelegate> {
+@interface ExpenseInputViewController : UIViewController <CurrencySelectionDialogDelegate, MKReverseGeocoderDelegate, UITextFieldDelegate, UITextViewDelegate, CurrencyKeyboardDelegate, KleioCoreLocationDelegate, ControlViewDelegate> {
 	UILabel * amountLabel;
 	ControlViewController * controller;
 
+	MKReverseGeocoder * geoCoder;
+	
 	UILabel * tagsAndDescription;
 	UIView * tagsAndDescriptionView;
 	UIImageView * tagsAndDescriptionBackgroundPicture;
@@ -31,6 +34,8 @@ static const CGFloat TEXTFIELD_PADDING = 10;
 	IBOutlet UITextField * tagsField;
 	IBOutlet UITextView * descriptionField;
 		
+	IBOutlet UIButton * changeCurrencyButton;
+	
 	CGRect originalViewFrame;
 	CGRect keyboardBounds;
 	
@@ -47,7 +52,13 @@ static const CGFloat TEXTFIELD_PADDING = 10;
 	
 	UILabel * headerLabel;
 	
+	NSString * localCurrency;
+	
 }
+
+//GeoCoder
+@property (nonatomic, retain) MKReverseGeocoder * geoCoder;
+@property (nonatomic, retain) NSString * localCurrency;
 
 // CoreData
 @property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
@@ -57,6 +68,8 @@ static const CGFloat TEXTFIELD_PADDING = 10;
 -(void)locationError:(NSString *)error;
 @property (nonatomic, retain) CLLocation * bestLocation;
 
+// Base currency
+-(void)baseCurrencyChanged;
 
 // Outlets
 @property (nonatomic, retain) IBOutlet UILabel * amountLabel;
