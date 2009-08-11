@@ -15,19 +15,27 @@
 	Transaction * currentTransaction;
 	CurrencyKeyboard * currencyKeyboard;
 	
+	IBOutlet UIView * editView;
+	IBOutlet UIScrollView * scrollview;
+	
 	IBOutlet UILabel * amountLabel;
-	IBOutlet UILabel * tagsLabel;
-	IBOutlet UILabel * descriptionLabel;
+	IBOutlet UIButton * amountButton;
+	IBOutlet UILabel * baseCurrencyAmountLabel;
+	
 	IBOutlet UILabel * dateLabel;
+	IBOutlet UIButton * dateButton;
+	
 	IBOutlet UILabel * locationLabel;
+	IBOutlet UILabel * locationDataLabel;
+	IBOutlet UISegmentedControl * locationClearButton;
 	
-	IBOutlet UITextField * amountField;
+	IBOutlet UILabel * tagsLabel;
 	IBOutlet UITextField * tagsField;
-	IBOutlet UITextField * descriptionField;
-	IBOutlet UITextField * dateField;
-	IBOutlet UITextField * locationField;
 	
-	IBOutlet UIButton * saveButton;
+	IBOutlet UILabel * descriptionLabel;
+	IBOutlet UITextView * descriptionView;
+	IBOutlet UISegmentedControl * saveButton;
+	
 }
 
 @property (nonatomic, retain) Transaction * currentTransaction;

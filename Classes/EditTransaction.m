@@ -43,13 +43,32 @@
 	
 	self.view.backgroundColor = [UIColor clearColor];
 	
-	// Set up all the textfields to contain the current data
-	amountField.text = [currentTransaction.kroner stringValue];
-	descriptionField.text = currentTransaction.transactionDescription;
-	tagsField.text = currentTransaction.tags;
-	//dateField.text = 
-	locationField.text = [NSString stringWithFormat:@"lat: %f, lng: %f", currentTransaction.location.coordinate.latitude, currentTransaction.location.coordinate.longitude];
+	scrollview.contentSize = CGSizeMake(editView.frame.size.width, editView.frame.size.height);
+	[scrollview addSubview:editView];
 	
+	// Setup controls
+	amountLabel.text = NSLocalizedString(@"Amount:", nil);
+	[amountButton setTitle:[self.currentTransaction amountInLocalCurrency] forState:UIControlStateNormal];
+	baseCurrencyAmountLabel.text = [NSString stringWithFormat:@"(%@)", [self.currentTransaction amountInBaseCurrency]];
+	
+	dateLabel.text = NSLocalizedString(@"Date:", nil);
+	NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
+	[dateButton setTitle:[formatter stringFromDate:self.currentTransaction.date] forState:UIControlStateNormal];
+
+	locationLabel.text = NSLocalizedString(@"Location:",nil);
+	// FIXME: Get geo coded data for this address...
+	locationDataLabel.text = @"A location";
+	[locationClearButton setTitle:NSLocalizedString(@"Clear",nil) forSegmentAtIndex:0];
+
+	tagsLabel.text = NSLocalizedString(@"Tags:", nil);
+	tagsField.text = self.currentTransaction.tags;
+	
+	descriptionLabel.text = NSLocalizedString(@"Description:",nil);
+	descriptionView.text = self.currentTransaction.transactionDescription;
+	descriptionView.font = tagsField.font;
+	
+	[saveButton setTitle:NSLocalizedString(@"Save",nil) forSegmentAtIndex:0];
+		
 }
 
 -(void)cancel {
