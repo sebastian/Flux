@@ -113,7 +113,6 @@
 		96D7AB4910287BEB000FCC42 /* DetailCellBottom.png in Resources */ = {isa = PBXBuildFile; fileRef = 96D7AB4810287BEB000FCC42 /* DetailCellBottom.png */; };
 		96D937291014922F0062E7A4 /* OKOverlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 96D937281014922F0062E7A4 /* OKOverlay.png */; };
 		96E2D66D102581C7007465F5 /* KleioSearchBar.png in Resources */ = {isa = PBXBuildFile; fileRef = 96E2D66C102581C7007465F5 /* KleioSearchBar.png */; };
-		96E419E01032E0CA002F6725 /* EditTextFieldsNormal.png in Resources */ = {isa = PBXBuildFile; fileRef = 96E419DF1032E0CA002F6725 /* EditTextFieldsNormal.png */; };
 		96E419ED1032E386002F6725 /* EditTextFieldsActive.png in Resources */ = {isa = PBXBuildFile; fileRef = 96E419EC1032E386002F6725 /* EditTextFieldsActive.png */; };
 		96E41A001032E79C002F6725 /* EditSectionDivider.png in Resources */ = {isa = PBXBuildFile; fileRef = 96E419FF1032E79C002F6725 /* EditSectionDivider.png */; };
 		96E41A051032E9F9002F6725 /* EditTextViewBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 96E41A041032E9F9002F6725 /* EditTextViewBackground.png */; };
@@ -262,7 +261,6 @@
 		96D7AB4810287BEB000FCC42 /* DetailCellBottom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = DetailCellBottom.png; path = Graphics/DetailCellBottom.png; sourceTree = "<group>"; };
 		96D937281014922F0062E7A4 /* OKOverlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = OKOverlay.png; path = Graphics/OKOverlay.png; sourceTree = "<group>"; };
 		96E2D66C102581C7007465F5 /* KleioSearchBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = KleioSearchBar.png; path = Graphics/KleioSearchBar.png; sourceTree = "<group>"; };
-		96E419DF1032E0CA002F6725 /* EditTextFieldsNormal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = EditTextFieldsNormal.png; path = Graphics/EditTextFieldsNormal.png; sourceTree = "<group>"; };
 		96E419EC1032E386002F6725 /* EditTextFieldsActive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = EditTextFieldsActive.png; path = Graphics/EditTextFieldsActive.png; sourceTree = "<group>"; };
 		96E419FF1032E79C002F6725 /* EditSectionDivider.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = EditSectionDivider.png; path = Graphics/EditSectionDivider.png; sourceTree = "<group>"; };
 		96E41A041032E9F9002F6725 /* EditTextViewBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = EditTextViewBackground.png; path = Graphics/EditTextViewBackground.png; sourceTree = "<group>"; };
@@ -524,7 +522,6 @@
 				96E41A041032E9F9002F6725 /* EditTextViewBackground.png */,
 				96E419FF1032E79C002F6725 /* EditSectionDivider.png */,
 				96E419EC1032E386002F6725 /* EditTextFieldsActive.png */,
-				96E419DF1032E0CA002F6725 /* EditTextFieldsNormal.png */,
 				96D7AB4810287BEB000FCC42 /* DetailCellBottom.png */,
 				96D7AAE510287694000FCC42 /* DetailCellTop.png */,
 				96D7AAE11028752A000FCC42 /* CellDetail.png */,
@@ -760,7 +757,6 @@
 				96D7AAE610287694000FCC42 /* DetailCellTop.png in Resources */,
 				96D7AB4910287BEB000FCC42 /* DetailCellBottom.png in Resources */,
 				9657530910303BEF00F93557 /* SettingsViewController.xib in Resources */,
-				96E419E01032E0CA002F6725 /* EditTextFieldsNormal.png in Resources */,
 				96E419ED1032E386002F6725 /* EditTextFieldsActive.png in Resources */,
 				96E41A001032E79C002F6725 /* EditSectionDivider.png in Resources */,
 				96E41A051032E9F9002F6725 /* EditTextViewBackground.png in Resources */,
