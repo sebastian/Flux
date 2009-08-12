@@ -10,6 +10,13 @@
 #import "Utilities.h"
 #import "CurrencyManager.h"
 
+@interface Transaction (CoreDataGeneratedPrimitiveAccessors)
+
+- (NSDate *)primitiveDate;
+- (void)setPrimitiveDate:(NSDate *)value;
+
+@end
+
 @implementation Transaction 
 
 @dynamic expense;
@@ -37,10 +44,27 @@
 	// Set date to the current date
 	self.date = [NSDate date];
 	
+	// Set the currency
+	self.currency = [[CurrencyManager sharedManager] baseCurrency];
+	
+	// Set them to empty strings
+	self.transactionDescription = @"";
+	self.tags = @"";
+
+	self.expense = [NSNumber numberWithBool:YES];
+}
+
+- (void)setDate:(NSDate *)value {
+
+    // From the auto generated coreData method
+	[self willChangeValueForKey:@"date"];
+    [self setPrimitiveDate:value];
+    [self didChangeValueForKey:@"date"];
+	
 	// Set the month and year for easier searching and displaying and most importantly grouping!
 	NSCalendar * currentCalendar = [NSCalendar currentCalendar];
 	NSDateComponents * components = [currentCalendar components:(NSMonthCalendarUnit | NSDayCalendarUnit | NSYearCalendarUnit) fromDate:self.date];
-
+	
 	NSString * yearMonthValue;
 	if (components.month < 10) {
 		yearMonthValue = [NSString stringWithFormat:@"%4i0%i", components.year, components.month];
@@ -51,15 +75,8 @@
 	self.day = [NSNumber numberWithInt:components.day];
 	self.yearMonth = yearMonthValue;	
 	
-	// Set the currency
-	self.currency = [[CurrencyManager sharedManager] baseCurrency];
-	
-	// Set them to empty strings
-	self.transactionDescription = @"";
-	self.tags = @"";
-
-	self.expense = [NSNumber numberWithBool:YES];
 }
+
 -(void)dealloc {
 	[formatter dealloc];
 	[super dealloc];
@@ -92,6 +109,14 @@
 	[dateFormatter setDateStyle:NSDateFormatterMediumStyle];
 	return [dateFormatter stringFromDate:self.date];
 	
+}
+-(NSString*)longFormattedDate {
+	NSDateFormatter * dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+	[dateFormatter setFormatterBehavior:[NSDateFormatter defaultFormatterBehavior]];
+	[dateFormatter setLocale:[NSLocale currentLocale]];
+	[dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+	[dateFormatter setTimeStyle:NSDateFormatterShortStyle];
+	return [dateFormatter stringFromDate:self.date];	
 }
 -(double)normalizedAmount {
 	double dAmount = [self.kroner doubleValue]/100;

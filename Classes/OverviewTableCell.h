@@ -19,7 +19,6 @@
 @property (nonatomic, retain) IBOutlet UILabel * amount;
 @property (nonatomic, retain) IBOutlet UILabel * year;
 
--(void)setValuesWithTransaction:(Transaction *)transaction;
 -(void)updateCellWithDate:(NSDate*)date andAmount:(NSString*)amountString;
 
 @end

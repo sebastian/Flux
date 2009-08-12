@@ -53,7 +53,7 @@
 	
 	// Set the values
 	year.text = [NSString stringWithFormat:@"%i", components.year];
-	month.text = monthName;
+	month.text = [monthName capitalizedString]; 
 	amount.text = amountString;
 	
 	// Resize the amount text field to get it as big as possible
@@ -65,37 +65,6 @@
 	[amount setFrame:amountFrame];
 	
 
-}
-
--(void)setValuesWithTransaction:(Transaction*)transaction {
-
-	
-	month.text = @"Something";
-	amount.text = [transaction amountInLocalCurrency];
-	
-	// Resize the price field to match the price value
-	UIFont * font = [UIFont fontWithName:@"Helvetica" size:17.0];
-	NSString * text = [transaction amountInLocalCurrency];
-	
-	CGSize textSize = [text sizeWithFont:font];
-	
-	CGRect cellSize = [self frame];
-	
-	float x_location = cellSize.size.width - PRICE_FIELD_MAX_WIDTH - PRICE_FIELD_MARGIN;
-	float price_field_width = PRICE_FIELD_MAX_WIDTH;
-	
-	if (textSize.width < PRICE_FIELD_MAX_WIDTH) {
-		// Adjust new price size
-		x_location = cellSize.size.width - PRICE_FIELD_MARGIN - textSize.width;
-		price_field_width = textSize.width;
-	}
-	
-	CGRect price_frame = [amount frame];
-	price_frame.origin.x = x_location;
-	price_frame.size.width = price_field_width;
-	
-	[amount setFrame:price_frame];
-	
 }
 
 -(void)dealloc {	

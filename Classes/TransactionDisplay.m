@@ -22,7 +22,7 @@
 
 @synthesize currentTransaction, annotation, region;
 
-- (void)viewDidLoad {
+- (void) viewDidLoad {
     [super viewDidLoad];
 	
 	// Add edit button
@@ -32,33 +32,45 @@
 	self.navigationItem.rightBarButtonItem = editButton;
 	[editButton release];
 	
-	// Get the map location right
-	CLLocationCoordinate2D location ;
-	location = currentTransaction.location.coordinate;
+	if (currentTransaction.location != nil) {
+		// Get the map location right
+		CLLocationCoordinate2D location ;
+		location = currentTransaction.location.coordinate;
 		
-	self.annotation = [[MapAnnotation alloc] initWithTransaction:currentTransaction];
-	[map addAnnotation:self.annotation];
-
-	MKCoordinateSpan span;
-	span.latitudeDelta = 0.0015;
-	
-	MKCoordinateRegion theRegion;
-	theRegion.center = location;
-	theRegion.span = span;
-	self.region = theRegion;
-	
-	[map setRegion:self.region];
+		self.annotation = [[MapAnnotation alloc] initWithTransaction:currentTransaction];
+		[map addAnnotation:self.annotation];
+		
+		MKCoordinateSpan span;
+		span.latitudeDelta = 0.0015;
+		
+		MKCoordinateRegion theRegion;
+		theRegion.center = location;
+		theRegion.span = span;
+		self.region = theRegion;
+		
+		[map setRegion:self.region];
+		
+	}
 	
 }
 - (void) viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
+	
+	/*
+	 This has to be checked in will apear rather than load
+	 in case the user updates the transaction
+	 */
+	if (currentTransaction.location == nil) {
+		map.hidden = YES;
+		mapZoomButton.hidden = YES;
+	}
 	
 	// Set the textual data
 	description.text = currentTransaction.transactionDescription;
 	when.text = [currentTransaction formattedDate];
 	amount.text = [currentTransaction amountInLocalCurrency];
 	
-	// Add in base currency if different
+	// Add if base currency if different
 	if (![currentTransaction.currency isEqualToString:[[CurrencyManager sharedManager] baseCurrency]]) {
 		amount.text = [amount.text stringByAppendingFormat:@" (%@)", [currentTransaction amountInBaseCurrency]];
 	}
@@ -79,15 +91,15 @@
 	
 	
 }
-- (void)viewDidUnload {
+- (void) viewDidUnload {
 	map = nil;
 }
-- (void)dealloc {
+- (void) dealloc {
 	[currentTransaction release];
 	[annotation release];
     [super dealloc];
 }
-- (void)didReceiveMemoryWarning {
+- (void) didReceiveMemoryWarning {
     NSLog(@"Did receive memory warning in %@", self);
 	[super didReceiveMemoryWarning];
 }

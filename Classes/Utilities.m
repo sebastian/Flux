@@ -170,7 +170,16 @@ static Utilities *sharedUtilitiesToolbox = nil;
 	}
 	return dateFormatter;
 }
-
+-(CGSize)sizeOfTextOfField:(UITextField*)field {
+	NSString * text = field.text;
+	CGSize size = [text sizeWithFont:field.font];
+	return size;
+}
+-(CGSize)sizeOfTextOfLabel:(UILabel*)label {
+	NSString * text = label.text;
+	CGSize size = [text sizeWithFont:label.font];
+	return size;
+}
 #pragma mark
 #pragma mark -
 #pragma mark CoreData methods

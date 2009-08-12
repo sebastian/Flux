@@ -14,6 +14,7 @@
 	NSNumberFormatter * formatter;
 }
 
+
 @property (nonatomic, retain) NSString * transactionDescription;
 @property (nonatomic, retain) NSString * tags;
 @property (nonatomic, retain) NSString * autotags;
@@ -42,6 +43,7 @@
 -(void)addNumber:(NSInteger)num;
 -(void)eraseOneNum;
 -(NSString*)formattedDate;
+-(NSString*)longFormattedDate;
 -(NSString*)timeToString;
 -(NSString*)descriptionAndTags;
 -(NSString*)amountInBaseCurrency;

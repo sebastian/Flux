@@ -36,6 +36,8 @@
 -(Tag*)tagObjectforTag:(NSString*)tag;
 -(NSArray*)tagStringToArray:(NSString*)tagString;
 -(void)clearCache;
+-(CGSize)sizeOfTextOfField:(UITextField*)field;
+-(CGSize)sizeOfTextOfLabel:(UILabel*)label;
 
 // CoreData
 - (void)save:(NSManagedObjectContext*)context;

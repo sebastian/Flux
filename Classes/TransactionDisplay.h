@@ -17,10 +17,10 @@
     IBOutlet UILabel *amount;
     IBOutlet UILabel *description;
     IBOutlet MKMapView *map;
+	IBOutlet UIButton * mapZoomButton;
     IBOutlet UILabel *tags;
     IBOutlet UILabel *what;
     IBOutlet UILabel *when;
-	IBOutlet UIButton *moveMapButton;
 	
 	// For map
 	MapAnnotation * annotation;
