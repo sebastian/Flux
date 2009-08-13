@@ -9,10 +9,11 @@
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
 #import "FilterField.h"
+#import "KleioSearchBar.h"
 
 @class TransactionsNavigationController;
 
-@interface TransactionsMainViewController : UIViewController <FilterFieldDelegate> {
+@interface TransactionsMainViewController : UIViewController <FilterFieldDelegate, KleioSearchBarDelegate> {
 	UIView * contentView;
 	BOOL searchIsVisible;
 	

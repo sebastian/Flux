@@ -35,10 +35,10 @@
 		
 		self.navController = [[TransactionsNavigationController alloc] initWithContext:context];
 		self.contentView = self.navController.view;
-				
+		
 		// Register as the delegate of the filter field
 		[[FilterField sharedFilterBar] setDelegate:self];
-		
+
 		// Add the filter field to the view
 		[self.view addSubview:[FilterField sharedFilterBar].view];
 		
