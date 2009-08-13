@@ -110,6 +110,8 @@
  */
 - (void)applicationWillTerminate:(UIApplication *)application {
 	
+	NSLog(@"Application will terminate");
+	
     NSError *error;
     if (managedObjectContext != nil) {
         if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {

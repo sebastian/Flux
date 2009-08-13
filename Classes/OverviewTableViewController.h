@@ -19,6 +19,9 @@
 	NSInteger numOfSections;
 	
 	NSMutableDictionary * cellCalculations;
+	NSMutableDictionary * cacheTable;
+	
+	BOOL performingDelayedReload;
 	
 }
 

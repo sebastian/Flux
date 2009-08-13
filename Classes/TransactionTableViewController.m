@@ -12,8 +12,10 @@
 
 @interface TransactionTableViewController (PrivateMethods)
 - (void)clearCacheIfAvailable;
+- (void)clearCacheIfAvailableForIndexPath:(NSIndexPath*)indexPath;
 - (void)toggleSearch;
 - (void)updatePredicate:(NSNotification*)notification;
+- (void)staleCache:(NSNotification*)notification;
 @end
 
 
@@ -33,10 +35,26 @@
 	if (self != nil) {
 		self.managedObjectContext = context;
 		self.filteringPredicate = [NSPredicate predicateWithValue:YES];
+		
+		/*
+		 If we don't start listening for cache changes
+		 already on the init, then we miss insertions of new
+		 transactions that occure before the overview page has been visited!
+		 */
+		[[NSNotificationCenter defaultCenter]
+			addObserver:self
+			selector:@selector(clearCacheIfAvailable)
+			name:@"FinanceKillAllCache"
+			object:nil];		
+		
 	}	
 	return self;
 }
 - (void)dealloc {
+	NSLog(@"Unregistering observer %@", self);
+	[[NSNotificationCenter defaultCenter] removeObserver:self.tableView];
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	
 	NSLog(@"Deallocing %@", self);
 	
 	self.managedObjectContext = nil; // release
@@ -47,6 +65,7 @@
 	[super dealloc];
 }
 - (void)viewDidLoad {
+		
 	UIBarButtonItem * searchButton = 
 		[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch 
 													  target:self 
@@ -60,11 +79,15 @@
 		selector:@selector(updatePredicate:)
 		name:@"KleioPredicateUpdated"
 		object:nil];
+
+	[[NSNotificationCenter defaultCenter]
+		addObserver:self.tableView
+		selector:@selector(reloadData)
+		name:@"GlobalTableViewReloadData"
+		object:nil];		
 	
 	[self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
 	self.tableView.backgroundColor = [UIColor clearColor];
-
-	
 }
 - (void)viewDidUnload {
 	
@@ -98,22 +121,32 @@
 		
 	} 
 }
-
+- (void)staleCache:(NSNotification*)notification {
+	NSDictionary * dict = notification.userInfo;
+	NSDictionary * monthsToDelete = [dict objectForKey:@"yearMonthDictionary"];
+	
+	if ([self respondsToSelector:@selector(clearCacheForYearMonth:)]) {
+		[self performSelector:@selector(clearCacheForYearMonth:) withObject:monthsToDelete];
+	} else {
+		NSLog(@"%@ does not respond to clearCacheForYearMonth");
+	}
+}
 - (void)clearCacheIfAvailable {
-
 	if ([self respondsToSelector:@selector(clearDataCache)]) {
 		[self performSelector:@selector(clearDataCache)];
-	} 	
-	
+		NSLog(@"Clearing all cache in %@", self);
+	} else {
+		NSLog(@"ERROR: Could not find clearDataCache method in %@", self);
+	}
+}
+- (void)clearCacheIfAvailableForIndexPath:(NSIndexPath*)indexPath {
+	if ([self respondsToSelector:@selector(clearDataCacheForIndexPath:)]) {
+		[self performSelector:@selector(clearDataCacheForIndexPath:) withObject:indexPath];
+	} else {
+		NSLog(@"Does not respond to clearCacheForIndexPath");
+	}
 }
 
-
-#pragma mark -
-#pragma mark NSFetchedResultsController delegate methods
-- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-	[self clearCacheIfAvailable];
-	[self.tableView reloadData];
-}
 
 
 #pragma mark -

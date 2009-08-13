@@ -23,7 +23,6 @@
 
 @synthesize currentTransaction;
 @synthesize currencyKeyboard;
-@synthesize geoCoder;
 
 // Values for safe keeping
 @synthesize transactionDescription;
@@ -70,13 +69,16 @@
 	
 	// Set up the date picker
 	[self.view addSubview:datePickerView];
+	[self.view bringSubviewToFront:datePickerView];
 	
 	// Set the current locale
 	NSLocale * currentLocale = [NSLocale currentLocale]; 
 	datePicker.locale = currentLocale;
 	
 	// Set date picker to current date
-	datePicker.date = currentTransaction.date;
+	if (currentTransaction.date) {
+		datePicker.date = currentTransaction.date;
+	}
 	
 	// Hide it
 	CGRect datePickerViewFrame = datePickerView.frame;
@@ -106,6 +108,11 @@
 	descriptionLabel.text = NSLocalizedString(@"Description:",nil);
 	descriptionView.font = tagsField.font;
 	
+	// Geo code location
+	if (currentTransaction.location != nil) {
+		[[Utilities toolbox] reverseGeoCode:currentTransaction.location.coordinate forDelegate:self];
+	}
+	
 	// Setup the contents of the dynamic fields
 	[self setupControls];
 		
@@ -130,11 +137,6 @@
 		CGRect frame = locationDataLabel.frame;
 		frame.size.height = size.height * 2;
 		locationDataLabel.frame = frame;
-		
-	} else {
-		self.geoCoder = [[MKReverseGeocoder alloc] initWithCoordinate:currentTransaction.location.coordinate];
-		geoCoder.delegate = self;
-		[geoCoder start];		
 	}
 	
 	tagsField.text = self.currentTransaction.tags;
@@ -152,7 +154,6 @@
 	// e.g. self.myOutlet = nil;
 }
 - (void)dealloc {
-	[geoCoder release];
 	[currencyKeyboard release];
 	[currentTransaction release];
 	
@@ -223,11 +224,20 @@
 	if (currencyKeyboardShowing) {
 		[self.currencyKeyboard hideKeyboardWithAnimation:YES];
 		[amountButton setBackgroundImage:nil forState:UIControlStateNormal];
+		
+		// Now it shouldn't be showing anymore ... shortly anyway
 		currencyKeyboardShowing = NO;
+		
+		[self adjustViewSizeWith:0 andScrollFor:nil];
+		
 	} else {
 		[amountButton setBackgroundImage:[UIImage imageNamed:@"EditTextFieldsActive.png"] forState:UIControlStateNormal];
 		[self.currencyKeyboard showKeyboardWithAnimation:YES];
+		
+		// It is going to be showing, yeho
 		currencyKeyboardShowing = YES;
+		
+		[self adjustViewSizeWith:[self.currencyKeyboard keyboardHeight] andScrollFor:nil];
 	}
 }
 - (IBAction)dateButtonAction {
@@ -257,13 +267,18 @@
 		[self adjustViewSizeWith:frame.size.height andScrollFor:dateButton];
 	}
 
+	
 	// Perform animations
 	[UIView beginAnimations:nil context:NULL];
     [UIView setAnimationDuration:[[Utilities toolbox] keyboardAnimationDuration]];
     
-	datePickerView.frame = frame;
+	datePickerView.frame = frame;	
     
     [UIView commitAnimations];
+	
+	[datePicker becomeFirstResponder];
+	[datePickerView bringSubviewToFront:datePicker];
+	[self.view bringSubviewToFront:datePickerView];
 	
 }
 - (IBAction)dateChangedAction {
@@ -289,7 +304,7 @@
 	 when showing and hiding keyboards
 	 */
 	if (viewFrameCache.size.height == 0) {
-		viewFrameCache = self.view.frame;
+		viewFrameCache = scrollview.frame;
 	}
 	
 	// Calculate new frame
@@ -299,7 +314,7 @@
 	// Perform animations
 	[UIView beginAnimations:nil context:NULL];
     [UIView setAnimationDuration:[[Utilities toolbox] keyboardAnimationDuration]];
-	self.view.frame = viewFrame;    
+	scrollview.frame = viewFrame;    
     [UIView commitAnimations];
 	
 	// If we should scroll, then we scroll
@@ -406,10 +421,14 @@
 - (void)reverseGeocoder:(MKReverseGeocoder *)geocoder didFailWithError:(NSError *)error {
 	NSString * errorText = NSLocalizedString(@"Location not found",nil);
 	CGSize sizeOfText = [errorText sizeWithFont:locationDataLabel.font];
-	CGRect frame = locationDataLabel.frame;
-	frame.size.height = sizeOfText.height;
-	locationDataLabel.frame = frame;
-	locationDataLabel.text = errorText;
+
+	// This is an asynchronous call, so it might return later...
+	if (locationDataLabel != nil) {
+		CGRect frame = locationDataLabel.frame;
+		frame.size.height = sizeOfText.height;
+		locationDataLabel.frame = frame;
+		locationDataLabel.text = errorText;		
+	}
 }
 
 

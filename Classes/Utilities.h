@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 #import <CoreLocation/CoreLocation.h>
+#import <MapKit/MapKit.h>
 
 @class Tag;
 
@@ -17,14 +18,18 @@
 	NSMutableDictionary * tagCache;
 	NSManagedObjectContext * managedObjectContext;
 	
+	MKReverseGeocoder * geoCoder;
+	
 	NSDateFormatter * dateFormatter;
 	
 	BOOL searchIsVisible;
 	BOOL saving;
+	BOOL reloadingTableAllowed;
 }
 
 @property (nonatomic, retain) NSManagedObjectContext * managedObjectContext;
 @property (nonatomic, retain) NSDateFormatter * dateFormatter;
+@property (nonatomic, retain) MKReverseGeocoder * geoCoder;
 
 // The one public init method
 + (Utilities*)toolbox;
@@ -38,6 +43,14 @@
 -(void)clearCache;
 -(CGSize)sizeOfTextOfField:(UITextField*)field;
 -(CGSize)sizeOfTextOfLabel:(UILabel*)label;
+
+// ReverseGeocoder methods
+- (void)reverseGeoCode:(CLLocationCoordinate2D)coordinate forDelegate:(id<MKReverseGeocoderDelegate>)delegate;
+
+-(void) setReloadingTableAllowed;
+-(void) setReloadingTableNotAllowed;
+-(BOOL) isReloadingTableAllowed;
+
 
 // CoreData
 - (void)save:(NSManagedObjectContext*)context;

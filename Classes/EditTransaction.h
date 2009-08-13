@@ -41,8 +41,6 @@
 	IBOutlet UILabel * descriptionLabel;
 	IBOutlet UITextView * descriptionView;
 	
-	MKReverseGeocoder * geoCoder;
-	
 	// temporary values for safe keeping
 	NSString * transactionDescription;
 	NSString * tags;
@@ -73,8 +71,6 @@
 @property (nonatomic, retain) NSString * yearMonth;
 @property (nonatomic, retain) NSNumber * day;
 
-
-@property (nonatomic, retain) MKReverseGeocoder * geoCoder;
 @property (nonatomic, retain) Transaction * currentTransaction;
 @property (nonatomic, retain) CurrencyKeyboard * currencyKeyboard;
 

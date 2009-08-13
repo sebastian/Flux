@@ -31,6 +31,8 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil andContext:(NSManagedObjectContext*)context {
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
 		
+		[[Utilities toolbox] setReloadingTableAllowed];	
+		
 		self.navController = [[TransactionsNavigationController alloc] initWithContext:context];
 		self.contentView = self.navController.view;
 				

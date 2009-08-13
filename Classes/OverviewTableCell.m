@@ -30,7 +30,7 @@
 	NSDateFormatter * dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
 	[dateFormatter setLocale:userLocale];
 	
-	NSString * monthName = [[dateFormatter monthSymbols] objectAtIndex:components.month-1];
+	NSString * monthName = [[[dateFormatter monthSymbols] objectAtIndex:components.month-1] capitalizedString];
 		
 	/*
 	 Make the month and year have the right size
@@ -53,7 +53,7 @@
 	
 	// Set the values
 	year.text = [NSString stringWithFormat:@"%i", components.year];
-	month.text = [monthName capitalizedString]; 
+	month.text = monthName; 
 	amount.text = amountString;
 	
 	// Resize the amount text field to get it as big as possible

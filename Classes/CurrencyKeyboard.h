@@ -51,6 +51,7 @@
 -(void)disableNumericButtons;
 -(void)enableNumericButtons;
 
+-(NSInteger)keyboardHeight;
 
 // IBActions
 -(IBAction)numberButtonPushed:(id)sender;

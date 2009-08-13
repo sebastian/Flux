@@ -26,18 +26,7 @@
 
 #pragma mark -
 #pragma mark Init and teardown
-
-- (void)loadView {
-	NSLog(@"Loading cell cache");
-	// Load in the cell calculations to get speed up!
-	self.cellCalculations = [NSKeyedUnarchiver unarchiveObjectWithFile:[self cellCachePath]];
-	if (self.cellCalculations == nil) { 
-		NSLog(@"Cache was nil... has to be regenerated!");
-		self.cellCalculations = [[NSMutableDictionary alloc] init];
-	}
-	[super loadView];
-}
--(void)viewDidLoad {
+- (void)viewDidLoad {
 	[super viewDidLoad];
 			
 	self.title = NSLocalizedString(@"Overview", @"Overview table transaction view");
@@ -71,11 +60,12 @@
 	
 	/*
 	 Hide the top view that is just for making it look nice
+	 FIXME: This makes it jump to the top whenever I go up a level to get to the overview controller!
 	 */
-	[self.tableView setContentOffset:CGPointMake(0, 31.f) animated:NO];
-	
-	NSIndexPath *tableSelection = [self.tableView indexPathForSelectedRow];
-	[self.tableView deselectRowAtIndexPath:tableSelection animated:NO];
+//	[self.tableView setContentOffset:CGPointMake(0, 31.f) animated:NO];
+//	
+//	NSIndexPath *tableSelection = [self.tableView indexPathForSelectedRow];
+//	[self.tableView deselectRowAtIndexPath:tableSelection animated:NO];
 	
 }
 - (void)viewDidUnload {
@@ -106,6 +96,23 @@
 // Initiates the fetch of results for the table view
 - (void)updateData {
 	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+
+	/* 
+	 We load in the cached cell data as well
+	 There are some conditions. First we check if it has already been loaded
+	 If not we try to load it, and if that still doesn't result in any cache
+	 then we create an empty cache dictionary
+	 */
+	if (self.cellCalculations == nil) {
+		// Not loaded yet => load
+		NSLog(@"Loading cell cache");
+		self.cellCalculations = [NSKeyedUnarchiver unarchiveObjectWithFile:[self cellCachePath]];
+		if (self.cellCalculations == nil) { 
+			// There didn't exist any cache. We create an empty dictionary
+			NSLog(@"Cache was nil... has to be regenerated!");
+			self.cellCalculations = [[NSMutableDictionary alloc] init];
+		}
+	}
 	
 	// Sort descriptors
 	NSSortDescriptor * sortByYearMonth = [[NSSortDescriptor alloc] initWithKey:@"yearMonth" ascending:NO];	
@@ -139,14 +146,60 @@
 	 */
 	
 	if ([self.cellCalculations objectForKey:@"numOfRows"] == nil) {
-		NSLog(@"Had to calculate number of rows");
 		NSUInteger iCount = [[resultsController sections] count];
 		NSNumber * count = [NSNumber numberWithInt:iCount];
 		[self.cellCalculations setObject:count forKey:@"numOfRows"];
 		[self makeCachePersistent];
+		NSLog(@"Had to calculate number of rows (%i)", iCount);
 	}
 	return [[self.cellCalculations objectForKey:@"numOfRows"] intValue];
 }
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+	[self computeDataForIndexPath:indexPath];
+	
+	// Values to use
+	NSDictionary * dict = [cellCalculations objectForKey:indexPath];
+	
+	// Get a cell:
+	static NSString *CellIdentifier = @"OverviewCell";
+	OverviewTableCell *cell = (OverviewTableCell *) [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+	if (cell == nil) {
+		[[NSBundle mainBundle] loadNibNamed:@"OverviewTableCell" owner:self options:nil]; 
+		cell = self.overviewTableCell;
+	}
+	
+	[cell updateCellWithDate:[dict objectForKey:@"date"] andAmount:[dict objectForKey:@"amount"]];
+	
+    return cell;
+	
+}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	[tableView deselectRowAtIndexPath:indexPath animated:YES];
+	
+	// Values to use
+	NSDictionary * dict = [cellCalculations objectForKey:indexPath];
+	
+    DetailTableViewController * detailController = [[DetailTableViewController alloc] initWithStyle:UITableViewStylePlain 
+																						 andContext:managedObjectContext];
+	detailController.delegate = self;
+	detailController.yearMonthToDisplay = [dict objectForKey:@"yearMonth"];
+	
+	NSLog(@"Passing on yearMonth: %@", [dict objectForKey:@"yearMonth"]);
+	
+	// Passing along the filtering predicates so searches can be passed on
+	detailController.filteringPredicate = self.filteringPredicate;
+
+	[self.navigationController pushViewController:detailController animated:YES];
+	[detailController release];
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+	return 80;
+}
+
+
+#pragma mark
+#pragma mark -
+#pragma mark Cache and cache handling
 - (void) computeDataForIndexPath:(NSIndexPath *)indexPath {
 	if ([cellCalculations objectForKey:indexPath] == nil) {
 		
@@ -173,7 +226,7 @@
 		 */
 		while (dateFromObject == nil) {
 			n++;
-			if (n > [_transactionsInSection count]) {
+			if (n >= [_transactionsInSection count]) {
 				break;
 			}
 			
@@ -186,12 +239,16 @@
 			NSLog(@"ERROR: None of the transactions had a date! We had to fake one");
 			dateFromObject = [NSDate date];
 		}
+		if (n!=0) {
+			NSLog(@"Had to try %i times to get a date...",n);
+		}
 		
 		NSNumber * numAmount = [NSNumber numberWithDouble:amount];
 		NSString * calculatedAmount = [[CurrencyManager sharedManager] baseCurrencyDescriptionForAmount:numAmount withFraction:YES];
+		NSString * yearMonth = aTransaction.yearMonth;
 		
-		NSArray * data = [NSArray arrayWithObjects:dateFromObject, calculatedAmount, numAmount, nil];
-		NSArray * keys = [NSArray arrayWithObjects:@"date", @"amount", @"rawAmount", nil];
+		NSArray * data = [NSArray arrayWithObjects:dateFromObject, calculatedAmount, numAmount, yearMonth, nil];
+		NSArray * keys = [NSArray arrayWithObjects:@"date", @"amount", @"rawAmount", @"yearMonth", nil];
 		NSDictionary * dict = [NSDictionary dictionaryWithObjects:data forKeys:keys];
 		
 		[cellCalculations setObject:dict forKey:indexPath];
@@ -206,32 +263,10 @@
 		[self makeCachePersistent];
 	}
 }
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	[self computeDataForIndexPath:indexPath];
-	
-	// Values to use
-	NSDictionary * dict = [cellCalculations objectForKey:indexPath];
-	
-	// Get a cell:
-	static NSString *CellIdentifier = @"OverviewCell";
-	OverviewTableCell *cell = (OverviewTableCell *) [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-	if (cell == nil) {
-		[[NSBundle mainBundle] loadNibNamed:@"OverviewTableCell" owner:self options:nil]; 
-		cell = self.overviewTableCell;
-	}
-		
-	[cell updateCellWithDate:[dict objectForKey:@"date"] andAmount:[dict objectForKey:@"amount"]];
-		
-    return cell;
-		
-}
-- (void)clearDataCache {
+- (void) clearDataCache {
 	[self.cellCalculations removeAllObjects];
-	// Save changes so that the cache is clear on next load as well
-	[self makeCachePersistent];
-	[self setBadgeBalance];
 }
+
 - (void) baseCurrencyChanged {
 	[self clearDataCache];
 	[self.tableView reloadData];
@@ -264,43 +299,16 @@
 	}
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	[tableView deselectRowAtIndexPath:indexPath animated:YES];
-
-	/*
-	 TODO:
-	 Goal:		I have to pass inn the yearMonth value to display
-	 How:		Right now I am looking at one of the objects in the current
-	 section and subtrackting the value from it. Not very elegant...
-	 A lot of unneeded object traversal
-	 Improve:	Could be improved by building up a dictionary with section -> yearMonth values
-	 */
-	NSArray * sections = [resultsController sections];
-	id <NSFetchedResultsSectionInfo> currenctSection = [sections objectAtIndex:indexPath.row];
-	NSArray * transactionsInSection = [currenctSection objects];	
-	Transaction * aTransaction = (Transaction*)[transactionsInSection objectAtIndex:0];
-	
-    DetailTableViewController * detailController = [[DetailTableViewController alloc] initWithStyle:UITableViewStylePlain 
-																						 andContext:managedObjectContext];
-
-	// Needed to get the right search results and to display the right header
-	detailController.yearMonthToDisplay = aTransaction.yearMonth;
-	detailController.delegate = self;
-	
-	// Passing along the filtering predicates so searches can be passed on
-	detailController.filteringPredicate = self.filteringPredicate;
-	
-	[self.navigationController pushViewController:detailController animated:YES];
-	[detailController release];
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-	return 80;
-}
-
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // The table view should not be re-orderable.
-    return NO;
+#pragma mark -
+#pragma mark NSFetchedResultsController delegate methods
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+	if ([[Utilities toolbox] isReloadingTableAllowed]) {
+		[self.tableView reloadData];
+		NSLog(@"Reloaded data in %@", self);
+		[self setBadgeBalance];
+	} else {
+		NSLog(@"Reloaded data NOT ALLOWED in %@", self);
+	}
 }
 
 @end

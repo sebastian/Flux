@@ -60,7 +60,7 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
 	NSLog(@"Parsing and adding transactions");
-				
+		
 	NSURL * dataLocation = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"sampleTransactions" ofType:@"xml"]];
 	NSXMLParser * parser = [[NSXMLParser alloc] initWithContentsOfURL:dataLocation]; 
 		
@@ -81,14 +81,29 @@
 }
 
 -(IBAction)clearData:(id)sender {
+	
+	[[Utilities toolbox] setReloadingTableNotAllowed];
+	
+	NSMutableArray *items = [[NSMutableArray alloc] init];
+	NSError *error;
+	
+	// Get all the transactions
 	NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"Transaction" inManagedObjectContext:managedObjectContext];
     [fetchRequest setEntity:entity];
 	
-    NSError *error;
-    NSArray *items = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
+	[items addObjectsFromArray:[managedObjectContext executeFetchRequest:fetchRequest error:&error]];
     [fetchRequest release];
 
+	// Getting the tags -> which in turn will delete the dates as well
+	fetchRequest = [[NSFetchRequest alloc] init];
+    entity = [NSEntityDescription entityForName:@"Tag" inManagedObjectContext:managedObjectContext];
+    [fetchRequest setEntity:entity];
+	
+	[items addObjectsFromArray:[managedObjectContext executeFetchRequest:fetchRequest error:&error]];
+    [fetchRequest release];
+	
+	
 	numberOfTransactionsAdded = 0;
 	int numTotal = [items count];
 	int stepSize = numTotal / 100;
@@ -105,6 +120,13 @@
     if (![managedObjectContext save:&error]) {
         NSLog(@"Error deleting Transaction - error:%@",error);
     }
+	
+	/* This shouldn't really be needed... and probably there is a bug somewhere, but heck... */
+	[[Utilities toolbox] setReloadingTableAllowed];
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"FinanceKillAllCache" object:self];
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"FinanceKillAllCache" object:self];
+	sleep(1.0);
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"GlobalTableViewReloadData" object:self];		
 	
 	progressView.hidden = YES;
 	addDataButton.enabled = YES;
@@ -137,9 +159,15 @@
 #pragma mark NSXMLParser methods
 
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *) qualifiedName attributes:(NSDictionary *)attributeDict {
+	// Stop the table view from reloading data
+	
+
 	if ([elementName isEqualToString:@"transaction"]) {
 		betaTransaction = (Transaction*)[NSEntityDescription insertNewObjectForEntityForName:@"Transaction" inManagedObjectContext:self.managedObjectContext];
 		tempLocation = [[CLLocation alloc] initWithLatitude:0.0 longitude:0.0];
+    } else if ([elementName isEqualToString:@"transactions"]) {
+		NSLog(@"Stopping reloading of table");
+		[[Utilities toolbox] setReloadingTableNotAllowed];
     } else if ([elementName isEqualToString:@"transactionDescription"] || [elementName isEqualToString:@"autotags"] || [elementName isEqualToString:@"kroner"] || [elementName isEqualToString:@"ore"] || [elementName isEqualToString:@"expense"] || [elementName isEqualToString:@"lat"] || [elementName isEqualToString:@"lng"] || [elementName isEqualToString:@"yearMonth"] || [elementName isEqualToString:@"day"] || [elementName isEqualToString:@"date"] || [elementName isEqualToString:@"tags"]) {
 		[currentString setString:@""];
 		storingCharacters = YES;
@@ -156,6 +184,12 @@
 		progressView.hidden = YES;
 		addDataButton.enabled = YES;
 		clearDataButton.enabled = YES;
+		
+		NSLog(@"Enabling reloading of table");
+		[[Utilities toolbox] setReloadingTableAllowed];
+		// Force a global reload
+		[[NSNotificationCenter defaultCenter] postNotificationName:@"GlobalTableViewReloadData" object:self];
+		
 		
 	} else if ([elementName isEqualToString:@"transaction"]) {
 		betaTransaction.location = tempLocation;
@@ -188,6 +222,9 @@
 		NSDateFormatter *inputFormatter = [[NSDateFormatter alloc] init];
 		[inputFormatter setDateFormat:@"dd/MM/yyyy HH:mm"];
 		betaTransaction.date = [inputFormatter dateFromString:currentString];
+		// So many records are saved without a date... we have to fix that...
+		if (betaTransaction.date == nil) {betaTransaction.date = [NSDate dateWithTimeIntervalSinceNow:-(24*60*60)];}
+		
 	} else if ([elementName isEqualToString:@"tags"]) {
 		betaTransaction.tags = [currentString copy];
 	} else if ([elementName isEqualToString:@"autotags"]) {

@@ -21,6 +21,7 @@
 
 @synthesize managedObjectContext;
 @synthesize dateFormatter;
+@synthesize geoCoder;
 
 static Utilities *sharedUtilitiesToolbox = nil;
 
@@ -180,6 +181,56 @@ static Utilities *sharedUtilitiesToolbox = nil;
 	CGSize size = [text sizeWithFont:label.font];
 	return size;
 }
+-(void) setReloadingTableAllowed {
+	reloadingTableAllowed = YES;
+}
+-(void) setReloadingTableNotAllowed {
+	reloadingTableAllowed = NO;
+}
+-(BOOL) isReloadingTableAllowed {return reloadingTableAllowed;}
+
+
+#pragma mark
+#pragma mark -
+#pragma mark GeoCoding
+- (void)reverseGeoCode:(CLLocationCoordinate2D)coordinate forDelegate:(id<MKReverseGeocoderDelegate>)delegate {
+
+	if (self.geoCoder != nil) {
+		/*
+		 There is currently a geocoder
+		 Finish its work
+		 */
+		
+		NSLog(@"There is a preexisting geocoder");
+
+		// Cancel querying if it is doing work
+		if ([self.geoCoder isQuerying]) {
+			NSLog(@"\tit is still working. Shutting it down.");
+			// Terminate the current geocoding
+			if (self.geoCoder.delegate != nil) {
+				[self.geoCoder.delegate reverseGeocoder:self.geoCoder didFailWithError:[NSError errorWithDomain:@"GeoCoderKleioOtherUserWantedToGeoCode" code:1 userInfo:nil]];
+				
+			}
+			[self.geoCoder cancel];
+		}
+		
+		self.geoCoder = nil;
+		
+	} 
+	
+	NSLog(@"Creating a new geocoder");
+	
+	// Create a new geocoder for the given coordinate
+	self.geoCoder = [[MKReverseGeocoder alloc] initWithCoordinate:coordinate];	
+	
+	// Assign new delegate
+	self.geoCoder.delegate = delegate;
+	
+	// And off we go :)
+	[self.geoCoder start];
+}
+
+
 #pragma mark
 #pragma mark -
 #pragma mark CoreData methods
@@ -269,6 +320,7 @@ static Utilities *sharedUtilitiesToolbox = nil;
 }
 
 - (void)dealloc {
+	[geoCoder release];
 	[dateFormatter release];
 	[managedObjectContext release];
 	[tagExistance release];

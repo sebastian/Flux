@@ -151,8 +151,8 @@
 	 Only use locations that are less than five minutes old
 	 */
 	NSLog(@"Got a timestamp! (%i)", [location.timestamp timeIntervalSinceNow]);
-	if (abs([location.timestamp timeIntervalSinceNow]) > 5 * 60) { return; }
-	NSLog(@"It was less than fivem minutes old, use it! (%i)", [location.timestamp timeIntervalSinceNow]);
+	if (abs([location.timestamp timeIntervalSinceNow]) > 3 * 60) { return; }
+	NSLog(@"It was less than three minutes old, use it! (%f)", ([location.timestamp timeIntervalSinceNow] / 60.0));
 	NSLog(@"The location: %@", location);
 	
 	

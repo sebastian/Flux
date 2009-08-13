@@ -142,6 +142,13 @@
 	[button00 setEnabled:YES];
 }	
 
+#pragma mark
+#pragma mark -
+#pragma mark Misc
+-(NSInteger)keyboardHeight {
+	return self.view.frame.size.height;
+}
+
 
 #pragma mark
 #pragma mark -

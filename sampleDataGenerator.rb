@@ -30,6 +30,16 @@ puts "<transactions>"
 HOW_MANY.times do 
   day = choose_one_of_the(days)
   month = choose_one_of_the(months)
+  
+  # Check for february
+  day = 28 if (month == 2) and (day > 28)
+    
+  # Check for the months that only have 30 days
+  day = 30 if (day > 30) and (month == 4) 
+  day = 30 if (day > 30) and (month == 6) 
+  day = 30 if (day > 30) and (month == 9) 
+  day = 30 if (day > 30) and (month == 11) 
+  
   year = choose_one_of_the(years)
   hour = choose_one_of_the(hours)
   minute = choose_one_of_the(minutes)

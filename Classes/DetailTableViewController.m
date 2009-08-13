@@ -17,7 +17,6 @@
 @interface DetailTableViewController (PrivateMethods)
 - (NSDictionary*)dataForSection:(NSInteger)_section;
 - (void)clearDataCache;
-- (void)clearDataCacheForSection:(NSInteger)section;
 @end
 
 
@@ -33,7 +32,7 @@
 #pragma mark Init and teardown
 - (void) viewDidLoad {
 	[super viewDidLoad];
-		
+	
 	// Set local delete to a logic state;
 	localDelete = NO;
 	
@@ -46,6 +45,8 @@
 	NSRange range;
 	range.length = 2;
 	range.location = 4;
+	
+	NSLog(@"in %@. yearMonthToDisplay has value: %@", self, self.yearMonthToDisplay);
 	
 	@try {
 		// Set the title to the month and year that is viewed
@@ -213,6 +214,7 @@
 	// It is fast to regenerate, and clearing it might fix some bugs...
 	[self.footerViewCache removeAllObjects];
 }
+
 
 // Content cell
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -440,7 +442,14 @@
 	if (localDelete) {
 		[self.tableView endUpdates];
 	} else {
-		[super controllerDidChangeContent:controller];
+
+		if ([[Utilities toolbox] isReloadingTableAllowed]) {
+			[self.tableView reloadData];
+			NSLog(@"Reloaded data in %@", self);
+		} else {
+			NSLog(@"Reloaded data NOT ALLOWED in %@", self);
+		}
+
 	}
 	localDelete = NO;
 }
