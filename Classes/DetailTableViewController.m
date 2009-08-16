@@ -84,16 +84,7 @@
 		[filterString release];
 		[[KleioSearchBar searchBar] show];
 	}
-	
-	/*
-	 Hide the top view that is just for making it look nice
-	 */
-	[self.tableView setContentOffset:CGPointMake(0, 40.f) animated:NO];
-	
-	NSIndexPath *tableSelection = [self.tableView indexPathForSelectedRow];
-	[self.tableView deselectRowAtIndexPath:tableSelection animated:NO];
-	
-	
+		
 }
 
 

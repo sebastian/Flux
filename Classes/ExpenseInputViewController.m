@@ -42,7 +42,7 @@
 @synthesize localCurrency;
 
 @synthesize placemark;
-
+@synthesize tagSuggester;
 
 #pragma mark
 #pragma mark -
@@ -114,6 +114,8 @@
 	[self.currencyKeyboard showKeyboard];
 	[self updateExpenseDisplay];
 	
+	isVisible = YES;
+	
 }
 - (void)viewDidUnload {
 	// Save the context to make sure last minute changes get saved too
@@ -132,10 +134,13 @@
 	
 	// Hide the currency keyboard
 	[self.currencyKeyboard hideKeyboard];
+	
+	isVisible = NO;
 }
 
 - (void)dealloc {
 	self.controller = nil;
+	self.tagSuggester = nil;
 	self.tagsAndDescriptionBackgroundPicture = nil;
 	self.placemark = nil;
 	self.tagsAndDescriptionView = nil;
@@ -262,9 +267,17 @@
 			NSLog(@"\ttag: %@", tag.name);
 			NSSet * locations = tag.location;				
 			for (Location * location in locations) {
-				CLLocationDistance distance = [self.bestLocation getDistanceFrom:location.location];
+				CLLocationDistance distance;
+				@try {
+					distance = [self.bestLocation getDistanceFrom:location.location];
+				}
+				@catch (NSException * e) {
+					NSLog(@"Got strange error when trying to check distance of tag! %@", e);
+					distance = 3000; // Some strange error... just set it to something we won't use...
+				}
+				 
 				/* If the tag is closer than 50 meters then use it */
-				if (distance < 250.f) {
+				if (distance < 150.f) {
 					[tagsToSuggest addObject:tag];
 					NSLog(@"\t\tIs close enough!");
 					break;
@@ -272,7 +285,7 @@
 			}
 		}
 		
-		if ([tagsToSuggest count] > 0) {
+		if (([tagsToSuggest count] > 0) && (isVisible == YES)) {
 			UIAlertView * alert = [[UIAlertView alloc] init];
 			
 			// save them so we have them for the answer
@@ -345,6 +358,28 @@
 	[suggestedTags release];
 }
 
+#pragma mark
+#pragma mark -
+#pragma mark TagSuggesterDelegate methods
+-(void)addTagWord:(NSString*)tag {
+	NSLog(@"Adding tag: %@", tag);
+	tagsField.text = [tagsField.text stringByAppendingString:tag];
+}
+-(IBAction)textChanged {
+	NSLog(@"Text changed");
+	[self.tagSuggester setTagText:tagsField.text];
+}
+-(IBAction)startedEditing {
+	NSLog(@"Created a tag suggester");
+	self.tagSuggester = [[TagSuggesterViewController alloc] init];
+	self.tagSuggester.delegate = self;
+	[self.tagSuggester isForAddExpenseView];
+}
+-(IBAction)stoppedEditing {
+	NSLog(@"Removed a tag suggester");
+	[self.tagSuggester remove];
+	self.tagSuggester = nil;
+}
 
 #pragma mark
 #pragma mark -
@@ -429,6 +464,14 @@
 	[controller whatAction];
 	return YES;
 }
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+	if (textField == tagsField) {
+		NSString * text = [tagsField.text stringByReplacingCharactersInRange:range withString:string];
+		[self.tagSuggester setTagText:text];
+	}
+	return YES;
+}
+
 
 #pragma mark
 #pragma mark -
@@ -515,7 +558,7 @@
 	}
 	
 	// Set the location
-	currentTransaction.location = bestLocation;
+	currentTransaction.location = self.bestLocation;
 	
 	// Set tags and description
 	currentTransaction.tags = tagsField.text;
@@ -574,6 +617,7 @@
 	[tagsField resignFirstResponder];
 	[currencyKeyboard showKeyboard];
 	[descriptionField resignFirstResponder];
+	self.tagSuggester = nil;
 }
 -(void)updateTagsAndDescriptionLabel {
 	NSMutableString * tagsDescription = [NSMutableString stringWithString:NSLocalizedString(@"Tags", @"Tags label in add expenses thing")];

@@ -14,13 +14,16 @@
 #import "ControlViewController.h"
 #import "CurrencySelectionDialog.h"
 #import <MapKit/MapKit.h>
+#import "TagSuggesterViewController.h"
 
 static const CGFloat KEYBOARD_ANIMATION_DURATION = 0.3;
 static const CGFloat MAX_TEXTFIELD_WIDTH = 280;
 static const CGFloat MIN_TEXTFIELD_WIDTH = 40;
 static const CGFloat TEXTFIELD_PADDING = 10;
 
-@interface ExpenseInputViewController : UIViewController <UIAlertViewDelegate, CurrencySelectionDialogDelegate, MKReverseGeocoderDelegate, UITextFieldDelegate, UITextViewDelegate, CurrencyKeyboardDelegate, KleioCoreLocationDelegate, ControlViewDelegate> {
+@interface ExpenseInputViewController : UIViewController <TagSuggesterDelegate, UIAlertViewDelegate, CurrencySelectionDialogDelegate, MKReverseGeocoderDelegate, UITextFieldDelegate, UITextViewDelegate, CurrencyKeyboardDelegate, KleioCoreLocationDelegate, ControlViewDelegate> {
+	
+	TagSuggesterViewController * tagSuggester;
 	
 	UILabel * amountLabel;
 	UILabel * tagsAndDescription;
@@ -57,7 +60,11 @@ static const CGFloat TEXTFIELD_PADDING = 10;
 	CGRect keyboardBounds;
 	
 	NSArray * suggestedTags;
+	
+	BOOL isVisible;
 }
+
+@property (nonatomic, retain) TagSuggesterViewController * tagSuggester;
 
 @property (nonatomic, retain) NSString * localCurrency;
 @property (nonatomic, retain) MKPlacemark * placemark;
@@ -97,6 +104,11 @@ static const CGFloat TEXTFIELD_PADDING = 10;
 //-(IBAction)doneKeyboardButtonAction;
 
 -(IBAction)changeCurrency;
+
+// Tags field methods
+-(IBAction)textChanged;
+-(IBAction)startedEditing;
+-(IBAction)stoppedEditing;
 
 
 // CurrencyKeyboardDelegate methods

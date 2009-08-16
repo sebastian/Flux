@@ -85,6 +85,7 @@
 		966D70E91008B23100D781B8 /* KeyboardButtonOKUnclicked.png in Resources */ = {isa = PBXBuildFile; fileRef = 966D70E71008B23100D781B8 /* KeyboardButtonOKUnclicked.png */; };
 		966D71091008B5E600D781B8 /* DeleteButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 966D71081008B5E600D781B8 /* DeleteButton.png */; };
 		9676AB6F10246586009A3429 /* WhatHighlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 9676AB6E10246586009A3429 /* WhatHighlighted.png */; };
+		96903C7A1038AA7E009D5D49 /* TagSuggesterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96903C791038AA7E009D5D49 /* TagSuggesterViewController.m */; };
 		969776A8101B662300F0DC3D /* DetailCellHeader.png in Resources */ = {isa = PBXBuildFile; fileRef = 969776A7101B662300F0DC3D /* DetailCellHeader.png */; };
 		969C6C56101F8A79007B5CC8 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 969C6C55101F8A79007B5CC8 /* Icon.png */; };
 		96A98D241025BE8700FFA6D0 /* Transactions.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96A98D231025BE8700FFA6D0 /* Transactions.xib */; };
@@ -103,6 +104,9 @@
 		96B1A655101B71B900DB6787 /* sampleTransactions.xml in Resources */ = {isa = PBXBuildFile; fileRef = 96B1A654101B71B900DB6787 /* sampleTransactions.xml */; };
 		96BD3E6C101744DB00926A83 /* CurrencyKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 96BD3E6A101744DB00926A83 /* CurrencyKeyboard.m */; };
 		96BD3E6D101744DB00926A83 /* CurrencyKeyboard.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96BD3E6B101744DB00926A83 /* CurrencyKeyboard.xib */; };
+		96D217AC10389F34003C5FC7 /* SuggestBottom.png in Resources */ = {isa = PBXBuildFile; fileRef = 96D217AA10389F34003C5FC7 /* SuggestBottom.png */; };
+		96D217AD10389F34003C5FC7 /* SuggestTop.png in Resources */ = {isa = PBXBuildFile; fileRef = 96D217AB10389F34003C5FC7 /* SuggestTop.png */; };
+		96D217C21038A15D003C5FC7 /* SuggestBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 96D217C11038A15D003C5FC7 /* SuggestBackground.png */; };
 		96D28063101F621000B0A026 /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 96D28062101F621000B0A026 /* Entitlements.plist */; };
 		96D7A91B10281F04000FCC42 /* TransactionDisplay.png in Resources */ = {isa = PBXBuildFile; fileRef = 96D7A91A10281F04000FCC42 /* TransactionDisplay.png */; };
 		96D7A93110282732000FCC42 /* MapOverlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 96D7A93010282732000FCC42 /* MapOverlay.png */; };
@@ -134,6 +138,7 @@
 		96FAE6DC1024C2970060384F /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 96FAE6DA1024C2970060384F /* Location.m */; };
 		96FAE6E01024C30A0060384F /* Tag.m in Sources */ = {isa = PBXBuildFile; fileRef = 96FAE6DF1024C30A0060384F /* Tag.m */; };
 		96FFEAB7103879650086BF66 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 96FFEAB6103879650086BF66 /* Localizable.strings */; };
+		96FFEADC10387FBC0086BF66 /* TagSuggesterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96FFEADA10387FBC0086BF66 /* TagSuggesterViewController.xib */; };
 		96FFFA7C1015ED4600A53779 /* DetailHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96FFFA7B1015ED4600A53779 /* DetailHeaderView.m */; };
 		96FFFA8E1015EDC600A53779 /* DetailContentTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 96FFFA8D1015EDC600A53779 /* DetailContentTableCell.m */; };
 		96FFFA941015EDF500A53779 /* DetailTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96FFFA931015EDF500A53779 /* DetailTableCell.xib */; };
@@ -241,6 +246,7 @@
 		966D70E71008B23100D781B8 /* KeyboardButtonOKUnclicked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = KeyboardButtonOKUnclicked.png; path = Graphics/KeyboardButtonOKUnclicked.png; sourceTree = "<group>"; };
 		966D71081008B5E600D781B8 /* DeleteButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = DeleteButton.png; path = Graphics/DeleteButton.png; sourceTree = "<group>"; };
 		9676AB6E10246586009A3429 /* WhatHighlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = WhatHighlighted.png; path = Graphics/WhatHighlighted.png; sourceTree = "<group>"; };
+		96903C791038AA7E009D5D49 /* TagSuggesterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagSuggesterViewController.m; sourceTree = "<group>"; };
 		969776A7101B662300F0DC3D /* DetailCellHeader.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = DetailCellHeader.png; path = Graphics/DetailCellHeader.png; sourceTree = "<group>"; };
 		969C6C55101F8A79007B5CC8 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = Graphics/Icon.png; sourceTree = "<group>"; };
 		96A98D231025BE8700FFA6D0 /* Transactions.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Transactions.xib; sourceTree = "<group>"; };
@@ -262,6 +268,9 @@
 		96BD3E69101744DB00926A83 /* CurrencyKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrencyKeyboard.h; sourceTree = "<group>"; };
 		96BD3E6A101744DB00926A83 /* CurrencyKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrencyKeyboard.m; sourceTree = "<group>"; };
 		96BD3E6B101744DB00926A83 /* CurrencyKeyboard.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CurrencyKeyboard.xib; sourceTree = "<group>"; };
+		96D217AA10389F34003C5FC7 /* SuggestBottom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SuggestBottom.png; path = Graphics/SuggestBottom.png; sourceTree = "<group>"; };
+		96D217AB10389F34003C5FC7 /* SuggestTop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SuggestTop.png; path = Graphics/SuggestTop.png; sourceTree = "<group>"; };
+		96D217C11038A15D003C5FC7 /* SuggestBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SuggestBackground.png; path = Graphics/SuggestBackground.png; sourceTree = "<group>"; };
 		96D28058101F5DC900B0A026 /* Beta-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Beta-Info.plist"; sourceTree = "<group>"; };
 		96D28062101F621000B0A026 /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
 		96D7A91A10281F04000FCC42 /* TransactionDisplay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TransactionDisplay.png; path = Graphics/TransactionDisplay.png; sourceTree = "<group>"; };
@@ -302,6 +311,8 @@
 		96FAE6DE1024C30A0060384F /* Tag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Tag.h; path = ../Tag.h; sourceTree = "<group>"; };
 		96FAE6DF1024C30A0060384F /* Tag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Tag.m; path = ../Tag.m; sourceTree = "<group>"; };
 		96FFEAB6103879650086BF66 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		96FFEAD810387FBC0086BF66 /* TagSuggesterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagSuggesterViewController.h; sourceTree = "<group>"; };
+		96FFEADA10387FBC0086BF66 /* TagSuggesterViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TagSuggesterViewController.xib; sourceTree = "<group>"; };
 		96FFFA7A1015ED4600A53779 /* DetailHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailHeaderView.h; sourceTree = "<group>"; };
 		96FFFA7B1015ED4600A53779 /* DetailHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailHeaderView.m; sourceTree = "<group>"; };
 		96FFFA8C1015EDC600A53779 /* DetailContentTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailContentTableCell.h; sourceTree = "<group>"; };
@@ -435,6 +446,7 @@
 		963B020A10185D6E00CD5184 /* Add Expenses */ = {
 			isa = PBXGroup;
 			children = (
+				96FFEAD710387FA00086BF66 /* Suggestive tags */,
 				96676F381022F311000C6FF5 /* ControlViev */,
 				96BD3E67101744C600926A83 /* Keyboard */,
 				963B020C10185D8C00CD5184 /* ConfirmationView.h */,
@@ -572,6 +584,9 @@
 		96AA703710061CF600206A37 /* Graphics */ = {
 			isa = PBXGroup;
 			children = (
+				96D217C11038A15D003C5FC7 /* SuggestBackground.png */,
+				96D217AA10389F34003C5FC7 /* SuggestBottom.png */,
+				96D217AB10389F34003C5FC7 /* SuggestTop.png */,
 				964700F3103830EC00ABE764 /* Pricetag.png */,
 				964700A7103817E900ABE764 /* Icons */,
 				962306FE10347318003ED654 /* SearchBarBackground.png */,
@@ -663,6 +678,16 @@
 				96FAE6DA1024C2970060384F /* Location.m */,
 			);
 			name = Models;
+			sourceTree = "<group>";
+		};
+		96FFEAD710387FA00086BF66 /* Suggestive tags */ = {
+			isa = PBXGroup;
+			children = (
+				96FFEAD810387FBC0086BF66 /* TagSuggesterViewController.h */,
+				96903C791038AA7E009D5D49 /* TagSuggesterViewController.m */,
+				96FFEADA10387FBC0086BF66 /* TagSuggesterViewController.xib */,
+			);
+			name = "Suggestive tags";
 			sourceTree = "<group>";
 		};
 		96FFFA771015ED0300A53779 /* Transactions tab */ = {
@@ -835,6 +860,10 @@
 				964700F4103830EC00ABE764 /* Pricetag.png in Resources */,
 				96F1579510384B4A00ECBF03 /* Localizable.strings in Resources */,
 				96FFEAB7103879650086BF66 /* Localizable.strings in Resources */,
+				96FFEADC10387FBC0086BF66 /* TagSuggesterViewController.xib in Resources */,
+				96D217AC10389F34003C5FC7 /* SuggestBottom.png in Resources */,
+				96D217AD10389F34003C5FC7 /* SuggestTop.png in Resources */,
+				96D217C21038A15D003C5FC7 /* SuggestBackground.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -877,6 +906,7 @@
 				9623071510347864003ED654 /* BubbleView.m in Sources */,
 				9623071810347903003ED654 /* SearchBarTerm.m in Sources */,
 				9623074310347D7F003ED654 /* SearchBarWord.m in Sources */,
+				96903C7A1038AA7E009D5D49 /* TagSuggesterViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

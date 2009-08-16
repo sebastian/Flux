@@ -39,6 +39,7 @@
 -(BOOL)doesTagExist:(NSString*)tag;
 -(void)addTag:(NSString*)tag autotag:(BOOL)autotag location:(CLLocation*)loc;
 -(Tag*)tagObjectforTag:(NSString*)tag;
+-(NSArray*)twoTagsStartingWith:(NSString*)start;
 -(NSArray*)tagStringToArray:(NSString*)tagString;
 -(void)clearCache;
 -(CGSize)sizeOfTextOfField:(UITextField*)field;

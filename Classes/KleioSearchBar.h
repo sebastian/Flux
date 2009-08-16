@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "BubbleView.h"
+#import "TagSuggesterViewController.h"
 
 @class SearchBarTerm;
 
@@ -27,23 +28,29 @@
 @end
 
 
-@interface KleioSearchBar : UIViewController <UITextFieldDelegate> {
+@interface KleioSearchBar : UIViewController <UITextFieldDelegate, TagSuggesterDelegate> {
 	IBOutlet UITextField * searchBarTextField;
 	IBOutlet BubbleView * bubbleView;	
 	
 	id <KleioSearchBarDelegate> delegate;
 	
 	SearchBarTerm * searchBarTerm;
+	
+	TagSuggesterViewController * tagSuggester;
 }
 
+@property (nonatomic, retain) TagSuggesterViewController * tagSuggester;
 @property (nonatomic, assign) id <KleioSearchBarDelegate> delegate;
 
 #pragma mark
 #pragma mark -
-#pragma mark Public API
+#pragma mark TagSuggesterDelegate methods
+-(void)addTagWord:(NSString*)tag;
+
+
 #pragma mark
 #pragma mark -
-#pragma mark Methods that can be externally called
+#pragma mark Methods that can be externally called / Public API
 - (void) hide;
 - (void) show;
 - (void) toggle;

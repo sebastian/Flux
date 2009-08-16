@@ -164,6 +164,7 @@
 											initWithFetchRequest:request 
 											managedObjectContext:managedObjectContext 
 											sectionNameKeyPath:sectionGroupingName cacheName:cacheName]; 
+	
 	// Has been retained by the localRC, so we can release it here.
 	[request release];
 	

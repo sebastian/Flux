@@ -51,7 +51,11 @@
 	 */
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(baseCurrencyChanged) name:@"CurrencyManagerDidChangeBaseCurrency" object:nil];	
 
-	[self updateData];
+	/*
+	 The update data call will be performed as needed if there are changes that haven't been caught...
+	 FIXME: Does it still get new values?
+	 */
+	//[self updateData];
 	
 	[self setBadgeBalance];
 }
@@ -66,6 +70,9 @@
 //	
 //	NSIndexPath *tableSelection = [self.tableView indexPathForSelectedRow];
 //	[self.tableView deselectRowAtIndexPath:tableSelection animated:NO];
+	
+	NSLog(@"Reloading tableview on viewWillAppear in %@", self);
+	[self.tableView reloadData];
 	
 }
 - (void)viewDidUnload {
@@ -95,36 +102,51 @@
 #pragma mark Populate data
 // Initiates the fetch of results for the table view
 - (void)updateData {
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-
+	@synchronized(self) {
+		NSLog(@"Starting synchronized data load in %@", self);
+		
+		NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+		
+		NSLog(@"Updating data... Getting it from the datastore");
+		
+		// Sort descriptors
+		NSSortDescriptor * sortByYearMonth = [[NSSortDescriptor alloc] initWithKey:@"yearMonth" ascending:NO];	
+		NSArray * sortDescriptors = [NSArray arrayWithObjects:sortByYearMonth, nil];
+		[sortByYearMonth release];
+		
+		// Perform the load
+		[self loadDataWithSortDescriptors:sortDescriptors predicates:nil sectionNameKeyPath:@"yearMonth" cacheName:@"overviewTransactionCache"];	
+		
+		[pool release];
+		NSLog(@"Ended synchronized data load in %@", self);
+	}
+}
+- (NSFetchedResultsController*)resultsController {
+	if (resultsController == nil) {
+		NSLog(@"First time resultsController is accessed. Let's load it!");
+		[self updateData];
+	}
+	return resultsController;
+}
+- (NSMutableDictionary*)cellCalculations {
 	/* 
 	 We load in the cached cell data as well
 	 There are some conditions. First we check if it has already been loaded
 	 If not we try to load it, and if that still doesn't result in any cache
 	 then we create an empty cache dictionary
 	 */
-	if (self.cellCalculations == nil) {
+	if (cellCalculations == nil) {
 		// Not loaded yet => load
 		NSLog(@"Loading cell cache");
 		self.cellCalculations = [NSKeyedUnarchiver unarchiveObjectWithFile:[self cellCachePath]];
-		if (self.cellCalculations == nil) { 
+		if (cellCalculations == nil) { 
 			// There didn't exist any cache. We create an empty dictionary
 			NSLog(@"Cache was nil... has to be regenerated!");
 			self.cellCalculations = [[NSMutableDictionary alloc] init];
 		}
 	}
-	
-	// Sort descriptors
-	NSSortDescriptor * sortByYearMonth = [[NSSortDescriptor alloc] initWithKey:@"yearMonth" ascending:NO];	
-	NSArray * sortDescriptors = [NSArray arrayWithObjects:sortByYearMonth, nil];
-	[sortByYearMonth release];
-		
-	// Perform the load
-	[self loadDataWithSortDescriptors:sortDescriptors predicates:nil sectionNameKeyPath:@"yearMonth" cacheName:@"overviewTransactionCache"];	
-	
-	[pool release];
+	return cellCalculations;
 }
-
 
 #pragma mark -
 #pragma mark Table view methods
@@ -146,7 +168,7 @@
 	 */
 	
 	if ([self.cellCalculations objectForKey:@"numOfRows"] == nil) {
-		NSUInteger iCount = [[resultsController sections] count];
+		NSUInteger iCount = [[self.resultsController sections] count];
 		NSNumber * count = [NSNumber numberWithInt:iCount];
 		[self.cellCalculations setObject:count forKey:@"numOfRows"];
 		[self makeCachePersistent];
@@ -202,11 +224,11 @@
 #pragma mark Cache and cache handling
 - (void) computeDataForIndexPath:(NSIndexPath *)indexPath {
 	if ([cellCalculations objectForKey:indexPath] == nil) {
-		
+				
 		NSLog(@"Generating overview data for row: %i", indexPath.row);
 		
 		// Get info to put into cell:
-		NSArray * sections = [resultsController sections];
+		NSArray * sections = [self.resultsController sections];
 		id <NSFetchedResultsSectionInfo> currenctSection = [sections objectAtIndex:indexPath.row];
 		NSArray * _transactionsInSection = [currenctSection objects];
 		NSArray * transactionsInSection = [_transactionsInSection filteredArrayUsingPredicate:self.filteringPredicate];

@@ -20,7 +20,7 @@
 	OverviewTableViewController * overviewController = 
 		[[OverviewTableViewController alloc] initWithStyle:UITableViewStylePlain andContext:context];
 	
-	NSLog(@"Updating data in background thread");
+	NSLog(@"Updating data in background thread (synchronized)");
 	[overviewController performSelectorInBackground:@selector(updateData) withObject:nil];
 	
 	self = [super initWithRootViewController:overviewController];

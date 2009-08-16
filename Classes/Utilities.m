@@ -60,7 +60,7 @@ static Utilities *sharedUtilitiesToolbox = nil;
 	// Create the tag existance dictionary if it doesn't exist
 	if (tagExistance == nil) { tagExistance = [[NSMutableDictionary alloc] init]; }
 	// Look up in cache
-	if ([tagExistance objectForKey:tag] != nil) {return [(NSNumber*)[tagExistance objectForKey:tag] boolValue];}
+	if ([tagExistance objectForKey:tag] != nil) {return [((NSNumber*)[tagExistance objectForKey:tag]) boolValue];}
 	
 	if ([[Utilities toolbox] tagObjectforTag:tag] == nil) {
 		[tagExistance setValue:[NSNumber numberWithBool:NO] forKey:tag];
@@ -73,7 +73,7 @@ static Utilities *sharedUtilitiesToolbox = nil;
 		 if the current tag is actually an autotag!
 		 */
 		if (![[[NSUserDefaults standardUserDefaults] objectForKey:@"KleioTransactionsAutoTags"] boolValue]) {
-			if ([[Utilities toolbox] tagObjectforTag:tag].autotag) {
+			if ([((NSNumber*)[[Utilities toolbox] tagObjectforTag:tag].autotag) boolValue] == YES) {
 				/*
 				 The user does not want to use autotags. 
 				 Hence this tag "doesn't" exist in his or her opinion
@@ -128,7 +128,7 @@ static Utilities *sharedUtilitiesToolbox = nil;
 }
 -(Tag*)tagObjectforTag:(NSString*)tag {
 	
-	tag = [tag lowercaseString];
+	tag = [[tag lowercaseString] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
 	
 	// Create the tags dictionary if it doesn't exist
 	if (tagCache == nil) { tagCache = [[NSMutableDictionary alloc] init]; }
@@ -162,6 +162,33 @@ static Utilities *sharedUtilitiesToolbox = nil;
 	
 	// Return the tag
 	return aTag;
+}
+-(NSArray*)twoTagsStartingWith:(NSString*)start {
+	
+	NSError *error;
+	
+	// Get all the transactions
+	NSFetchRequest * fetchRequest = [[NSFetchRequest alloc] init];
+	NSEntityDescription * entity = [NSEntityDescription entityForName:@"Tag" inManagedObjectContext:[[Utilities toolbox] managedObjectContext]];
+	[fetchRequest setEntity:entity];
+	
+	NSPredicate * tagPredicate = [NSPredicate predicateWithFormat:@"autotag == NO AND name BEGINSWITH %@", start];
+	[fetchRequest setPredicate:tagPredicate];
+	[fetchRequest setFetchLimit:2];
+	
+	NSArray * fetchedTags = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+	[fetchRequest release];
+	
+	/*
+	 Now we add the tags to the tags cache so that we don't have to look
+	 them up again later, consider the user will probably use them!
+	 */
+	if (tagCache == nil) { tagCache = [[NSMutableDictionary alloc] init]; }
+	for (Tag * tag in fetchedTags) {
+		[tagCache setObject:tag forKey:tag.name];
+	}
+
+	return fetchedTags;
 }
 -(NSArray*)tagStringToArray:(NSString*)tagString {
 	

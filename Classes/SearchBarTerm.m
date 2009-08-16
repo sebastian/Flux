@@ -14,9 +14,12 @@
 
 @synthesize font;
 
--(void)setText:(NSString*)text {
-	
+-(NSMutableArray*)searchBarWords {
 	if (searchBarWords == nil) {searchBarWords = [[NSMutableArray alloc] init];}
+	return searchBarWords;
+}
+
+-(void)setText:(NSString*)text {
 	
 	// Split the search term into words
 	NSArray * words = [[Utilities toolbox] tagStringToArray:text];
@@ -37,7 +40,7 @@
 		// Are there enough words in the current search bar term array?
 		if (n < [searchBarWords count]) {
 			
-			SearchBarWord * currentWord = [searchBarWords objectAtIndex:n];
+			SearchBarWord * currentWord = [self.searchBarWords objectAtIndex:n];
 			
 			if ([word isEqualToString:currentWord.word]) {
 				// The two words are equal, hence no change
@@ -58,18 +61,18 @@
 			newWord.font = self.font;
 			[newWord setWord:word fromContext:context];
 			
-			[searchBarWords addObject:newWord];
+			[self.searchBarWords addObject:newWord];
 				
 		}
 	
 	}
 	
 	// The user might delete stuff...
-	if ([words count] < [searchBarWords count]) {
-		if ([words count] == 0) {[searchBarWords removeAllObjects];[self notifyNewTag];return;}
+	if ([words count] < [self.searchBarWords count]) {
+		if ([words count] == 0) {[self.searchBarWords removeAllObjects];[self notifyNewTag];return;}
 		
-		for (int n = [searchBarWords count] - 1; n >= [words count]; n--) {
-			[searchBarWords removeObjectAtIndex:n];
+		for (int n = [self.searchBarWords count] - 1; n >= [words count]; n--) {
+			[self.searchBarWords removeObjectAtIndex:n];
 		}
 	}
 }
