@@ -133,6 +133,7 @@
 		96F84082100A66E8008862CC /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96F84081100A66E8008862CC /* CoreData.framework */; };
 		96FAE6DC1024C2970060384F /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 96FAE6DA1024C2970060384F /* Location.m */; };
 		96FAE6E01024C30A0060384F /* Tag.m in Sources */ = {isa = PBXBuildFile; fileRef = 96FAE6DF1024C30A0060384F /* Tag.m */; };
+		96FFEAB7103879650086BF66 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 96FFEAB6103879650086BF66 /* Localizable.strings */; };
 		96FFFA7C1015ED4600A53779 /* DetailHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96FFFA7B1015ED4600A53779 /* DetailHeaderView.m */; };
 		96FFFA8E1015EDC600A53779 /* DetailContentTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 96FFFA8D1015EDC600A53779 /* DetailContentTableCell.m */; };
 		96FFFA941015EDF500A53779 /* DetailTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96FFFA931015EDF500A53779 /* DetailTableCell.xib */; };
@@ -300,6 +301,7 @@
 		96FAE6DA1024C2970060384F /* Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Location.m; path = ../Location.m; sourceTree = "<group>"; };
 		96FAE6DE1024C30A0060384F /* Tag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Tag.h; path = ../Tag.h; sourceTree = "<group>"; };
 		96FAE6DF1024C30A0060384F /* Tag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Tag.m; path = ../Tag.m; sourceTree = "<group>"; };
+		96FFEAB6103879650086BF66 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		96FFFA7A1015ED4600A53779 /* DetailHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailHeaderView.h; sourceTree = "<group>"; };
 		96FFFA7B1015ED4600A53779 /* DetailHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailHeaderView.m; sourceTree = "<group>"; };
 		96FFFA8C1015EDC600A53779 /* DetailContentTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailContentTableCell.h; sourceTree = "<group>"; };
@@ -376,6 +378,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				96FFEAB6103879650086BF66 /* Localizable.strings */,
 				96F1579310384B4A00ECBF03 /* Localizable.strings */,
 				96AA703710061CF600206A37 /* Graphics */,
 				96885BB51004ED9E003090D8 /* NIBs */,
@@ -831,6 +834,7 @@
 				964700DC10382B2500ABE764 /* tannhjul.png in Resources */,
 				964700F4103830EC00ABE764 /* Pricetag.png in Resources */,
 				96F1579510384B4A00ECBF03 /* Localizable.strings in Resources */,
+				96FFEAB7103879650086BF66 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

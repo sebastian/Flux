@@ -62,7 +62,7 @@
 								  @"ZAR", @"BRL", @"CNY", @"OMR", @"IDR", @"RUB", 
 								  @"SAR", @"ILS", @"SEK", @"CHF", @"SGD", @"SKK", 
 								  @"LKR", @"KRW", @"KZT", @"CZK", @"AED", @"JPY", 
-								  @"CYP", @"INR", nil];
+								  @"LVL", @"LTL", @"EEK", @"CYP", @"INR", nil];
 	
 	self.countryToCurrency = [NSDictionary dictionaryWithObjectsAndKeys:
 							  @"USD",@"AS",@"USD",@"EC",@"USD",@"SV",@"USD",@"GU",@"USD",@"MH",
@@ -82,7 +82,7 @@
 							  @"GBP",@"GB",@"ZAR",@"LS",@"ZAR",@"NA",@"ZAR",@"ZA",@"CNY",@"CN",@"OMR",@"OM",
 							  @"IDR",@"ID",@"RUB",@"RU",@"SAR",@"SA",@"ILS",@"IL",@"SEK",@"SE",@"CHF",@"LI",
 							  @"CHR",@"CH",@"SGD",@"SG",@"LKR",@"LK",@"KRW",@"KR",@"KZT",@"KZ",@"CKZ",@"CZ",
-							  @"AED",@"AE",@"JPY",@"JP",@"INR",@"IN",nil];
+							  @"AED",@"AE",@"JPY",@"JP",@"INR",@"IN",@"LVL",@"LV",@"LTL",@"LT",@"EEK",@"EE", nil];
 	
 	isRefreshing = NO;
 	self.baseCurrency = [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrencyManagerBaseCurrency"];
@@ -140,6 +140,9 @@
 		[exchangeRates setObject:[NSNumber numberWithFloat:0.024] forKey:@"\"TWD to EUR\""];
 		[exchangeRates setObject:[NSNumber numberWithFloat:0.8003] forKey:@"\"USD to EUR\""];
 		[exchangeRates setObject:[NSNumber numberWithFloat:0.0764] forKey:@"\"ZAR to EUR\""];
+		[exchangeRates setObject:[NSNumber numberWithFloat:1.4279] forKey:@"\"LVL to EUR\""];
+		[exchangeRates setObject:[NSNumber numberWithFloat:0.2912] forKey:@"\"LTL to EUR\""];
+		[exchangeRates setObject:[NSNumber numberWithFloat:0.0639] forKey:@"\"EEK to EUR\""];
 		[self refreshIfNeeded];
 	}
 
