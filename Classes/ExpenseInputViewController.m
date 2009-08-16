@@ -50,7 +50,7 @@
 -(id) initWithNibName:(NSString*)nibName bundle:(NSBundle*)bundle {
 	self = [super initWithNibName:nibName bundle:bundle];
 	if (self) {
-		self.title = NSLocalizedString(@"Add transaction", @"Add transaction view controller title");
+		self.title = NSLocalizedString(@"Add", @"Add transaction view controller title");
 		self.currentTransaction = nil;
 		[self.tabBarItem setImage:[UIImage imageNamed:@"Add.png"]];
 	}
@@ -73,6 +73,9 @@
 	// To do it in Interface builder...
 	descriptionField.font = tagsField.font;
 		
+	tagsFieldLabel.text = NSLocalizedString(@"Tags:",nil);
+	descriptionFieldLabel.text = NSLocalizedString(@"Description:",nil);
+	
 	// Create the currency keyboard
 	self.currencyKeyboard = [[CurrencyKeyboard alloc] initWithNibName:@"CurrencyKeyboard" bundle:[NSBundle mainBundle]];
 	self.currencyKeyboard.delegate = self;

@@ -30,6 +30,9 @@ static const CGFloat TEXTFIELD_PADDING = 10;
 	IBOutlet UITextField * tagsField;
 	IBOutlet UITextView * descriptionField;
 	
+	IBOutlet UILabel * tagsFieldLabel;
+	IBOutlet UILabel * descriptionFieldLabel;
+	
 	IBOutlet UIButton * changeCurrencyButton;
 	UILabel * headerLabel;
 

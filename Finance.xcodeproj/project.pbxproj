@@ -128,6 +128,7 @@
 		96E41ABC1032FD2E002F6725 /* OldSkoolMap.png in Resources */ = {isa = PBXBuildFile; fileRef = 96E41ABB1032FD2E002F6725 /* OldSkoolMap.png */; };
 		96E55D8E1014AD8200E63DB8 /* OverviewTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96E55D8D1014AD8200E63DB8 /* OverviewTableCell.xib */; };
 		96E55D921014AF3800E63DB8 /* OverviewTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E55D911014AF3800E63DB8 /* OverviewTableCell.m */; };
+		96F1579510384B4A00ECBF03 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 96F1579310384B4A00ECBF03 /* Localizable.strings */; };
 		96F8403A100A5A08008862CC /* OverviewTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96F84039100A5A08008862CC /* OverviewTableViewController.m */; };
 		96F84082100A66E8008862CC /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96F84081100A66E8008862CC /* CoreData.framework */; };
 		96FAE6DC1024C2970060384F /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 96FAE6DA1024C2970060384F /* Location.m */; };
@@ -289,6 +290,9 @@
 		96E55D8D1014AD8200E63DB8 /* OverviewTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OverviewTableCell.xib; sourceTree = "<group>"; };
 		96E55D901014AF3800E63DB8 /* OverviewTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OverviewTableCell.h; sourceTree = "<group>"; };
 		96E55D911014AF3800E63DB8 /* OverviewTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OverviewTableCell.m; sourceTree = "<group>"; };
+		96F1579410384B4A00ECBF03 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		96F1579710384E3D00ECBF03 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		96F1579810384E4700ECBF03 /* no */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = no; path = no.lproj/Localizable.strings; sourceTree = "<group>"; };
 		96F84038100A5A08008862CC /* OverviewTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OverviewTableViewController.h; sourceTree = "<group>"; };
 		96F84039100A5A08008862CC /* OverviewTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OverviewTableViewController.m; sourceTree = "<group>"; };
 		96F84081100A66E8008862CC /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -372,6 +376,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				96F1579310384B4A00ECBF03 /* Localizable.strings */,
 				96AA703710061CF600206A37 /* Graphics */,
 				96885BB51004ED9E003090D8 /* NIBs */,
 				8D1107310486CEB800E47090 /* Finance-Info.plist */,
@@ -713,6 +718,15 @@
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Finance" */;
 			compatibilityVersion = "Xcode 3.1";
 			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+				en,
+				de,
+				no,
+			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* Finance */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -816,6 +830,7 @@
 				964700D310381B2200ABE764 /* Transactions.png in Resources */,
 				964700DC10382B2500ABE764 /* tannhjul.png in Resources */,
 				964700F4103830EC00ABE764 /* Pricetag.png in Resources */,
+				96F1579510384B4A00ECBF03 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -862,6 +877,19 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		96F1579310384B4A00ECBF03 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				96F1579410384B4A00ECBF03 /* en */,
+				96F1579710384E3D00ECBF03 /* de */,
+				96F1579810384E4700ECBF03 /* no */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		1D6058940D05DD3E006BFB54 /* Debug */ = {
@@ -919,6 +947,33 @@
 			};
 			name = "Alpha distribution";
 		};
+		96F157B5103853C900ECBF03 /* Finance adhoc release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CODE_SIGN_ENTITLEMENTS = Entitlements.plist;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Kleio";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "1D7C1593-B04D-4C1A-A6F1-913C118F3C88";
+				SDKROOT = iphoneos3.0;
+			};
+			name = "Finance adhoc release";
+		};
+		96F157B6103853C900ECBF03 /* Finance adhoc release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Finance_Prefix.pch;
+				INFOPLIST_FILE = "Finance-Info.plist";
+				PRODUCT_NAME = Finance;
+			};
+			name = "Finance adhoc release";
+		};
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -953,6 +1008,7 @@
 			buildConfigurations = (
 				1D6058940D05DD3E006BFB54 /* Debug */,
 				1D6058950D05DD3E006BFB54 /* Release */,
+				96F157B6103853C900ECBF03 /* Finance adhoc release */,
 				96D2805F101F613500B0A026 /* Alpha distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -963,6 +1019,7 @@
 			buildConfigurations = (
 				C01FCF4F08A954540054247B /* Debug */,
 				C01FCF5008A954540054247B /* Release */,
+				96F157B5103853C900ECBF03 /* Finance adhoc release */,
 				96D2805E101F613500B0A026 /* Alpha distribution */,
 			);
 			defaultConfigurationIsVisible = 0;

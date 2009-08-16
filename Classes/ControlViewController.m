@@ -77,6 +77,9 @@
 	// Setup right names and titles
 	[self setEditMode:NO];
 	
+	[expenseIncomeControl setTitle:NSLocalizedString(@"Expense",nil) forSegmentAtIndex:0];
+	[expenseIncomeControl setTitle:NSLocalizedString(@"Income",nil) forSegmentAtIndex:1];
+	
 	addActive.hidden = YES;
 	addPulse.hidden = YES;
 	whatActive.hidden = YES;

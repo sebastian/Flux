@@ -98,7 +98,7 @@ CGPathRef NewPathWithRoundRect(CGRect rect, CGFloat cornerRadius)
 
 	const CGFloat DEFAULT_LABEL_WIDTH = 280.0;
 	const CGFloat DEFAULT_LABEL_HEIGHT = 50.0;
-	CGRect labelFrame = CGRectMake(0, 0, DEFAULT_LABEL_WIDTH, DEFAULT_LABEL_HEIGHT);
+	CGRect labelFrame = CGRectMake(0, 0, DEFAULT_LABEL_WIDTH, DEFAULT_LABEL_HEIGHT*3);
 	UILabel *loadingLabel =
 		[[[UILabel alloc]
 			initWithFrame:labelFrame]
@@ -107,6 +107,7 @@ CGPathRef NewPathWithRoundRect(CGRect rect, CGFloat cornerRadius)
 	// FIXME: Add an image instead...
 	loadingLabel.text = NSLocalizedString(@"Transaction added", @"Transaction saved confirmation view");
 	loadingLabel.textColor = [UIColor whiteColor];
+	loadingLabel.numberOfLines = 3;
 	loadingLabel.backgroundColor = [UIColor clearColor];
 	loadingLabel.textAlignment = UITextAlignmentCenter;
 	loadingLabel.font = [UIFont boldSystemFontOfSize:24.0];
