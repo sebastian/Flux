@@ -26,6 +26,9 @@ static KleioSearchBar * sharedSearchBar = nil;
 	searchBarTerm.font = searchBarTextField.font;
 	bubbleView.term = searchBarTerm;
 	bubbleView.font = searchBarTextField.font;
+	
+	searchBarTextField.placeholder = NSLocalizedString(@"Tags to filter by", @"Placeholder text for search bar");
+	[self hide];
 }
 
 
@@ -36,7 +39,8 @@ static KleioSearchBar * sharedSearchBar = nil;
 	
 	NSString * textFieldText = [textField.text stringByReplacingCharactersInRange:range withString:string];
 	
-	if ([textFieldText sizeWithFont:textField.font].width > (textField.frame.size.width)) { return NO; }
+	/* Subtract an additional X because of the clear button */
+	if ([textFieldText sizeWithFont:textField.font].width > (textField.frame.size.width - 35)) { return NO; }
 	
 	[searchBarTerm setText:textFieldText];
 	[bubbleView setNeedsDisplay];
@@ -44,6 +48,61 @@ static KleioSearchBar * sharedSearchBar = nil;
 	// Let the user do whatever he wants.
 	return YES;
 }
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+	[self resignFirstResponder];
+	return YES;
+}
+- (BOOL)textFieldShouldClear:(UITextField *)textField {
+	[searchBarTerm clear];
+	[bubbleView setNeedsDisplay];
+	return YES;
+}
+
+#pragma mark
+#pragma mark -
+#pragma mark Methods that can be externally called
+- (void) hide {
+	[delegate wantsToBeHidden];
+	[bubbleView setNeedsDisplay];
+}
+- (void) show {
+	[delegate wantsToBeShown];
+}
+- (void) toggle {
+	[delegate wantsToBeToggled];
+}
+- (void) hideButRetainState {
+	[delegate wantsToBeHiddenWithoutClearingState];
+}
+- (void)resignFirstResponder { [searchBarTextField resignFirstResponder]; }
+- (void)clearSearchState {
+	
+	// Clear the search when it is hidden
+	searchBarTextField.text = @"";
+	[searchBarTerm clear];
+	[bubbleView setNeedsDisplay];
+	
+	// Send out notification that the filtering is over
+	NSPredicate * filteringPredicate = [NSPredicate predicateWithValue:YES];
+	NSDictionary * predicateDict = [NSDictionary dictionaryWithObject:filteringPredicate 
+															   forKey:@"predicate"];
+	
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"KleioPredicateUpdated" 
+														object:self 
+													  userInfo:predicateDict];
+}
+- (void)setSearchString:(NSString*)text {
+	[searchBarTextField becomeFirstResponder];
+	[searchBarTextField setText:text];
+	[searchBarTextField resignFirstResponder];
+}
+- (BOOL)isVisible {
+	return [self.delegate isVisible];
+}
+- (NSString*)searchString {
+	return searchBarTextField.text;
+}
+
 
 
 

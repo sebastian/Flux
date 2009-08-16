@@ -20,6 +20,7 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
 		self.title = @"Beta screen";
+		self.tabBarItem.image = [UIImage imageNamed:@"Settings.png"];
     }
     return self;
 }
@@ -51,7 +52,7 @@
 }
 
 -(IBAction)addData:(id)sender {
-	UIActionSheet * confrmation = [[UIActionSheet alloc] initWithTitle:@"This will take a while!" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Do it!" otherButtonTitles:nil];
+	UIActionSheet * confrmation = [[UIActionSheet alloc] initWithTitle:@"This will take about 10 minutes! Afterwards you should restart your device because otherwise you will get low memory warnings and everything will crash... sorry about that!" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Do it!" otherButtonTitles:nil];
 
 	[confrmation showInView:self.view];
 	[confrmation release];

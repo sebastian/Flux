@@ -8,14 +8,14 @@ descriptions = ["Incredibly nice item", "This is something I regret",
   "Books (fun ones)", "Dinner with THA LEMON PIE", "Sweets", "Yet another expense",
   "Have to start saving now...", "I wish I had bought this last year", "This is the bestest",
   "I'll buy another tomorrow", "Maybe this will work?"]
-kroners = (50..250000).to_a
+kroners = (250..2500).to_a
 lat = 59.9
 lng = 10.7
 days = (1..31).to_a
 months = %w{01 02 03 04 05 06 07}
 years = (2009).to_a
 currencies = %w{EUR GBP GBP GBP GBP GBP NOK NOK NOK NOK NOK NOK NOK NOK NOK EUR EUR USD USD NOK}
-expenses = %w{1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1}
+expenses = %w{1 0}
 minutes = (0..59).to_a
 hours = (0..24).to_a
 seconds = (0..59).to_a

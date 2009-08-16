@@ -139,7 +139,7 @@
 		locationDataLabel.frame = frame;
 	}
 	
-	tagsField.text = self.currentTransaction.tags;
+	tagsField.text = [self.currentTransaction trimmedTags];
 	
 	descriptionView.text = self.currentTransaction.transactionDescription;
 	
@@ -359,7 +359,7 @@
 	
 	// Setup safe keeping values
 	self.transactionDescription = trs.transactionDescription;
-	self.tags = trs.tags;
+	self.tags = [trs trimmedTags];
 	self.autotags = trs.autotags;
 	self.kroner = trs.kroner;
 	self.expense = trs.expense;

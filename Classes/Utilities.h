@@ -37,7 +37,7 @@
 -(double)sumAmountForTransactionArray:(NSArray*)transactions;
 -(float)keyboardAnimationDuration;
 -(BOOL)doesTagExist:(NSString*)tag;
--(void)addTag:(NSString*)tag location:(CLLocation*)loc;
+-(void)addTag:(NSString*)tag autotag:(BOOL)autotag location:(CLLocation*)loc;
 -(Tag*)tagObjectforTag:(NSString*)tag;
 -(NSArray*)tagStringToArray:(NSString*)tagString;
 -(void)clearCache;

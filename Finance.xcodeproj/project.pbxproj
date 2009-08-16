@@ -25,8 +25,6 @@
 		9623071510347864003ED654 /* BubbleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9623071210347864003ED654 /* BubbleView.m */; };
 		9623071810347903003ED654 /* SearchBarTerm.m in Sources */ = {isa = PBXBuildFile; fileRef = 9623071710347903003ED654 /* SearchBarTerm.m */; };
 		9623074310347D7F003ED654 /* SearchBarWord.m in Sources */ = {isa = PBXBuildFile; fileRef = 9623074210347D7F003ED654 /* SearchBarWord.m */; };
-		962307E410348349003ED654 /* TestController.m in Sources */ = {isa = PBXBuildFile; fileRef = 962307E210348349003ED654 /* TestController.m */; };
-		962307E510348349003ED654 /* TestController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 962307E310348349003ED654 /* TestController.xib */; };
 		963135A21021C388007986A4 /* SwitchIncome.png in Resources */ = {isa = PBXBuildFile; fileRef = 963135A01021C388007986A4 /* SwitchIncome.png */; };
 		963135A31021C388007986A4 /* SwitchTransition.png in Resources */ = {isa = PBXBuildFile; fileRef = 963135A11021C388007986A4 /* SwitchTransition.png */; };
 		963135CE1021C611007986A4 /* SwitchDisabled.png in Resources */ = {isa = PBXBuildFile; fileRef = 963135CD1021C611007986A4 /* SwitchDisabled.png */; };
@@ -56,6 +54,11 @@
 		96419FF8101CC6140066D6D8 /* TransactionDetailTopBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 96419FF7101CC6140066D6D8 /* TransactionDetailTopBackground.png */; };
 		9641A067101CD2F30066D6D8 /* MapButtonBottom.png in Resources */ = {isa = PBXBuildFile; fileRef = 9641A065101CD2F30066D6D8 /* MapButtonBottom.png */; };
 		9641A068101CD2F30066D6D8 /* MapButtonTop.png in Resources */ = {isa = PBXBuildFile; fileRef = 9641A066101CD2F30066D6D8 /* MapButtonTop.png */; };
+		964700AA103817FA00ABE764 /* Settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 964700A9103817FA00ABE764 /* Settings.png */; };
+		964700B01038191000ABE764 /* Add.png in Resources */ = {isa = PBXBuildFile; fileRef = 964700AF1038191000ABE764 /* Add.png */; };
+		964700D310381B2200ABE764 /* Transactions.png in Resources */ = {isa = PBXBuildFile; fileRef = 964700D210381B2200ABE764 /* Transactions.png */; };
+		964700DC10382B2500ABE764 /* tannhjul.png in Resources */ = {isa = PBXBuildFile; fileRef = 964700DB10382B2500ABE764 /* tannhjul.png */; };
+		964700F4103830EC00ABE764 /* Pricetag.png in Resources */ = {isa = PBXBuildFile; fileRef = 964700F3103830EC00ABE764 /* Pricetag.png */; };
 		964F1E70101CDB75004EA5C3 /* LocationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 964F1E6F101CDB75004EA5C3 /* LocationController.m */; };
 		964F1E85101CDE31004EA5C3 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 964F1E84101CDE31004EA5C3 /* CoreLocation.framework */; };
 		9653EA691010F26700B714BB /* ExpenseEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9653EA681010F26700B714BB /* ExpenseEditor.xib */; };
@@ -64,8 +67,6 @@
 		9657530810303BEF00F93557 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9657530610303BEF00F93557 /* SettingsViewController.m */; };
 		9657530910303BEF00F93557 /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9657530710303BEF00F93557 /* SettingsViewController.xib */; };
 		9657534510303FCB00F93557 /* CurrencySelectionDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 9657534410303FCB00F93557 /* CurrencySelectionDialog.m */; };
-		9662FEF81026CCCE00B670D6 /* FilterField.m in Sources */ = {isa = PBXBuildFile; fileRef = 9662FEF61026CCCE00B670D6 /* FilterField.m */; };
-		9662FEF91026CCCE00B670D6 /* FilterField.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9662FEF71026CCCE00B670D6 /* FilterField.xib */; };
 		9666E6001020B66E000B9325 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 9666E5FF1020B66E000B9325 /* Default.png */; };
 		96676E9C1022DA96000C6FF5 /* deleteButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 96676E9B1022DA96000C6FF5 /* deleteButton.png */; };
 		96676E9E1022DB99000C6FF5 /* deleteButtonHighlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 96676E9D1022DB99000C6FF5 /* deleteButtonHighlighted.png */; };
@@ -166,9 +167,6 @@
 		9623071710347903003ED654 /* SearchBarTerm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchBarTerm.m; sourceTree = "<group>"; };
 		9623074110347D7F003ED654 /* SearchBarWord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchBarWord.h; sourceTree = "<group>"; };
 		9623074210347D7F003ED654 /* SearchBarWord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchBarWord.m; sourceTree = "<group>"; };
-		962307E110348349003ED654 /* TestController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestController.h; sourceTree = "<group>"; };
-		962307E210348349003ED654 /* TestController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestController.m; sourceTree = "<group>"; };
-		962307E310348349003ED654 /* TestController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TestController.xib; sourceTree = "<group>"; };
 		963135A01021C388007986A4 /* SwitchIncome.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SwitchIncome.png; path = Graphics/SwitchIncome.png; sourceTree = "<group>"; };
 		963135A11021C388007986A4 /* SwitchTransition.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SwitchTransition.png; path = Graphics/SwitchTransition.png; sourceTree = "<group>"; };
 		963135CD1021C611007986A4 /* SwitchDisabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SwitchDisabled.png; path = Graphics/SwitchDisabled.png; sourceTree = "<group>"; };
@@ -205,6 +203,11 @@
 		96419FF7101CC6140066D6D8 /* TransactionDetailTopBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TransactionDetailTopBackground.png; path = Graphics/TransactionDetailTopBackground.png; sourceTree = "<group>"; };
 		9641A065101CD2F30066D6D8 /* MapButtonBottom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = MapButtonBottom.png; path = Graphics/MapButtonBottom.png; sourceTree = "<group>"; };
 		9641A066101CD2F30066D6D8 /* MapButtonTop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = MapButtonTop.png; path = Graphics/MapButtonTop.png; sourceTree = "<group>"; };
+		964700A9103817FA00ABE764 /* Settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Settings.png; path = Graphics/Icons/Settings.png; sourceTree = "<group>"; };
+		964700AF1038191000ABE764 /* Add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Add.png; path = Graphics/Icons/Add.png; sourceTree = "<group>"; };
+		964700D210381B2200ABE764 /* Transactions.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Transactions.png; path = Graphics/Icons/Transactions.png; sourceTree = "<group>"; };
+		964700DB10382B2500ABE764 /* tannhjul.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tannhjul.png; path = Graphics/Icons/tannhjul.png; sourceTree = "<group>"; };
+		964700F3103830EC00ABE764 /* Pricetag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Pricetag.png; path = Graphics/Pricetag.png; sourceTree = "<group>"; };
 		964F1E6E101CDB75004EA5C3 /* LocationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationController.h; sourceTree = "<group>"; };
 		964F1E6F101CDB75004EA5C3 /* LocationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationController.m; sourceTree = "<group>"; };
 		964F1E84101CDE31004EA5C3 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -217,9 +220,6 @@
 		9657530710303BEF00F93557 /* SettingsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsViewController.xib; sourceTree = "<group>"; };
 		9657534310303FCB00F93557 /* CurrencySelectionDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrencySelectionDialog.h; sourceTree = "<group>"; };
 		9657534410303FCB00F93557 /* CurrencySelectionDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrencySelectionDialog.m; sourceTree = "<group>"; };
-		9662FEF51026CCCE00B670D6 /* FilterField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterField.h; sourceTree = "<group>"; };
-		9662FEF61026CCCE00B670D6 /* FilterField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterField.m; sourceTree = "<group>"; };
-		9662FEF71026CCCE00B670D6 /* FilterField.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilterField.xib; sourceTree = "<group>"; };
 		9666E5FF1020B66E000B9325 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = Graphics/Default.png; sourceTree = "<group>"; };
 		96676E9B1022DA96000C6FF5 /* deleteButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = deleteButton.png; path = Graphics/deleteButton.png; sourceTree = "<group>"; };
 		96676E9D1022DB99000C6FF5 /* deleteButtonHighlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = deleteButtonHighlighted.png; path = Graphics/deleteButtonHighlighted.png; sourceTree = "<group>"; };
@@ -326,7 +326,6 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				962307E01034833D003ED654 /* TestController */,
 				96FAE6DD1024C29F0060384F /* Models */,
 				960C07FF1021AFF900B9C2A3 /* Div */,
 				964F1E6D101CDB66004EA5C3 /* CoreLocation */,
@@ -425,16 +424,6 @@
 			name = SearchBar;
 			sourceTree = "<group>";
 		};
-		962307E01034833D003ED654 /* TestController */ = {
-			isa = PBXGroup;
-			children = (
-				962307E110348349003ED654 /* TestController.h */,
-				962307E210348349003ED654 /* TestController.m */,
-				962307E310348349003ED654 /* TestController.xib */,
-			);
-			name = TestController;
-			sourceTree = "<group>";
-		};
 		963B020A10185D6E00CD5184 /* Add Expenses */ = {
 			isa = PBXGroup;
 			children = (
@@ -499,6 +488,17 @@
 			name = TransactionDetail;
 			sourceTree = "<group>";
 		};
+		964700A7103817E900ABE764 /* Icons */ = {
+			isa = PBXGroup;
+			children = (
+				964700DB10382B2500ABE764 /* tannhjul.png */,
+				964700D210381B2200ABE764 /* Transactions.png */,
+				964700AF1038191000ABE764 /* Add.png */,
+				964700A9103817FA00ABE764 /* Settings.png */,
+			);
+			name = Icons;
+			sourceTree = "<group>";
+		};
 		964F1E6D101CDB66004EA5C3 /* CoreLocation */ = {
 			isa = PBXGroup;
 			children = (
@@ -534,9 +534,6 @@
 			isa = PBXGroup;
 			children = (
 				9623070D10347864003ED654 /* SearchBar */,
-				9662FEF51026CCCE00B670D6 /* FilterField.h */,
-				9662FEF61026CCCE00B670D6 /* FilterField.m */,
-				9662FEF71026CCCE00B670D6 /* FilterField.xib */,
 			);
 			name = FilterField;
 			sourceTree = "<group>";
@@ -567,6 +564,8 @@
 		96AA703710061CF600206A37 /* Graphics */ = {
 			isa = PBXGroup;
 			children = (
+				964700F3103830EC00ABE764 /* Pricetag.png */,
+				964700A7103817E900ABE764 /* Icons */,
 				962306FE10347318003ED654 /* SearchBarBackground.png */,
 				96E41ABB1032FD2E002F6725 /* OldSkoolMap.png */,
 				96E41A041032E9F9002F6725 /* EditTextViewBackground.png */,
@@ -788,7 +787,6 @@
 				96405D37102626B9004E440C /* OverviewBackground.png in Resources */,
 				96405D9010262ECC004E440C /* betascreen.html in Resources */,
 				96405E0A102635C6004E440C /* styles.css in Resources */,
-				9662FEF91026CCCE00B670D6 /* FilterField.xib in Resources */,
 				960CCB2B1027264F00A6B945 /* CellSeparator.png in Resources */,
 				960CCB5710272A2E00A6B945 /* CellSelected.png in Resources */,
 				960CCBE310273B5400A6B945 /* CellSelectedDetail.png in Resources */,
@@ -813,7 +811,11 @@
 				96E41ABC1032FD2E002F6725 /* OldSkoolMap.png in Resources */,
 				962306FF10347318003ED654 /* SearchBarBackground.png in Resources */,
 				9623071410347864003ED654 /* KleioSearchBar.xib in Resources */,
-				962307E510348349003ED654 /* TestController.xib in Resources */,
+				964700AA103817FA00ABE764 /* Settings.png in Resources */,
+				964700B01038191000ABE764 /* Add.png in Resources */,
+				964700D310381B2200ABE764 /* Transactions.png in Resources */,
+				964700DC10382B2500ABE764 /* tannhjul.png in Resources */,
+				964700F4103830EC00ABE764 /* Pricetag.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -847,7 +849,6 @@
 				96FAE6DC1024C2970060384F /* Location.m in Sources */,
 				96FAE6E01024C30A0060384F /* Tag.m in Sources */,
 				96A98E591025D45100FFA6D0 /* TransactionsMainViewController.m in Sources */,
-				9662FEF81026CCCE00B670D6 /* FilterField.m in Sources */,
 				96D7A94410282D28000FCC42 /* MapFullScreen.m in Sources */,
 				96D7A9A810285949000FCC42 /* EditTransaction.m in Sources */,
 				9657530310303B9100F93557 /* CurrencyManager.m in Sources */,
@@ -857,7 +858,6 @@
 				9623071510347864003ED654 /* BubbleView.m in Sources */,
 				9623071810347903003ED654 /* SearchBarTerm.m in Sources */,
 				9623074310347D7F003ED654 /* SearchBarWord.m in Sources */,
-				962307E410348349003ED654 /* TestController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -13,7 +13,6 @@
 #import "Utilities.h"
 #import "TransactionsMainViewController.h"
 #import "SettingsViewController.h"
-#import "TestController.h"
 
 @implementation FinanceAppDelegate
 
@@ -87,21 +86,15 @@
 	 */
 	SettingsViewController * settingsController = [[SettingsViewController alloc] initWithNibName:@"SettingsViewController" bundle:[NSBundle mainBundle]];
 	
-	
-	/*
-	 TestController
-	 */
-	TestController * testController = [[TestController alloc] initWithNibName:@"TestController" bundle:[NSBundle mainBundle]];
-	
+		
 	// Group all the view controllers
-	NSArray * controllers = [NSArray arrayWithObjects:addExpenseController, transactionViewController, betaController, settingsController, testController, nil];
+	NSArray * controllers = [NSArray arrayWithObjects:addExpenseController, transactionViewController, settingsController, betaController, nil];
 
 	// The control over the view controllers is now the business of the controllers array
 	[transactionViewController release];
 	[addExpenseController release];
 	[betaController release];
 	[settingsController release];
-	[testController release];
 	
 	self.tabBarController = [[UITabBarController alloc] initWithNibName:nil bundle:nil]; 	
 	[self.tabBarController setViewControllers:controllers]; 

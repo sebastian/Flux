@@ -304,7 +304,7 @@
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
 	if ([[Utilities toolbox] isReloadingTableAllowed]) {
 		[self.tableView reloadData];
-		NSLog(@"Reloaded data in %@", self);
+		NSLog(@"Reloaded data in %@ because of controllerDidChangeContent:", self);
 		[self setBadgeBalance];
 	} else {
 		NSLog(@"Reloaded data NOT ALLOWED in %@", self);

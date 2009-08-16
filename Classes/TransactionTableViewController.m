@@ -8,7 +8,7 @@
 
 #import "TransactionTableViewController.h"
 #import "Utilities.h"
-#import "FilterField.h"
+#import "KleioSearchBar.h"
 
 @interface TransactionTableViewController (PrivateMethods)
 - (void)clearCacheIfAvailable;
@@ -103,7 +103,7 @@
 #pragma mark Private methods
 -(void)toggleSearch {
 	// Send show notification
-	[[FilterField sharedFilterBar] toggle];
+	[[KleioSearchBar searchBar] toggle];
 }
 -(void)updatePredicate:(NSNotification*)notification {
 
@@ -120,16 +120,6 @@
 		[self.tableView reloadData];
 		
 	} 
-}
-- (void)staleCache:(NSNotification*)notification {
-	NSDictionary * dict = notification.userInfo;
-	NSDictionary * monthsToDelete = [dict objectForKey:@"yearMonthDictionary"];
-	
-	if ([self respondsToSelector:@selector(clearCacheForYearMonth:)]) {
-		[self performSelector:@selector(clearCacheForYearMonth:) withObject:monthsToDelete];
-	} else {
-		NSLog(@"%@ does not respond to clearCacheForYearMonth");
-	}
 }
 - (void)clearCacheIfAvailable {
 	if ([self respondsToSelector:@selector(clearDataCache)]) {
@@ -211,6 +201,10 @@
 
 - (void)didReceiveMemoryWarning {
 	NSLog(@"didReceiveMemoryWarning: %@", self);
+	
+	NSLog(@"Clearing cache in %@ to help", self);
+	[self clearCacheIfAvailable];
+	
     [super didReceiveMemoryWarning];
 }
 

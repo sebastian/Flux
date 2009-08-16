@@ -36,9 +36,23 @@
 				<int key="NSvFlags">292</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
+					<object class="IBUISearchBar" id="703715909">
+						<reference key="NSNextResponder" ref="409822805"/>
+						<int key="NSvFlags">290</int>
+						<string key="NSFrameSize">{320, 44}</string>
+						<reference key="NSSuperview" ref="409822805"/>
+						<bool key="IBUIOpaque">NO</bool>
+						<int key="IBUIContentMode">3</int>
+						<bool key="IBUIMultipleTouchEnabled">YES</bool>
+						<object class="NSColor" key="IBTintColor">
+							<int key="NSColorSpace">1</int>
+							<bytes key="NSRGB">MC40OTgwMzkyMiAwLjQ5ODAzOTIyIDAuNDk4MDM5MjIAA</bytes>
+						</object>
+						<object class="IBUITextInputTraits" key="IBTextInputTraits"/>
+					</object>
 					<object class="IBUIImageView" id="139353341">
 						<reference key="NSNextResponder" ref="409822805"/>
-						<int key="NSvFlags">292</int>
+						<int key="NSvFlags">-2147483356</int>
 						<string key="NSFrameSize">{320, 44}</string>
 						<reference key="NSSuperview" ref="409822805"/>
 						<bool key="IBUIOpaque">NO</bool>
@@ -53,7 +67,7 @@
 					<object class="IBUIView" id="9983105">
 						<reference key="NSNextResponder" ref="409822805"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{34, 6}, {266, 31}}</string>
+						<string key="NSFrame">{{27, 6}, {293, 31}}</string>
 						<reference key="NSSuperview" ref="409822805"/>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">3</int>
@@ -68,7 +82,7 @@
 					<object class="IBUITextField" id="286748234">
 						<reference key="NSNextResponder" ref="409822805"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{34, 6}, {266, 31}}</string>
+						<string key="NSFrame">{{34, 6}, {282, 31}}</string>
 						<reference key="NSSuperview" ref="409822805"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
@@ -79,11 +93,16 @@
 							<bytes key="NSWhite">MAA</bytes>
 							<reference key="NSCustomColorSpace" ref="773670293"/>
 						</object>
-						<bool key="IBUIClearsOnBeginEditing">YES</bool>
+						<object class="NSFont" key="IBUIFont">
+							<string key="NSName">Helvetica</string>
+							<double key="NSSize">1.400000e+01</double>
+							<int key="NSfFlags">16</int>
+						</object>
 						<float key="IBUIMinimumFontSize">1.700000e+01</float>
 						<object class="IBUITextInputTraits" key="IBUITextInputTraits">
 							<int key="IBUIReturnKeyType">9</int>
 						</object>
+						<int key="IBUIClearButtonMode">3</int>
 					</object>
 				</object>
 				<string key="NSFrameSize">{320, 44}</string>
@@ -162,6 +181,7 @@
 							<reference ref="286748234"/>
 							<reference ref="139353341"/>
 							<reference ref="9983105"/>
+							<reference ref="703715909"/>
 						</object>
 						<reference key="parent" ref="317526666"/>
 					</object>
@@ -180,6 +200,11 @@
 						<reference key="object" ref="9983105"/>
 						<reference key="parent" ref="409822805"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">13</int>
+						<reference key="object" ref="703715909"/>
+						<reference key="parent" ref="409822805"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -188,6 +213,7 @@
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>-1.CustomClassName</string>
 					<string>-2.CustomClassName</string>
+					<string>13.IBPluginDependency</string>
 					<string>4.IBEditorWindowLastContentRect</string>
 					<string>4.IBPluginDependency</string>
 					<string>5.IBPluginDependency</string>
@@ -199,6 +225,7 @@
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>KleioSearchBar</string>
 					<string>UIResponder</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>{{404, 917}, {320, 44}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -227,7 +254,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">11</int>
+			<int key="maxID">13</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -248,11 +275,13 @@
 						<object class="NSMutableArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>bubbleView</string>
+							<string>delegate</string>
 							<string>searchBarTextField</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>BubbleView</string>
+							<string>id</string>
 							<string>UITextField</string>
 						</object>
 					</object>
@@ -264,7 +293,7 @@
 			</object>
 		</object>
 		<int key="IBDocument.localizationMode">0</int>
-		<string key="IBDocument.LastKnownRelativeProjectPath">../TokenField.xcodeproj</string>
+		<string key="IBDocument.LastKnownRelativeProjectPath">../Finance.xcodeproj</string>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<string key="IBCocoaTouchPluginVersion">3.0</string>
 	</data>

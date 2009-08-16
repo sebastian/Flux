@@ -16,6 +16,7 @@
 
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSSet* location;
+@property (nonatomic, retain) NSNumber * autotag;
 
 @end
 

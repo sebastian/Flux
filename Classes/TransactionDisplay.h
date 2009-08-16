@@ -21,7 +21,7 @@
     IBOutlet UILabel *tags;
     IBOutlet UILabel *what;
     IBOutlet UILabel *when;
-	
+ 	
 	// For map
 	MapAnnotation * annotation;
 	MKCoordinateRegion region;

@@ -16,7 +16,6 @@
 @synthesize font;
 
 - (void)drawRect:(CGRect)rect {
-	NSLog(@"Bubble view was asked to draw.");
 	if (term != nil) {
 		for (SearchBarWord * word in [term words]) {
 			if (word.validTag) {
@@ -25,18 +24,18 @@
 		}
 	}
 }
--(void)drawBubbleFrom:(NSInteger)x withWidth:(NSInteger)width {
+- (void)drawBubbleFrom:(NSInteger)x withWidth:(NSInteger)width {
 
-	const CGFloat cornerRadius = 5;
-	const NSInteger BUBBLE_HEIGHT = 15;
-	const NSInteger BUBBLE_Y_POSITION = 9;
+	const CGFloat cornerRadius = 3;
+	const NSInteger BUBBLE_HEIGHT = 17;
+	const NSInteger BUBBLE_Y_POSITION = 7;
 	
 	CGRect rect;
-	rect.size.width = width;
+	rect.size.width = width + 2;
 	rect.size.height = BUBBLE_HEIGHT;
 	
 	rect.origin.y = BUBBLE_Y_POSITION;
-	rect.origin.x = x;
+	rect.origin.x = x + 6;
 	
 	CGMutablePathRef path = CGPathCreateMutable();
 	CGPathMoveToPoint(path, NULL,
@@ -95,7 +94,6 @@
 	CGPathRelease(roundRectPath);
 	
 }
-
 
 - (void)dealloc {
     [super dealloc];

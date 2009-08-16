@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "SearchBarWord.h"
 
-@interface SearchBarTerm : NSObject {
+@interface SearchBarTerm : NSObject <SearchBarWordDelegate> {
 	NSMutableArray * searchBarWords;
 	UIFont * font;
 }
@@ -20,5 +20,10 @@
 
 -(void)printTheWords;
 -(NSArray*)words;
+-(void)notifyNewTag;
+-(NSArray*)tags;
+
+// Clears all the tags away
+-(void)clear;
 
 @end

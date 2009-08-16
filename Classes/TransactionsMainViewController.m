@@ -36,14 +36,12 @@
 		self.navController = [[TransactionsNavigationController alloc] initWithContext:context];
 		self.contentView = self.navController.view;
 		
-		// Register as the delegate of the filter field
-		[[FilterField sharedFilterBar] setDelegate:self];
-
-		// Add the filter field to the view
-		[self.view addSubview:[FilterField sharedFilterBar].view];
+		[[KleioSearchBar searchBar] setDelegate:self];
 		
 		// Add the contentview to the subview
 		[self.view addSubview:self.contentView];
+		
+		[self.tabBarItem setImage:[UIImage imageNamed:@"Transactions.png"]];
 		
 		self.title = NSLocalizedString(@"Transactions",@"Tab bar title");
     }
@@ -54,7 +52,8 @@
 	
 	[self showSearch];
 	
-	[[FilterField sharedFilterBar] updateFilterByField];
+	// FIXME: What is this method doing?
+	//[[KleioSearchBar searchBar] updateFilterByField];
 }
 -(void)viewDidUnload {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -95,13 +94,13 @@
 	[self hideSearchBar];
 	
 	// Signal to everyone that the search has cleared
-	[[FilterField sharedFilterBar] clearSearchState];
+	[[KleioSearchBar searchBar] clearSearchState];
 	
 }
 -(void)hideSearchBar {
 	searchIsVisible = NO;
 	
-	[[FilterField sharedFilterBar] resignFirstResponder];
+	[[KleioSearchBar searchBar] resignFirstResponder];
 	
 	CGRect frame = self.contentView.frame;
 	frame.origin.y = 0;
@@ -119,7 +118,8 @@
 	
 	[self animateContentToFrame:frame];	
 	
-	[[FilterField sharedFilterBar] updateFilterByField];
+	// FIXME: Is this needed? What does it do?
+	//[[FilterField sharedFilterBar] updateFilterByField];
 	
 }
 -(void)toggleSearch {
@@ -141,7 +141,7 @@
 		NSString * searchString = [notification.userInfo objectForKey:@"searchString"];
 		if (searchString != nil) {
 			// There was a search string, use it! :)
-			[[FilterField sharedFilterBar] setSearchString:searchString];
+			[[KleioSearchBar searchBar] setSearchString:searchString];
 		}
 	}
 	
@@ -150,7 +150,14 @@
 
 - (void)didReceiveMemoryWarning {
 	NSLog(@"didReceiveMemoryWarning: %@", self);
-    [super didReceiveMemoryWarning];
+
+	NSLog(@"Clearing Utilities cache");
+	[[Utilities toolbox] clearCache];
+    
+	NSLog(@"Removing background image from %@", self);
+	self.backgroundImage = nil;
+	
+	[super didReceiveMemoryWarning];
 }
 
 

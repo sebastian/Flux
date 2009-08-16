@@ -14,5 +14,6 @@
 
 @dynamic name;
 @dynamic location;
+@dynamic autotag;
 
 @end

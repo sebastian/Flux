@@ -18,12 +18,13 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
 		self.title = NSLocalizedString(@"Settings", @"Settings view controller title");
+		[self.tabBarItem setImage:[UIImage imageNamed:@"tannhjul.png"]];
     }
     return self;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-	
+		
 	// Header label
 	settingsHeaderLabel.text = self.title;
 	
@@ -31,11 +32,6 @@
 	baseCurrencyLabel.text = NSLocalizedString(@"Your base currency:", @"settings label, select your base currency");
 	baseCurrencyDescriptionLabel.text = NSLocalizedString(@"When you add transactions in currencies other than your own, they will be converted to and displayed in your base currency.", @"explanation of what base currency is");
 	
-	// Auto tags
-	autoTagLabel.text = NSLocalizedString(@"Auto tags:", nil);
-	autoTagDescriptionLabel.text = NSLocalizedString(@"When using autotags the application will suggest tags matching to the location you are at when adding a transaction.", nil);
-	autoTagSwitch.on = [[[NSUserDefaults standardUserDefaults] objectForKey:@"KleioTransactionsAutoTags"] boolValue];
-
 	// Local currency
 	localCurrencyLabel.text = NSLocalizedString(@"Use local currency:",nil);
 	localCurrencyDescriptionLabel.text = NSLocalizedString(@"Automatically uses the local currency when adding new transactions.", nil);
@@ -45,6 +41,17 @@
 	balanceLabel.text = NSLocalizedString(@"Show balance on icon:", nil);
 	balanceDescriptionLabel.text = NSLocalizedString(@"When activated your current positive balance will be displayed on the application icon badge. Only positive balances up to 9999 will be displayed. This is because of limitations set by Apple", nil);
 	balanceSwitch.on = [[[NSUserDefaults standardUserDefaults] objectForKey:@"KleioTransactionsBalanceBadge"] boolValue];
+	
+	// Location tags
+	locationTagLabel.text = NSLocalizedString(@"Location tags:", nil);
+	locationTagDescriptionLabel.text = NSLocalizedString(@"Location tags use your GPS to find your location and suggest tags you have previously used on the same location", nil);
+	locationTagSwitch.on = [[[NSUserDefaults standardUserDefaults] objectForKey:@"KleioTransactionsLocationTags"] boolValue];
+	
+	// Auto tags
+	autoTagLabel.text = NSLocalizedString(@"Auto tags:", nil);
+	autoTagDescriptionLabel.text = NSLocalizedString(@"The application will automatically add tags for the country, street, weekday, month etc to make it easier to filter your transactions", nil);
+	autoTagSwitch.on = [[[NSUserDefaults standardUserDefaults] objectForKey:@"KleioTransactionsAutoTags"] boolValue];
+	
 	
 	// Setup the scrolling behaviuor
 	scrollview.contentSize = CGSizeMake(settingsView.frame.size.width, settingsView.frame.size.height);
@@ -94,6 +101,11 @@
 	[currencySelectionControl setTitle:[NSString stringWithFormat:NSLocalizedString(@"Currency: %@",nil), [[CurrencyManager sharedManager] baseCurrencyDescription]] forSegmentAtIndex:0];
 }
 
+- (IBAction) toggleLocationTag {
+	[[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:locationTagSwitch.on]
+											  forKey:@"KleioTransactionsLocationTags"];
+	
+}
 - (IBAction) toggleAutoTag {
 	[[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:autoTagSwitch.on]
 											  forKey:@"KleioTransactionsAutoTags"];

@@ -20,6 +20,10 @@
 	IBOutlet UILabel * autoTagLabel;
 	IBOutlet UILabel * autoTagDescriptionLabel;
 
+	IBOutlet UISwitch * locationTagSwitch;
+	IBOutlet UILabel * locationTagLabel;
+	IBOutlet UILabel * locationTagDescriptionLabel;
+		
 	IBOutlet UISwitch * localCurrencySwitch;
 	IBOutlet UILabel * localCurrencyLabel;
 	IBOutlet UILabel * localCurrencyDescriptionLabel;
@@ -36,8 +40,10 @@
 - (void)baseCurrencyChanged;
 
 - (IBAction) toggleAutoTag;
+- (IBAction) toggleLocationTag;
 - (IBAction) toggleLocalCurrency;
 - (IBAction) toggleBalanceBadge;
+
 
 // CurrencySelectionDialogDelegate method
 -(void)currencySelected:(NSString*)currencyCode;

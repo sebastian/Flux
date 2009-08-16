@@ -11,7 +11,7 @@
 #import "Transaction.h"
 #import "TransactionDisplay.h"
 #import "Utilities.h"
-#import "FilterField.h"
+#import "KleioSearchBar.h"
 #import "CurrencyManager.h"
 
 @interface DetailTableViewController (PrivateMethods)
@@ -80,9 +80,9 @@
 	if (filterActive) {
 		// Reset
 		filterActive = NO;
-		if (filterString != nil) {[[FilterField sharedFilterBar] setSearchString:filterString];}
+		if (filterString != nil) {[[KleioSearchBar searchBar] setSearchString:filterString];}
 		[filterString release];
-		[[FilterField sharedFilterBar] show];
+		[[KleioSearchBar searchBar] show];
 	}
 	
 	/*
@@ -342,10 +342,9 @@
 
 	// We are now going to show another page where the search bar is not required
 	// Save search state:
-	filterActive = [[FilterField sharedFilterBar] isVisible];
-	filterString = [[[FilterField sharedFilterBar] searchString] retain];
-	//[[FilterField sharedFilterBar] hide];
-	[[FilterField sharedFilterBar] hideButRetainState];
+	filterActive = [[KleioSearchBar searchBar] isVisible];
+	filterString = [[[KleioSearchBar searchBar] searchString] retain];
+	[[KleioSearchBar searchBar] hideButRetainState];
 	
 	// Show it
 	[self.navigationController pushViewController:infoDisplay animated:YES];
@@ -374,10 +373,11 @@
 		 We are doing a local delete
 		 In which case I don't want to reload the whole table view
 		 because we can just remove one row locally!
+		 The overview table view on the other hand will be stale
+		 because it has summaries of the transactions
 		 */
 		localDelete = YES;
 		[self.delegate clearDataCache];
-		[[self.delegate tableView] reloadData];
 		
 		NSDictionary * data = [self dataForSection:indexPath.section];
 		Transaction *trs = (Transaction *)[[data objectForKey:@"transactions"] objectAtIndex:indexPath.row];
@@ -422,16 +422,12 @@
 	if (localDelete) {
 		switch(type) {
 				
-			case NSFetchedResultsChangeDelete:
-				/*
-				 I am removing a section, so the section caches are all wrong
-				 because the indexes aren't the same anymore!
-				 */
-				[self clearDataCache];
-				
+			case NSFetchedResultsChangeDelete:				
 				/*
 				 All the cached data has been removed, so we can just as well reload the whole table
 				 */
+				[self clearDataCache];
+				
 				[self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationBottom];
 				[self.tableView performSelector:@selector(reloadData) withObject:nil afterDelay:0.3];
 				break;

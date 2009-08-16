@@ -16,19 +16,27 @@
 @synthesize font;
 @synthesize origin;
 @synthesize width;
+@synthesize delegate;
 
 	
 -(void)setWord:(NSString*)aWord fromContext:(NSString*)context {
 	[aWord retain];
 	[word release];
 
+	BOOL wasValid = validTag;
+	
 	origin = [context sizeWithFont:self.font].width;
 	width = [aWord sizeWithFont:self.font].width;
 	
-	NSLog(@"Setting word '%@' (%@)", aWord, context);
-	
 	word = aWord;
 	validTag = [[Utilities toolbox] doesTagExist:aWord];
+	
+	/*
+	 If the current word is valid then we should notify 
+	 the delegate. Likewise if it previously was a valid tag
+	 and now it isn't anymore then we should also notify the delegate
+	 */
+	if (validTag || wasValid) { [delegate notifyNewTag]; }
 }
 
 -(void)dealloc {

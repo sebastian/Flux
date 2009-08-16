@@ -36,7 +36,6 @@ static Utilities *sharedUtilitiesToolbox = nil;
 	saving = NO;
 }
 
-
 -(double)sumAmountForTransactionArray:(NSArray*)transactions {
 
 	double dKroner;
@@ -55,6 +54,9 @@ static Utilities *sharedUtilitiesToolbox = nil;
 -(float)keyboardAnimationDuration {return 0.3;}
 -(BOOL)doesTagExist:(NSString*)tag {
 
+	// Lowercase it so that we can normalize it here
+	tag = [tag lowercaseString];
+	
 	// Create the tag existance dictionary if it doesn't exist
 	if (tagExistance == nil) { tagExistance = [[NSMutableDictionary alloc] init]; }
 	// Look up in cache
@@ -65,14 +67,33 @@ static Utilities *sharedUtilitiesToolbox = nil;
 		return NO;
 	} else {
 		[tagExistance setValue:[NSNumber numberWithBool:YES] forKey:tag];
-		return YES;
+		
+		/*
+		 If the user does not use autotags, then we have to say no
+		 if the current tag is actually an autotag!
+		 */
+		if (![[[NSUserDefaults standardUserDefaults] objectForKey:@"KleioTransactionsAutoTags"] boolValue]) {
+			if ([[Utilities toolbox] tagObjectforTag:tag].autotag) {
+				/*
+				 The user does not want to use autotags. 
+				 Hence this tag "doesn't" exist in his or her opinion
+				 */
+				return NO;
+			} else {
+				return YES;
+			}
+			
+		} else {
+
+			// There is a tag, so return yes if the user has autotags enabled
+			return YES;
+		}
 	}
 }
--(void)clearCache {
-	[tagExistance release];
-	[tagCache release];
-}
--(void)addTag:(NSString*)tag location:(CLLocation*)loc {
+-(void)addTag:(NSString*)tag autotag:(BOOL)autotag location:(CLLocation*)loc {
+
+	tag = [tag lowercaseString];
+	
 	Tag * currentTag = [[Utilities toolbox] tagObjectforTag:tag];
 
 	// Create an object to hold the location
@@ -82,9 +103,12 @@ static Utilities *sharedUtilitiesToolbox = nil;
 
 	if (currentTag == nil) {
 
+		NSLog(@"Creating a new tag for: %@", tag);
+		
 		Tag * newTag = [NSEntityDescription insertNewObjectForEntityForName:@"Tag" 
 													 inManagedObjectContext:self.managedObjectContext];
 		
+		newTag.autotag = [NSNumber numberWithBool:autotag];
 		newTag.name = tag;
 		
 		// Add the tag to the tag cache
@@ -103,6 +127,8 @@ static Utilities *sharedUtilitiesToolbox = nil;
 	
 }
 -(Tag*)tagObjectforTag:(NSString*)tag {
+	
+	tag = [tag lowercaseString];
 	
 	// Create the tags dictionary if it doesn't exist
 	if (tagCache == nil) { tagCache = [[NSMutableDictionary alloc] init]; }
@@ -140,7 +166,8 @@ static Utilities *sharedUtilitiesToolbox = nil;
 -(NSArray*)tagStringToArray:(NSString*)tagString {
 	
 	// lowercase, or downcase all the tags
-	NSString * lowerCaseTags = [tagString lowercaseString];
+	//NSString * lowerCaseTags = [tagString lowercaseString];
+	NSString * lowerCaseTags = tagString;
 	
 	// Split by whitespace
 	NSArray * localTags = [lowerCaseTags componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
@@ -189,6 +216,11 @@ static Utilities *sharedUtilitiesToolbox = nil;
 }
 -(BOOL) isReloadingTableAllowed {return reloadingTableAllowed;}
 
+-(void)clearCache {
+	[tagExistance removeAllObjects];
+	[tagCache removeAllObjects];
+	[dateFormatter release];
+}
 
 #pragma mark
 #pragma mark -

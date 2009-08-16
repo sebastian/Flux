@@ -14,6 +14,8 @@
 
 - (NSDate *)primitiveDate;
 - (void)setPrimitiveDate:(NSDate *)value;
+- (NSString *)primitiveTags;
+- (void)setPrimitiveTags:(NSString *)value;
 
 @end
 
@@ -41,6 +43,8 @@
 #pragma mark Setup and teardown
 - (void)awakeFromInsert {
 	
+	isNew = YES;
+	
 	// Set date to the current date
 	self.date = [NSDate date];
 	
@@ -50,8 +54,11 @@
 	// Set them to empty strings
 	self.transactionDescription = @"";
 	self.tags = @"";
-
+	
 	self.expense = [NSNumber numberWithBool:YES];
+}
+- (void)awakeFromFetch {
+	isNew = NO;
 }
 
 - (void)setDate:(NSDate *)value {
@@ -76,6 +83,24 @@
 	self.yearMonth = yearMonthValue;	
 	
 }
+- (void)setTags:(NSString *)value {
+	
+	// Get the value for the existing tags
+	tagsSnapshot = [self.tags retain];
+	
+	/* 
+	 Add padding around the tags so that they can be searched for better
+	 */
+	NSString * tags = [NSString stringWithFormat:@" %@ ", value];
+	
+    [self willChangeValueForKey:@"tags"];
+    [self setPrimitiveTags:tags];
+    [self didChangeValueForKey:@"tags"];
+}
+- (NSString*)trimmedTags {
+	return [self.tags stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+}
+
 
 -(void)dealloc {
 	[formatter dealloc];
@@ -83,18 +108,45 @@
 }
 -(void)didSave {
 	if (!self.isDeleted) {
-		/*
-		 Tags:
-		 Go through all the tags:
-		 Check if there already is a tag object by that name
-		 YES: Then add the location to it
-		 NO: Create it
+		/* 
+		 if it is new, then go through all tags
+		 and add them to the system
 		 */
-		NSArray * tags = [[Utilities toolbox] tagStringToArray:self.tags];
-		for (NSString * tag in tags) {
-			// Does the tag exist?
-			[[Utilities toolbox] addTag:tag location:self.location];
-		}		
+		if (isNew) {			
+			/*
+			 Tags:
+			 Go through all the tags:
+			 Check if there already is a tag object by that name
+			 YES: Then add the location to it
+			 NO: Create it
+			 */
+			NSArray * tags = [[Utilities toolbox] tagStringToArray:self.tags];
+			for (NSString * tag in tags) {
+				// Does the tag exist?
+				[[Utilities toolbox] addTag:tag autotag:NO location:self.location];
+			}		
+			NSArray * autotags = [[Utilities toolbox] tagStringToArray:self.autotags];
+			for (NSString * tag in autotags) {
+				// Does the tag exist?
+				[[Utilities toolbox] addTag:tag autotag:YES location:self.location];
+			}			
+		} else {
+			/*
+			 Is not new. We should check if there have been added any new tags, 
+			 and if yes, then we should add them to the system!
+			 */
+			NSArray * previousTags = [[Utilities toolbox] tagStringToArray:tagsSnapshot];
+			NSArray * currentTags = [[Utilities toolbox] tagStringToArray:self.tags];
+			
+			for (NSString * tag in currentTags) {
+				if (![previousTags containsObject:tag]) {
+					/*
+					 We have a new tag! Add it
+					 */
+					[[Utilities toolbox] addTag:tag autotag:NO location:self.location];
+				}
+			}
+		}
 	}
 }
 	
@@ -151,8 +203,8 @@
 }
 -(NSString*)descriptionAndTags {
 	NSString * description = self.transactionDescription;
-	if (![self.tags isEqualToString:@""]) {
-		description = [[description stringByAppendingFormat:@" (%@)", self.tags] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+	if (![[self trimmedTags] isEqualToString:@""]) {
+		description = [[description stringByAppendingFormat:@" (%@)", [self trimmedTags]] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
 	}
 	return description;
 }

@@ -81,7 +81,7 @@
 	}
 	
 	// TODO: Make nice bubble tags (display them as bubbles)
-	tags.text = [NSLocalizedString(@"tags:", @"Tags for transaction detail page") stringByAppendingFormat:@" %@", currentTransaction.tags];
+	tags.text = [NSLocalizedString(@"tags:", @"Tags for transaction detail page") stringByAppendingFormat:@" %@", [currentTransaction trimmedTags]];
 	
 	if ([currentTransaction.expense boolValue] == YES) {
 		what.text = NSLocalizedString(@"Expense", @"Transaction detail view. Expense");
@@ -102,6 +102,7 @@
 - (void) didReceiveMemoryWarning {
     NSLog(@"Did receive memory warning in %@", self);
 	[super didReceiveMemoryWarning];
+		
 }
 
 // Display map in full screen

@@ -26,7 +26,7 @@
 }
 
 - (NSString *)subtitle {
-	return currentTransaction.tags;
+	return [currentTransaction trimmedTags];
 }
 - (NSString *)title {
 	return [currentTransaction amountInLocalCurrency];

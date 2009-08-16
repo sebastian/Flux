@@ -13,10 +13,13 @@
 #import "ControlViewController.h"
 #import "Utilities.h"
 #import "CurrencyManager.h"
+#import "Location.h"
+#import "Tag.h"
 
 @interface ExpenseInputViewController (Private)
 -(void)updateExpenseDisplay;
 -(CGFloat)viewHeight;
+-(void)findLocationTags;
 @end
 
 
@@ -36,8 +39,9 @@
 
 @synthesize bestLocation;
 
-@synthesize geoCoder;
 @synthesize localCurrency;
+
+@synthesize placemark;
 
 
 #pragma mark
@@ -48,6 +52,7 @@
 	if (self) {
 		self.title = NSLocalizedString(@"Add transaction", @"Add transaction view controller title");
 		self.currentTransaction = nil;
+		[self.tabBarItem setImage:[UIImage imageNamed:@"Add.png"]];
 	}
 	return self;	
 }
@@ -129,16 +134,15 @@
 - (void)dealloc {
 	self.controller = nil;
 	self.tagsAndDescriptionBackgroundPicture = nil;
-	
-	self.geoCoder = nil;
-	
-	[tagsAndDescriptionView release];
-	[tagsAndDescription release];
-	[headerLabel release];
-	[bestLocation release];
-	[amountLabel release];
-	[managedObjectContext release];
-	[localCurrency release];
+	self.placemark = nil;
+	self.tagsAndDescriptionView = nil;
+	self.tagsAndDescription = nil;
+	self.headerLabel = nil;
+	self.bestLocation = nil;
+	self.amountLabel = nil;
+	self.managedObjectContext = nil;
+	self.localCurrency = nil;
+
     [super dealloc];
 }
 
@@ -158,12 +162,11 @@
 	
 	if (self.bestLocation == nil) {
 		self.bestLocation = location;
-		
-		NSLog(@"Starting geocoding");
+
 		// We have to geocode as well!
-		self.geoCoder = [[MKReverseGeocoder alloc] initWithCoordinate:location.coordinate];
-		geoCoder.delegate = self;
-		[geoCoder start];
+		[[Utilities toolbox] reverseGeoCode:location.coordinate forDelegate:self];
+		
+		[self performSelectorInBackground:@selector(findLocationTags) withObject:nil];
 		
 	} else {
 		if (location.timestamp > self.bestLocation.timestamp) {
@@ -177,13 +180,13 @@
 -(void)locationError:(NSString *)error {
 	NSLog(@"Got location error: %@", error);
 }
--(void)reverseGeocoder:(MKReverseGeocoder *)geocoder didFindPlacemark:(MKPlacemark *)placemark {
+-(void)reverseGeocoder:(MKReverseGeocoder *)geocoder didFindPlacemark:(MKPlacemark *)_placemark {
 	/*
 	 We have to find the currency corrensponding to the country!
 	 */
+	self.placemark = _placemark;
+
 	NSString * countryCode = placemark.countryCode;
-	NSLog(@"Found countrycode: %@", countryCode);
-	
 	NSString * currencyCode = [[[CurrencyManager sharedManager] countryToCurrency] objectForKey:countryCode];
 	
 	if (!(currencyCode == nil)) {
@@ -200,8 +203,143 @@
 	}
 	
 }
-- (void)reverseGeocoder:(MKReverseGeocoder *)geocoder didFailWithError:(NSError *)error {
+-(void)reverseGeocoder:(MKReverseGeocoder *)geocoder didFailWithError:(NSError *)error {
 	// Nothing much to do...
+}
+-(void)findLocationTags {
+	
+	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+	
+	// Find tags close by if the user wants location tags
+	if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"KleioTransactionsLocationTags"] boolValue]) {
+		
+		NSError *error;
+		
+		// Get all the transactions
+		NSFetchRequest * fetchRequest = [[NSFetchRequest alloc] init];
+		NSEntityDescription * entity = [NSEntityDescription entityForName:@"Tag" inManagedObjectContext:self.managedObjectContext];
+		[fetchRequest setEntity:entity];
+		
+		// TODO: limit tag lookup
+		/*
+		 Should look for tags with location that are within a certain latitudal range.
+		 1 degree in latitude is approx 111 km
+		 Hence I should store lat in the location class and then I can look for
+		 within a range... To speed up the lookup.
+		 */
+		
+		double diff = 0.0005;
+		double plusLatDelta = self.bestLocation.coordinate.latitude + diff;
+		double minusLatDelta = self.bestLocation.coordinate.latitude - diff;
+		
+		NSPredicate * notAutotags = [NSPredicate predicateWithFormat:@"(autotag = NO)"];
+		NSPredicate * deltaPredicate = [NSPredicate predicateWithFormat:@"ANY location.latitude BETWEEN {%f, %f}", minusLatDelta, plusLatDelta];
+		//NSPredicate * deltaPredicate = [NSPredicate predicateWithFormat:@"ANY ((location.latitude >= %f) AND (location.latitude <= %f))", minusLatDelta, plusLatDelta];
+		
+		NSLog(@"DeltaPredicte: %@", deltaPredicate);
+		
+		NSPredicate * groupPredicate = 
+		[NSCompoundPredicate andPredicateWithSubpredicates:[NSArray arrayWithObjects:notAutotags, 
+															deltaPredicate, nil]];
+		
+		NSLog(@"Total preducate: %@", groupPredicate);
+		
+		// FIXME: Get the limiting fetch request to work!
+		//[fetchRequest setPredicate:groupPredicate];
+		[fetchRequest setPredicate:notAutotags];
+		
+		
+		NSArray * fetchedTags = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+		[fetchRequest release];
+		
+		NSMutableArray * tagsToSuggest = [[NSMutableArray alloc] init];
+		
+		NSLog(@"Fetched tags:");
+		for (Tag * tag in fetchedTags) {
+			NSLog(@"\ttag: %@", tag.name);
+			NSSet * locations = tag.location;				
+			for (Location * location in locations) {
+				CLLocationDistance distance = [self.bestLocation getDistanceFrom:location.location];
+				/* If the tag is closer than 50 meters then use it */
+				if (distance < 250.f) {
+					[tagsToSuggest addObject:tag];
+					NSLog(@"\t\tIs close enough!");
+					break;
+				}
+			}
+		}
+		
+		if ([tagsToSuggest count] > 0) {
+			UIAlertView * alert = [[UIAlertView alloc] init];
+			
+			// save them so we have them for the answer
+			suggestedTags = [tagsToSuggest copy];
+			
+			alert.title = NSLocalizedString(@"Found tags previously used in this area",nil);
+			
+			alert.message = NSLocalizedString(@"Do you want to use the following tags:",nil);
+			
+			NSString * tagNames = [NSString stringWithFormat:@" %@", ((Tag*)[tagsToSuggest objectAtIndex:0]).name];
+			[tagsToSuggest removeObjectAtIndex:0];
+			
+			for (Tag * tag in tagsToSuggest) {
+				tagNames = [tagNames stringByAppendingFormat:@", %@", tag.name];
+			}
+			tagNames = [tagNames stringByAppendingString:@"."];
+			
+			alert.message = [alert.message stringByAppendingString:tagNames];
+			
+			[alert addButtonWithTitle:NSLocalizedString(@"Yes",nil)];
+			[alert addButtonWithTitle:NSLocalizedString(@"No",nil)];
+			
+			alert.delegate = self;
+			
+			[alert show];
+		}
+		
+		[tagsToSuggest release];
+		
+	}
+	
+	
+	[pool release];
+	
+}
+
+
+#pragma mark
+#pragma mark -
+#pragma mark UIAlertView delegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+
+	NSLog(@"Clicked a button. It had index: %i", buttonIndex);
+	
+	if (buttonIndex == 0) {
+		NSLog(@"Wanted tags... adding them");
+		
+		// Wants to use the tags
+		NSString * tagsPrepend = @"";
+		if (![tagsField.text isEqualToString:@""]) {tagsPrepend = @" ";}
+		
+		NSString * tags = @"";
+		
+		for (Tag * tag in suggestedTags) {
+			tags = [tags stringByAppendingFormat:@" %@", tag.name];
+		}
+		tags = [tags stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+		
+		tags = [tagsPrepend stringByAppendingString:tags];
+		
+		tagsField.text = [tagsField.text stringByAppendingString:tags];
+		
+		NSLog(@"Set tagsField to %@", tagsField.text);
+		
+		// Set the tags and description field to mimic the newly typed in descriptions
+		[self updateTagsAndDescriptionLabel];
+	} 
+	
+	// Don't need the tags anymore :)
+	[suggestedTags release];
 }
 
 
@@ -358,6 +496,13 @@
 		
 	[UIView commitAnimations];
 }
+-(void)add:(NSString*)what toArray:(NSMutableArray*)array {
+	if (self.placemark != nil) {
+		if ([placemark valueForKey:what] != nil) {
+			[array addObject:[placemark valueForKey:what]];
+		}
+	}
+}
 -(void)addExpense {
 
 	// If it was in tag mode, then get out of it
@@ -371,6 +516,37 @@
 	
 	// Set tags and description
 	currentTransaction.tags = tagsField.text;
+	
+	// The user did also want autotags (ie. August Friday 2009 Hammerstadsgate)
+	if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"KleioTransactionsAutoTags"] boolValue]) {
+		NSMutableArray * autotags = [[NSMutableArray alloc] init];
+		[self add:@"country" toArray:autotags];
+		[self add:@"administrativeArea" toArray:autotags];
+		[self add:@"locality" toArray:autotags];
+		[self add:@"subAdministrativeArea" toArray:autotags];
+		[self add:@"subLocality" toArray:autotags];
+		[self add:@"thoroughfare" toArray:autotags];
+		
+		NSDateFormatter * dateFormatter = [[Utilities toolbox] dateFormatter];
+		NSArray * weekdays = [dateFormatter weekdaySymbols];
+		NSArray * months = [dateFormatter monthSymbols];
+		
+		// Set the month and year for easier searching and displaying and most importantly grouping!
+		NSCalendar * currentCalendar = [NSCalendar currentCalendar];
+		NSDateComponents * components = [currentCalendar components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSWeekdayCalendarUnit) fromDate:self.currentTransaction.date];
+
+		NSString * month = [months objectAtIndex:components.month-1];
+		NSString * weekday = [weekdays objectAtIndex:components.weekday-1];
+		NSString * year = [NSString stringWithFormat:@"%i", components.year];
+		
+		[autotags addObject:month];
+		[autotags addObject:weekday];
+		[autotags addObject:year];
+		
+		NSString * newAutoTags = [autotags componentsJoinedByString:@" "];
+		currentTransaction.autotags = [NSString stringWithFormat:@" %@ ", newAutoTags];
+	}
+	 
 	currentTransaction.transactionDescription = descriptionField.text;
 		
 	// Save the expense
@@ -407,7 +583,7 @@
 		if ([tagsField.text isEqualToString:currentTransaction.tags]) {
 			// They are equal...
 			// They are the same... hence we use what we have
-			[tagsDescription appendFormat:@"%@", currentTransaction.tags];
+			[tagsDescription appendFormat:@"%@", [currentTransaction trimmedTags]];
 			tagsAndDescription.text = tagsDescription;
 		} else {
 			// They are not equal... That means that is must have been updated
@@ -432,7 +608,7 @@
 	}
 	
 	// Clear the tags and description fields for next use
-	tagsField.text = currentTransaction.tags;
+	tagsField.text = [currentTransaction trimmedTags];
 	descriptionField.text = currentTransaction.transactionDescription;
 	
 	[self updateExpenseDisplay];
@@ -456,6 +632,14 @@
 
 - (void)didReceiveMemoryWarning {
 	NSLog(@"didReceiveMemoryWarning: %@", self);
+		
+	UIAlertView * alert = [[UIAlertView alloc] init];
+	alert.message = NSLocalizedString(@"Your phone is critically low on memory! This application might soon crash. You should try restarting your phone.", @"Low memory alert message");
+	[alert addButtonWithTitle:NSLocalizedString(@"OK", @"memory alert OK button")];
+	alert.title = NSLocalizedString(@"Memory warning", @"Memory warning alert header");
+	[alert show];
+	[alert release];
+	
     [super didReceiveMemoryWarning];
 }
 

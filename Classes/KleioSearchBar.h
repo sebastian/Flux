@@ -12,7 +12,18 @@
 @class SearchBarTerm;
 
 @protocol KleioSearchBarDelegate
+@required
 -(UIView*)view;
+
+- (void)wantsToBeShown;
+- (void)wantsToBeHidden;
+- (void)wantsToBeHiddenWithoutClearingState;
+- (void)wantsToBeToggled;
+
+- (BOOL)isVisible;
+
+@optional
+- (void)cancelClicked;
 @end
 
 
@@ -26,6 +37,22 @@
 }
 
 @property (nonatomic, assign) id <KleioSearchBarDelegate> delegate;
+
+#pragma mark
+#pragma mark -
+#pragma mark Public API
+#pragma mark
+#pragma mark -
+#pragma mark Methods that can be externally called
+- (void) hide;
+- (void) show;
+- (void) toggle;
+- (void) hideButRetainState;
+- (void)resignFirstResponder;
+- (void)clearSearchState;
+- (void)setSearchString:(NSString*)text;
+- (BOOL)isVisible;
+- (NSString*)searchString;
 
 + (KleioSearchBar*)searchBar;
 @end

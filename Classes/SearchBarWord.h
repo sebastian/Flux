@@ -8,6 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
+@protocol SearchBarWordDelegate
+-(void)notifyNewTag;
+@end
+
+
 
 @interface SearchBarWord : NSObject {
 	NSString * word;
@@ -16,8 +21,11 @@
 	float width;
 	
 	UIFont * font;
+	
+	id <SearchBarWordDelegate> delegate;
 }
 
+@property (nonatomic, assign) id <SearchBarWordDelegate> delegate;
 @property (nonatomic, retain) UIFont * font; 
 @property (nonatomic, readonly) NSString * word;
 @property (nonatomic, readonly) BOOL validTag;

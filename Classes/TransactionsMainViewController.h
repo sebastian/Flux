@@ -8,12 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
-#import "FilterField.h"
 #import "KleioSearchBar.h"
 
 @class TransactionsNavigationController;
 
-@interface TransactionsMainViewController : UIViewController <FilterFieldDelegate, KleioSearchBarDelegate> {
+@interface TransactionsMainViewController : UIViewController <KleioSearchBarDelegate> {
 	UIView * contentView;
 	BOOL searchIsVisible;
 	
@@ -28,10 +27,10 @@
 
 - (id)initWithNibName:(NSString*)nibNameOrNil bundle:(NSBundle*)nibBundleOrNil andContext:(NSManagedObjectContext*)context;
 
-// FilterFieldDelegate methods
+// KleioSearchBarDelegate methods
 - (BOOL)isVisible;
-- (void)needExtraSpace;
-- (void)finishedUsingExtraSpace;
+//- (void)needExtraSpace;
+//- (void)finishedUsingExtraSpace;
 - (void)wantsToBeShown;
 - (void)wantsToBeHidden;
 - (void)wantsToBeToggled;

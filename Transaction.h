@@ -12,8 +12,9 @@
 @interface Transaction :  NSManagedObject  
 {
 	NSNumberFormatter * formatter;
+	BOOL isNew;
+	NSString * tagsSnapshot;
 }
-
 
 @property (nonatomic, retain) NSString * transactionDescription;
 @property (nonatomic, retain) NSString * tags;
@@ -49,6 +50,9 @@
 -(NSString*)amountInBaseCurrency;
 -(double)normalizedAmount;
 -(NSNumber*)kronerInBaseCurrency;
+
+/* The self.tags are padded with spaces in front and on the back... */
+- (NSString*)trimmedTags;
 
 // Methods for display
 -(bool)canBeAddedTo;
