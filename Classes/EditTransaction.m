@@ -12,9 +12,22 @@
 #import "Utilities.h"
 #import "CurrencyManager.h"
 
+
 @interface EditTransaction (PrivateMethods)
 -(void)cancel;
 -(void)save;
+
+// Amount
+- (void)doneWithAmountEdit;
+- (void)undoAmountEdit;
+
+// Date
+- (void)undoDateEdit;
+- (void)doneWithDateEdit;
+
+// Description
+- (void)doneWithDescriptionEdit;
+- (void)undoDescriptionEdit;
 @end
 
 
@@ -36,6 +49,9 @@
 @synthesize yearMonth;
 @synthesize day;
 
+@synthesize cancelButton;
+@synthesize saveButton;
+@synthesize tagSuggester;
 
 #pragma mark
 #pragma mark -
@@ -43,17 +59,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
-	UIBarButtonItem * cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel 
-																				   target:self 
-																				   action:@selector(cancel)];
+	self.cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel 
+																	  target:self
+																	  action:@selector(cancel)];
 
-	UIBarButtonItem * saveButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave 
-																				   target:self 
-																				   action:@selector(save)];
-	self.navigationItem.leftBarButtonItem = cancelButton;
-	self.navigationItem.rightBarButtonItem = saveButton;
-	[cancelButton release];
-	[saveButton release];
+	
+	self.saveButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave 
+																	target:self 
+																	action:@selector(save)];
+	
+	self.navigationItem.leftBarButtonItem = self.cancelButton;
+	self.navigationItem.rightBarButtonItem = self.saveButton;
 	
 	self.view.backgroundColor = [UIColor clearColor];
 	
@@ -157,6 +173,9 @@
 	[currencyKeyboard release];
 	[currentTransaction release];
 	
+	self.cancelButton = nil;
+	self.saveButton = nil;
+	
 	// remove safe keeping values
 	self.transactionDescription = nil;
 	self.tags = nil;
@@ -219,18 +238,27 @@
 	self.currentTransaction.location = nil;
 	[self setupControls];
 }
+
+// Amount
 - (IBAction)amountButtonAction {
-	
+		
 	if (currencyKeyboardShowing) {
-		[self.currencyKeyboard hideKeyboardWithAnimation:YES];
-		[amountButton setBackgroundImage:nil forState:UIControlStateNormal];
-		
-		// Now it shouldn't be showing anymore ... shortly anyway
-		currencyKeyboardShowing = NO;
-		
-		[self adjustViewSizeWith:0 andScrollFor:nil];
+
+		[self doneWithAmountEdit];
 		
 	} else {
+	
+		UIBarButtonItem * doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone 
+																					 target:self 
+																					 action:@selector(doneWithAmountEdit)];
+		
+		UIBarButtonItem * undoButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemUndo 
+																					 target:self 
+																					 action:@selector(undoAmountEdit)];
+		
+		self.navigationItem.leftBarButtonItem = undoButton;
+		self.navigationItem.rightBarButtonItem = doneButton;
+
 		[amountButton setBackgroundImage:[UIImage imageNamed:@"EditTextFieldsActive.png"] forState:UIControlStateNormal];
 		[self.currencyKeyboard showKeyboardWithAnimation:YES];
 		
@@ -239,24 +267,48 @@
 		
 		[self adjustViewSizeWith:[self.currencyKeyboard keyboardHeight] andScrollFor:nil];
 	}
+	
 }
+- (void)undoAmountEdit {
+	self.currentTransaction.kroner = self.kroner;
+	[self setupControls];
+}
+- (void)doneWithAmountEdit {
+
+	self.navigationItem.leftBarButtonItem = self.cancelButton;
+	self.navigationItem.rightBarButtonItem = self.saveButton;
+	
+	[self.currencyKeyboard hideKeyboardWithAnimation:YES];
+	[amountButton setBackgroundImage:nil forState:UIControlStateNormal];
+		
+	// Now it shouldn't be showing anymore ... shortly anyway
+	currencyKeyboardShowing = NO;
+		
+	[self adjustViewSizeWith:0 andScrollFor:nil];
+}
+
+// Date
 - (IBAction)dateButtonAction {
 	
 	CGRect frame = datePickerView.frame;
 	
 	if (datePickerViewShowing) {
 		
-		// Move it out of the way
-		frame.origin.y = 480;
-		
-		// No it is not showing anymore...
-		datePickerViewShowing = NO;
-		
-		[dateButton setBackgroundImage:nil forState:UIControlStateNormal];
-		[self adjustViewSizeWith:0 andScrollFor:nil];
+		[self doneWithDateEdit];
 		
 	} else {
 		
+		UIBarButtonItem * doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone 
+																					 target:self 
+																					 action:@selector(doneWithDateEdit)];
+		
+		UIBarButtonItem * undoButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemUndo 
+																					 target:self 
+																					 action:@selector(undoDateEdit)];
+		
+		self.navigationItem.leftBarButtonItem = undoButton;
+		self.navigationItem.rightBarButtonItem = doneButton;
+	
 		frame.origin.y = self.view.frame.size.height - frame.size.height;
 		
 		// No it should be showing :)
@@ -265,8 +317,45 @@
 		[dateButton setBackgroundImage:[UIImage imageNamed:@"EditTextFieldsActive.png"] forState:UIControlStateNormal];
 
 		[self adjustViewSizeWith:frame.size.height andScrollFor:dateButton];
+	
+		// Perform animations
+		[UIView beginAnimations:nil context:NULL];
+		[UIView setAnimationDuration:[[Utilities toolbox] keyboardAnimationDuration]];
+		
+		datePickerView.frame = frame;	
+		
+		[UIView commitAnimations];
+		
+		[datePicker becomeFirstResponder];
+		[datePickerView bringSubviewToFront:datePicker];
+		[self.view bringSubviewToFront:datePickerView];
+		
 	}
 
+}
+- (IBAction)dateChangedAction {
+	NSLog(@"Date value changed!");
+	[self.currentTransaction setDate:datePicker.date];
+	[dateButton setTitle:[self.currentTransaction longFormattedDate] forState:UIControlStateNormal];
+}
+- (void)undoDateEdit {
+	datePicker.date = self.date;
+	[self dateChangedAction];
+}
+- (void)doneWithDateEdit {
+	
+	self.navigationItem.leftBarButtonItem = self.cancelButton;
+	self.navigationItem.rightBarButtonItem = self.saveButton;
+
+	CGRect frame = datePickerView.frame;
+	// Move it out of the way
+	frame.origin.y = 480;
+	
+	// No it is not showing anymore...
+	datePickerViewShowing = NO;
+	
+	[dateButton setBackgroundImage:nil forState:UIControlStateNormal];
+	[self adjustViewSizeWith:0 andScrollFor:nil];
 	
 	// Perform animations
 	[UIView beginAnimations:nil context:NULL];
@@ -281,11 +370,7 @@
 	[self.view bringSubviewToFront:datePickerView];
 	
 }
-- (IBAction)dateChangedAction {
-	NSLog(@"Date value changed!");
-	[self.currentTransaction setDate:datePicker.date];
-	[dateButton setTitle:[self.currentTransaction longFormattedDate] forState:UIControlStateNormal];
-}
+
 - (IBAction)expenseIncomeToggleAction {
 	if (expenseIncomeControl.selectedSegmentIndex == 0) {
 		self.currentTransaction.expense = [NSNumber numberWithBool:YES];
@@ -373,15 +458,78 @@
 #pragma mark
 #pragma mark -
 #pragma mark UITextViewDelegate and UITextFieldDelegate
+// Description 
+- (void)textViewDidBeginEditing:(UITextView *)textView {
+	UIBarButtonItem * doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone 
+																				 target:self 
+																				 action:@selector(doneWithDescriptionEdit)];
+	
+	UIBarButtonItem * undoButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemUndo 
+																				 target:self 
+																				 action:@selector(undoDescriptionEdit)];
+	
+	self.navigationItem.leftBarButtonItem = undoButton;
+	self.navigationItem.rightBarButtonItem = doneButton;
+	
+}
+- (void)doneWithDescriptionEdit {
+	[descriptionView resignFirstResponder];
+	[self adjustViewSizeWith:0 andScrollFor:tagsField];
+}
+- (void)undoDescriptionEdit {
+	descriptionView.text = self.transactionDescription;
+}
 - (BOOL)textViewShouldEndEditing:(UITextView *)textView {
 	NSLog(@"Asked if could stop editing");
+	self.navigationItem.leftBarButtonItem = self.cancelButton;
+	self.navigationItem.rightBarButtonItem = self.saveButton;
+
+	[self adjustViewSizeWith:0 andScrollFor:tagsField];
 	return YES;
 }
+
+// Tags
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
 	[self adjustViewSizeWith:0 andScrollFor:nil];
 	[tagsField resignFirstResponder];
 	return YES;
 }
+#pragma mark
+#pragma mark -
+#pragma mark TagSuggesterDelegate methods
+-(void)addTagWord:(NSString*)tag {
+	NSLog(@"Adding tag: %@", tag);
+	tagsField.text = [tagsField.text stringByAppendingString:tag];
+}
+-(IBAction)textChanged {
+	NSLog(@"Text changed");
+	[self.tagSuggester setTagText:tagsField.text];
+}
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+	NSString * text  = textField.text;
+
+	@try {text = [text stringByReplacingCharactersInRange:range withString:string];}
+	@catch (NSException * e) {return NO;}
+	
+	NSLog(@"Updating from should change characters in range");
+	[self.tagSuggester setTagText:text];
+	
+	[self.view bringSubviewToFront:self.tagSuggester.view];
+	
+	return YES;
+}
+-(IBAction)startedEditing {
+	NSLog(@"Created a tag suggester");
+	self.tagSuggester = [[TagSuggesterViewController alloc] init];
+	self.tagSuggester.delegate = self;
+	[self.tagSuggester isForEditView:[tagsField superview]];
+}
+-(IBAction)stoppedEditing {
+	NSLog(@"Removed a tag suggester");
+	[self.tagSuggester remove];
+	self.tagSuggester = nil;
+}
+
 
 #pragma mark
 #pragma mark -

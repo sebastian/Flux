@@ -10,6 +10,7 @@
 
 @protocol TagSuggesterDelegate
 -(void)addTagWord:(NSString*)tag;
+-(UIView*)view;
 @end
 
 
@@ -33,6 +34,7 @@
 -(void)setTagText:(NSString*)text;
 -(void)isForAddExpenseView;
 -(void)isForSearchBar;
+-(void)isForEditView:(UIView*)view;
 -(void)remove;
 
 @end

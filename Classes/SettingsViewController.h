@@ -47,4 +47,7 @@
 
 // CurrencySelectionDialogDelegate method
 -(void)currencySelected:(NSString*)currencyCode;
+
+-(void)checkFirstRun;
+
 @end

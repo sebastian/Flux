@@ -59,6 +59,7 @@
 
 - (NSString *)currencyDescriptionForAmount:(NSNumber *)amount withFraction:(BOOL)withFraction currency:(NSString*)currencyCode;
 - (NSString *)baseCurrencyDescriptionForAmount:(NSNumber *)amount withFraction:(BOOL)withFraction;
+
 - (void)forceRefresh;
 - (void)refreshIfNeeded;
 - (void)refreshExchangeRates;

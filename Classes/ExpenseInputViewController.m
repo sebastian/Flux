@@ -197,6 +197,18 @@
 	NSString * countryCode = placemark.countryCode;
 	NSString * currencyCode = [[[CurrencyManager sharedManager] countryToCurrency] objectForKey:countryCode];
 	
+	/*
+	 If this is the first time this app has been run
+	 Then this is the first place where we have gotten the users geolocation.
+	 We should set the base currency to match that location
+	 */
+	if ([[NSUserDefaults standardUserDefaults] objectForKey:@"KleioFinanceFirstRunBaseCurrency"] == nil) {
+		[[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES]
+												  forKey:@"KleioFinanceFirstRunBaseCurrency"];
+
+		[[CurrencyManager sharedManager] setBaseCurrency:currencyCode];
+	}
+		
 	if (!(currencyCode == nil)) {
 		
 		// Only if the user wants it!

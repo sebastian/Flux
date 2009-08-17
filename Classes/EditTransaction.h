@@ -9,13 +9,18 @@
 #import <UIKit/UIKit.h>
 #import "CurrencyKeyboard.h"
 #import <MapKit/MapKit.h>
+#import "TagSuggesterViewController.h"
+
 
 @class Transaction;
 
-@interface EditTransaction : UIViewController <UITextViewDelegate, UITextFieldDelegate, MKReverseGeocoderDelegate, CurrencyKeyboardDelegate> {
+@interface EditTransaction : UIViewController <TagSuggesterDelegate, UITextViewDelegate, UITextFieldDelegate, MKReverseGeocoderDelegate, CurrencyKeyboardDelegate> {
 	Transaction * currentTransaction;
 	
 	CurrencyKeyboard * currencyKeyboard;
+	
+	UIBarButtonItem * saveButton;
+	UIBarButtonItem * cancelButton;
 	
 	IBOutlet UIDatePicker * datePicker;
 	IBOutlet UIView * datePickerView;
@@ -57,7 +62,13 @@
 	BOOL currencyKeyboardShowing;
 	
 	CGRect viewFrameCache;
+	
+	TagSuggesterViewController * tagSuggester;
 }
+
+@property (nonatomic, retain) TagSuggesterViewController * tagSuggester;
+@property (nonatomic, retain) UIBarButtonItem * saveButton;
+@property (nonatomic, retain) UIBarButtonItem * cancelButton;
 
 // Safe keeping values
 @property (nonatomic, retain) NSString * transactionDescription;
@@ -84,4 +95,13 @@
 - (void)adjustViewSizeWith:(NSInteger)fromNormal andScrollFor:(UIView*)view;
 - (void) keyboardCheck;
 - (void) setupControls;
+
+#pragma mark
+#pragma mark -
+#pragma mark TagSuggesterDelegate methods
+-(void)addTagWord:(NSString*)tag;
+-(IBAction)textChanged;
+-(IBAction)startedEditing;
+-(IBAction)stoppedEditing;
+
 @end

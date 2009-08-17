@@ -91,6 +91,12 @@
 	[self setLocation:CGPointMake(30.f, 53.f)];
 	[self.view.superview bringSubviewToFront:self.view];
 }
+-(void)isForEditView:(UIView*)theView {
+	[self.view removeFromSuperview];
+	[theView addSubview:self.view];
+	[theView bringSubviewToFront:self.view];
+	[self setLocation:CGPointMake(125.f, 355.f)];
+}
 -(void)setLocation:(CGPoint)point {
 	CGRect frame = self.view.frame;
 	frame.origin = point;
@@ -139,7 +145,18 @@
 	NSLog(@"Clicked on the tableview cell");
 	
 	NSString * tag = ((Tag*)[self.matchingTags objectAtIndex:indexPath.row]).name;
-	tag = [tag stringByReplacingOccurrencesOfString:self.currentWord withString:@""];
+	
+	/*
+	 Why this range biz?
+	 Consider the suggested word: popcorn. 
+	 Type in p and get suggested popcorn. When selecting popcorn from the dropdown menu opcorn should be added.
+	 If I just to a search and replace for p in the whole tag name then ocorn is added instead!
+	 */
+	NSRange replacementRange;
+	replacementRange.length = [self.currentWord length];
+	replacementRange.location = 0;
+	
+	tag = [tag stringByReplacingOccurrencesOfString:self.currentWord withString:@"" options:NSCaseInsensitiveSearch range:replacementRange];
 	tag = [tag stringByAppendingFormat:@" "];
 	
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];

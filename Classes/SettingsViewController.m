@@ -19,6 +19,8 @@
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
 		self.title = NSLocalizedString(@"Settings", @"Settings view controller title");
 		[self.tabBarItem setImage:[UIImage imageNamed:@"tannhjul.png"]];
+		
+		[self checkFirstRun];
     }
     return self;
 }
@@ -74,6 +76,32 @@
 }
 - (void)dealloc {
     [super dealloc];
+}
+
+-(void)checkFirstRun {
+	if ([[NSUserDefaults standardUserDefaults] objectForKey:@"KleioFinanceFirstRun"] == nil) {
+		
+		// The next time it won't be the first run :)
+		[[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES]
+												  forKey:@"KleioFinanceFirstRun"];
+
+
+		// Set sensible defaults
+		[[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES]
+												  forKey:@"KleioTransactionsLocationTags"];
+		
+		[[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES]
+												  forKey:@"KleioTransactionsAutoTags"];
+		
+		[[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES]
+												  forKey:@"KleioTransactionsUseLocalCurrency"];
+		
+		[[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES]
+												  forKey:@"KleioTransactionsBalanceBadge"];
+		
+
+		
+	}
 }
 
 

@@ -33,10 +33,9 @@
 	};
 	28216C960DB411BC00E5133A /* ExpenseInputViewController.m */ = {
 		uiCtxt = {
-			sepNavFolds = "{\n    c =     (\n                {\n            r = \"{1129, 266}\";\n            s = 0;\n        },\n                {\n            r = \"{1419, 1847}\";\n            s = 0;\n        },\n                {\n            r = \"{3569, 264}\";\n            s = 0;\n        },\n                {\n            r = \"{4105, 350}\";\n            s = 0;\n        },\n                {\n            r = \"{5444, 43}\";\n            s = 0;\n        },\n                {\n            r = \"{5586, 650}\";\n            s = 0;\n        },\n                {\n            r = \"{6326, 27}\";\n            s = 0;\n        },\n                {\n            r = \"{10220, 846}\";\n            s = 0;\n        },\n                {\n            r = \"{11173, 97}\";\n            s = 0;\n        },\n                {\n            r = \"{11296, 74}\";\n            s = 0;\n        },\n                {\n            r = \"{11399, 179}\";\n            s = 0;\n        },\n                {\n            r = \"{11607, 92}\";\n            s = 0;\n        },\n                {\n            r = \"{11821, 73}\";\n            s = 0;\n        },\n                {\n            r = \"{11921, 21}\";\n            s = 0;\n        },\n                {\n            r = \"{11977, 111}\";\n            s = 0;\n        },\n                {\n            r = \"{12118, 71}\";\n            s = 0;\n        },\n                {\n            r = \"{12216, 21}\";\n            s = 0;\n        },\n                {\n            r = \"{12264, 1247}\";\n            s = 0;\n        },\n                {\n            r = \"{13561, 96}\";\n            s = 0;\n        },\n                {\n            r = \"{13757, 17}\";\n            s = 0;\n        },\n                {\n            r = \"{13909, 66}\";\n            s = 0;\n        },\n                {\n            r = \"{14103, 184}\";\n            s = 0;\n        },\n                {\n            r = \"{14421, 556}\";\n            s = 0;\n        },\n                {\n            r = \"{15028, 99}\";\n            s = 0;\n        },\n                {\n            r = \"{15216, 1145}\";\n            s = 0;\n        },\n                {\n            r = \"{16422, 134}\";\n            s = 0;\n        },\n                {\n            r = \"{16577, 2467}\";\n            s = 0;\n        },\n                {\n            r = \"{19071, 138}\";\n            s = 0;\n        },\n                {\n            r = \"{19249, 1108}\";\n            s = 0;\n        },\n                {\n            r = \"{20398, 428}\";\n            s = 0;\n        },\n                {\n            r = \"{20856, 575}\";\n            s = 0;\n        },\n                {\n            r = \"{21468, 521}\";\n            s = 0;\n        }\n    );\n    r = \"{0, 21997}\";\n    s = 0;\n}";
-			sepNavIntBoundsRect = "{{0, 0}, {1195, 3598}}";
-			sepNavSelRange = "{2427, 0}";
-			sepNavVisRange = "{2018, 897}";
+			sepNavIntBoundsRect = "{{0, 0}, {972, 10024}}";
+			sepNavSelRange = "{6282, 0}";
+			sepNavVisRange = "{5234, 1936}";
 			sepNavWindowFrame = "{{335, 226}, {972, 952}}";
 		};
 	};
@@ -48,7 +47,7 @@
 		};
 	};
 	29B97313FDCFA39411CA2CEA /* Project object */ = {
-		activeBuildConfigurationName = Release;
+		activeBuildConfigurationName = "Finance adhoc release";
 		activeExecutable = 96885B7F1004EB01003090D8 /* Finance */;
 		activeSDKPreference = iphoneos3.0;
 		activeTarget = 1D6058900D05DD3D006BFB54 /* Finance */;
@@ -83,7 +82,7 @@
 				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
 				PBXFileTableDataSourceColumnWidthsKey = (
 					20,
-					643,
+					675,
 					20,
 					48,
 					43,
@@ -129,7 +128,7 @@
 				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
 				PBXFileTableDataSourceColumnWidthsKey = (
 					20,
-					603,
+					635,
 					60,
 					20,
 					48,
@@ -146,8 +145,8 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 272157963;
-			PBXWorkspaceStateSaveDate = 272157963;
+			PBXPerProjectTemplateStateSaveDate = 272225610;
+			PBXWorkspaceStateSaveDate = 272225610;
 		};
 		perUserProjectItems = {
 			960080FA100B526000740DCB /* PBXTextBookmark */ = 960080FA100B526000740DCB /* PBXTextBookmark */;
@@ -158,8 +157,27 @@
 			9614B664100E4BDF0051A466 /* PBXTextBookmark */ = 9614B664100E4BDF0051A466 /* PBXTextBookmark */;
 			9614B666100E4BDF0051A466 /* PBXTextBookmark */ = 9614B666100E4BDF0051A466 /* PBXTextBookmark */;
 			962226E0100611D8004DB16C /* PlistBookmark */ = 962226E0100611D8004DB16C /* PlistBookmark */;
+			96222FF21039C7BD00ED11F6 /* PBXTextBookmark */ = 96222FF21039C7BD00ED11F6 /* PBXTextBookmark */;
+			962230131039C7BD00ED11F6 /* PBXTextBookmark */ = 962230131039C7BD00ED11F6 /* PBXTextBookmark */;
+			962230151039C7BD00ED11F6 /* PBXTextBookmark */ = 962230151039C7BD00ED11F6 /* PBXTextBookmark */;
+			962230161039C7BD00ED11F6 /* PBXTextBookmark */ = 962230161039C7BD00ED11F6 /* PBXTextBookmark */;
+			962230461039C92000ED11F6 /* PBXTextBookmark */ = 962230461039C92000ED11F6 /* PBXTextBookmark */;
+			9622304C1039C92000ED11F6 /* PBXTextBookmark */ = 9622304C1039C92000ED11F6 /* PBXTextBookmark */;
+			9622304E1039C92000ED11F6 /* PBXTextBookmark */ = 9622304E1039C92000ED11F6 /* PBXTextBookmark */;
+			962230841039CB6400ED11F6 /* PBXTextBookmark */ = 962230841039CB6400ED11F6 /* PBXTextBookmark */;
+			962230861039CB6400ED11F6 /* PBXTextBookmark */ = 962230861039CB6400ED11F6 /* PBXTextBookmark */;
+			962230871039CB6400ED11F6 /* PBXTextBookmark */ = 962230871039CB6400ED11F6 /* PBXTextBookmark */;
+			9622309E1039CC2600ED11F6 /* PBXTextBookmark */ = 9622309E1039CC2600ED11F6 /* PBXTextBookmark */;
+			9622309F1039CC2600ED11F6 /* PBXTextBookmark */ = 9622309F1039CC2600ED11F6 /* PBXTextBookmark */;
+			962230AA1039CEB400ED11F6 /* PBXTextBookmark */ = 962230AA1039CEB400ED11F6 /* PBXTextBookmark */;
+			962230AB1039CEB400ED11F6 /* PBXTextBookmark */ = 962230AB1039CEB400ED11F6 /* PBXTextBookmark */;
+			962230AC1039CEB400ED11F6 /* PBXTextBookmark */ = 962230AC1039CEB400ED11F6 /* PBXTextBookmark */;
+			962230CF1039D1C200ED11F6 /* PBXTextBookmark */ = 962230CF1039D1C200ED11F6 /* PBXTextBookmark */;
+			962230F01039D54200ED11F6 /* PBXTextBookmark */ = 962230F01039D54200ED11F6 /* PBXTextBookmark */;
+			962230F11039D54200ED11F6 /* PBXTextBookmark */ = 962230F11039D54200ED11F6 /* PBXTextBookmark */;
+			962230F21039D54200ED11F6 /* PBXTextBookmark */ = 962230F21039D54200ED11F6 /* PBXTextBookmark */;
+			962230F31039D54200ED11F6 /* PBXTextBookmark */ = 962230F31039D54200ED11F6 /* PBXTextBookmark */;
 			9623065210346407003ED654 /* PBXTextBookmark */ = 9623065210346407003ED654 /* PBXTextBookmark */;
-			962306B110346B37003ED654 /* PBXTextBookmark */ = 962306B110346B37003ED654 /* PBXTextBookmark */;
 			962306D710346F55003ED654 /* PBXTextBookmark */ = 962306D710346F55003ED654 /* PBXTextBookmark */;
 			962306D810346F55003ED654 /* PBXTextBookmark */ = 962306D810346F55003ED654 /* PBXTextBookmark */;
 			96230764103482E1003ED654 /* PBXTextBookmark */ = 96230764103482E1003ED654 /* PBXTextBookmark */;
@@ -192,7 +210,6 @@
 			96419A7D101C51A20066D6D8 /* PBXTextBookmark */ = 96419A7D101C51A20066D6D8 /* PBXTextBookmark */;
 			96419A7E101C51A20066D6D8 /* PBXTextBookmark */ = 96419A7E101C51A20066D6D8 /* PBXTextBookmark */;
 			96419CD5101C7B580066D6D8 /* PBXTextBookmark */ = 96419CD5101C7B580066D6D8 /* PBXTextBookmark */;
-			964700B51038192600ABE764 /* PBXTextBookmark */ = 964700B51038192600ABE764 /* PBXTextBookmark */;
 			964700B71038192600ABE764 /* PBXTextBookmark */ = 964700B71038192600ABE764 /* PBXTextBookmark */;
 			964700B91038192600ABE764 /* PBXTextBookmark */ = 964700B91038192600ABE764 /* PBXTextBookmark */;
 			964700BE1038192600ABE764 /* PBXTextBookmark */ = 964700BE1038192600ABE764 /* PBXTextBookmark */;
@@ -201,7 +218,6 @@
 			964700E110382B3C00ABE764 /* PBXBookmark */ = 964700E110382B3C00ABE764 /* PBXBookmark */;
 			964700E510382B3C00ABE764 /* PBXBookmark */ = 964700E510382B3C00ABE764 /* PBXBookmark */;
 			964700E610382B3C00ABE764 /* PBXBookmark */ = 964700E610382B3C00ABE764 /* PBXBookmark */;
-			964700EA10382BC700ABE764 /* PBXTextBookmark */ = 964700EA10382BC700ABE764 /* PBXTextBookmark */;
 			9647010A103838A800ABE764 /* PBXTextBookmark */ = 9647010A103838A800ABE764 /* PBXTextBookmark */;
 			9647012B10383A9000ABE764 /* PBXTextBookmark */ = 9647012B10383A9000ABE764 /* PBXTextBookmark */;
 			964B188E101D909F0000F28D /* PBXTextBookmark */ = 964B188E101D909F0000F28D /* PBXTextBookmark */;
@@ -221,15 +237,17 @@
 			96676F721022FC45000C6FF5 /* PBXTextBookmark */ = 96676F721022FC45000C6FF5 /* PBXTextBookmark */;
 			96676F761022FC45000C6FF5 /* PBXTextBookmark */ = 96676F761022FC45000C6FF5 /* PBXTextBookmark */;
 			966770C610232951000C6FF5 /* PBXTextBookmark */ = 966770C610232951000C6FF5 /* PBXTextBookmark */;
-			9672632B1038CDD8005FA634 /* PBXTextBookmark */ = 9672632B1038CDD8005FA634 /* PBXTextBookmark */;
+			96710CDE103986E900590935 /* PBXTextBookmark */ = 96710CDE103986E900590935 /* PBXTextBookmark */;
 			9676AB2910246109009A3429 /* PBXTextBookmark */ = 9676AB2910246109009A3429 /* PBXTextBookmark */;
-			96903CB81038ADA6009D5D49 /* PBXTextBookmark */ = 96903CB81038ADA6009D5D49 /* PBXTextBookmark */;
+			9684626A1039D7170023F1EF /* PBXTextBookmark */ = 9684626A1039D7170023F1EF /* PBXTextBookmark */;
+			9684626B1039D7170023F1EF /* PBXTextBookmark */ = 9684626B1039D7170023F1EF /* PBXTextBookmark */;
+			9684626C1039D7170023F1EF /* PBXTextBookmark */ = 9684626C1039D7170023F1EF /* PBXTextBookmark */;
+			9684626D1039D7170023F1EF /* PBXTextBookmark */ = 9684626D1039D7170023F1EF /* PBXTextBookmark */;
 			96903D401038B453009D5D49 /* PBXTextBookmark */ = 96903D401038B453009D5D49 /* PBXTextBookmark */;
 			96903D921038BB65009D5D49 /* PBXTextBookmark */ = 96903D921038BB65009D5D49 /* PBXTextBookmark */;
 			96903D931038BB65009D5D49 /* PBXTextBookmark */ = 96903D931038BB65009D5D49 /* PBXTextBookmark */;
 			96903D9D1038BC06009D5D49 /* PBXTextBookmark */ = 96903D9D1038BC06009D5D49 /* PBXTextBookmark */;
 			96903DAB1038BDE0009D5D49 /* PBXTextBookmark */ = 96903DAB1038BDE0009D5D49 /* PBXTextBookmark */;
-			96903DAC1038BDE0009D5D49 /* PBXTextBookmark */ = 96903DAC1038BDE0009D5D49 /* PBXTextBookmark */;
 			96903DB91038C043009D5D49 /* PBXTextBookmark */ = 96903DB91038C043009D5D49 /* PBXTextBookmark */;
 			96903DBB1038C043009D5D49 /* PBXTextBookmark */ = 96903DBB1038C043009D5D49 /* PBXTextBookmark */;
 			96903DC11038C043009D5D49 /* PBXTextBookmark */ = 96903DC11038C043009D5D49 /* PBXTextBookmark */;
@@ -237,12 +255,8 @@
 			96903DE81038C2E6009D5D49 /* PBXTextBookmark */ = 96903DE81038C2E6009D5D49 /* PBXTextBookmark */;
 			96903DF71038C328009D5D49 /* PBXTextBookmark */ = 96903DF71038C328009D5D49 /* PBXTextBookmark */;
 			96903DF81038C328009D5D49 /* PBXTextBookmark */ = 96903DF81038C328009D5D49 /* PBXTextBookmark */;
-			96903E401038C78B009D5D49 /* PBXTextBookmark */ = 96903E401038C78B009D5D49 /* PBXTextBookmark */;
 			96903E411038C78B009D5D49 /* PBXTextBookmark */ = 96903E411038C78B009D5D49 /* PBXTextBookmark */;
-			96903E521038C7FF009D5D49 /* PBXTextBookmark */ = 96903E521038C7FF009D5D49 /* PBXTextBookmark */;
-			96903E531038C7FF009D5D49 /* PBXTextBookmark */ = 96903E531038C7FF009D5D49 /* PBXTextBookmark */;
 			96903E5C1038C8AA009D5D49 /* PBXTextBookmark */ = 96903E5C1038C8AA009D5D49 /* PBXTextBookmark */;
-			96903E601038C962009D5D49 /* PBXTextBookmark */ = 96903E601038C962009D5D49 /* PBXTextBookmark */;
 			9697740A101AFA0F00F0DC3D /* PBXTextBookmark */ = 9697740A101AFA0F00F0DC3D /* PBXTextBookmark */;
 			96A12A8E1036CAA3002BFC15 /* PBXTextBookmark */ = 96A12A8E1036CAA3002BFC15 /* PBXTextBookmark */;
 			96A12ACD1036CCC7002BFC15 /* PBXTextBookmark */ = 96A12ACD1036CCC7002BFC15 /* PBXTextBookmark */;
@@ -285,7 +299,6 @@
 			96E55DDE1014B93D00E63DB8 /* PBXTextBookmark */ = 96E55DDE1014B93D00E63DB8 /* PBXTextBookmark */;
 			96ECC1DB1035607E000712B0 /* PBXTextBookmark */ = 96ECC1DB1035607E000712B0 /* PBXTextBookmark */;
 			96ECC28D10356BC8000712B0 /* PBXTextBookmark */ = 96ECC28D10356BC8000712B0 /* PBXTextBookmark */;
-			96ECC2E710357259000712B0 /* PBXTextBookmark */ = 96ECC2E710357259000712B0 /* PBXTextBookmark */;
 			96ECC301103578DF000712B0 /* PBXTextBookmark */ = 96ECC301103578DF000712B0 /* PBXTextBookmark */;
 			96F156F5103841EB00ECBF03 /* PBXTextBookmark */ = 96F156F5103841EB00ECBF03 /* PBXTextBookmark */;
 			96F156FA103841EB00ECBF03 /* PBXTextBookmark */ = 96F156FA103841EB00ECBF03 /* PBXTextBookmark */;
@@ -475,6 +488,206 @@
 		rLen = 0;
 		rLoc = 2147483647;
 	};
+	96222FF21039C7BD00ED11F6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 96FFEAD810387FBC0086BF66 /* TagSuggesterViewController.h */;
+		name = "TagSuggesterViewController.h: 13";
+		rLen = 0;
+		rLoc = 258;
+		rType = 0;
+		vrLen = 930;
+		vrLoc = 0;
+	};
+	962230131039C7BD00ED11F6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 96D7A9A510285949000FCC42 /* EditTransaction.h */;
+		name = "EditTransaction.h: 17";
+		rLen = 0;
+		rLoc = 352;
+		rType = 0;
+		vrLen = 1194;
+		vrLoc = 141;
+	};
+	962230151039C7BD00ED11F6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 96D7A9A610285949000FCC42 /* EditTransaction.m */;
+		name = "EditTransaction.m: 506";
+		rLen = 0;
+		rLoc = 14874;
+		rType = 0;
+		vrLen = 3576;
+		vrLoc = 13324;
+	};
+	962230161039C7BD00ED11F6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 96D7A9A510285949000FCC42 /* EditTransaction.h */;
+		name = "EditTransaction.h: 62";
+		rLen = 0;
+		rLoc = 1634;
+		rType = 0;
+		vrLen = 1320;
+		vrLoc = 1031;
+	};
+	962230461039C92000ED11F6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 96D7A9A510285949000FCC42 /* EditTransaction.h */;
+		name = "EditTransaction.h: 71";
+		rLen = 0;
+		rLoc = 1801;
+		rType = 0;
+		vrLen = 1760;
+		vrLoc = 1093;
+	};
+	9622304C1039C92000ED11F6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 96D7A9A510285949000FCC42 /* EditTransaction.h */;
+		name = "EditTransaction.h: 17";
+		rLen = 0;
+		rLoc = 352;
+		rType = 0;
+		vrLen = 1771;
+		vrLoc = 0;
+	};
+	9622304E1039C92000ED11F6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 96D7A9A510285949000FCC42 /* EditTransaction.h */;
+		name = "EditTransaction.h: 17";
+		rLen = 0;
+		rLoc = 352;
+		rType = 0;
+		vrLen = 1771;
+		vrLoc = 0;
+	};
+	962230841039CB6400ED11F6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 96FFEAD810387FBC0086BF66 /* TagSuggesterViewController.h */;
+		name = "TagSuggesterViewController.h: 37";
+		rLen = 0;
+		rLoc = 922;
+		rType = 0;
+		vrLen = 944;
+		vrLoc = 0;
+	};
+	962230861039CB6400ED11F6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 96903C791038AA7E009D5D49 /* TagSuggesterViewController.m */;
+		name = "TagSuggesterViewController.m: 94";
+		rLen = 37;
+		rLoc = 2107;
+		rType = 0;
+		vrLen = 2496;
+		vrLoc = 1345;
+	};
+	962230871039CB6400ED11F6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 96FFEAD810387FBC0086BF66 /* TagSuggesterViewController.h */;
+		name = "TagSuggesterViewController.h: 37";
+		rLen = 0;
+		rLoc = 922;
+		rType = 0;
+		vrLen = 944;
+		vrLoc = 0;
+	};
+	9622309E1039CC2600ED11F6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 96903C791038AA7E009D5D49 /* TagSuggesterViewController.m */;
+		name = "TagSuggesterViewController.m: 95";
+		rLen = 0;
+		rLoc = 2180;
+		rType = 0;
+		vrLen = 1616;
+		vrLoc = 390;
+	};
+	9622309F1039CC2600ED11F6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 9623070F10347864003ED654 /* KleioSearchBar.m */;
+		name = "KleioSearchBar.m: 34";
+		rLen = 0;
+		rLoc = 757;
+		rType = 0;
+		vrLen = 4635;
+		vrLoc = 193;
+	};
+	962230AA1039CEB400ED11F6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 96A98E571025D45100FFA6D0 /* TransactionsMainViewController.m */;
+		name = "TransactionsMainViewController.m: 36";
+		rLen = 0;
+		rLoc = 940;
+		rType = 0;
+		vrLen = 1565;
+		vrLoc = 0;
+	};
+	962230AB1039CEB400ED11F6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 28216C960DB411BC00E5133A /* ExpenseInputViewController.m */;
+		name = "ExpenseInputViewController.m: 204";
+		rLen = 0;
+		rLoc = 6348;
+		rType = 0;
+		vrLen = 6461;
+		vrLoc = 5004;
+	};
+	962230AC1039CEB400ED11F6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 9657530510303BEF00F93557 /* SettingsViewController.h */;
+		name = "SettingsViewController.h: 51";
+		rLen = 21;
+		rLoc = 1339;
+		rType = 0;
+		vrLen = 1367;
+		vrLoc = 0;
+	};
+	962230CF1039D1C200ED11F6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 9657530610303BEF00F93557 /* SettingsViewController.m */;
+		name = "SettingsViewController.m: 88";
+		rLen = 0;
+		rLoc = 3812;
+		rType = 0;
+		vrLen = 5513;
+		vrLoc = 220;
+	};
+	962230F01039D54200ED11F6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 96D7A9A610285949000FCC42 /* EditTransaction.m */;
+		name = "EditTransaction.m: 460";
+		rLen = 0;
+		rLoc = 13321;
+		rType = 0;
+		vrLen = 10997;
+		vrLoc = 6428;
+	};
+	962230F11039D54200ED11F6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 96903C791038AA7E009D5D49 /* TagSuggesterViewController.m */;
+		name = "TagSuggesterViewController.m: 98";
+		rLen = 0;
+		rLoc = 2265;
+		rType = 0;
+		vrLen = 2522;
+		vrLoc = 1345;
+	};
+	962230F21039D54200ED11F6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 96D7A9A610285949000FCC42 /* EditTransaction.m */;
+		name = "EditTransaction.m: 527";
+		rLen = 0;
+		rLoc = 15629;
+		rType = 0;
+		vrLen = 9423;
+		vrLoc = 5953;
+	};
+	962230F31039D54200ED11F6 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 96D7A9A610285949000FCC42 /* EditTransaction.m */;
+		name = "EditTransaction.m: 525";
+		rLen = 0;
+		rLoc = 15597;
+		rType = 0;
+		vrLen = 2103;
+		vrLoc = 13273;
+	};
 	9623065210346407003ED654 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = 29B97316FDCFA39411CA2CEA /* main.m */;
@@ -484,16 +697,6 @@
 		rType = 0;
 		vrLen = 371;
 		vrLoc = 0;
-	};
-	962306B110346B37003ED654 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 96D7A9A510285949000FCC42 /* EditTransaction.h */;
-		name = "EditTransaction.h: 21";
-		rLen = 0;
-		rLoc = 501;
-		rType = 0;
-		vrLen = 1426;
-		vrLoc = 37;
 	};
 	962306D710346F55003ED654 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
@@ -524,10 +727,10 @@
 	};
 	9623070F10347864003ED654 /* KleioSearchBar.m */ = {
 		uiCtxt = {
-			sepNavFolds = "{\n    c =     (\n                {\n            r = \"{429, 325}\";\n            s = 0;\n        },\n                {\n            r = \"{1679, 44}\";\n            s = 0;\n        },\n                {\n            r = \"{1780, 69}\";\n            s = 0;\n        },\n                {\n            r = \"{2117, 29}\";\n            s = 0;\n        },\n                {\n            r = \"{2534, 44}\";\n            s = 0;\n        },\n                {\n            r = \"{2607, 540}\";\n            s = 0;\n        },\n                {\n            r = \"{3191, 125}\";\n            s = 0;\n        },\n                {\n            r = \"{3338, 36}\";\n            s = 0;\n        },\n                {\n            r = \"{3404, 34}\";\n            s = 0;\n        },\n                {\n            r = \"{3556, 101}\";\n            s = 0;\n        },\n                {\n            r = \"{4056, 228}\";\n            s = 0;\n        },\n                {\n            r = \"{4322, 284}\";\n            s = 0;\n        },\n                {\n            r = \"{4643, 18}\";\n            s = 0;\n        },\n                {\n            r = \"{4677, 18}\";\n            s = 0;\n        },\n                {\n            r = \"{4722, 67}\";\n            s = 0;\n        },\n                {\n            r = \"{4808, 18}\";\n            s = 0;\n        },\n                {\n            r = \"{4846, 18}\";\n            s = 0;\n        },\n                {\n            r = \"{4884, 72}\";\n            s = 0;\n        },\n                {\n            r = \"{4992, 84}\";\n            s = 0;\n        }\n    );\n    r = \"{0, 5085}\";\n    s = 0;\n}";
-			sepNavIntBoundsRect = "{{0, 0}, {1195, 1806}}";
-			sepNavSelRange = "{2429, 0}";
-			sepNavVisRange = "{2205, 517}";
+			sepNavFolds = "{\n    c =     (\n                {\n            r = \"{429, 326}\";\n            s = 0;\n        },\n                {\n            r = \"{953, 668}\";\n            s = 0;\n        },\n                {\n            r = \"{1679, 44}\";\n            s = 0;\n        },\n                {\n            r = \"{1780, 69}\";\n            s = 0;\n        },\n                {\n            r = \"{1946, 154}\";\n            s = 0;\n        },\n                {\n            r = \"{2117, 29}\";\n            s = 0;\n        },\n                {\n            r = \"{2165, 161}\";\n            s = 0;\n        },\n                {\n            r = \"{2357, 144}\";\n            s = 0;\n        },\n                {\n            r = \"{2534, 44}\";\n            s = 0;\n        },\n                {\n            r = \"{2607, 540}\";\n            s = 0;\n        },\n                {\n            r = \"{3191, 125}\";\n            s = 0;\n        },\n                {\n            r = \"{3338, 36}\";\n            s = 0;\n        },\n                {\n            r = \"{3404, 34}\";\n            s = 0;\n        },\n                {\n            r = \"{3556, 101}\";\n            s = 0;\n        },\n                {\n            r = \"{3765, 198}\";\n            s = 0;\n        },\n                {\n            r = \"{4056, 228}\";\n            s = 0;\n        },\n                {\n            r = \"{4322, 284}\";\n            s = 0;\n        },\n                {\n            r = \"{4643, 18}\";\n            s = 0;\n        },\n                {\n            r = \"{4677, 18}\";\n            s = 0;\n        },\n                {\n            r = \"{4722, 67}\";\n            s = 0;\n        },\n                {\n            r = \"{4808, 18}\";\n            s = 0;\n        },\n                {\n            r = \"{4846, 18}\";\n            s = 0;\n        },\n                {\n            r = \"{4884, 72}\";\n            s = 0;\n        },\n                {\n            r = \"{4992, 84}\";\n            s = 0;\n        }\n    );\n    r = \"{0, 5085}\";\n    s = 0;\n}";
+			sepNavIntBoundsRect = "{{0, 0}, {853, 1078}}";
+			sepNavSelRange = "{432, 0}";
+			sepNavVisRange = "{193, 1350}";
 			sepNavWindowFrame = "{{220, -708}, {1418, 703}}";
 		};
 	};
@@ -755,7 +958,7 @@
 		fRef = 9657530610303BEF00F93557 /* SettingsViewController.m */;
 		name = "SettingsViewController.m: 42";
 		rLen = 0;
-		rLoc = 3013;
+		rLoc = 3040;
 		rType = 0;
 		vrLen = 2494;
 		vrLoc = 669;
@@ -1053,16 +1256,6 @@
 		vrLen = 408;
 		vrLoc = 0;
 	};
-	964700B51038192600ABE764 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 96D7A9A610285949000FCC42 /* EditTransaction.m */;
-		name = "EditTransaction.m: 362";
-		rLen = 0;
-		rLoc = 10771;
-		rType = 0;
-		vrLen = 3453;
-		vrLoc = 9603;
-	};
 	964700B71038192600ABE764 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = 963BFE87101DCB9000C187E0 /* MapAnnotation.m */;
@@ -1088,7 +1281,7 @@
 		fRef = 96D7A9A610285949000FCC42 /* EditTransaction.m */;
 		name = "EditTransaction.m: 240";
 		rLen = 0;
-		rLoc = 7002;
+		rLoc = 6607;
 		rType = 0;
 		vrLen = 2044;
 		vrLoc = 811;
@@ -1118,16 +1311,6 @@
 	964700E610382B3C00ABE764 /* PBXBookmark */ = {
 		isa = PBXBookmark;
 		fRef = 964700DB10382B2500ABE764 /* tannhjul.png */;
-	};
-	964700EA10382BC700ABE764 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 9657530610303BEF00F93557 /* SettingsViewController.m */;
-		name = "SettingsViewController.m: 21";
-		rLen = 0;
-		rLoc = 655;
-		rType = 0;
-		vrLen = 2885;
-		vrLoc = 97;
 	};
 	9647010A103838A800ABE764 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
@@ -1201,32 +1384,33 @@
 	};
 	9657530110303B9100F93557 /* CurrencyManager.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {978, 980}}";
-			sepNavSelRange = "{1770, 33}";
-			sepNavVisRange = "{625, 2435}";
+			sepNavIntBoundsRect = "{{0, 0}, {1144, 994}}";
+			sepNavSelRange = "{2793, 0}";
+			sepNavVisRange = "{0, 3061}";
+			sepNavWindowFrame = "{{61, 34}, {1203, 1097}}";
 		};
 	};
 	9657530210303B9100F93557 /* CurrencyManager.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {821, 4872}}";
-			sepNavSelRange = "{9183, 0}";
-			sepNavVisRange = "{7366, 2824}";
+			sepNavIntBoundsRect = "{{0, 0}, {845, 4606}}";
+			sepNavSelRange = "{10079, 60}";
+			sepNavVisRange = "{8948, 1580}";
 			sepNavWindowFrame = "{{930, 224}, {904, 847}}";
 		};
 	};
 	9657530510303BEF00F93557 /* SettingsViewController.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {820, 788}}";
-			sepNavSelRange = "{1237, 0}";
-			sepNavVisRange = "{0, 1343}";
+			sepNavIntBoundsRect = "{{0, 0}, {853, 806}}";
+			sepNavSelRange = "{1339, 21}";
+			sepNavVisRange = "{0, 1367}";
 		};
 	};
 	9657530610303BEF00F93557 /* SettingsViewController.m */ = {
 		uiCtxt = {
-			sepNavFolds = "{\n    c =     (\n                {\n            r = \"{3204, 155}\";\n            s = 0;\n        },\n                {\n            r = \"{3384, 62}\";\n            s = 0;\n        },\n                {\n            r = \"{3465, 22}\";\n            s = 0;\n        },\n                {\n            r = \"{3583, 458}\";\n            s = 0;\n        },\n                {\n            r = \"{4134, 96}\";\n            s = 0;\n        },\n                {\n            r = \"{4262, 185}\";\n            s = 0;\n        },\n                {\n            r = \"{4849, 161}\";\n            s = 0;\n        },\n                {\n            r = \"{5045, 150}\";\n            s = 0;\n        }\n    );\n    r = \"{0, 5203}\";\n    s = 0;\n}";
-			sepNavIntBoundsRect = "{{0, 0}, {1530, 1176}}";
-			sepNavSelRange = "{655, 0}";
-			sepNavVisRange = "{97, 2885}";
+			sepNavFolds = "{\n    c =     (\n                {\n            r = \"{437, 277}\";\n            s = 0;\n        },\n                {\n            r = \"{737, 2459}\";\n            s = 0;\n        },\n                {\n            r = \"{3231, 155}\";\n            s = 0;\n        },\n                {\n            r = \"{3411, 62}\";\n            s = 0;\n        },\n                {\n            r = \"{3492, 22}\";\n            s = 0;\n        },\n                {\n            r = \"{4503, 458}\";\n            s = 0;\n        },\n                {\n            r = \"{5054, 96}\";\n            s = 0;\n        },\n                {\n            r = \"{5182, 185}\";\n            s = 0;\n        }\n    );\n    r = \"{0, 6123}\";\n    s = 0;\n}";
+			sepNavIntBoundsRect = "{{0, 0}, {1227, 1078}}";
+			sepNavSelRange = "{842, 0}";
+			sepNavVisRange = "{464, 907}";
 			sepNavWindowFrame = "{{205, -725}, {1280, 725}}";
 		};
 	};
@@ -1335,7 +1519,7 @@
 		hitCount = 0;
 		ignoreCount = 0;
 		lineNumber = 32;
-		modificationTime = 272158093.09994;
+		modificationTime = 272224767.9400541;
 		state = 0;
 	};
 	9662FEE81026CB9A00B670D6 /* PBXTextBookmark */ = {
@@ -1423,7 +1607,7 @@
 		vrLen = 630;
 		vrLoc = 0;
 	};
-	9672632B1038CDD8005FA634 /* PBXTextBookmark */ = {
+	96710CDE103986E900590935 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = 963B02BC1019E8D600CD5184 /* DetailTableViewController.m */;
 		name = "DetailTableViewController.m: 87";
@@ -1442,6 +1626,46 @@
 		rType = 0;
 		vrLen = 1726;
 		vrLoc = 819;
+	};
+	9684626A1039D7170023F1EF /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 96D7A9A610285949000FCC42 /* EditTransaction.m */;
+		name = "EditTransaction.m: 460";
+		rLen = 0;
+		rLoc = 13321;
+		rType = 0;
+		vrLen = 2183;
+		vrLoc = 13259;
+	};
+	9684626B1039D7170023F1EF /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 96903C791038AA7E009D5D49 /* TagSuggesterViewController.m */;
+		name = "TagSuggesterViewController.m: 98";
+		rLen = 0;
+		rLoc = 2265;
+		rType = 0;
+		vrLen = 2522;
+		vrLoc = 1345;
+	};
+	9684626C1039D7170023F1EF /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 96D7A9A610285949000FCC42 /* EditTransaction.m */;
+		name = "EditTransaction.m: 527";
+		rLen = 0;
+		rLoc = 15629;
+		rType = 0;
+		vrLen = 9423;
+		vrLoc = 5953;
+	};
+	9684626D1039D7170023F1EF /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 96D7A9A610285949000FCC42 /* EditTransaction.m */;
+		name = "EditTransaction.m: 525";
+		rLen = 0;
+		rLoc = 15597;
+		rType = 0;
+		vrLen = 2103;
+		vrLoc = 13273;
 	};
 	96885B7F1004EB01003090D8 /* Finance */ = {
 		isa = PBXExecutable;
@@ -1509,21 +1733,11 @@
 	};
 	96903C791038AA7E009D5D49 /* TagSuggesterViewController.m */ = {
 		uiCtxt = {
-			sepNavFolds = "{\n    c =     (\n                {\n            r = \"{861, 68}\";\n            s = 0;\n        },\n                {\n            r = \"{965, 155}\";\n            s = 0;\n        },\n                {\n            r = \"{1145, 83}\";\n            s = 0;\n        },\n                {\n            r = \"{2142, 83}\";\n            s = 0;\n        },\n                {\n            r = \"{2843, 334}\";\n            s = 0;\n        },\n                {\n            r = \"{3793, 15}\";\n            s = 0;\n        }\n    );\n    r = \"{0, 3816}\";\n    s = 0;\n}";
-			sepNavIntBoundsRect = "{{0, 0}, {821, 1848}}";
-			sepNavSelRange = "{1386, 0}";
-			sepNavVisRange = "{841, 1415}";
+			sepNavFolds = "{\n    c =     (\n                {\n            r = \"{861, 68}\";\n            s = 0;\n        },\n                {\n            r = \"{965, 155}\";\n            s = 0;\n        },\n                {\n            r = \"{1145, 83}\";\n            s = 0;\n        },\n                {\n            r = \"{2340, 83}\";\n            s = 0;\n        },\n                {\n            r = \"{3041, 334}\";\n            s = 0;\n        },\n                {\n            r = \"{4437, 15}\";\n            s = 0;\n        }\n    );\n    r = \"{0, 4460}\";\n    s = 0;\n}";
+			sepNavIntBoundsRect = "{{0, 0}, {1144, 1988}}";
+			sepNavSelRange = "{1962, 0}";
+			sepNavVisRange = "{1042, 2107}";
 		};
-	};
-	96903CB81038ADA6009D5D49 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 96FFEAD810387FBC0086BF66 /* TagSuggesterViewController.h */;
-		name = "TagSuggesterViewController.h: 31";
-		rLen = 0;
-		rLoc = 746;
-		rType = 0;
-		vrLen = 892;
-		vrLoc = 0;
 	};
 	96903D401038B453009D5D49 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
@@ -1574,16 +1788,6 @@
 		rType = 0;
 		vrLen = 1610;
 		vrLoc = 0;
-	};
-	96903DAC1038BDE0009D5D49 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 28216C960DB411BC00E5133A /* ExpenseInputViewController.m */;
-		name = "ExpenseInputViewController.m: 288";
-		rLen = 0;
-		rLoc = 9087;
-		rType = 0;
-		vrLen = 2471;
-		vrLoc = 6383;
 	};
 	96903DB91038C043009D5D49 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
@@ -1655,16 +1859,6 @@
 		vrLen = 1242;
 		vrLoc = 143;
 	};
-	96903E401038C78B009D5D49 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 9623070F10347864003ED654 /* KleioSearchBar.m */;
-		name = "KleioSearchBar.m: 145";
-		rLen = 0;
-		rLoc = 3766;
-		rType = 0;
-		vrLen = 2853;
-		vrLoc = 2232;
-	};
 	96903E411038C78B009D5D49 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = 960C07FC1021AFF300B9C2A3 /* Utilities.h */;
@@ -1675,26 +1869,6 @@
 		vrLen = 1623;
 		vrLoc = 19;
 	};
-	96903E521038C7FF009D5D49 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 96903C791038AA7E009D5D49 /* TagSuggesterViewController.m */;
-		name = "TagSuggesterViewController.m: 72";
-		rLen = 0;
-		rLoc = 1689;
-		rType = 0;
-		vrLen = 1800;
-		vrLoc = 841;
-	};
-	96903E531038C7FF009D5D49 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 96A98E571025D45100FFA6D0 /* TransactionsMainViewController.m */;
-		name = "TransactionsMainViewController.m: 1";
-		rLen = 0;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 1614;
-		vrLoc = 0;
-	};
 	96903E5C1038C8AA009D5D49 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = 960C07FD1021AFF300B9C2A3 /* Utilities.m */;
@@ -1704,16 +1878,6 @@
 		rType = 0;
 		vrLen = 3272;
 		vrLoc = 455;
-	};
-	96903E601038C962009D5D49 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 963B02BC1019E8D600CD5184 /* DetailTableViewController.m */;
-		name = "DetailTableViewController.m: 87";
-		rLen = 0;
-		rLoc = 2509;
-		rType = 0;
-		vrLen = 7081;
-		vrLoc = 246;
 	};
 	9697740A101AFA0F00F0DC3D /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
@@ -1773,7 +1937,7 @@
 		ignoreCount = 0;
 		lineNumber = 93;
 		location = Finance;
-		modificationTime = 272158092.750713;
+		modificationTime = 272224767.640827;
 		state = 1;
 	};
 	96A12C0310371061002BFC15 /* PBXTextBookmark */ = {
@@ -1821,10 +1985,10 @@
 	};
 	96A98E571025D45100FFA6D0 /* TransactionsMainViewController.m */ = {
 		uiCtxt = {
-			sepNavFolds = "{\n    c =     (\n                {\n            r = \"{1550, 62}\";\n            s = 0;\n        },\n                {\n            r = \"{1632, 101}\";\n            s = 0;\n        },\n                {\n            r = \"{1818, 302}\";\n            s = 0;\n        },\n                {\n            r = \"{2166, 193}\";\n            s = 0;\n        },\n                {\n            r = \"{3134, 80}\";\n            s = 0;\n        },\n                {\n            r = \"{3265, 21}\";\n            s = 0;\n        },\n                {\n            r = \"{4077, 26}\";\n            s = 0;\n        },\n                {\n            r = \"{4129, 34}\";\n            s = 0;\n        },\n                {\n            r = \"{4198, 33}\";\n            s = 0;\n        },\n                {\n            r = \"{4257, 21}\";\n            s = 0;\n        },\n                {\n            r = \"{4305, 21}\";\n            s = 0;\n        },\n                {\n            r = \"{4354, 23}\";\n            s = 0;\n        }\n    );\n    r = \"{0, 4455}\";\n    s = 0;\n}";
-			sepNavIntBoundsRect = "{{0, 0}, {821, 1988}}";
-			sepNavSelRange = "{0, 0}";
-			sepNavVisRange = "{0, 1553}";
+			sepNavFolds = "{\n    c =     (\n                {\n            r = \"{1587, 62}\";\n            s = 0;\n        },\n                {\n            r = \"{1669, 101}\";\n            s = 0;\n        },\n                {\n            r = \"{1855, 302}\";\n            s = 0;\n        },\n                {\n            r = \"{2203, 193}\";\n            s = 0;\n        },\n                {\n            r = \"{3171, 80}\";\n            s = 0;\n        },\n                {\n            r = \"{3302, 21}\";\n            s = 0;\n        },\n                {\n            r = \"{4114, 26}\";\n            s = 0;\n        },\n                {\n            r = \"{4166, 34}\";\n            s = 0;\n        },\n                {\n            r = \"{4235, 33}\";\n            s = 0;\n        },\n                {\n            r = \"{4294, 21}\";\n            s = 0;\n        },\n                {\n            r = \"{4342, 21}\";\n            s = 0;\n        },\n                {\n            r = \"{4391, 23}\";\n            s = 0;\n        }\n    );\n    r = \"{0, 4492}\";\n    s = 0;\n}";
+			sepNavIntBoundsRect = "{{0, 0}, {853, 2030}}";
+			sepNavSelRange = "{940, 0}";
+			sepNavVisRange = "{0, 1565}";
 			sepNavWindowFrame = "{{790, 139}, {1145, 778}}";
 		};
 	};
@@ -2233,17 +2397,17 @@
 	};
 	96D7A9A510285949000FCC42 /* EditTransaction.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1194, 1274}}";
-			sepNavSelRange = "{534, 0}";
-			sepNavVisRange = "{243, 430}";
+			sepNavIntBoundsRect = "{{0, 0}, {1227, 1498}}";
+			sepNavSelRange = "{1801, 0}";
+			sepNavVisRange = "{1500, 820}";
 		};
 	};
 	96D7A9A610285949000FCC42 /* EditTransaction.m */ = {
 		uiCtxt = {
-			sepNavFolds = "{\n    c =     (\n                {\n            r = \"{4671, 84}\";\n            s = 0;\n        },\n                {\n            r = \"{4780, 83}\";\n            s = 0;\n        },\n                {\n            r = \"{4882, 336}\";\n            s = 0;\n        },\n                {\n            r = \"{5341, 66}\";\n            s = 0;\n        },\n                {\n            r = \"{5438, 65}\";\n            s = 0;\n        },\n                {\n            r = \"{5538, 104}\";\n            s = 0;\n        },\n                {\n            r = \"{5667, 38}\";\n            s = 0;\n        },\n                {\n            r = \"{5731, 395}\";\n            s = 0;\n        },\n                {\n            r = \"{6215, 100}\";\n            s = 0;\n        },\n                {\n            r = \"{7040, 1025}\";\n            s = 0;\n        },\n                {\n            r = \"{8322, 225}\";\n            s = 0;\n        },\n                {\n            r = \"{8583, 99}\";\n            s = 0;\n        },\n                {\n            r = \"{11143, 54}\";\n            s = 0;\n        },\n                {\n            r = \"{11255, 96}\";\n            s = 0;\n        },\n                {\n            r = \"{11525, 1038}\";\n            s = 0;\n        },\n                {\n            r = \"{12654, 398}\";\n            s = 0;\n        }\n    );\n    r = \"{0, 13061}\";\n    s = 0;\n}";
-			sepNavIntBoundsRect = "{{0, 0}, {821, 3934}}";
-			sepNavSelRange = "{8163, 0}";
-			sepNavVisRange = "{6995, 1871}";
+			sepNavFolds = "{\n    c =     (\n                {\n            r = \"{1060, 2708}\";\n            s = 0;\n        },\n                {\n            r = \"{3795, 1034}\";\n            s = 0;\n        },\n                {\n            r = \"{4865, 84}\";\n            s = 0;\n        },\n                {\n            r = \"{4974, 83}\";\n            s = 0;\n        },\n                {\n            r = \"{5076, 388}\";\n            s = 0;\n        },\n                {\n            r = \"{5587, 66}\";\n            s = 0;\n        },\n                {\n            r = \"{5684, 65}\";\n            s = 0;\n        },\n                {\n            r = \"{5784, 104}\";\n            s = 0;\n        },\n                {\n            r = \"{5913, 38}\";\n            s = 0;\n        },\n                {\n            r = \"{5977, 395}\";\n            s = 0;\n        },\n                {\n            r = \"{6461, 100}\";\n            s = 0;\n        },\n                {\n            r = \"{6606, 950}\";\n            s = 0;\n        },\n                {\n            r = \"{7582, 71}\";\n            s = 0;\n        },\n                {\n            r = \"{7683, 392}\";\n            s = 0;\n        },\n                {\n            r = \"{8116, 1337}\";\n            s = 0;\n        },\n                {\n            r = \"{9486, 183}\";\n            s = 0;\n        },\n                {\n            r = \"{9693, 58}\";\n            s = 0;\n        },\n                {\n            r = \"{9779, 759}\";\n            s = 0;\n        },\n                {\n            r = \"{10580, 225}\";\n            s = 0;\n        },\n                {\n            r = \"{10841, 99}\";\n            s = 0;\n        },\n                {\n            r = \"{11019, 840}\";\n            s = 0;\n        },\n                {\n            r = \"{11876, 304}\";\n            s = 0;\n        },\n                {\n            r = \"{12198, 585}\";\n            s = 0;\n        },\n                {\n            r = \"{12834, 423}\";\n            s = 0;\n        },\n                {\n            r = \"{13416, 532}\";\n            s = 0;\n        },\n                {\n            r = \"{14109, 54}\";\n            s = 0;\n        },\n                {\n            r = \"{14516, 96}\";\n            s = 0;\n        },\n                {\n            r = \"{15896, 1038}\";\n            s = 0;\n        },\n                {\n            r = \"{17025, 398}\";\n            s = 0;\n        }\n    );\n    r = \"{0, 17432}\";\n    s = 0;\n}";
+			sepNavIntBoundsRect = "{{0, 0}, {1359, 2184}}";
+			sepNavSelRange = "{3651, 0}";
+			sepNavVisRange = "{2006, 1424}";
 			sepNavWindowFrame = "{{220, -730}, {1418, 725}}";
 		};
 	};
@@ -2406,16 +2570,6 @@
 		rLoc = 501;
 		rType = 0;
 		vrLen = 522;
-		vrLoc = 0;
-	};
-	96ECC2E710357259000712B0 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 9657530510303BEF00F93557 /* SettingsViewController.h */;
-		name = "SettingsViewController.h: 45";
-		rLen = 0;
-		rLoc = 1237;
-		rType = 0;
-		vrLen = 1343;
 		vrLoc = 0;
 	};
 	96ECC301103578DF000712B0 /* PBXTextBookmark */ = {
@@ -2869,9 +3023,9 @@
 	};
 	96FFEAD810387FBC0086BF66 /* TagSuggesterViewController.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {821, 809}}";
-			sepNavSelRange = "{746, 0}";
-			sepNavVisRange = "{0, 892}";
+			sepNavIntBoundsRect = "{{0, 0}, {1144, 969}}";
+			sepNavSelRange = "{922, 0}";
+			sepNavVisRange = "{0, 944}";
 			sepNavWindowFrame = "{{220, -730}, {1418, 725}}";
 		};
 	};

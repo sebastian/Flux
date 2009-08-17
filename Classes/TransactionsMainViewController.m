@@ -37,6 +37,7 @@
 		self.contentView = self.navController.view;
 		
 		[[KleioSearchBar searchBar] setDelegate:self];
+		[[KleioSearchBar searchBar] hide];
 		
 		// Add the contentview to the subview
 		[self.view addSubview:self.contentView];

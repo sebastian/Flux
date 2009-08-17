@@ -28,9 +28,9 @@ static KleioSearchBar * sharedSearchBar = nil;
 	bubbleView.font = searchBarTextField.font;
 	
 	searchBarTextField.placeholder = NSLocalizedString(@"Tags to filter by", @"Placeholder text for search bar");
+
 	[self hide];
 }
-
 
 #pragma mark
 #pragma mark -

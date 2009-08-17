@@ -104,8 +104,6 @@
 		96B1A655101B71B900DB6787 /* sampleTransactions.xml in Resources */ = {isa = PBXBuildFile; fileRef = 96B1A654101B71B900DB6787 /* sampleTransactions.xml */; };
 		96BD3E6C101744DB00926A83 /* CurrencyKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 96BD3E6A101744DB00926A83 /* CurrencyKeyboard.m */; };
 		96BD3E6D101744DB00926A83 /* CurrencyKeyboard.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96BD3E6B101744DB00926A83 /* CurrencyKeyboard.xib */; };
-		96D217AC10389F34003C5FC7 /* SuggestBottom.png in Resources */ = {isa = PBXBuildFile; fileRef = 96D217AA10389F34003C5FC7 /* SuggestBottom.png */; };
-		96D217AD10389F34003C5FC7 /* SuggestTop.png in Resources */ = {isa = PBXBuildFile; fileRef = 96D217AB10389F34003C5FC7 /* SuggestTop.png */; };
 		96D217C21038A15D003C5FC7 /* SuggestBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 96D217C11038A15D003C5FC7 /* SuggestBackground.png */; };
 		96D28063101F621000B0A026 /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 96D28062101F621000B0A026 /* Entitlements.plist */; };
 		96D7A91B10281F04000FCC42 /* TransactionDisplay.png in Resources */ = {isa = PBXBuildFile; fileRef = 96D7A91A10281F04000FCC42 /* TransactionDisplay.png */; };
@@ -268,8 +266,6 @@
 		96BD3E69101744DB00926A83 /* CurrencyKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrencyKeyboard.h; sourceTree = "<group>"; };
 		96BD3E6A101744DB00926A83 /* CurrencyKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrencyKeyboard.m; sourceTree = "<group>"; };
 		96BD3E6B101744DB00926A83 /* CurrencyKeyboard.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CurrencyKeyboard.xib; sourceTree = "<group>"; };
-		96D217AA10389F34003C5FC7 /* SuggestBottom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SuggestBottom.png; path = Graphics/SuggestBottom.png; sourceTree = "<group>"; };
-		96D217AB10389F34003C5FC7 /* SuggestTop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SuggestTop.png; path = Graphics/SuggestTop.png; sourceTree = "<group>"; };
 		96D217C11038A15D003C5FC7 /* SuggestBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SuggestBackground.png; path = Graphics/SuggestBackground.png; sourceTree = "<group>"; };
 		96D28058101F5DC900B0A026 /* Beta-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Beta-Info.plist"; sourceTree = "<group>"; };
 		96D28062101F621000B0A026 /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
@@ -585,8 +581,6 @@
 			isa = PBXGroup;
 			children = (
 				96D217C11038A15D003C5FC7 /* SuggestBackground.png */,
-				96D217AA10389F34003C5FC7 /* SuggestBottom.png */,
-				96D217AB10389F34003C5FC7 /* SuggestTop.png */,
 				964700F3103830EC00ABE764 /* Pricetag.png */,
 				964700A7103817E900ABE764 /* Icons */,
 				962306FE10347318003ED654 /* SearchBarBackground.png */,
@@ -861,8 +855,6 @@
 				96F1579510384B4A00ECBF03 /* Localizable.strings in Resources */,
 				96FFEAB7103879650086BF66 /* Localizable.strings in Resources */,
 				96FFEADC10387FBC0086BF66 /* TagSuggesterViewController.xib in Resources */,
-				96D217AC10389F34003C5FC7 /* SuggestBottom.png in Resources */,
-				96D217AD10389F34003C5FC7 /* SuggestTop.png in Resources */,
 				96D217C21038A15D003C5FC7 /* SuggestBackground.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1000,11 +992,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Kleio";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Finance_Prefix.pch;
 				INFOPLIST_FILE = "Finance-Info.plist";
 				PRODUCT_NAME = Finance;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "C7D17066-CCE8-411A-B6FF-4AD51A3A5077";
 			};
 			name = "Finance adhoc release";
 		};
