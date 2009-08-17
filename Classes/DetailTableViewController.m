@@ -85,6 +85,15 @@
 		[[KleioSearchBar searchBar] show];
 	}
 		
+	/*
+	 If there is no cache, then the table should be reloaded!
+	 Because that means there have been changes!
+	 */
+	if ((self.transactionsDataCache != nil) & ([self.transactionsDataCache count] == 0)) {
+		NSLog(@"Reloading table view because of empty cache in %@", self);
+		[self.tableView reloadData];
+	}
+		
 }
 
 
