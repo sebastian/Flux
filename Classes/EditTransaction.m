@@ -57,7 +57,10 @@
 #pragma mark -
 #pragma mark Setup, init and teardown
 - (void)viewDidLoad {
-    [super viewDidLoad];
+
+	[super viewDidLoad];
+	
+	
 	
 	self.cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel 
 																	  target:self
@@ -131,7 +134,7 @@
 	
 	// Setup the contents of the dynamic fields
 	[self setupControls];
-		
+	
 }
 
 - (void) setupControls {

@@ -24,6 +24,7 @@
 @dynamic tag;
 @dynamic date;
 @dynamic latitude;
+@dynamic longitude;
 
 #pragma mark
 #pragma mark -
@@ -37,8 +38,9 @@
     [self willChangeValueForKey:@"location"];
     [self setPrimitiveLocation:location];
     [self didChangeValueForKey:@"location"];
-	
-	self.latitude = [NSNumber numberWithDouble:location.coordinate.latitude];
+
+	self.latitude = [NSNumber numberWithFloat:location.coordinate.latitude];
+	self.longitude = [NSNumber numberWithFloat:location.coordinate.longitude];
 }
 
 @end

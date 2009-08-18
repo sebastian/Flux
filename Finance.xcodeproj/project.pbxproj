@@ -998,7 +998,7 @@
 				GCC_PREFIX_HEADER = Finance_Prefix.pch;
 				INFOPLIST_FILE = "Finance-Info.plist";
 				PRODUCT_NAME = Finance;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "C7D17066-CCE8-411A-B6FF-4AD51A3A5077";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "0DA08FED-88A4-4E54-BAA4-85C924EDAC4F";
 			};
 			name = "Finance adhoc release";
 		};
