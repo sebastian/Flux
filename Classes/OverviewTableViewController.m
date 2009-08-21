@@ -62,15 +62,6 @@
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	
-	/*
-	 Hide the top view that is just for making it look nice
-	 FIXME: This makes it jump to the top whenever I go up a level to get to the overview controller!
-	 */
-//	[self.tableView setContentOffset:CGPointMake(0, 31.f) animated:NO];
-//	
-//	NSIndexPath *tableSelection = [self.tableView indexPathForSelectedRow];
-//	[self.tableView deselectRowAtIndexPath:tableSelection animated:NO];
-	
 	NSLog(@"Reloading tableview on viewWillAppear in %@", self);
 	[self.tableView reloadData];
 	
