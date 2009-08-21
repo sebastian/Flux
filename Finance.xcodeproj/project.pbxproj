@@ -81,6 +81,9 @@
 		966770B810232425000C6FF5 /* AddDisabled.png in Resources */ = {isa = PBXBuildFile; fileRef = 966770B710232425000C6FF5 /* AddDisabled.png */; };
 		9667715D102332FC000C6FF5 /* TagDescriptionBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 9667715C102332FC000C6FF5 /* TagDescriptionBackground.png */; };
 		9667723E10234EB6000C6FF5 /* TagDescriptionBackgroundActive.png in Resources */ = {isa = PBXBuildFile; fileRef = 9667723D10234EB6000C6FF5 /* TagDescriptionBackgroundActive.png */; };
+		966C2C1C103ECA3900725372 /* ABTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 966C2C1B103ECA3900725372 /* ABTableViewCell.m */; };
+		966C2C63103ECFAA00725372 /* CellSeparator288.png in Resources */ = {isa = PBXBuildFile; fileRef = 966C2C62103ECFAA00725372 /* CellSeparator288.png */; };
+		966C2C68103ECFFF00725372 /* CacheMasterSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 966C2C67103ECFFF00725372 /* CacheMasterSingleton.m */; };
 		966D70E81008B23100D781B8 /* KeyboardButtonOKClicked.png in Resources */ = {isa = PBXBuildFile; fileRef = 966D70E61008B23100D781B8 /* KeyboardButtonOKClicked.png */; };
 		966D70E91008B23100D781B8 /* KeyboardButtonOKUnclicked.png in Resources */ = {isa = PBXBuildFile; fileRef = 966D70E71008B23100D781B8 /* KeyboardButtonOKUnclicked.png */; };
 		966D71091008B5E600D781B8 /* DeleteButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 966D71081008B5E600D781B8 /* DeleteButton.png */; };
@@ -139,7 +142,6 @@
 		96FFEADC10387FBC0086BF66 /* TagSuggesterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96FFEADA10387FBC0086BF66 /* TagSuggesterViewController.xib */; };
 		96FFFA7C1015ED4600A53779 /* DetailHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96FFFA7B1015ED4600A53779 /* DetailHeaderView.m */; };
 		96FFFA8E1015EDC600A53779 /* DetailContentTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 96FFFA8D1015EDC600A53779 /* DetailContentTableCell.m */; };
-		96FFFA941015EDF500A53779 /* DetailTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96FFFA931015EDF500A53779 /* DetailTableCell.xib */; };
 		96FFFAE01015F8E200A53779 /* DetailHeaderAndFooter.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96FFFADF1015F8E200A53779 /* DetailHeaderAndFooter.xib */; };
 /* End PBXBuildFile section */
 
@@ -240,6 +242,11 @@
 		966770B710232425000C6FF5 /* AddDisabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AddDisabled.png; path = Graphics/AddDisabled.png; sourceTree = "<group>"; };
 		9667715C102332FC000C6FF5 /* TagDescriptionBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TagDescriptionBackground.png; path = Graphics/TagDescriptionBackground.png; sourceTree = "<group>"; };
 		9667723D10234EB6000C6FF5 /* TagDescriptionBackgroundActive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TagDescriptionBackgroundActive.png; path = Graphics/TagDescriptionBackgroundActive.png; sourceTree = "<group>"; };
+		966C2C1A103ECA3900725372 /* ABTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABTableViewCell.h; sourceTree = "<group>"; };
+		966C2C1B103ECA3900725372 /* ABTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABTableViewCell.m; sourceTree = "<group>"; };
+		966C2C62103ECFAA00725372 /* CellSeparator288.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = CellSeparator288.png; path = Graphics/CellSeparator288.png; sourceTree = "<group>"; };
+		966C2C66103ECFFF00725372 /* CacheMasterSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CacheMasterSingleton.h; sourceTree = "<group>"; };
+		966C2C67103ECFFF00725372 /* CacheMasterSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacheMasterSingleton.m; sourceTree = "<group>"; };
 		966D70E61008B23100D781B8 /* KeyboardButtonOKClicked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = KeyboardButtonOKClicked.png; path = Graphics/KeyboardButtonOKClicked.png; sourceTree = "<group>"; };
 		966D70E71008B23100D781B8 /* KeyboardButtonOKUnclicked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = KeyboardButtonOKUnclicked.png; path = Graphics/KeyboardButtonOKUnclicked.png; sourceTree = "<group>"; };
 		966D71081008B5E600D781B8 /* DeleteButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = DeleteButton.png; path = Graphics/DeleteButton.png; sourceTree = "<group>"; };
@@ -313,7 +320,6 @@
 		96FFFA7B1015ED4600A53779 /* DetailHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailHeaderView.m; sourceTree = "<group>"; };
 		96FFFA8C1015EDC600A53779 /* DetailContentTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailContentTableCell.h; sourceTree = "<group>"; };
 		96FFFA8D1015EDC600A53779 /* DetailContentTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailContentTableCell.m; sourceTree = "<group>"; };
-		96FFFA931015EDF500A53779 /* DetailTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailTableCell.xib; sourceTree = "<group>"; };
 		96FFFADF1015F8E200A53779 /* DetailHeaderAndFooter.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailHeaderAndFooter.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -413,12 +419,16 @@
 		960C07FF1021AFF900B9C2A3 /* Div */ = {
 			isa = PBXGroup;
 			children = (
+				966C2C1A103ECA3900725372 /* ABTableViewCell.h */,
+				966C2C1B103ECA3900725372 /* ABTableViewCell.m */,
 				9657530110303B9100F93557 /* CurrencyManager.h */,
 				9657530210303B9100F93557 /* CurrencyManager.m */,
 				1D3623240D0F684500981E51 /* FinanceAppDelegate.h */,
 				1D3623250D0F684500981E51 /* FinanceAppDelegate.m */,
 				960C07FC1021AFF300B9C2A3 /* Utilities.h */,
 				960C07FD1021AFF300B9C2A3 /* Utilities.m */,
+				966C2C66103ECFFF00725372 /* CacheMasterSingleton.h */,
+				966C2C67103ECFFF00725372 /* CacheMasterSingleton.m */,
 			);
 			name = Div;
 			sourceTree = "<group>";
@@ -580,6 +590,7 @@
 		96AA703710061CF600206A37 /* Graphics */ = {
 			isa = PBXGroup;
 			children = (
+				966C2C62103ECFAA00725372 /* CellSeparator288.png */,
 				96D217C11038A15D003C5FC7 /* SuggestBackground.png */,
 				964700F3103830EC00ABE764 /* Pricetag.png */,
 				964700A7103817E900ABE764 /* Icons */,
@@ -706,7 +717,6 @@
 			isa = PBXGroup;
 			children = (
 				96E55D8D1014AD8200E63DB8 /* OverviewTableCell.xib */,
-				96FFFA931015EDF500A53779 /* DetailTableCell.xib */,
 				96FFFADF1015F8E200A53779 /* DetailHeaderAndFooter.xib */,
 			);
 			name = TableCells;
@@ -777,7 +787,6 @@
 				9653EBE6101104FB00B714BB /* MainWindow.xib in Resources */,
 				96D937291014922F0062E7A4 /* OKOverlay.png in Resources */,
 				96E55D8E1014AD8200E63DB8 /* OverviewTableCell.xib in Resources */,
-				96FFFA941015EDF500A53779 /* DetailTableCell.xib in Resources */,
 				96FFFAE01015F8E200A53779 /* DetailHeaderAndFooter.xib in Resources */,
 				96BD3E6D101744DB00926A83 /* CurrencyKeyboard.xib in Resources */,
 				969776A8101B662300F0DC3D /* DetailCellHeader.png in Resources */,
@@ -856,6 +865,7 @@
 				96FFEAB7103879650086BF66 /* Localizable.strings in Resources */,
 				96FFEADC10387FBC0086BF66 /* TagSuggesterViewController.xib in Resources */,
 				96D217C21038A15D003C5FC7 /* SuggestBackground.png in Resources */,
+				966C2C63103ECFAA00725372 /* CellSeparator288.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -899,6 +909,8 @@
 				9623071810347903003ED654 /* SearchBarTerm.m in Sources */,
 				9623074310347D7F003ED654 /* SearchBarWord.m in Sources */,
 				96903C7A1038AA7E009D5D49 /* TagSuggesterViewController.m in Sources */,
+				966C2C1C103ECA3900725372 /* ABTableViewCell.m in Sources */,
+				966C2C68103ECFFF00725372 /* CacheMasterSingleton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

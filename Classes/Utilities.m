@@ -344,7 +344,6 @@ static Utilities *sharedUtilitiesToolbox = nil;
 #pragma mark
 #pragma mark -
 #pragma mark Singleton methods
-
 + (Utilities*)toolbox {
     @synchronized(self) {
         if (sharedUtilitiesToolbox == nil) {

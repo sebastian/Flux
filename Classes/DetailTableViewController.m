@@ -226,8 +226,7 @@
 	static NSString *CellIdentifier = @"DetailCell";
     DetailContentTableCell * cell = (DetailContentTableCell *) [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 	if (cell == nil) {
-		[[NSBundle mainBundle] loadNibNamed:@"DetailTableCell" owner:self options:nil]; 
-		cell = self.detailContentTableCell;
+		cell = [[[DetailContentTableCell alloc] initWithFrame:CGRectZero reuseIdentifier:CellIdentifier] autorelease];
 	}
 
 	[cell configureCellForTransaction:trs];

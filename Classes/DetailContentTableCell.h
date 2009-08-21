@@ -7,17 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ABTableViewCell.h"
 
 @class Transaction;
-@interface DetailContentTableCell : UITableViewCell {
-	UILabel * what;
-	UILabel * amount;
-	UILabel * time;
+@interface DetailContentTableCell : ABTableViewCell {
+	NSString * what;
+	NSString * amount;
+	NSString * time;
 }
 
-@property (nonatomic, retain) IBOutlet UILabel * time;
-@property (nonatomic, retain) IBOutlet UILabel * what;
-@property (nonatomic, retain) IBOutlet UILabel * amount;
+@property (nonatomic, retain) NSString * time;
+@property (nonatomic, retain) NSString * what;
+@property (nonatomic, retain) NSString * amount;
 
 // Methods
 -(void)configureCellForTransaction:(Transaction*)trs;
