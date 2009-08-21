@@ -9,6 +9,7 @@
 #import "BetaViewController.h"
 #import "Transaction.h"
 #import "Utilities.h"
+#import "CacheMasterSingleton.h"
 
 @implementation BetaViewController
 
@@ -124,10 +125,7 @@
 	
 	/* This shouldn't really be needed... and probably there is a bug somewhere, but heck... */
 	[[Utilities toolbox] setReloadingTableAllowed];
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"FinanceKillAllCache" object:self];
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"FinanceKillAllCache" object:self];
-	sleep(1.0);
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"GlobalTableViewReloadData" object:self];		
+	[[CacheMasterSingleton sharedCacheMaster] clearCache];
 	
 	progressView.hidden = YES;
 	addDataButton.enabled = YES;

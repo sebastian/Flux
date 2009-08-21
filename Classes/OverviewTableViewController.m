@@ -14,6 +14,7 @@
 #import "Utilities.h"
 #import "CurrencyManager.h"
 #import "FinanceAppDelegate.h"
+#import "CacheMasterSingleton.h"
 
 @interface OverviewTableViewController (PrivateMethods)
 - (void)clearDataCache;
@@ -28,7 +29,9 @@
 #pragma mark Init and teardown
 - (void)viewDidLoad {
 	[super viewDidLoad];
-			
+	
+	[[CacheMasterSingleton sharedCacheMaster] setOverviewTableDelegate:self];
+	
 	self.title = NSLocalizedString(@"Overview", @"Overview table transaction view");
 
 	UIImageView * headerView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"CellOverviewHeader.png"]];
@@ -63,7 +66,7 @@
 	[super viewWillAppear:animated];
 	
 	NSLog(@"Reloading tableview on viewWillAppear in %@", self);
-	[self.tableView reloadData];
+	[self updateIfWorthIt];
 	
 }
 - (void)viewDidUnload {
@@ -157,21 +160,25 @@
 	 Depending on if I only show the last three rows or not
 	 I selectively fake a result here
 	 */
-	
-	if ([self.cellCalculations objectForKey:@"numOfRows"] == nil) {
-		NSUInteger iCount = [[self.resultsController sections] count];
-		NSNumber * count = [NSNumber numberWithInt:iCount];
-		[self.cellCalculations setObject:count forKey:@"numOfRows"];
-		[self makeCachePersistent];
-		NSLog(@"Had to calculate number of rows (%i)", iCount);
-	}
-	return [[self.cellCalculations objectForKey:@"numOfRows"] intValue];
+	return [[CacheMasterSingleton sharedCacheMaster] overviewCache_numberOfRows];
+
+//
+//	if ([self.cellCalculations objectForKey:@"numOfRows"] == nil) {
+//		NSUInteger iCount = [[self.resultsController sections] count];
+//		NSNumber * count = [NSNumber numberWithInt:iCount];
+//		[self.cellCalculations setObject:count forKey:@"numOfRows"];
+//		[self makeCachePersistent];
+//		NSLog(@"Had to calculate number of rows (%i)", iCount);
+//	}
+//	return [[self.cellCalculations objectForKey:@"numOfRows"] intValue];
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	[self computeDataForIndexPath:indexPath];
-	
-	// Values to use
-	NSDictionary * dict = [cellCalculations objectForKey:indexPath];
+//	[self computeDataForIndexPath:indexPath];
+//	
+//	// Values to use
+//	NSDictionary * dict = [cellCalculations objectForKey:indexPath];
+
+	NSDictionary * dict = [[CacheMasterSingleton sharedCacheMaster] overviewCache_forRow:indexPath.row];
 	
 	// Get a cell:
 	static NSString *CellIdentifier = @"OverviewCell";
@@ -189,15 +196,14 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 	
-	// Values to use
-	NSDictionary * dict = [cellCalculations objectForKey:indexPath];
+//	// Values to use
+//	NSDictionary * dict = [cellCalculations objectForKey:indexPath];
+	NSDictionary * dict = [[CacheMasterSingleton sharedCacheMaster] overviewCache_forRow:indexPath.row];
 	
     DetailTableViewController * detailController = [[DetailTableViewController alloc] initWithStyle:UITableViewStylePlain 
 																						 andContext:managedObjectContext];
 	detailController.delegate = self;
 	detailController.yearMonthToDisplay = [dict objectForKey:@"yearMonth"];
-	
-	NSLog(@"Passing on yearMonth: %@", [dict objectForKey:@"yearMonth"]);
 	
 	// Passing along the filtering predicates so searches can be passed on
 	detailController.filteringPredicate = self.filteringPredicate;
@@ -285,43 +291,46 @@
 	[self.tableView reloadData];
 }
 - (void) setBadgeBalance {
+
+	NSLog(@"Ignoring setBadgeBalance");
 	
-	if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"KleioTransactionsBalanceBadge"] boolValue] == YES) {
-		// We have to set the application badge to the current ballance
-		NSInteger numberOfRows = [self tableView:self.tableView numberOfRowsInSection:0];
-		
-		double amount;
-		
-		for (int n = 0; n < numberOfRows; n++) {
-			NSIndexPath * path = [NSIndexPath indexPathForRow:n inSection:0];
-			[self computeDataForIndexPath:path];
-			NSDictionary * dict = [self.cellCalculations objectForKey:path];
-			NSNumber * rawAmount = [dict objectForKey:@"rawAmount"];
-			amount += [rawAmount doubleValue];
-			
-		}
-		
-		NSInteger finalAmount = (NSInteger)amount;
-		
-		if ((finalAmount > 0) && (finalAmount < 10000)) {
-			[[UIApplication sharedApplication] setApplicationIconBadgeNumber:finalAmount];
-		} else {
-			[[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
-		}
-		
-	}
+//	if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"KleioTransactionsBalanceBadge"] boolValue] == YES) {
+//		// We have to set the application badge to the current ballance
+//		NSInteger numberOfRows = [self tableView:self.tableView numberOfRowsInSection:0];
+//		
+//		double amount;
+//		
+//		for (int n = 0; n < numberOfRows; n++) {
+//			NSIndexPath * path = [NSIndexPath indexPathForRow:n inSection:0];
+//			[self computeDataForIndexPath:path];
+//			NSDictionary * dict = [self.cellCalculations objectForKey:path];
+//			NSNumber * rawAmount = [dict objectForKey:@"rawAmount"];
+//			amount += [rawAmount doubleValue];
+//			
+//		}
+//		
+//		NSInteger finalAmount = (NSInteger)amount;
+//		
+//		if ((finalAmount > 0) && (finalAmount < 10000)) {
+//			[[UIApplication sharedApplication] setApplicationIconBadgeNumber:finalAmount];
+//		} else {
+//			[[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+//		}
+//	}
 }
 
 #pragma mark -
 #pragma mark NSFetchedResultsController delegate methods
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-	if ([[Utilities toolbox] isReloadingTableAllowed]) {
-		[self.tableView reloadData];
-		NSLog(@"Reloaded data in %@ because of controllerDidChangeContent:", self);
-		[self setBadgeBalance];
-	} else {
-		NSLog(@"Reloaded data NOT ALLOWED in %@", self);
-	}
+	[self updateIfWorthIt];
+	
+//	if ([[Utilities toolbox] isReloadingTableAllowed]) {
+//		[self.tableView reloadData];
+//		NSLog(@"Reloaded data in %@ because of controllerDidChangeContent:", self);
+//		[self setBadgeBalance];
+//	} else {
+//		NSLog(@"Reloaded data NOT ALLOWED in %@", self);
+//	}
 }
 
 @end

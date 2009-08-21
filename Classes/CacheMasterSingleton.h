@@ -7,24 +7,47 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "OverviewTableViewController.h"
+#import "DetailTableViewController.h"
 
 @interface CacheMasterSingleton : NSObject {
 
-	// Detail table cell
-	UIFont * detailTableCellFont;
+	NSPredicate * truePredicate;
+	
+	// Detail table cell - resources
+	UIFont  * detailTableCellFont;
 	UIColor * detailTableCellGrayColor;
 	UIColor * detailTableCellBlackColor;
 	UIImage * detailTableCellBackgroundImage;
 	UIImage * detailTableCellSelectedBackgroundImage;
 	UIImage * detailTableCellSeparator;	
 	
+	// OverviewTable cache
+	NSMutableArray * overviewCache_months;
+	NSMutableDictionary * overviewCache_cellCache;
+	OverviewTableViewController * overviewTableDelegate;
 }
 
 // The one public init method
+@property (nonatomic, retain) NSPredicate * truePredicate;
 + (CacheMasterSingleton*)sharedCacheMaster;
 - (void) clearCache;
 
+
+
+#pragma mark OverviewTable Cache
+@property (nonatomic, assign) OverviewTableViewController * overviewTableDelegate;
+@property (nonatomic, retain) NSMutableArray * overviewCache_months;
+@property (nonatomic, retain) NSMutableDictionary * overviewCache_cellCache;
+- (NSString*)overviewCache_cachePath;
+- (NSDictionary*)overviewCache_forRow:(NSInteger)row;
+- (void) overviewCache_makePersistent;
+- (NSInteger) overviewCache_numberOfRows;
+// Interface for transactions
+- (void) overviewCacheUpdatedTransaction:(Transaction*)transaction;
+- (void) overviewCache_insert:(NSString*)yearMonth;
+- (void) overviewCache_delete:(NSString*)yearMonth;
+- (void)overviewCache_sortMonthsArray;
 
 #pragma mark Shared data for Detail Content Table cell
 @property (nonatomic, retain) UIFont * detailTableCellFont;

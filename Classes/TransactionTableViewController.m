@@ -27,6 +27,7 @@
 
 @synthesize	filteringPredicate;
 @synthesize filteredSearchResults;
+@synthesize worthUpdating;
 
 #pragma mark -
 #pragma mark Setup and teardown
@@ -35,6 +36,8 @@
 	if (self != nil) {
 		self.managedObjectContext = context;
 		self.filteringPredicate = [NSPredicate predicateWithValue:YES];
+		
+		self.worthUpdating = NO;
 		
 		/*
 		 If we don't start listening for cache changes
@@ -183,6 +186,16 @@
 
 	// DONE
 }	
+
+- (void) updateIfWorthIt {
+	if (worthUpdating) {
+		NSLog(@"Reloading tableview data, because it is worth it :)");
+		[self.tableView reloadData];
+		self.worthUpdating = NO;
+	} else {
+		NSLog(@"Not worth the hassle reloading table view data.");
+	}
+}
 
 
 #pragma mark -

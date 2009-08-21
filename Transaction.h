@@ -14,8 +14,14 @@
 	NSNumberFormatter * formatter;
 	BOOL isNew;
 	NSString * tagsSnapshot;
+
+	NSDictionary * changes;
+	NSString * oldYearMonth;
 }
 
+@property (nonatomic, retain) NSString * oldYearMonth;
+@property (nonatomic, retain) NSDictionary * changes;
+@property (nonatomic, readonly) BOOL isNew;
 @property (nonatomic, retain) NSString * transactionDescription;
 @property (nonatomic, retain) NSString * tags;
 @property (nonatomic, retain) NSString * autotags;

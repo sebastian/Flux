@@ -162,12 +162,8 @@
 	/*
 	 Only use locations that are less than five minutes old
 	 */
-	NSLog(@"Got a timestamp! (%i)", [location.timestamp timeIntervalSinceNow]);
 	if (abs([location.timestamp timeIntervalSinceNow]) > 3 * 60) { return; }
-	NSLog(@"It was less than three minutes old, use it! (%f)", ([location.timestamp timeIntervalSinceNow] / 60.0));
-	NSLog(@"The location: %@", location);
-	
-	
+		
 	if (self.bestLocation == nil) {
 		self.bestLocation = location;
 
@@ -263,9 +259,6 @@
 		NSPredicate * locationPredicate = 
 			[NSCompoundPredicate andPredicateWithSubpredicates:[NSArray arrayWithObjects:deltaLatPredicate, deltaLngPredicate, notAutotags, nil]];
 		
-		
-		NSLog(@"Total predicate: %@", locationPredicate);
-		
 		[fetchRequest setPredicate:locationPredicate];
 		
 		
@@ -274,7 +267,6 @@
 		
 		NSMutableArray * tagsToSuggest = [[NSMutableArray alloc] init];
 		
-		NSLog(@"Going through locations (there are %i)", [fetchedLocations count]);
 		for (Location * location in fetchedLocations) {
 			CLLocationDistance distance;
 			@try {
@@ -291,7 +283,6 @@
 				 */
 				if (![tagsToSuggest containsObject:location.tag]) {
 					[tagsToSuggest addObject:location.tag];
-					NSLog(@"Adding tag %@", location.tag.name);
 				}
 			}
 			
@@ -339,12 +330,8 @@
 #pragma mark -
 #pragma mark UIAlertView delegate
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-
-	NSLog(@"Clicked a button. It had index: %i", buttonIndex);
 	
 	if (buttonIndex == 0) {
-		NSLog(@"Wanted tags... adding them");
-		
 		// Wants to use the tags
 		NSString * tagsPrepend = @"";
 		if (![tagsField.text isEqualToString:@""]) {tagsPrepend = @" ";}
@@ -359,8 +346,6 @@
 		tags = [tagsPrepend stringByAppendingString:tags];
 		
 		tagsField.text = [tagsField.text stringByAppendingString:tags];
-		
-		NSLog(@"Set tagsField to %@", tagsField.text);
 		
 		// Set the tags and description field to mimic the newly typed in descriptions
 		[self updateTagsAndDescriptionLabel];

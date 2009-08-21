@@ -419,6 +419,7 @@
 		960C07FF1021AFF900B9C2A3 /* Div */ = {
 			isa = PBXGroup;
 			children = (
+				966C2CF3103EE0D700725372 /* CacheMaster */,
 				966C2C1A103ECA3900725372 /* ABTableViewCell.h */,
 				966C2C1B103ECA3900725372 /* ABTableViewCell.m */,
 				9657530110303B9100F93557 /* CurrencyManager.h */,
@@ -427,8 +428,6 @@
 				1D3623250D0F684500981E51 /* FinanceAppDelegate.m */,
 				960C07FC1021AFF300B9C2A3 /* Utilities.h */,
 				960C07FD1021AFF300B9C2A3 /* Utilities.m */,
-				966C2C66103ECFFF00725372 /* CacheMasterSingleton.h */,
-				966C2C67103ECFFF00725372 /* CacheMasterSingleton.m */,
 			);
 			name = Div;
 			sourceTree = "<group>";
@@ -572,6 +571,15 @@
 				96676F3B1022F323000C6FF5 /* ControlViewController.xib */,
 			);
 			name = ControlViev;
+			sourceTree = "<group>";
+		};
+		966C2CF3103EE0D700725372 /* CacheMaster */ = {
+			isa = PBXGroup;
+			children = (
+				966C2C66103ECFFF00725372 /* CacheMasterSingleton.h */,
+				966C2C67103ECFFF00725372 /* CacheMasterSingleton.m */,
+			);
+			name = CacheMaster;
 			sourceTree = "<group>";
 		};
 		96885BB51004ED9E003090D8 /* NIBs */ = {

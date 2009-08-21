@@ -22,7 +22,7 @@
 	NSMutableDictionary * cacheTable;
 	
 	BOOL performingDelayedReload;
-	
+
 }
 
 // Clears cache and reloads table cells

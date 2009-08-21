@@ -9,6 +9,7 @@
 #import "Transaction.h"
 #import "Utilities.h"
 #import "CurrencyManager.h"
+#import "CacheMasterSingleton.h"
 
 @interface Transaction (CoreDataGeneratedPrimitiveAccessors)
 
@@ -37,6 +38,8 @@
 @dynamic autotags;
 
 @synthesize formatter;
+@synthesize changes, isNew;
+@synthesize oldYearMonth;
 
 #pragma mark
 #pragma mark -
@@ -79,6 +82,11 @@
 		yearMonthValue = [NSString stringWithFormat:@"%4i%i", components.year, components.month];
 	}
 	
+	/* Dang... it will have to be moved around in the cache... */
+	if (![yearMonthValue isEqualToString:self.yearMonth]) {
+		self.oldYearMonth = self.yearMonth;
+	}
+	
 	self.day = [NSNumber numberWithInt:components.day];
 	self.yearMonth = yearMonthValue;	
 	
@@ -102,11 +110,15 @@
 }
 
 
--(void)dealloc {
+- (void)dealloc {
 	[formatter dealloc];
 	[super dealloc];
 }
--(void)didSave {
+
+- (void)willSave {
+	self.changes = [self changedValues];
+}
+- (void)didSave {
 	if (!self.isDeleted) {
 		/* 
 		 if it is new, then go through all tags
@@ -148,6 +160,11 @@
 			}
 		}
 	}
+	
+	/*
+	 Notify the cache master of the change
+	 */
+	[[CacheMasterSingleton sharedCacheMaster] overviewCacheUpdatedTransaction:self];
 }
 	
 

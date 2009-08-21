@@ -29,7 +29,14 @@
 	return [currentTransaction trimmedTags];
 }
 - (NSString *)title {
-	return [currentTransaction amountInLocalCurrency];
+	NSString * title;
+	@try {
+		title = [currentTransaction amountInLocalCurrency];
+	}
+	@catch (NSException * e) {
+		title = NSLocalizedString(@"Error", nil);
+	}
+	return title;
 }
 
 

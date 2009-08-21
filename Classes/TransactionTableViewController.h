@@ -21,7 +21,11 @@
 	NSArray * filteredSearchResults;
 	NSPredicate * filteringPredicate;
 
+	BOOL worthUpdating;
 }
+
+@property (nonatomic, assign) BOOL worthUpdating;
+- (void) updateIfWorthIt;
 
 -(void)loadDataWithSortDescriptors:(NSArray*)sortDescriptors predicates:(NSPredicate*)predicate sectionNameKeyPath:(NSString*)sectionGroupingName cacheName:(NSString*)cacheName;
 

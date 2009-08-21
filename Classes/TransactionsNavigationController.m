@@ -85,14 +85,15 @@
 		 Do the brute force approach. If something has been deleted, inserted or changed,
 		 kill the cache and regenerate it again
 		 */
-		NSLog(@"Killing all cache, because there was a transaction object in the notificatoin");
-		[[NSNotificationCenter defaultCenter] postNotificationName:@"FinanceKillAllCache" object:self];
+		NSLog(@"Merging changes to object context for changed transaction");
+//		[[NSNotificationCenter defaultCenter] postNotificationName:@"FinanceKillAllCache" object:self];
 	}
-	
-	/* 
-	 Now merge the data into the context's around the world. 
-	 That in turn will trigger the reloading of the tables...
-	 */
+//	
+//	/* 
+//	 Now merge the data into the context's around the world. 
+//	 That in turn will trigger the reloading of the tables...
+//	 */
+
 	[self.managedObjectContext mergeChangesFromContextDidSaveNotification:notification];
 	
 }

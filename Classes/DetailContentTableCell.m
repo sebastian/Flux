@@ -35,26 +35,20 @@
 	self.what = [trs descriptionAndTags]; 
 	self.amount = [trs amountInLocalCurrency];
 
-	NSLog(@"Calling self needs display in table cell");
 	[self setNeedsDisplay];
 	
 }
 
 - (void)drawContentView:(CGRect)r
 {
-	//CGContextRef context = UIGraphicsGetCurrentContext();
-	
-	NSLog(@"Drawing table cell");
-	
+
 	CGPoint topCorner;
 	topCorner.x = 0;
 	topCorner.y = 0;
 	
 	if (self.highlighted) {
-		NSLog(@"\tCell is selected");
 		[[[CacheMasterSingleton sharedCacheMaster] detailTableCellSelectedBackgroundImage] drawAtPoint:topCorner];
 	} else {
-		NSLog(@"\tCell is not selected");
 		[[[CacheMasterSingleton sharedCacheMaster] detailTableCellBackgroundImage] drawAtPoint:topCorner];
 	}
 	

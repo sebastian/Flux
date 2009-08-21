@@ -9,6 +9,7 @@
 #import "TransactionsMainViewController.h"
 #import "TransactionsNavigationController.h"
 #import "Utilities.h"
+#import "CacheMasterSingleton.h"
 
 @interface TransactionsMainViewController (PrivateMethods)
 -(void)moveMainContentDown:(BOOL)down;
@@ -155,8 +156,8 @@
 	NSLog(@"Clearing Utilities cache");
 	[[Utilities toolbox] clearCache];
     
-	NSLog(@"Removing background image from %@", self);
-	self.backgroundImage = nil;
+	NSLog(@"Clearing CacheMasterCache");
+	[[CacheMasterSingleton sharedCacheMaster] clearCache];
 	
 	[super didReceiveMemoryWarning];
 }
