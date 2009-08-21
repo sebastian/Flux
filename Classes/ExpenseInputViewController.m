@@ -237,7 +237,7 @@
 		
 		// Get all the transactions
 		NSFetchRequest * fetchRequest = [[NSFetchRequest alloc] init];
-		NSEntityDescription * entity = [NSEntityDescription entityForName:@"Tag" inManagedObjectContext:self.managedObjectContext];
+		NSEntityDescription * entity = [NSEntityDescription entityForName:@"Location" inManagedObjectContext:self.managedObjectContext];
 		[fetchRequest setEntity:entity];
 		
 		// TODO: limit tag lookup
@@ -251,50 +251,50 @@
 		double diff = 0.0005;
 		double plusLatDelta = self.bestLocation.coordinate.latitude + diff;
 		double minusLatDelta = self.bestLocation.coordinate.latitude - diff;
+
+		/* the longitutes are dependent on location, so I make the delta bigger to make sure I get something! */
+		double lngDiff = 0.005;
+		double plusLngDelta = self.bestLocation.coordinate.longitude + lngDiff;
+		double minusLngDelta = self.bestLocation.coordinate.longitude - lngDiff;
 		
-		NSPredicate * notAutotags = [NSPredicate predicateWithFormat:@"(autotag = NO)"];
-		NSPredicate * deltaPredicate = [NSPredicate predicateWithFormat:@"ANY location.latitude BETWEEN {%f, %f}", minusLatDelta, plusLatDelta];
-		//NSPredicate * deltaPredicate = [NSPredicate predicateWithFormat:@"ANY ((location.latitude >= %f) AND (location.latitude <= %f))", minusLatDelta, plusLatDelta];
-		
-		NSLog(@"DeltaPredicte: %@", deltaPredicate);
-		
-		NSPredicate * groupPredicate = 
-		[NSCompoundPredicate andPredicateWithSubpredicates:[NSArray arrayWithObjects:notAutotags, 
-															deltaPredicate, nil]];
-		
-		NSLog(@"Total preducate: %@", groupPredicate);
-		
-		// FIXME: Get the limiting fetch request to work!
-		//[fetchRequest setPredicate:groupPredicate];
-		[fetchRequest setPredicate:notAutotags];
+		NSPredicate * deltaLatPredicate = [NSPredicate predicateWithFormat:@"latitude BETWEEN {%f, %f}", minusLatDelta, plusLatDelta];
+		NSPredicate * deltaLngPredicate = [NSPredicate predicateWithFormat:@"longitude BETWEEN {%f, %f}", minusLngDelta, plusLngDelta];
+		NSPredicate * notAutotags = [NSPredicate predicateWithFormat:@"tag.autotag = NO"];
+		NSPredicate * locationPredicate = 
+			[NSCompoundPredicate andPredicateWithSubpredicates:[NSArray arrayWithObjects:deltaLatPredicate, deltaLngPredicate, notAutotags, nil]];
 		
 		
-		NSArray * fetchedTags = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+		NSLog(@"Total predicate: %@", locationPredicate);
+		
+		[fetchRequest setPredicate:locationPredicate];
+		
+		
+		NSArray * fetchedLocations = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
 		[fetchRequest release];
 		
 		NSMutableArray * tagsToSuggest = [[NSMutableArray alloc] init];
 		
-		NSLog(@"Fetched tags:");
-		for (Tag * tag in fetchedTags) {
-			NSLog(@"\ttag: %@", tag.name);
-			NSSet * locations = tag.location;				
-			for (Location * location in locations) {
-				CLLocationDistance distance;
-				@try {
-					distance = [self.bestLocation getDistanceFrom:location.location];
-				}
-				@catch (NSException * e) {
-					NSLog(@"Got strange error when trying to check distance of tag! %@", e);
-					distance = 3000; // Some strange error... just set it to something we won't use...
-				}
-				 
-				/* If the tag is closer than 50 meters then use it */
-				if (distance < 150.f) {
-					[tagsToSuggest addObject:tag];
-					NSLog(@"\t\tIs close enough!");
-					break;
+		NSLog(@"Going through locations (there are %i)", [fetchedLocations count]);
+		for (Location * location in fetchedLocations) {
+			CLLocationDistance distance;
+			@try {
+				distance = [self.bestLocation getDistanceFrom:location.location];
+			}
+			@catch (NSException * e) {
+				NSLog(@"Got strange error when trying to check distance of tag! %@", e);
+				distance = 3000; // Some strange error... just set it to something we won't use...
+			}
+			/* If the tag is closer than 50 meters then use it */
+			if (distance < 150.f) {
+				/*
+				 This is a tag we can use! Add it unless, it has already been added
+				 */
+				if (![tagsToSuggest containsObject:location.tag]) {
+					[tagsToSuggest addObject:location.tag];
+					NSLog(@"Adding tag %@", location.tag.name);
 				}
 			}
+			
 		}
 		
 		if (([tagsToSuggest count] > 0) && (isVisible == YES)) {

@@ -19,5 +19,7 @@
 @property (nonatomic, retain) CLLocation * location;
 @property (nonatomic, retain) Tag * tag;
 @property (nonatomic, retain) NSNumber * latitude;
+@property (nonatomic, retain) NSNumber * longitude;
 
 @end
+
