@@ -126,6 +126,7 @@
 	/* This shouldn't really be needed... and probably there is a bug somewhere, but heck... */
 	[[Utilities toolbox] setReloadingTableAllowed];
 	[[CacheMasterSingleton sharedCacheMaster] clearCache];
+	[[CacheMasterSingleton sharedCacheMaster] overviewCache_makePersistent];
 	
 	progressView.hidden = YES;
 	addDataButton.enabled = YES;

@@ -7,10 +7,11 @@
 //
 
 #import <CoreData/CoreData.h>
+
+#import "DetailTableViewController.h"
 #import "OverviewTableCell.h"
 #import "OverviewTableViewController.h"
 #import "Transaction.h"
-#import "DetailTableViewController.h"
 #import "Utilities.h"
 #import "CurrencyManager.h"
 #import "FinanceAppDelegate.h"
@@ -89,6 +90,8 @@
 - (void)dealloc {
 	[cellCalculations release];
 	[overviewTableCell release];
+	
+	[[CacheMasterSingleton sharedCacheMaster] setOverviewTableDelegate:nil];
 	[super dealloc];
 }
 

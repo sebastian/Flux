@@ -40,6 +40,7 @@
 @synthesize formatter;
 @synthesize changes, isNew;
 @synthesize oldYearMonth;
+@synthesize oldDay;
 
 #pragma mark
 #pragma mark -
@@ -87,6 +88,7 @@
 		self.oldYearMonth = self.yearMonth;
 	}
 	
+	self.oldDay = self.day;
 	self.day = [NSNumber numberWithInt:components.day];
 	self.yearMonth = yearMonthValue;	
 	
@@ -111,6 +113,10 @@
 
 
 - (void)dealloc {
+	[tagsSnapshot release];
+	[changes release];
+	[oldDay release];
+	[oldYearMonth release];
 	[formatter dealloc];
 	[super dealloc];
 }
@@ -118,7 +124,7 @@
 - (void)willSave {
 	self.changes = [self changedValues];
 }
-- (void)didSave {
+- (void)didSave {	
 	if (!self.isDeleted) {
 		/* 
 		 if it is new, then go through all tags
@@ -161,10 +167,11 @@
 		}
 	}
 	
-	/*
-	 Notify the cache master of the change
-	 */
-	[[CacheMasterSingleton sharedCacheMaster] overviewCacheUpdatedTransaction:self];
+	// Notify the cache master of the change
+	[[CacheMasterSingleton sharedCacheMaster] updatedTransaction:self];
+	
+	// It isn't new anymore, now that is has been saved and all...
+	isNew = NO;
 }
 	
 

@@ -44,24 +44,25 @@
 		 already on the init, then we miss insertions of new
 		 transactions that occure before the overview page has been visited!
 		 */
-		[[NSNotificationCenter defaultCenter]
+/*		[[NSNotificationCenter defaultCenter]
 			addObserver:self
 			selector:@selector(clearCacheIfAvailable)
 			name:@"FinanceKillAllCache"
-			object:nil];		
+			object:nil];		*/
 		
 	}	
 	return self;
 }
 - (void)dealloc {
-	NSLog(@"Unregistering observer %@", self);
-	[[NSNotificationCenter defaultCenter] removeObserver:self.tableView];
-	[[NSNotificationCenter defaultCenter] removeObserver:self];
+//	NSLog(@"Unregistering observer %@", self);
+//	[[NSNotificationCenter defaultCenter] removeObserver:self.tableView];
+//	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	
 	NSLog(@"Deallocing %@", self);
 	
-	self.managedObjectContext = nil; // release
-	self.resultsController = nil; // release
+	// Release all resources
+	self.managedObjectContext = nil;
+	self.resultsController = nil;
 	self.filteringPredicate = nil;
 	self.filteredSearchResults = nil;
 	
@@ -77,26 +78,26 @@
 	[searchButton release];
 	
 	// Register to get a notification whenever the predicate is changed!
-	[[NSNotificationCenter defaultCenter]
-		addObserver:self
-		selector:@selector(updatePredicate:)
-		name:@"KleioPredicateUpdated"
-		object:nil];
-
-	[[NSNotificationCenter defaultCenter]
-		addObserver:self.tableView
-		selector:@selector(reloadData)
-		name:@"GlobalTableViewReloadData"
-		object:nil];		
+//	[[NSNotificationCenter defaultCenter]
+//		addObserver:self
+//		selector:@selector(updatePredicate:)
+//		name:@"KleioPredicateUpdated"
+//		object:nil];
+//
+//	[[NSNotificationCenter defaultCenter]
+//		addObserver:self.tableView
+//		selector:@selector(reloadData)
+//		name:@"GlobalTableViewReloadData"
+//		object:nil];		
 	
 	[self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
 	self.tableView.backgroundColor = [UIColor clearColor];
 }
 - (void)viewDidUnload {
 	
-	NSLog(@"View Did Unload called in %@", self);
+	//NSLog(@"View Did Unload called in %@", self);
 	// Remove from NotificationCenter
-	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	//[[NSNotificationCenter defaultCenter] removeObserver:self];
 	
 }
 

@@ -67,6 +67,7 @@
 		9657530810303BEF00F93557 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9657530610303BEF00F93557 /* SettingsViewController.m */; };
 		9657530910303BEF00F93557 /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9657530710303BEF00F93557 /* SettingsViewController.xib */; };
 		9657534510303FCB00F93557 /* CurrencySelectionDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 9657534410303FCB00F93557 /* CurrencySelectionDialog.m */; };
+		9664C9C11045603600BE55DD /* CacheMasterDetailTableTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9664C9C01045603600BE55DD /* CacheMasterDetailTableTest.m */; };
 		9666E6001020B66E000B9325 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 9666E5FF1020B66E000B9325 /* Default.png */; };
 		96676E9C1022DA96000C6FF5 /* deleteButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 96676E9B1022DA96000C6FF5 /* deleteButton.png */; };
 		96676E9E1022DB99000C6FF5 /* deleteButtonHighlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 96676E9D1022DB99000C6FF5 /* deleteButtonHighlighted.png */; };
@@ -134,6 +135,56 @@
 		96E55D8E1014AD8200E63DB8 /* OverviewTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96E55D8D1014AD8200E63DB8 /* OverviewTableCell.xib */; };
 		96E55D921014AF3800E63DB8 /* OverviewTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E55D911014AF3800E63DB8 /* OverviewTableCell.m */; };
 		96F1579510384B4A00ECBF03 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 96F1579310384B4A00ECBF03 /* Localizable.strings */; };
+		96F65EF110417BB200845F0E /* TransactionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 96F65EF010417BB200845F0E /* TransactionTests.m */; };
+		96F65EF610417C5500845F0E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
+		96F65EF710417C5500845F0E /* FinanceAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* FinanceAppDelegate.m */; };
+		96F65EF810417C5500845F0E /* ExpenseInputViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28216C960DB411BC00E5133A /* ExpenseInputViewController.m */; };
+		96F65EF910417C5500845F0E /* Finance.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 96AA70ED10065AB200206A37 /* Finance.xcdatamodel */; };
+		96F65EFA10417C5500845F0E /* Transaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 96AA710B1006616700206A37 /* Transaction.m */; };
+		96F65EFB10417C5500845F0E /* OverviewTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96F84039100A5A08008862CC /* OverviewTableViewController.m */; };
+		96F65EFC10417C5500845F0E /* OverviewTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E55D911014AF3800E63DB8 /* OverviewTableCell.m */; };
+		96F65EFD10417C5500845F0E /* DetailHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96FFFA7B1015ED4600A53779 /* DetailHeaderView.m */; };
+		96F65EFE10417C5500845F0E /* DetailContentTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 96FFFA8D1015EDC600A53779 /* DetailContentTableCell.m */; };
+		96F65EFF10417C5500845F0E /* CurrencyKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 96BD3E6A101744DB00926A83 /* CurrencyKeyboard.m */; };
+		96F65F0010417C5500845F0E /* ConfirmationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 963B020D10185D8C00CD5184 /* ConfirmationView.m */; };
+		96F65F0110417C5500845F0E /* TransactionsNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 963B02991019E10900CD5184 /* TransactionsNavigationController.m */; };
+		96F65F0210417C5500845F0E /* DetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 963B02BC1019E8D600CD5184 /* DetailTableViewController.m */; };
+		96F65F0310417C5500845F0E /* TransactionTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 963B03C71019EF8E00CD5184 /* TransactionTableViewController.m */; };
+		96F65F0410417C5500845F0E /* BetaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96419A62101C4E2E0066D6D8 /* BetaViewController.m */; };
+		96F65F0510417C5500845F0E /* TransactionDisplay.m in Sources */ = {isa = PBXBuildFile; fileRef = 96419CBC101C77530066D6D8 /* TransactionDisplay.m */; };
+		96F65F0610417C5500845F0E /* LocationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 964F1E6F101CDB75004EA5C3 /* LocationController.m */; };
+		96F65F0710417C5500845F0E /* MapAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 963BFE87101DCB9000C187E0 /* MapAnnotation.m */; };
+		96F65F0810417C5500845F0E /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 960C07FD1021AFF300B9C2A3 /* Utilities.m */; };
+		96F65F0910417C5500845F0E /* ControlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96676F3A1022F323000C6FF5 /* ControlViewController.m */; };
+		96F65F0A10417C5500845F0E /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 96FAE6DA1024C2970060384F /* Location.m */; };
+		96F65F0B10417C5500845F0E /* Tag.m in Sources */ = {isa = PBXBuildFile; fileRef = 96FAE6DF1024C30A0060384F /* Tag.m */; };
+		96F65F0C10417C5500845F0E /* TransactionsMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96A98E571025D45100FFA6D0 /* TransactionsMainViewController.m */; };
+		96F65F0D10417C5500845F0E /* MapFullScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D7A94210282D28000FCC42 /* MapFullScreen.m */; };
+		96F65F0E10417C5500845F0E /* EditTransaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D7A9A610285949000FCC42 /* EditTransaction.m */; };
+		96F65F0F10417C5500845F0E /* CurrencyManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9657530210303B9100F93557 /* CurrencyManager.m */; };
+		96F65F1010417C5500845F0E /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9657530610303BEF00F93557 /* SettingsViewController.m */; };
+		96F65F1110417C5500845F0E /* CurrencySelectionDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 9657534410303FCB00F93557 /* CurrencySelectionDialog.m */; };
+		96F65F1210417C5500845F0E /* KleioSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 9623070F10347864003ED654 /* KleioSearchBar.m */; };
+		96F65F1310417C5500845F0E /* BubbleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9623071210347864003ED654 /* BubbleView.m */; };
+		96F65F1410417C5500845F0E /* SearchBarTerm.m in Sources */ = {isa = PBXBuildFile; fileRef = 9623071710347903003ED654 /* SearchBarTerm.m */; };
+		96F65F1510417C5500845F0E /* SearchBarWord.m in Sources */ = {isa = PBXBuildFile; fileRef = 9623074210347D7F003ED654 /* SearchBarWord.m */; };
+		96F65F1610417C5500845F0E /* TagSuggesterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96903C791038AA7E009D5D49 /* TagSuggesterViewController.m */; };
+		96F65F1710417C5500845F0E /* ABTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 966C2C1B103ECA3900725372 /* ABTableViewCell.m */; };
+		96F65F1810417C5500845F0E /* CacheMasterSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 966C2C67103ECFFF00725372 /* CacheMasterSingleton.m */; };
+		96F6600710417D1600845F0E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
+		96F6600810417D1600845F0E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
+		96F6600910417D1600845F0E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765070DF74369002DB57D /* CoreGraphics.framework */; };
+		96F6600A10417D1600845F0E /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96F84081100A66E8008862CC /* CoreData.framework */; };
+		96F6600B10417D1600845F0E /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96F84081100A66E8008862CC /* CoreData.framework */; };
+		96F6600C10417D1600845F0E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 963B021710185DAA00CD5184 /* QuartzCore.framework */; };
+		96F6600D10417D1600845F0E /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96419D1E101C7E9B0066D6D8 /* MapKit.framework */; };
+		96F6600E10417D1600845F0E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 964F1E84101CDE31004EA5C3 /* CoreLocation.framework */; };
+		96F660871041854F00845F0E /* CacheManagerOverviewTableTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 96F660861041854F00845F0E /* CacheManagerOverviewTableTests.m */; };
+		96F6631110419C4D00845F0E /* OCHamcrest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96F6631010419C4D00845F0E /* OCHamcrest.framework */; };
+		96F6631D10419CAE00845F0E /* OCHamcrest.framework in Copy testing frameworks */ = {isa = PBXBuildFile; fileRef = 96F6631010419C4D00845F0E /* OCHamcrest.framework */; };
+		96F6635110419DF800845F0E /* OCMock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96F6635010419DF800845F0E /* OCMock.framework */; };
+		96F6635410419DFB00845F0E /* OCMock.framework in Copy testing frameworks */ = {isa = PBXBuildFile; fileRef = 96F6635010419DF800845F0E /* OCMock.framework */; };
+		96F663A11041A1BE00845F0E /* TestUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 96F663A01041A1BE00845F0E /* TestUtils.m */; };
 		96F8403A100A5A08008862CC /* OverviewTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96F84039100A5A08008862CC /* OverviewTableViewController.m */; };
 		96F84082100A66E8008862CC /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96F84081100A66E8008862CC /* CoreData.framework */; };
 		96FAE6DC1024C2970060384F /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 96FAE6DA1024C2970060384F /* Location.m */; };
@@ -144,6 +195,21 @@
 		96FFFA8E1015EDC600A53779 /* DetailContentTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 96FFFA8D1015EDC600A53779 /* DetailContentTableCell.m */; };
 		96FFFAE01015F8E200A53779 /* DetailHeaderAndFooter.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96FFFADF1015F8E200A53779 /* DetailHeaderAndFooter.xib */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		96F662CD10419AAF00845F0E /* Copy testing frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 16;
+			files = (
+				96F6635410419DFB00845F0E /* OCMock.framework in Copy testing frameworks */,
+				96F6631D10419CAE00845F0E /* OCHamcrest.framework in Copy testing frameworks */,
+			);
+			name = "Copy testing frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -164,6 +230,7 @@
 		960CCB2A1027264F00A6B945 /* CellSeparator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CellSeparator.png; sourceTree = "<group>"; };
 		960CCB5610272A2E00A6B945 /* CellSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = CellSelected.png; path = Graphics/CellSelected.png; sourceTree = "<group>"; };
 		960CCBE210273B5400A6B945 /* CellSelectedDetail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = CellSelectedDetail.png; path = Graphics/CellSelectedDetail.png; sourceTree = "<group>"; };
+		96221BAE10442FB0003B2D47 /* Finance-Info copy 3.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Finance-Info copy 3.plist"; sourceTree = "<group>"; };
 		962306FE10347318003ED654 /* SearchBarBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SearchBarBackground.png; path = Graphics/SearchBarBackground.png; sourceTree = "<group>"; };
 		9623070E10347864003ED654 /* KleioSearchBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KleioSearchBar.h; sourceTree = "<group>"; };
 		9623070F10347864003ED654 /* KleioSearchBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KleioSearchBar.m; sourceTree = "<group>"; };
@@ -227,6 +294,7 @@
 		9657530710303BEF00F93557 /* SettingsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsViewController.xib; sourceTree = "<group>"; };
 		9657534310303FCB00F93557 /* CurrencySelectionDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrencySelectionDialog.h; sourceTree = "<group>"; };
 		9657534410303FCB00F93557 /* CurrencySelectionDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrencySelectionDialog.m; sourceTree = "<group>"; };
+		9664C9C01045603600BE55DD /* CacheMasterDetailTableTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacheMasterDetailTableTest.m; sourceTree = "<group>"; };
 		9666E5FF1020B66E000B9325 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = Graphics/Default.png; sourceTree = "<group>"; };
 		96676E9B1022DA96000C6FF5 /* deleteButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = deleteButton.png; path = Graphics/deleteButton.png; sourceTree = "<group>"; };
 		96676E9D1022DB99000C6FF5 /* deleteButtonHighlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = deleteButtonHighlighted.png; path = Graphics/deleteButtonHighlighted.png; sourceTree = "<group>"; };
@@ -306,6 +374,17 @@
 		96F1579410384B4A00ECBF03 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		96F1579710384E3D00ECBF03 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		96F1579810384E4700ECBF03 /* no */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = no; path = no.lproj/Localizable.strings; sourceTree = "<group>"; };
+		96F649CA104164D900845F0E /* UnitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "UnitTests-Info.plist"; sourceTree = "<group>"; };
+		96F64A831041668B00845F0E /* Finance-Info copy.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Finance-Info copy.plist"; sourceTree = "<group>"; };
+		96F65CF71041735400845F0E /* ert-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ert-Info.plist"; sourceTree = "<group>"; };
+		96F65E66104174A400845F0E /* Finance-Info copy 2.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Finance-Info copy 2.plist"; sourceTree = "<group>"; };
+		96F65EAE104179AB00845F0E /* UnitTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		96F65EF010417BB200845F0E /* TransactionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionTests.m; sourceTree = "<group>"; };
+		96F660861041854F00845F0E /* CacheManagerOverviewTableTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacheManagerOverviewTableTests.m; sourceTree = "<group>"; };
+		96F6631010419C4D00845F0E /* OCHamcrest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OCHamcrest.framework; path = Frameworks/OCHamcrest.framework; sourceTree = "<group>"; };
+		96F6635010419DF800845F0E /* OCMock.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OCMock.framework; path = Frameworks/OCMock.framework; sourceTree = "<group>"; };
+		96F6639F1041A1BE00845F0E /* TestUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestUtils.h; sourceTree = "<group>"; };
+		96F663A01041A1BE00845F0E /* TestUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestUtils.m; sourceTree = "<group>"; };
 		96F84038100A5A08008862CC /* OverviewTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OverviewTableViewController.h; sourceTree = "<group>"; };
 		96F84039100A5A08008862CC /* OverviewTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OverviewTableViewController.m; sourceTree = "<group>"; };
 		96F84081100A66E8008862CC /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -339,6 +418,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		96F65EAB104179AB00845F0E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				96F6600710417D1600845F0E /* Foundation.framework in Frameworks */,
+				96F6600810417D1600845F0E /* UIKit.framework in Frameworks */,
+				96F6600910417D1600845F0E /* CoreGraphics.framework in Frameworks */,
+				96F6600A10417D1600845F0E /* CoreData.framework in Frameworks */,
+				96F6600B10417D1600845F0E /* CoreData.framework in Frameworks */,
+				96F6600C10417D1600845F0E /* QuartzCore.framework in Frameworks */,
+				96F6600D10417D1600845F0E /* MapKit.framework in Frameworks */,
+				96F6600E10417D1600845F0E /* CoreLocation.framework in Frameworks */,
+				96F6631110419C4D00845F0E /* OCHamcrest.framework in Frameworks */,
+				96F6635110419DF800845F0E /* OCMock.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -360,6 +456,7 @@
 			isa = PBXGroup;
 			children = (
 				1D6058910D05DD3D006BFB54 /* Finance.app */,
+				96F65EAE104179AB00845F0E /* UnitTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -367,6 +464,7 @@
 		29B97314FDCFA39411CA2CEA /* Finance */ = {
 			isa = PBXGroup;
 			children = (
+				96F649D41041650400845F0E /* Tests */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -375,6 +473,8 @@
 				960080F4100A98E900740DCB /* TODO.rtf */,
 				96D28058101F5DC900B0A026 /* Beta-Info.plist */,
 				96D28062101F621000B0A026 /* Entitlements.plist */,
+				96F649CA104164D900845F0E /* UnitTests-Info.plist */,
+				96F65CF71041735400845F0E /* ert-Info.plist */,
 			);
 			name = Finance;
 			sourceTree = "<group>";
@@ -397,6 +497,9 @@
 				96885BB51004ED9E003090D8 /* NIBs */,
 				8D1107310486CEB800E47090 /* Finance-Info.plist */,
 				96AA70ED10065AB200206A37 /* Finance.xcdatamodel */,
+				96F64A831041668B00845F0E /* Finance-Info copy.plist */,
+				96F65E66104174A400845F0E /* Finance-Info copy 2.plist */,
+				96221BAE10442FB0003B2D47 /* Finance-Info copy 3.plist */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -404,6 +507,8 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				96F6635010419DF800845F0E /* OCMock.framework */,
+				96F6631010419C4D00845F0E /* OCHamcrest.framework */,
 				96AA708F100656E600206A37 /* CoreData.framework */,
 				964F1E84101CDE31004EA5C3 /* CoreLocation.framework */,
 				96419D1E101C7E9B0066D6D8 /* MapKit.framework */,
@@ -680,6 +785,34 @@
 			name = Keyboard;
 			sourceTree = "<group>";
 		};
+		96F649D41041650400845F0E /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				96F660841041853A00845F0E /* Transaction */,
+				96F660831041852F00845F0E /* CacheManager */,
+				96F6639F1041A1BE00845F0E /* TestUtils.h */,
+				96F663A01041A1BE00845F0E /* TestUtils.m */,
+			);
+			name = Tests;
+			sourceTree = "<group>";
+		};
+		96F660831041852F00845F0E /* CacheManager */ = {
+			isa = PBXGroup;
+			children = (
+				96F660861041854F00845F0E /* CacheManagerOverviewTableTests.m */,
+				9664C9C01045603600BE55DD /* CacheMasterDetailTableTest.m */,
+			);
+			name = CacheManager;
+			sourceTree = "<group>";
+		};
+		96F660841041853A00845F0E /* Transaction */ = {
+			isa = PBXGroup;
+			children = (
+				96F65EF010417BB200845F0E /* TransactionTests.m */,
+			);
+			name = Transaction;
+			sourceTree = "<group>";
+		};
 		96FAE6DD1024C29F0060384F /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -750,6 +883,25 @@
 			productReference = 1D6058910D05DD3D006BFB54 /* Finance.app */;
 			productType = "com.apple.product-type.application";
 		};
+		96F65EAD104179AB00845F0E /* UnitTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 96F65EB9104179AD00845F0E /* Build configuration list for PBXNativeTarget "UnitTests" */;
+			buildPhases = (
+				96F662CD10419AAF00845F0E /* Copy testing frameworks */,
+				96F65EA9104179AB00845F0E /* Resources */,
+				96F65EAA104179AB00845F0E /* Sources */,
+				96F65EAB104179AB00845F0E /* Frameworks */,
+				96F65EAC104179AB00845F0E /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = UnitTests;
+			productName = UnitTests;
+			productReference = 96F65EAE104179AB00845F0E /* UnitTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -772,6 +924,7 @@
 			projectRoot = "";
 			targets = (
 				1D6058900D05DD3D006BFB54 /* Finance */,
+				96F65EAD104179AB00845F0E /* UnitTests */,
 			);
 		};
 /* End PBXProject section */
@@ -877,7 +1030,30 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		96F65EA9104179AB00845F0E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		96F65EAC104179AB00845F0E /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		1D60588E0D05DD3D006BFB54 /* Sources */ = {
@@ -919,6 +1095,52 @@
 				96903C7A1038AA7E009D5D49 /* TagSuggesterViewController.m in Sources */,
 				966C2C1C103ECA3900725372 /* ABTableViewCell.m in Sources */,
 				966C2C68103ECFFF00725372 /* CacheMasterSingleton.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		96F65EAA104179AB00845F0E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				96F65EF610417C5500845F0E /* main.m in Sources */,
+				96F65EF710417C5500845F0E /* FinanceAppDelegate.m in Sources */,
+				96F65EF810417C5500845F0E /* ExpenseInputViewController.m in Sources */,
+				96F65EF910417C5500845F0E /* Finance.xcdatamodel in Sources */,
+				96F65EFA10417C5500845F0E /* Transaction.m in Sources */,
+				96F65EFB10417C5500845F0E /* OverviewTableViewController.m in Sources */,
+				96F65EFC10417C5500845F0E /* OverviewTableCell.m in Sources */,
+				96F65EFD10417C5500845F0E /* DetailHeaderView.m in Sources */,
+				96F65EFE10417C5500845F0E /* DetailContentTableCell.m in Sources */,
+				96F65EFF10417C5500845F0E /* CurrencyKeyboard.m in Sources */,
+				96F65F0010417C5500845F0E /* ConfirmationView.m in Sources */,
+				96F65F0110417C5500845F0E /* TransactionsNavigationController.m in Sources */,
+				96F65F0210417C5500845F0E /* DetailTableViewController.m in Sources */,
+				96F65F0310417C5500845F0E /* TransactionTableViewController.m in Sources */,
+				96F65F0410417C5500845F0E /* BetaViewController.m in Sources */,
+				96F65F0510417C5500845F0E /* TransactionDisplay.m in Sources */,
+				96F65F0610417C5500845F0E /* LocationController.m in Sources */,
+				96F65F0710417C5500845F0E /* MapAnnotation.m in Sources */,
+				96F65F0810417C5500845F0E /* Utilities.m in Sources */,
+				96F65F0910417C5500845F0E /* ControlViewController.m in Sources */,
+				96F65F0A10417C5500845F0E /* Location.m in Sources */,
+				96F65F0B10417C5500845F0E /* Tag.m in Sources */,
+				96F65F0C10417C5500845F0E /* TransactionsMainViewController.m in Sources */,
+				96F65F0D10417C5500845F0E /* MapFullScreen.m in Sources */,
+				96F65F0E10417C5500845F0E /* EditTransaction.m in Sources */,
+				96F65F0F10417C5500845F0E /* CurrencyManager.m in Sources */,
+				96F65F1010417C5500845F0E /* SettingsViewController.m in Sources */,
+				96F65F1110417C5500845F0E /* CurrencySelectionDialog.m in Sources */,
+				96F65F1210417C5500845F0E /* KleioSearchBar.m in Sources */,
+				96F65F1310417C5500845F0E /* BubbleView.m in Sources */,
+				96F65F1410417C5500845F0E /* SearchBarTerm.m in Sources */,
+				96F65F1510417C5500845F0E /* SearchBarWord.m in Sources */,
+				96F65F1610417C5500845F0E /* TagSuggesterViewController.m in Sources */,
+				96F65F1710417C5500845F0E /* ABTableViewCell.m in Sources */,
+				96F65F1810417C5500845F0E /* CacheMasterSingleton.m in Sources */,
+				96F65EF110417BB200845F0E /* TransactionTests.m in Sources */,
+				96F660871041854F00845F0E /* CacheManagerOverviewTableTests.m in Sources */,
+				96F663A11041A1BE00845F0E /* TestUtils.m in Sources */,
+				9664C9C11045603600BE55DD /* CacheMasterDetailTableTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -976,7 +1198,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E4A18EB0-EE8E-4A57-A527-32F66A5DA67F";
-				SDKROOT = iphoneos3.0;
+				SDKROOT = iphonesimulator3.0;
 			};
 			name = "Alpha distribution";
 		};
@@ -1004,7 +1226,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "1D7C1593-B04D-4C1A-A6F1-913C118F3C88";
-				SDKROOT = iphoneos3.0;
+				SDKROOT = iphonesimulator3.0;
 			};
 			name = "Finance adhoc release";
 		};
@@ -1022,6 +1244,132 @@
 			};
 			name = "Finance adhoc release";
 		};
+		96F65EAF104179AC00845F0E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+					"\"$(SRCROOT)/../../../Resurser\"",
+					"\"$(SRCROOT)/frameworks\"",
+					"\"$(SRCROOT)/Frameworks\"",
+				);
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				INFOPLIST_FILE = "UnitTests-Info.plist";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					SenTestingKit,
+					"-framework",
+					UIKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = UnitTests;
+				SDKROOT = iphonesimulator3.0;
+				TEST_RIG = "";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		96F65EB0104179AC00845F0E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+					"\"$(SRCROOT)/../../../Resurser\"",
+					"\"$(SRCROOT)/frameworks\"",
+					"\"$(SRCROOT)/Frameworks\"",
+				);
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				INFOPLIST_FILE = "UnitTests-Info.plist";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					SenTestingKit,
+					"-framework",
+					UIKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = UnitTests;
+				SDKROOT = iphonesimulator3.0;
+				TEST_RIG = "";
+				WRAPPER_EXTENSION = octest;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+		96F65EB1104179AC00845F0E /* Finance adhoc release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+					"\"$(SRCROOT)/../../../Resurser\"",
+					"\"$(SRCROOT)/frameworks\"",
+					"\"$(SRCROOT)/Frameworks\"",
+				);
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				INFOPLIST_FILE = "UnitTests-Info.plist";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					SenTestingKit,
+					"-framework",
+					UIKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = UnitTests;
+				SDKROOT = iphonesimulator3.0;
+				TEST_RIG = "";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = "Finance adhoc release";
+		};
+		96F65EB2104179AC00845F0E /* Alpha distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+					"\"$(SRCROOT)/../../../Resurser\"",
+					"\"$(SRCROOT)/frameworks\"",
+					"\"$(SRCROOT)/Frameworks\"",
+				);
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				INFOPLIST_FILE = "UnitTests-Info.plist";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					SenTestingKit,
+					"-framework",
+					UIKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = UnitTests;
+				SDKROOT = iphonesimulator3.0;
+				TEST_RIG = "";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = "Alpha distribution";
+		};
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1031,7 +1379,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
-				SDKROOT = iphoneos3.0;
+				SDKROOT = iphonesimulator3.0;
 			};
 			name = Debug;
 		};
@@ -1044,7 +1392,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
-				SDKROOT = iphoneos3.0;
+				SDKROOT = iphonesimulator3.0;
 			};
 			name = Release;
 		};
@@ -1058,6 +1406,17 @@
 				1D6058950D05DD3E006BFB54 /* Release */,
 				96F157B6103853C900ECBF03 /* Finance adhoc release */,
 				96D2805F101F613500B0A026 /* Alpha distribution */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		96F65EB9104179AD00845F0E /* Build configuration list for PBXNativeTarget "UnitTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				96F65EAF104179AC00845F0E /* Debug */,
+				96F65EB0104179AC00845F0E /* Release */,
+				96F65EB1104179AC00845F0E /* Finance adhoc release */,
+				96F65EB2104179AC00845F0E /* Alpha distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

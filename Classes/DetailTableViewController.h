@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TransactionTableViewController.h"
+
 #import "DetailHeaderView.h"
 #import "DetailContentTableCell.h"
-#import "TransactionTableViewController.h"
+
 
 @protocol DetailTableViewDelegate
 - (void)clearDataCache;

@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 #import "Transaction.h"
 
 @interface OverviewTableCell : UITableViewCell {

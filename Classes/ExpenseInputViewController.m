@@ -7,14 +7,17 @@
 //
 
 #import "ExpenseInputViewController.h"
+
+#import "FinanceCoreDataDelegate.h"
 #import "ConfirmationView.h"
-#import "LocationController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "ControlViewController.h"
 #import "Utilities.h"
 #import "CurrencyManager.h"
 #import "Location.h"
 #import "Tag.h"
+#import "Transaction.h"
+
 
 @interface ExpenseInputViewController (Private)
 -(void)updateExpenseDisplay;

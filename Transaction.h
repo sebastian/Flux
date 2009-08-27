@@ -17,8 +17,10 @@
 
 	NSDictionary * changes;
 	NSString * oldYearMonth;
+	NSNumber * oldDay;
 }
 
+@property (nonatomic, retain) NSNumber * oldDay;
 @property (nonatomic, retain) NSString * oldYearMonth;
 @property (nonatomic, retain) NSDictionary * changes;
 @property (nonatomic, readonly) BOOL isNew;

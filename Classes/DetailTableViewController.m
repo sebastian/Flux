@@ -13,6 +13,8 @@
 #import "Utilities.h"
 #import "KleioSearchBar.h"
 #import "CurrencyManager.h"
+#import "CacheMasterSingleton.h"
+#import "CacheMasterSingleton.h"
 
 @interface DetailTableViewController (PrivateMethods)
 - (NSDictionary*)dataForSection:(NSInteger)_section;
@@ -32,6 +34,10 @@
 #pragma mark Init and teardown
 - (void) viewDidLoad {
 	[super viewDidLoad];
+	
+	NSLog(@"Setting detailTableDelegate in viewDidLoad of %@",self);
+	[[CacheMasterSingleton sharedCacheMaster] setDetailTableDelegate:self];
+	
 	
 	// Set local delete to a logic state;
 	localDelete = NO;
@@ -91,7 +97,8 @@
 	 */
 	if ((self.transactionsDataCache != nil) & ([self.transactionsDataCache count] == 0)) {
 		NSLog(@"Reloading table view because of empty cache in %@", self);
-		[self.tableView reloadData];
+		[self updateIfWorthIt];
+		//[self.tableView reloadData];
 	}
 		
 }
@@ -107,6 +114,11 @@
 	[footerViewCache release];
 
 	self.delegate = nil;
+
+	NSLog(@"Setting detailTableDelegate to nil in dealloc of %@", self);
+	[[CacheMasterSingleton sharedCacheMaster] setDetailTableDelegate:nil];
+
+	NSLog(@"%@ was dealloced", self);
 	
 	[super dealloc];
 }
@@ -143,7 +155,7 @@
 	NSMutableArray * titles = [[[NSMutableArray alloc] initWithCapacity:sectionCount] autorelease];
 	
 	for (NSInteger n = 0; n < sectionCount; n++) {
-		NSDictionary * data = [self dataForSection:n];
+		NSDictionary * data = [[CacheMasterSingleton sharedCacheMaster] detailCache_dataForSection:n];
 		NSArray * objectsInSection = [data objectForKey:@"transactions"];
 		if ([objectsInSection count] > 0) {
 			Transaction * trs = [objectsInSection objectAtIndex:0];
@@ -220,7 +232,7 @@
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 		
 	// Access the object from the filtered array
-	NSDictionary * data = [self dataForSection:indexPath.section];
+	NSDictionary * data = [[CacheMasterSingleton sharedCacheMaster] detailCache_dataForSection:indexPath.section];
 	Transaction *trs = (Transaction *)[[data objectForKey:@"transactions"] objectAtIndex:indexPath.row];
     
 	static NSString *CellIdentifier = @"DetailCell";
@@ -242,7 +254,7 @@
 	/*
 	 If there are no elements in the section, then we don't want to display it
 	 */
-	NSDictionary * data = [self dataForSection:_section];
+	NSDictionary * data = [[CacheMasterSingleton sharedCacheMaster] detailCache_dataForSection:_section];
 	NSInteger count = [[data objectForKey:@"transactions"] count];
 	if (count == 0) {return nil;}
 	
@@ -254,10 +266,7 @@
 	if ([headerViewCache objectForKey:section] == nil) {
 
 		[[NSBundle mainBundle] loadNibNamed:@"DetailHeaderAndFooter" owner:self options:nil]; 
-		
-//		// Get data for view
-//		NSDictionary * data = [self dataForSection:_section];
-		
+				
 		// TODO: Localize the date format display
 		detailHeaderView.monthYear.text = self.title;
 		detailHeaderView.date.text = [data objectForKey:@"date"];
@@ -276,7 +285,7 @@
 	 Conditional height...
 	 If there are elements, then it has a height. Otherwise make it 0
 	 */
-	NSDictionary * data = [self dataForSection:section];
+	NSDictionary * data = [[CacheMasterSingleton sharedCacheMaster] detailCache_dataForSection:section];
 	NSInteger count = [[data objectForKey:@"transactions"] count];
 
 	if (count != 0) {
@@ -291,7 +300,7 @@
 	/*
 	 If there are no elements in the section, then we don't want to display it
 	 */
-	NSDictionary * data = [self dataForSection:_section];
+	NSDictionary * data = [[CacheMasterSingleton sharedCacheMaster] detailCache_dataForSection:_section];
 	NSInteger count = [[data objectForKey:@"transactions"] count];
 	if (count == 0) {
 		return nil;
@@ -312,7 +321,7 @@
 	 Conditional height...
 	 If there are elements, then it has a height. Otherwise make it 0
 	 */
-	NSDictionary * data = [self dataForSection:section];
+	NSDictionary * data = [[CacheMasterSingleton sharedCacheMaster] detailCache_dataForSection:section];
 	NSInteger count = [[data objectForKey:@"transactions"] count];
 	
 	if (count != 0) {
@@ -333,7 +342,7 @@
 		[[TransactionDisplay alloc] initWithNibName:@"TransactionDisplay" 
 											 bundle:[NSBundle mainBundle]];
 	
-	NSDictionary * data = [self dataForSection:indexPath.section];
+	NSDictionary * data = [[CacheMasterSingleton sharedCacheMaster] detailCache_dataForSection:indexPath.section];
 	Transaction * theTransaction = (Transaction*)[[data objectForKey:@"transactions"] objectAtIndex:indexPath.row];
 	
 	// Give it the current transaction to speed things up
@@ -358,7 +367,7 @@
 	
 }
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	NSDictionary * data = [self dataForSection:section];
+	NSDictionary * data = [[CacheMasterSingleton sharedCacheMaster] detailCache_dataForSection:section];
 	NSInteger count = [[data objectForKey:@"transactions"] count];
 	return count;
 }
@@ -376,9 +385,9 @@
 		 because it has summaries of the transactions
 		 */
 		localDelete = YES;
-		[self.delegate clearDataCache];
+		//[self.delegate clearDataCache];
 		
-		NSDictionary * data = [self dataForSection:indexPath.section];
+		NSDictionary * data = [[CacheMasterSingleton sharedCacheMaster] detailCache_dataForSection:indexPath.section];
 		Transaction *trs = (Transaction *)[[data objectForKey:@"transactions"] objectAtIndex:indexPath.row];
 		
 		// Delete cache for section
@@ -438,12 +447,13 @@
 		[self.tableView endUpdates];
 	} else {
 
-		if ([[Utilities toolbox] isReloadingTableAllowed]) {
-			[self.tableView reloadData];
-			NSLog(@"Reloaded data in %@", self);
-		} else {
-			NSLog(@"Reloaded data NOT ALLOWED in %@", self);
-		}
+		[self updateIfWorthIt];
+//		if ([[Utilities toolbox] isReloadingTableAllowed]) {
+//			[self.tableView reloadData];
+//			NSLog(@"Reloaded data in %@", self);
+//		} else {
+//			NSLog(@"Reloaded data NOT ALLOWED in %@", self);
+//		}
 
 	}
 	localDelete = NO;

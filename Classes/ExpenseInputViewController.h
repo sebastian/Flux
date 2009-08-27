@@ -7,14 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Transaction.h"
-#import "FinanceCoreDataDelegate.h"
+#import <MapKit/MapKit.h>
+#import <CoreData/CoreData.h>
+
 #import "CurrencyKeyboard.h"
+#import "CurrencySelectionDialog.h"
+#import "TagSuggesterViewController.h"
 #import "LocationController.h"
 #import "ControlViewController.h"
-#import "CurrencySelectionDialog.h"
-#import <MapKit/MapKit.h>
-#import "TagSuggesterViewController.h"
+
+@class Transaction;
 
 static const CGFloat KEYBOARD_ANIMATION_DURATION = 0.3;
 static const CGFloat MAX_TEXTFIELD_WIDTH = 280;

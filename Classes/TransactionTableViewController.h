@@ -11,9 +11,7 @@
 
 @class TagFilterDisplay;
 
-@interface TransactionTableViewController : UITableViewController  
-	<	UITableViewDelegate, UITableViewDataSource, 
-		NSFetchedResultsControllerDelegate> 
+@interface TransactionTableViewController : UITableViewController  <UITableViewDelegate, UITableViewDataSource, NSFetchedResultsControllerDelegate> 
 {
 	
 	NSFetchedResultsController * resultsController;

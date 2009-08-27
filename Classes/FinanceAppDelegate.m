@@ -187,7 +187,7 @@
     if (persistentStoreCoordinator != nil) {
         return persistentStoreCoordinator;
     }
-	
+		
     NSURL *storeUrl = [NSURL fileURLWithPath: [[self applicationDocumentsDirectory] stringByAppendingPathComponent: @"Finance.sqlite"]];
 	
 	NSError *error;
