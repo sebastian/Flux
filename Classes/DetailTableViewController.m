@@ -361,15 +361,10 @@
 }
 
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView {
-	
-	NSUInteger count = [[resultsController sections] count];
-    return count;
-	
+	return [[CacheMasterSingleton sharedCacheMaster] detailCache_numberOfSections];
 }
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	NSDictionary * data = [[CacheMasterSingleton sharedCacheMaster] detailCache_dataForSection:section];
-	NSInteger count = [[data objectForKey:@"transactions"] count];
-	return count;
+	return [[CacheMasterSingleton sharedCacheMaster] detailCache_numberOfRowsInSection:section];
 }
 
 // Override to support editing the table view.
