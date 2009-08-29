@@ -94,109 +94,108 @@
 	trs.kroner = [NSNumber numberWithInt:140];
 	[[Utilities toolbox] save:context];	
 	STAssertEquals(controller.worthUpdating, YES, @"Should be worth updating after save");
+
+	Transaction * t2 = [self getTransaction];
+	t2.date = date2;
+	controller.worthUpdating = NO;
+	[[Utilities toolbox] save:context];
+	STAssertEquals(controller.worthUpdating, NO, @"Should not care about transactions that don't belong to the detail view");
 	
+	Transaction * t3 = [self getTransaction];
+	t3.date = date1;
 	controller.worthUpdating = NO;
-	trs.date = date2;
 	[[Utilities toolbox] save:context];
-	STAssertEquals(controller.worthUpdating, YES, @"Should be worth updating after save");
+	STAssertEquals(controller.worthUpdating, YES, @"Should care about transactions that belong to the detail view");
 
+	Transaction * t4 = [self getTransaction];
+	t4.date = date3;
 	controller.worthUpdating = NO;
-	trs.date = date3;
 	[[Utilities toolbox] save:context];
-	STAssertEquals(controller.worthUpdating, NO, @"Should be worth updating after save");
-
-	controller.worthUpdating = NO;
-	trs.date = date1;
-	[[Utilities toolbox] save:context];
-	STAssertEquals(controller.worthUpdating, YES, @"Should be worth updating after save");
+	STAssertEquals(controller.worthUpdating, NO, @"Should not care about transactions that don't belong to the detail view");
+	
 	
 }
--(void) testChangeOfValue {
-	NSDate * date1 =[NSDate dateWithTimeIntervalSince1970:0]; // 1 January 1970
-	
-	trs.date = date1;
-	trs.kroner = [NSNumber numberWithInt:140];
-	[[Utilities toolbox] save:context];	
-	
-	NSInteger sectionCount = [[CacheMasterSingleton sharedCacheMaster].detailCache_cellCache count];
-	STAssertEquals(sectionCount, 1, @"Should have the right amount of sections");
-	
-}
-/*-(void) testNumberOfMonthsAdd {
+-(void) testNumberOfMonthsAdd {
 	
 	NSDate * date1 =[NSDate dateWithTimeIntervalSince1970:0]; // 1 January 1970
 	NSDate * date2 =[NSDate dateWithTimeIntervalSince1970:(31 * 24 * 60 * 60)]; // 1 February 1970
 	NSDate * date3 =[NSDate dateWithTimeIntervalSince1970:(2 * 31 * 24 * 60 * 60)]; // 1 March 1970
 	NSDate * date4 =[NSDate dateWithTimeIntervalSince1970:-(2 * 31 * 24 * 60 * 60)]; // 1 March 1970
 	
+	NSInteger numOfSections = [[CacheMasterSingleton sharedCacheMaster].detailCache_dayToSection count];
+	STAssertEquals(numOfSections, 0, @"Should start out with no sections");
+	
 	trs.date = date1;
 	[[Utilities toolbox] save:context];
-	
-	STAssertNotNil([CacheMasterSingleton sharedCacheMaster].overviewCache_months, @"Should have populated the months array");
-	NSInteger numOfMonths = [[CacheMasterSingleton sharedCacheMaster].overviewCache_months count];
-	STAssertEquals(numOfMonths, 1, @"Should have 1 month entry");
-	STAssertEqualObjects([[CacheMasterSingleton sharedCacheMaster].overviewCache_months objectAtIndex:0], @"197001", @"Should have an entry for Jan 1970");
-	
-	// Adding another transaction to the mix.
-	Transaction * t1 = [self getTransaction];
-	t1.date = date1;
-	
-	[[Utilities toolbox] save:context];
-	
-	numOfMonths = [[CacheMasterSingleton sharedCacheMaster].overviewCache_months count];
-	STAssertEquals(numOfMonths, 1, @"Should have 1 month entry");
-	STAssertEqualObjects([[CacheMasterSingleton sharedCacheMaster].overviewCache_months objectAtIndex:0], @"197001", @"Should have an entry for Jan 1970");
-	
-	// Adding a month with another date
-	Transaction * t2 = [self getTransaction];
-	t2.date = date2;
-	
-	[[Utilities toolbox] save:context];
-	
-	numOfMonths = [[CacheMasterSingleton sharedCacheMaster].overviewCache_months count];
-	STAssertEquals(numOfMonths, 2, @"Should have 2 month entries");
-	STAssertEqualObjects([[CacheMasterSingleton sharedCacheMaster].overviewCache_months objectAtIndex:0], @"197002", @"Should have an entry for Feb 1970");
-	STAssertEqualObjects([[CacheMasterSingleton sharedCacheMaster].overviewCache_months objectAtIndex:1], @"197001", @"Should have an entry for Jan 1970");
-	
-	
-	// Adding yet another transaction with the same month
-	Transaction * t3 = [self getTransaction];
-	t3.date = date2;
-	
-	[[Utilities toolbox] save:context];
-	
-	numOfMonths = [[CacheMasterSingleton sharedCacheMaster].overviewCache_months count];
-	STAssertEquals(numOfMonths, 2, @"Should have 2 month entries");
-	STAssertEqualObjects([[CacheMasterSingleton sharedCacheMaster].overviewCache_months objectAtIndex:0], @"197002", @"Should have an entry for Feb 1970");
-	STAssertEqualObjects([[CacheMasterSingleton sharedCacheMaster].overviewCache_months objectAtIndex:1], @"197001", @"Should have an entry for Jan 1970");
-	
-	// Adding a transaction with a new month
-	Transaction * t4 = [self getTransaction];
-	t4.date = date3;
-	
-	[[Utilities toolbox] save:context];
-	
-	numOfMonths = [[CacheMasterSingleton sharedCacheMaster].overviewCache_months count];
-	STAssertEquals(numOfMonths, 3, @"Should have 3 month entries");
-	STAssertEqualObjects([[CacheMasterSingleton sharedCacheMaster].overviewCache_months objectAtIndex:0], @"197003", @"Should have an entry for Mar 1970");
-	STAssertEqualObjects([[CacheMasterSingleton sharedCacheMaster].overviewCache_months objectAtIndex:1], @"197002", @"Should have an entry for Feb 1970");
-	STAssertEqualObjects([[CacheMasterSingleton sharedCacheMaster].overviewCache_months objectAtIndex:2], @"197001", @"Should have an entry for Jan 1970");
-	
-	// Adding an earlier transaction
-	Transaction * t5 = [self getTransaction];
-	t5.date = date4;
-	
-	[[Utilities toolbox] save:context];
-	
-	numOfMonths = [[CacheMasterSingleton sharedCacheMaster].overviewCache_months count];
-	STAssertEquals(numOfMonths, 4, @"Should have 4 month entries");
-	STAssertEqualObjects([[CacheMasterSingleton sharedCacheMaster].overviewCache_months objectAtIndex:0], @"197003", @"Should have an entry for Mar 1970");
-	STAssertEqualObjects([[CacheMasterSingleton sharedCacheMaster].overviewCache_months objectAtIndex:1], @"197002", @"Should have an entry for Feb 1970");
-	STAssertEqualObjects([[CacheMasterSingleton sharedCacheMaster].overviewCache_months objectAtIndex:2], @"197001", @"Should have an entry for Jan 1970");
-	STAssertEqualObjects([[CacheMasterSingleton sharedCacheMaster].overviewCache_months objectAtIndex:3], @"196910", @"Should have an entry for Oct 1970");
-	
-}
 
+/*	numOfSections = [[CacheMasterSingleton sharedCacheMaster].detailCache_dayToSection count];*/
+	
+	
+//	STAssertNotNil([CacheMasterSingleton sharedCacheMaster].overviewCache_months, @"Should have populated the months array");
+//	NSInteger numOfMonths = [[CacheMasterSingleton sharedCacheMaster].overviewCache_months count];
+//	STAssertEquals(numOfMonths, 1, @"Should have 1 month entry");
+//	STAssertEqualObjects([[CacheMasterSingleton sharedCacheMaster].overviewCache_months objectAtIndex:0], @"197001", @"Should have an entry for Jan 1970");
+//	
+//	// Adding another transaction to the mix.
+//	Transaction * t1 = [self getTransaction];
+//	t1.date = date1;
+//	
+//	[[Utilities toolbox] save:context];
+//	
+//	numOfMonths = [[CacheMasterSingleton sharedCacheMaster].overviewCache_months count];
+//	STAssertEquals(numOfMonths, 1, @"Should have 1 month entry");
+//	STAssertEqualObjects([[CacheMasterSingleton sharedCacheMaster].overviewCache_months objectAtIndex:0], @"197001", @"Should have an entry for Jan 1970");
+//	
+//	// Adding a month with another date
+//	Transaction * t2 = [self getTransaction];
+//	t2.date = date2;
+//	
+//	[[Utilities toolbox] save:context];
+//	
+//	numOfMonths = [[CacheMasterSingleton sharedCacheMaster].overviewCache_months count];
+//	STAssertEquals(numOfMonths, 2, @"Should have 2 month entries");
+//	STAssertEqualObjects([[CacheMasterSingleton sharedCacheMaster].overviewCache_months objectAtIndex:0], @"197002", @"Should have an entry for Feb 1970");
+//	STAssertEqualObjects([[CacheMasterSingleton sharedCacheMaster].overviewCache_months objectAtIndex:1], @"197001", @"Should have an entry for Jan 1970");
+//	
+//	
+//	// Adding yet another transaction with the same month
+//	Transaction * t3 = [self getTransaction];
+//	t3.date = date2;
+//	
+//	[[Utilities toolbox] save:context];
+//	
+//	numOfMonths = [[CacheMasterSingleton sharedCacheMaster].overviewCache_months count];
+//	STAssertEquals(numOfMonths, 2, @"Should have 2 month entries");
+//	STAssertEqualObjects([[CacheMasterSingleton sharedCacheMaster].overviewCache_months objectAtIndex:0], @"197002", @"Should have an entry for Feb 1970");
+//	STAssertEqualObjects([[CacheMasterSingleton sharedCacheMaster].overviewCache_months objectAtIndex:1], @"197001", @"Should have an entry for Jan 1970");
+//	
+//	// Adding a transaction with a new month
+//	Transaction * t4 = [self getTransaction];
+//	t4.date = date3;
+//	
+//	[[Utilities toolbox] save:context];
+//	
+//	numOfMonths = [[CacheMasterSingleton sharedCacheMaster].overviewCache_months count];
+//	STAssertEquals(numOfMonths, 3, @"Should have 3 month entries");
+//	STAssertEqualObjects([[CacheMasterSingleton sharedCacheMaster].overviewCache_months objectAtIndex:0], @"197003", @"Should have an entry for Mar 1970");
+//	STAssertEqualObjects([[CacheMasterSingleton sharedCacheMaster].overviewCache_months objectAtIndex:1], @"197002", @"Should have an entry for Feb 1970");
+//	STAssertEqualObjects([[CacheMasterSingleton sharedCacheMaster].overviewCache_months objectAtIndex:2], @"197001", @"Should have an entry for Jan 1970");
+//	
+//	// Adding an earlier transaction
+//	Transaction * t5 = [self getTransaction];
+//	t5.date = date4;
+//	
+//	[[Utilities toolbox] save:context];
+//	
+//	numOfMonths = [[CacheMasterSingleton sharedCacheMaster].overviewCache_months count];
+//	STAssertEquals(numOfMonths, 4, @"Should have 4 month entries");
+//	STAssertEqualObjects([[CacheMasterSingleton sharedCacheMaster].overviewCache_months objectAtIndex:0], @"197003", @"Should have an entry for Mar 1970");
+//	STAssertEqualObjects([[CacheMasterSingleton sharedCacheMaster].overviewCache_months objectAtIndex:1], @"197002", @"Should have an entry for Feb 1970");
+//	STAssertEqualObjects([[CacheMasterSingleton sharedCacheMaster].overviewCache_months objectAtIndex:2], @"197001", @"Should have an entry for Jan 1970");
+//	STAssertEqualObjects([[CacheMasterSingleton sharedCacheMaster].overviewCache_months objectAtIndex:3], @"196910", @"Should have an entry for Oct 1970");
+//	
+}
+/*
 #pragma mark Deleting transactions
 -(void) testWorthUpdatingDelete {
 	trs.kroner = [NSNumber numberWithInt:140];
