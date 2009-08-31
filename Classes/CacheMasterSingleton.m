@@ -61,7 +61,6 @@ static CacheMasterSingleton *sharedCacheMaster = nil;
 	// Overview table cache
 	self.overviewCache_months = nil;
 	self.overviewCache_cellCache = nil;
-	[self overviewCache_tellDelegateThatItsWorthUpdating];
 	
 }
 - (void) updatedTransaction:(Transaction*)transaction {
@@ -79,36 +78,10 @@ static CacheMasterSingleton *sharedCacheMaster = nil;
 #pragma mark DetailTable manager
 @synthesize detailTableDelegate;
 @synthesize detailCache_cellCache;
-@synthesize detailCache_dayToSection;
-- (NSMutableArray*) detailCache_dayToSection {
-	if (detailCache_dayToSection == nil) {
-		CacheLog(@"Populating dayToSection array");
-		detailCache_dayToSection = [[NSMutableArray alloc] init];
-		for (NSString * key in self.detailCache_cellCache) {
-			[detailCache_dayToSection addObject:key];
-		}
-		[self detailCache_sortDayToSection];
-	}
-	return detailCache_dayToSection;
-}
 - (NSMutableDictionary*) detailCache_cellCache {
 	if (detailCache_cellCache == nil) {
 		NSLog(@"Creating a new detailCache_cellCache");
 		detailCache_cellCache = [[NSMutableDictionary alloc] init];
-		
-		/*
-		 Load all the content, so we have it...
-		 */
-		NSUInteger count = [[self.detailTableDelegate.resultsController sections] count];
-		NSLog(@"There are %i sections in the DB", count);
-		for (int n = 0; n < count; n++) {
-			/*
-			 TODO: This is really bad! Here we prefetch all the data, while it 
-			 could be computed lazily! Make a way to do this later!
-			 */
-			NSLog(@"Generating data for section %i (from init of detailCache_cellCache", n);
-			[self detailCache_dataForSection:n];
-		}
 	}
 	return detailCache_cellCache;
 }
@@ -136,26 +109,26 @@ static CacheMasterSingleton *sharedCacheMaster = nil;
 }
 - (NSDictionary*) detailCache_dataForSection:(NSInteger)_section {
 
+	NSLog(@"detailCache_dataForSection _section %i", _section);
 	/*
 	 If we are trying to access an section that doesn't exists, 
 	 ie is out of bounds, then we return nil
 	 */
-	if (_section > [self.detailCache_dayToSection count]) {
-		return nil;
-	}
 	
-	NSNumber * section = [self.detailCache_dayToSection objectAtIndex:_section];
-		
+	NSNumber * section = [NSNumber numberWithInt:_section];
+	
 	if ([self.detailCache_cellCache objectForKey:section] == nil) {
 		
-		NSLog(@"Generating data for section %i", _section);
+		NSLog(@"Generating data for row_section %i", _section, section);
 		
 		// General data
 		NSArray * _transactions = [[[self.detailTableDelegate.resultsController sections] objectAtIndex:_section] objects];
 		NSArray * transactions = [_transactions filteredArrayUsingPredicate:self.detailTableDelegate.filteringPredicate];
-		
+				
 		// Data for header
 		Transaction * aTransaction = (Transaction*) [_transactions objectAtIndex:0];
+		
+		// TODO: Check if the day == section... if not, then there is a section that has been deleted, and we should return nil (?)
 		
 		// Calculate the amount
 		double dAmount = [[Utilities toolbox] sumAmountForTransactionArray:transactions];
@@ -163,181 +136,51 @@ static CacheMasterSingleton *sharedCacheMaster = nil;
 		
 		// TODO: Localize the date format display
 		NSString * date = [aTransaction.day stringValue];
-		//NSString * amount = [aTransaction numberToMoney:numAmount];
 		NSString * amount = [[CurrencyManager sharedManager] baseCurrencyDescriptionForAmount:numAmount withFraction:YES];
 		
 		// Data that has been worked on
 		NSArray * objects = [NSArray arrayWithObjects:transactions, date, amount,nil];
 		NSArray * keys = [NSArray arrayWithObjects:@"transactions", @"date", @"amount", nil];
 		NSDictionary * data = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
+	
+		NSLog(@"Keys: %@", keys);
+		NSLog(@"Num of transactions: %i", [transactions count]);
+		NSLog(@"Day: %@", section);
+		NSLog(@"Amount: %@", amount);
 		
 		// Insert into dictionary
+		NSLog(@"Saved data for section %i in cache (day %@)", _section, section);
 		[self.detailCache_cellCache setObject:data forKey:section];
 	} 
 	
+	NSLog(@"Returning cached data");
 	return [self.detailCache_cellCache objectForKey:section];
 }
-- (void) detailCache_sortDayToSection {
-	NSSortDescriptor *sortDesc = [[NSSortDescriptor alloc] initWithKey:@"self" ascending:NO selector:@selector(compare:)];
-	[detailCache_dayToSection sortUsingDescriptors:[NSArray arrayWithObject:sortDesc]];
-}
 - (NSInteger) detailCache_numberOfSections {
-	return [self.detailCache_dayToSection count];	
+	return [[self.detailTableDelegate.resultsController sections] count];
+	//return [self.detailCache_dayToSection count];	
 }
 - (NSInteger) detailCache_numberOfRowsInSection:(NSInteger)section {
+	NSLog(@"Getting number of rows for section %i", section);
 	NSDictionary * data = [self detailCache_dataForSection:section];
 	NSInteger count = [[data objectForKey:@"transactions"] count];
 	return count;
 }
 - (void) detailCacheUpdatedTransaction:(Transaction*)transaction {
+	NSLog(@"Getting a transaction (new/updated/deleted)");
+	
 	NSString * yearMonth = transaction.yearMonth;
 	NSString * oldYearMonth = transaction.oldYearMonth;
 	NSString * yearMonthToDisplay = self.detailTableDelegate.yearMonthToDisplay;
 	
 	BOOL worthUpdating = NO;
-	
-	if ([yearMonth isEqualToString:yearMonthToDisplay]) {
 
-		/*
-		 If there isn't an overview delegate, then we should just return
-		 */
-		if (self.detailTableDelegate == nil) {
-			CacheLog(@"There is no detailTableDelegate... we just return");
-			return;
-		}
-				
-		NSNumber * day = transaction.day;
-		
-		if ([transaction isDeleted]) {
-			
-			CacheLog(@"It is a deleted transaction. Remove cache");
-			[self detailCache_delete:day];
-			
-		} else if (transaction.isNew) {
-			
-			[self detailCache_insert:day];
-			
-		} else {
-			
-			//CacheLog(@"It has changes...");
-			if (transaction.oldDay != nil) {
-				/* 
-				 it has been moved, guaranteed work!
-				 We have to clear the cache of the old location and of the new location!
-				 
-				 OBS! Please understand that the order here is crucial! The insert has to happen first!
-				 Otherwise:
-				 August is the last month and a data in an august transaction is set to september.
-				 Then when deleting and rebuilding the cache for what the CacheManager thinks is August
-				 has in the FetchedResultsController already become September, because it has processed the
-				 changes! Hence we have an off by one, because the overviewCache_month doesn't map into 
-				 the right section!
-				 */
-				if ([transaction.oldDay compare:day] == NSOrderedAscending) {
-					NSLog(@"\tOld compared with new: ORDER ASCENDING");
-					[self detailCache_insert:day];
-					[self detailCache_delete:transaction.oldDay];
-					
-				} else if ([transaction.oldDay compare:day] == NSOrderedDescending){
-					NSLog(@"\tOld compared with new: ORDER DESCENDING");
-					
-					[self detailCache_delete:transaction.oldDay];
-					[self detailCache_insert:day];
-					
-				} else if ([transaction.oldDay compare:day] == NSOrderedSame){
-					NSLog(@"\tOld compared with new: ORDER SAME");
-				}
-				
-				
-				
-			} else {
-				
-				//CacheLog(@"It has changes, but the date, if changed, is equal to the old one");
-				
-				/*
-				 Check if one of the values that make for a change
-				 in the overview cache data has been changed
-				 */
-				if (([transaction.changes objectForKey:@"expense"] != nil) ||
-					([transaction.changes objectForKey:@"kroner"] != nil) ||
-					([transaction.changes objectForKey:@"tags"] != nil) ||
-					([transaction.changes objectForKey:@"transactionDescription"] != nil)) {
-					
-					//CacheLog(@"It has interesting changes, ie: kroner or expense");
-					
-					/* 
-					 It has a change to either:
-					 expense: bool
-					 kroner: NSNumber
-					 */
-					[self.detailCache_cellCache removeObjectForKey:day];
-					[self detailCache_tellDelegateThatItsWorthUpdating];
-					
-				} else {
-					/* No interesting change has happened... */
-					//CacheLog(@"No changes that interest us");
-				}
-			}
-		}
-		
-		
-	}
-	
-	/* 
-	 This is the case where a transaction is moved to another month.
-	 We are still interested in updating the current detail delegate
-	 as it will have changed.
-	 We also have to delete the cache for the previous day it belonged to.
-	 */
-	if ([oldYearMonth isEqualToString:yearMonthToDisplay]) {
-		[self detailCache_delete:transaction.oldDay];
+	if ([yearMonth isEqualToString:yearMonthToDisplay] || [oldYearMonth isEqualToString:yearMonthToDisplay]) {
+		self.detailCache_cellCache = nil;
 		worthUpdating = YES;
 	}
 	
 	if (worthUpdating) {[self detailCache_tellDelegateThatItsWorthUpdating];}
-	
-}
-- (void) detailCache_insert:(NSNumber*)day {
-	
-	if ([self.detailCache_dayToSection containsObject:day]) {
-		/* It has an entry. Let's clear it's cache */
-		[self.detailCache_cellCache removeObjectForKey:day];
-	} else {
-		/* It is a new entry! Insert it, and sort the array again */
-		[self.detailCache_dayToSection addObject:day];
-		[self detailCache_sortDayToSection];
-	}
-	[self detailCache_tellDelegateThatItsWorthUpdating];
-	
-}
-- (void) detailCache_delete:(NSNumber*)day {
-	
-	/*
-	 Now we clear the cache, then we 
-	 regenerate the cache to see if there is still any elements present
-	 and if there is not, then we remove it completely from the list
-	 */
-	[self.detailCache_cellCache removeObjectForKey:day];
-	if ([self.detailCache_dayToSection containsObject:day]) {
-		
-		NSInteger section = [self.detailCache_dayToSection indexOfObject:day];
-		NSLog(@"CacheManager (%i): Told to load index %i", self.runNum, section);
-		NSDictionary * dict = [self detailCache_dataForSection:section];
-		if (dict == nil) {
-			[self.detailCache_dayToSection removeObjectAtIndex:section];
-		}
-		
-		/*
-		 Tell the delegat that it's worth updating
-		 */
-		[self detailCache_tellDelegateThatItsWorthUpdating];
-		
-		
-	} else {
-		
-		//CacheLog(@"Error. Wanted to delete, but there was no object in the months array with that for that month");
-		
-	}
 	
 }
 
@@ -423,17 +266,11 @@ static CacheMasterSingleton *sharedCacheMaster = nil;
 }
 - (NSMutableArray*)overviewCache_months {
 	if (overviewCache_months == nil) {
-		//CacheLog(@"Populating months array");
 		overviewCache_months = [[NSMutableArray alloc] init];
 		for (NSString * key in self.overviewCache_cellCache) {
 			[overviewCache_months addObject:key];
 		}
 		[self overviewCache_sortMonthsArray];
-		
-		// For logging purposes
-		for (NSString * month in overviewCache_months) {
-			//NSLog(@"\t%@", month);
-		}
 	}
 	return overviewCache_months;
 }
@@ -536,7 +373,15 @@ static CacheMasterSingleton *sharedCacheMaster = nil;
 		 iff the don't have some filtering predicate
 		 */
 		if (self.overviewTableDelegate.filteringPredicate == self.truePredicate) {
-			[self overviewCache_makePersistent];
+			/*
+			 Only save the cache for non-empty sections!
+			 This to not get cache, when there is no data!
+			 */
+			NSDictionary * dict = [self.overviewCache_cellCache objectForKey:yearMonth];
+			if ([[dict objectForKey:@"totalNumberOfObjectsInSection"] intValue] != 0) {
+				[self overviewCache_makePersistent];
+			}
+			
 		}
 	}
 	return [self.overviewCache_cellCache objectForKey:yearMonth];
@@ -550,7 +395,6 @@ static CacheMasterSingleton *sharedCacheMaster = nil;
 - (NSInteger) overviewCache_numberOfRows {
 	return [self.overviewCache_months count];
 }
-// Interface for transactions
 - (void)overviewCacheUpdatedTransaction:(Transaction*)transaction {
 	/*
 	 If there isn't an overview delegate, then we should just return

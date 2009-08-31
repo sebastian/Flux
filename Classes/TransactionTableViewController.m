@@ -37,7 +37,7 @@
 		self.managedObjectContext = context;
 		self.filteringPredicate = [NSPredicate predicateWithValue:YES];
 		
-		self.worthUpdating = NO;
+		self.worthUpdating = YES;
 		
 		/*
 		 If we don't start listening for cache changes
@@ -69,12 +69,13 @@
 	[super dealloc];
 }
 - (void)viewDidLoad {
-		
-	UIBarButtonItem * searchButton = 
-		[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch 
-													  target:self 
-													  action:@selector(toggleSearch)];
-	self.navigationItem.rightBarButtonItem = searchButton;
+	
+	UIBarButtonItem * searchButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch 
+																				   target:self 
+																				   action:@selector(toggleSearch)];
+	if ([self navigationItem].rightBarButtonItem != nil) {
+		self.navigationItem.rightBarButtonItem = searchButton;	
+	}
 	[searchButton release];
 	
 	// Register to get a notification whenever the predicate is changed!
@@ -99,6 +100,14 @@
 	// Remove from NotificationCenter
 	//[[NSNotificationCenter defaultCenter] removeObserver:self];
 	
+}
+
+- (NSFetchedResultsController*)resultsController {
+	if (resultsController == nil) {
+		NSLog(@"Creating and loading data for the resultsController in %@", self);
+		[self updateData];
+	}
+	return resultsController;
 }
 
 
@@ -189,8 +198,8 @@
 }	
 
 - (void) updateIfWorthIt {
-	if (worthUpdating) {
-		NSLog(@"Reloading tableview data, because it is worth it :)");
+	if (self.worthUpdating) {
+		NSLog(@"Reloading tableview data, because it is worth it :) (%@)", self);
 		[self.tableView reloadData];
 		self.worthUpdating = NO;
 	} else {

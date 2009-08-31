@@ -29,7 +29,6 @@
 	// DetailTable cache
 	DetailTableViewController * detailTableDelegate;
 	NSMutableDictionary * detailCache_cellCache;
-	NSMutableArray * detailCache_dayToSection;
 	
 	// OverviewTable cache
 	NSMutableArray * overviewCache_months;
@@ -42,7 +41,6 @@
 #pragma mark General methods
 @property (nonatomic, assign) int runNum;
 @property (nonatomic, retain) NSPredicate * truePredicate;
-@property (nonatomic, retain) NSMutableArray * detailCache_dayToSection;
 + (CacheMasterSingleton*)sharedCacheMaster;
 - (void) clearCache;
 - (void) updatedTransaction:(Transaction*)transaction;
@@ -53,9 +51,6 @@
 @property (nonatomic, retain) NSMutableDictionary * detailCache_cellCache;
 - (void) detailCacheUpdatedTransaction:(Transaction*)transaction;
 - (NSDictionary*) detailCache_dataForSection:(NSInteger)_section;
-- (void) detailCache_insert:(NSNumber*)day;
-- (void) detailCache_delete:(NSNumber*)day;
-- (void) detailCache_sortDayToSection;	
 - (NSInteger) detailCache_numberOfSections;
 - (NSInteger) detailCache_numberOfRowsInSection:(NSInteger)section;
 

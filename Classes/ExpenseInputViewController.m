@@ -192,7 +192,7 @@
 	 We have to find the currency corrensponding to the country!
 	 */
 	self.placemark = _placemark;
-
+	
 	NSString * countryCode = placemark.countryCode;
 	NSString * currencyCode = [[[CurrencyManager sharedManager] countryToCurrency] objectForKey:countryCode];
 	

@@ -93,7 +93,9 @@
 //	 Now merge the data into the context's around the world. 
 //	 That in turn will trigger the reloading of the tables...
 //	 */
-
+	
+	
+	NSLog(@"Merging changes for NSFetchedResultsController in %@", self);
 	[self.managedObjectContext mergeChangesFromContextDidSaveNotification:notification];
 	
 }

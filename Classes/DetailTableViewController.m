@@ -38,10 +38,10 @@
 	NSLog(@"Setting detailTableDelegate in viewDidLoad of %@",self);
 	[[CacheMasterSingleton sharedCacheMaster] setDetailTableDelegate:self];
 	
-	
 	// Set local delete to a logic state;
 	localDelete = NO;
 	
+	NSLog(@"Finding the calendar representation of %@", yearMonthToDisplay);
 	// Get the calendar values
 	NSLocale * userLocale = [NSLocale currentLocale];
 	NSDateFormatter * dateFormatter = [[NSDateFormatter alloc] init];
@@ -67,16 +67,6 @@
 	}
 	
 	[dateFormatter release];
-	
-	[self updateData];
-	
-	UIImageView * paperTop = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DetailCellTop.png"]];
-	self.tableView.tableHeaderView = paperTop;
-	[paperTop release];
-	
-	UIImageView * paperBottom = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DetailCellBottom.png"]];
-	self.tableView.tableFooterView = paperBottom;
-	[paperBottom release];
 		
 }
 - (void) viewWillAppear:(BOOL)animated {
@@ -91,15 +81,23 @@
 		[[KleioSearchBar searchBar] show];
 	}
 		
-	/*
-	 If there is no cache, then the table should be reloaded!
-	 Because that means there have been changes!
-	 */
-	if ((self.transactionsDataCache != nil) & ([self.transactionsDataCache count] == 0)) {
-		NSLog(@"Reloading table view because of empty cache in %@", self);
-		[self updateIfWorthIt];
-		//[self.tableView reloadData];
-	}
+	[self updateIfWorthIt];
+//	/*
+//	 If there is no cache, then the table should be reloaded!
+//	 Because that means there have been changes!
+//	 */
+//	if ((self.transactionsDataCache != nil) & ([self.transactionsDataCache count] == 0)) {
+//		NSLog(@"Reloading table view because of empty cache in %@", self);
+//		
+//	}
+	
+	UIImageView * paperTop = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DetailCellTop.png"]];
+	self.tableView.tableHeaderView = paperTop;
+	[paperTop release];
+	
+	UIImageView * paperBottom = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DetailCellBottom.png"]];
+	self.tableView.tableFooterView = paperBottom;
+	[paperBottom release];
 		
 }
 
@@ -230,7 +228,9 @@
 
 // Content cell
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-		
+	
+	NSLog(@"Getting cell for indexPath %@", indexPath);
+	
 	// Access the object from the filtered array
 	NSDictionary * data = [[CacheMasterSingleton sharedCacheMaster] detailCache_dataForSection:indexPath.section];
 	Transaction *trs = (Transaction *)[[data objectForKey:@"transactions"] objectAtIndex:indexPath.row];
@@ -361,10 +361,14 @@
 }
 
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView {
-	return [[CacheMasterSingleton sharedCacheMaster] detailCache_numberOfSections];
+	int temp = [[CacheMasterSingleton sharedCacheMaster] detailCache_numberOfSections];
+	NSLog(@"Getting number of sections in table (in %@) = %i", self, temp);
+	return temp;
 }
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return [[CacheMasterSingleton sharedCacheMaster] detailCache_numberOfRowsInSection:section];
+	int temp = [[CacheMasterSingleton sharedCacheMaster] detailCache_numberOfRowsInSection:section];
+	NSLog(@"Getting number of rows for section %i (in %@) = %i", section, self, temp);
+	return temp;
 }
 
 // Override to support editing the table view.

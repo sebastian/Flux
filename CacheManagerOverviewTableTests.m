@@ -74,7 +74,8 @@
 #pragma mark Adding Transactions
 -(void) testWorthUpdatingAdd {
 		
-	STAssertEquals(controller.worthUpdating, NO, @"Should not be worth updating by default");
+	STAssertEquals(controller.worthUpdating, YES, @"Should be worth updating by default");
+	controller.worthUpdating = NO;
 	
 	trs.kroner = [NSNumber numberWithInt:140];
 
@@ -333,4 +334,21 @@
 	
 }
 
+/*-(void) testLoadOldElements {
+	trs.kroner = [NSNumber numberWithInt:120];
+	[[Utilities toolbox] save:context];
+	
+	[controller release];
+	[[CacheMasterSingleton sharedCacheMaster] clearCache];
+	
+	context = [TestUtils managedObjectContext];
+	controller = [[OverviewTableViewController alloc] initWithStyle:UITableViewStylePlain andContext:context];
+	[[CacheMasterSingleton sharedCacheMaster] setOverviewTableDelegate:controller];
+
+	[CacheMasterSingleton sharedCacheMaster].overviewCache_months = nil;
+	[CacheMasterSingleton sharedCacheMaster].overviewCache_cellCache = nil;
+	
+	NSInteger numOfMonths = [[CacheMasterSingleton sharedCacheMaster].overviewCache_months count];
+	STAssertEquals(numOfMonths, 1, @"Should have the month previously added");
+}*/
 @end

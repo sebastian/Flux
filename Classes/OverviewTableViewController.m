@@ -118,13 +118,6 @@
 		NSLog(@"Ended synchronized data load in %@", self);
 	}
 }
-- (NSFetchedResultsController*)resultsController {
-	if (resultsController == nil) {
-		NSLog(@"First time resultsController is accessed. Let's load it!");
-		[self updateData];
-	}
-	return resultsController;
-}
 - (NSMutableDictionary*)cellCalculations {
 	/* 
 	 We load in the cached cell data as well
