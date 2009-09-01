@@ -17,6 +17,7 @@
 @property (nonatomic, retain) UIFont * font;
 
 -(void)setText:(NSString*)text;
+-(NSMutableArray*)searchBarWords;
 
 -(void)printTheWords;
 -(NSArray*)words;

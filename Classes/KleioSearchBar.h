@@ -39,6 +39,7 @@
 	TagSuggesterViewController * tagSuggester;
 }
 
+@property (nonatomic, readonly) SearchBarTerm * searchBarTerm; // For UnitTests...
 @property (nonatomic, retain) TagSuggesterViewController * tagSuggester;
 @property (nonatomic, assign) id <KleioSearchBarDelegate> delegate;
 

@@ -30,9 +30,7 @@
 #pragma mark Init and teardown
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	
-	[[CacheMasterSingleton sharedCacheMaster] setOverviewTableDelegate:self];
-	
+		
 	self.title = NSLocalizedString(@"Overview", @"Overview table transaction view");
 
 	UIImageView * headerView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"CellOverviewHeader.png"]];

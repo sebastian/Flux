@@ -64,7 +64,6 @@
 #pragma mark Set delegate
 -(void) testSetDelegate {
 	id newController = [[OverviewTableViewController alloc] initWithStyle:UITableViewStylePlain andContext:context];
-	[newController viewDidLoad];
 	STAssertNotNil([[CacheMasterSingleton sharedCacheMaster] overviewTableDelegate], @"The overview table view controller should set itself as a delegate");
 	STAssertEqualObjects([CacheMasterSingleton sharedCacheMaster].overviewTableDelegate, newController, @"Should have set itself as delegate");
 	[newController release];
@@ -334,7 +333,7 @@
 	
 }
 
-/*-(void) testLoadOldElements {
+-(void) testLoadOldElements {
 	trs.kroner = [NSNumber numberWithInt:120];
 	[[Utilities toolbox] save:context];
 	
@@ -350,5 +349,5 @@
 	
 	NSInteger numOfMonths = [[CacheMasterSingleton sharedCacheMaster].overviewCache_months count];
 	STAssertEquals(numOfMonths, 1, @"Should have the month previously added");
-}*/
+}
 @end

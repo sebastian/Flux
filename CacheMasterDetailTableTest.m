@@ -16,7 +16,6 @@
 #import "OverviewTableViewController.h"
 #import "TransactionsNavigationController.h"
 
-
 #import "Utilities.h"
 #import "TestUtils.h"
 
@@ -35,13 +34,12 @@
 @implementation CacheManagerDetailTableTests
 
 - (void)setUp {
-	
-	context = [TestUtils managedObjectContext];
+		
+	context = [[TestUtils managedObjectContext] retain];
 	controller = [[DetailTableViewController alloc] initWithStyle:UITableViewStylePlain andContext:context];
+	
 	controller.yearMonthToDisplay = @"197001";
-	
-	transNavController = [[TransactionsNavigationController alloc] initWithContext:context];
-	
+		
 	[controller viewDidLoad];
 	
 	trs	 = [self getTransaction];
@@ -51,17 +49,20 @@
 	NSLog(@"*********** START OF METHOD ***********");
 }
 - (void) tearDown {
-	NSLog(@"*********** END OF METHOD ***********");
+	NSLog(@"*********** END OF METHOD ***********");	
+	[trs release];
+	[context release];
+	context = nil;
+	
 	[controller release];
+	controller = nil;
 	STAssertNil([[CacheMasterSingleton sharedCacheMaster] detailTableDelegate], @"Detail delegate should be nil after the controller has been released");
+	
 	[[CacheMasterSingleton sharedCacheMaster] clearCache];
 	[TestUtils clearData];
 	[[Utilities toolbox] clearCache];
-	[[Utilities toolbox] setManagedObjectContext:nil];
-	[transNavController release];
-	[trs release];
-	context = nil;
-	controller = nil;
+	[[Utilities toolbox] setManagedObjectContext:nil];	
+	
 }
 - (Transaction*)getTransaction {
 	Transaction * _trs = [NSEntityDescription
@@ -75,6 +76,7 @@
 
 #pragma mark Set delegate
 -(void) testSetDelegateAndYearMonth {
+	[transNavController popViewControllerAnimated:NO];
 	[controller release];
 	controller = nil;
 	STAssertNil([[CacheMasterSingleton sharedCacheMaster] detailTableDelegate], @"Should be nil after controller release");

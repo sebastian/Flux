@@ -34,10 +34,7 @@
 #pragma mark Init and teardown
 - (void) viewDidLoad {
 	[super viewDidLoad];
-	
-	NSLog(@"Setting detailTableDelegate in viewDidLoad of %@",self);
-	[[CacheMasterSingleton sharedCacheMaster] setDetailTableDelegate:self];
-	
+		
 	// Set local delete to a logic state;
 	localDelete = NO;
 	

@@ -9,17 +9,23 @@
 #import "SearchBarTerm.h"
 #import "Utilities.h"
 #import "SearchBarWord.h"
+#import "CacheMasterSingleton.h"
 
 @implementation SearchBarTerm
 
 @synthesize font;
 
 -(NSMutableArray*)searchBarWords {
-	if (searchBarWords == nil) {searchBarWords = [[NSMutableArray alloc] init];}
+	if (searchBarWords == nil) {
+		NSLog(@"Creating searchBarWords array");
+		searchBarWords = [[NSMutableArray alloc] init];
+	}
 	return searchBarWords;
 }
 
 -(void)setText:(NSString*)text {
+	
+	NSLog(@"Getting text to process: %@", text);
 	
 	// Split the search term into words
 	NSArray * words = [[Utilities toolbox] tagStringToArray:text];
@@ -89,6 +95,7 @@
 	return searchBarWords;
 }
 -(NSArray*)tags {
+	NSLog(@"Getting tags...");
 	NSMutableArray * tags = [[NSMutableArray alloc] init];
 	for (SearchBarWord * word in searchBarWords) {
 		if (word.validTag) {
@@ -99,18 +106,17 @@
 }
 -(void)notifyNewTag {
 
-	NSArray * tags = [self tags];
+	NSArray * tagArray = [self tags];
 	
 	NSPredicate * filteringPredicate;
 	
-	
-	if ([tags count] == 0) {
+	if ([tagArray count] == 0) {
 		filteringPredicate = [NSPredicate predicateWithValue:YES];
 	} else {
 
 		NSMutableArray * tagPredicates = [[NSMutableArray alloc] init];
 		
-		for (SearchBarWord * tag in tags) {
+		for (SearchBarWord * tag in tagArray) {
 			
 			// Create a predicate
 			NSPredicate * autotagPredicate = [NSPredicate predicateWithFormat:@"autotags contains[cd] %@", [NSString stringWithFormat:@" %@ ", tag.word]];
@@ -126,14 +132,18 @@
 		
 	}
 	
+	NSLog(@"Notifying CacheManager about predicate %@", filteringPredicate);
+	[[CacheMasterSingleton sharedCacheMaster] setFilteringPredicate:filteringPredicate];
+/*
 	NSDictionary * predicateDict = [NSDictionary dictionaryWithObject:filteringPredicate 
-															   forKey:@"predicate"];
-	
+	forKey:@"predicate"];
+ 
 	NSLog(@"Sent out a filtering predicate that looks like this: %@", filteringPredicate);
-	
+ 
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"KleioPredicateUpdated" 
 														object:self 
 													  userInfo:predicateDict];
+ */
 }
 
 -(void)clear {

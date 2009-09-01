@@ -9,6 +9,9 @@
 #import "TransactionTableViewController.h"
 #import "Utilities.h"
 #import "KleioSearchBar.h"
+#import "DetailTableViewController.h"
+#import "OverviewTableViewController.h"
+#import "CacheMasterSingleton.h"
 
 @interface TransactionTableViewController (PrivateMethods)
 - (void)clearCacheIfAvailable;
@@ -38,6 +41,17 @@
 		self.filteringPredicate = [NSPredicate predicateWithValue:YES];
 		
 		self.worthUpdating = YES;
+		
+		/*
+		 Set the cache delegate
+		 */
+		if ([self class] == [OverviewTableViewController class]) {
+			NSLog(@"Setting overviewTableDelegate in viewDidLoad of %@", self);
+			[[CacheMasterSingleton sharedCacheMaster] setOverviewTableDelegate:(OverviewTableViewController*)self];
+		} else if ([self class] == [DetailTableViewController class]) {
+			NSLog(@"Setting detailTableDelegate in viewDidLoad of %@", self);
+			[[CacheMasterSingleton sharedCacheMaster] setDetailTableDelegate:(DetailTableViewController*)self];
+		}
 		
 		/*
 		 If we don't start listening for cache changes
@@ -73,9 +87,9 @@
 	UIBarButtonItem * searchButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch 
 																				   target:self 
 																				   action:@selector(toggleSearch)];
-	if ([self navigationItem].rightBarButtonItem != nil) {
-		self.navigationItem.rightBarButtonItem = searchButton;	
-	}
+	
+	self.navigationItem.rightBarButtonItem = searchButton;
+
 	[searchButton release];
 	
 	// Register to get a notification whenever the predicate is changed!
@@ -91,7 +105,7 @@
 //		name:@"GlobalTableViewReloadData"
 //		object:nil];		
 	
-	[self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+	self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 	self.tableView.backgroundColor = [UIColor clearColor];
 }
 - (void)viewDidUnload {

@@ -138,8 +138,8 @@
 			 YES: Then add the location to it
 			 NO: Create it
 			 */
-			NSArray * tags = [[Utilities toolbox] tagStringToArray:self.tags];
-			for (NSString * tag in tags) {
+			NSArray * tagArray = [[Utilities toolbox] tagStringToArray:self.tags];
+			for (NSString * tag in tagArray) {
 				// Does the tag exist?
 				[[Utilities toolbox] addTag:tag autotag:NO location:self.location];
 			}		

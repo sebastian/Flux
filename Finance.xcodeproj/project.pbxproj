@@ -19,6 +19,7 @@
 		960CCB2B1027264F00A6B945 /* CellSeparator.png in Resources */ = {isa = PBXBuildFile; fileRef = 960CCB2A1027264F00A6B945 /* CellSeparator.png */; };
 		960CCB5710272A2E00A6B945 /* CellSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = 960CCB5610272A2E00A6B945 /* CellSelected.png */; };
 		960CCBE310273B5400A6B945 /* CellSelectedDetail.png in Resources */ = {isa = PBXBuildFile; fileRef = 960CCBE210273B5400A6B945 /* CellSelectedDetail.png */; };
+		961E4D25104D41BB0081ADE7 /* CacheManagerFilteringTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 961E4D24104D41BB0081ADE7 /* CacheManagerFilteringTest.m */; };
 		962306FF10347318003ED654 /* SearchBarBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 962306FE10347318003ED654 /* SearchBarBackground.png */; };
 		9623071310347864003ED654 /* KleioSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 9623070F10347864003ED654 /* KleioSearchBar.m */; };
 		9623071410347864003ED654 /* KleioSearchBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9623071010347864003ED654 /* KleioSearchBar.xib */; };
@@ -230,6 +231,7 @@
 		960CCB2A1027264F00A6B945 /* CellSeparator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CellSeparator.png; sourceTree = "<group>"; };
 		960CCB5610272A2E00A6B945 /* CellSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = CellSelected.png; path = Graphics/CellSelected.png; sourceTree = "<group>"; };
 		960CCBE210273B5400A6B945 /* CellSelectedDetail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = CellSelectedDetail.png; path = Graphics/CellSelectedDetail.png; sourceTree = "<group>"; };
+		961E4D24104D41BB0081ADE7 /* CacheManagerFilteringTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacheManagerFilteringTest.m; sourceTree = "<group>"; };
 		96221BAE10442FB0003B2D47 /* Finance-Info copy 3.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Finance-Info copy 3.plist"; sourceTree = "<group>"; };
 		962306FE10347318003ED654 /* SearchBarBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SearchBarBackground.png; path = Graphics/SearchBarBackground.png; sourceTree = "<group>"; };
 		9623070E10347864003ED654 /* KleioSearchBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KleioSearchBar.h; sourceTree = "<group>"; };
@@ -524,6 +526,7 @@
 		960C07FF1021AFF900B9C2A3 /* Div */ = {
 			isa = PBXGroup;
 			children = (
+				966200A21026E15600B670D6 /* FilterField */,
 				966C2CF3103EE0D700725372 /* CacheMaster */,
 				966C2C1A103ECA3900725372 /* ABTableViewCell.h */,
 				966C2C1B103ECA3900725372 /* ABTableViewCell.m */,
@@ -801,6 +804,7 @@
 			children = (
 				96F660861041854F00845F0E /* CacheManagerOverviewTableTests.m */,
 				9664C9C01045603600BE55DD /* CacheMasterDetailTableTest.m */,
+				961E4D24104D41BB0081ADE7 /* CacheManagerFilteringTest.m */,
 			);
 			name = CacheManager;
 			sourceTree = "<group>";
@@ -844,7 +848,6 @@
 				96419CB9101C76FE0066D6D8 /* OverviewTable */,
 				963B03C61019EF8E00CD5184 /* TransactionTableViewController.h */,
 				963B03C71019EF8E00CD5184 /* TransactionTableViewController.m */,
-				966200A21026E15600B670D6 /* FilterField */,
 				96419CC0101C775A0066D6D8 /* TransactionDetail */,
 				963B02981019E10900CD5184 /* TransactionsNavigationController.h */,
 				963B02991019E10900CD5184 /* TransactionsNavigationController.m */,
@@ -1141,6 +1144,7 @@
 				96F660871041854F00845F0E /* CacheManagerOverviewTableTests.m in Sources */,
 				96F663A11041A1BE00845F0E /* TestUtils.m in Sources */,
 				9664C9C11045603600BE55DD /* CacheMasterDetailTableTest.m in Sources */,
+				961E4D25104D41BB0081ADE7 /* CacheManagerFilteringTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

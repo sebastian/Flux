@@ -27,15 +27,40 @@ static CacheMasterSingleton *sharedCacheMaster = nil;
 #pragma mark -
 #pragma mark General methods
 @synthesize truePredicate;
+@synthesize filteringPredicate;
 - (id) init {
 	CacheLog(@"Init called for the CacheMaster");
 	self = [super init];
-//	self.overviewTableDelegate = nil;
-//	self.detailTableDelegate = nil;
-//	
-//	[self clearCache];
-	
+	self.filteringPredicate = self.truePredicate;
+		
 	return self;
+}
+- (void) setFilteringPredicate:(NSPredicate *)predicate {
+	/*
+	 If the same predicate is set as the one that already exists
+	 then nothing should be done
+	 */
+	if ([predicate isEqual:self.filteringPredicate]) {
+		return;
+	}
+	
+	/*
+	 If the old predicate was the true predicate,
+	 and the new one is not, then we should keep a copy of the old cache
+	 */
+	if ([self.filteringPredicate isEqual:self.truePredicate] && ![predicate isEqual:self.truePredicate]) {
+		self.overviewCache_cellCache_nonfiltered = [self.overviewCache_cellCache copy];
+	}
+	
+	[self.overviewCache_cellCache removeAllObjects];
+	
+	if ([predicate isEqual:self.truePredicate] && ![predicate isEqual:self.filteringPredicate]) {
+		self.overviewCache_cellCache = [self.overviewCache_cellCache_nonfiltered copy];
+	}
+	
+	[predicate retain];
+	[filteringPredicate release];
+	filteringPredicate = predicate;
 }
 - (NSPredicate*)truePredicate {
 	if (truePredicate == nil) {
@@ -123,7 +148,7 @@ static CacheMasterSingleton *sharedCacheMaster = nil;
 		
 		// General data
 		NSArray * _transactions = [[[self.detailTableDelegate.resultsController sections] objectAtIndex:_section] objects];
-		NSArray * transactions = [_transactions filteredArrayUsingPredicate:self.detailTableDelegate.filteringPredicate];
+		NSArray * transactions = [_transactions filteredArrayUsingPredicate:self.filteringPredicate];
 				
 		// Data for header
 		Transaction * aTransaction = (Transaction*) [_transactions objectAtIndex:0];
@@ -240,6 +265,11 @@ static CacheMasterSingleton *sharedCacheMaster = nil;
 @synthesize overviewTableDelegate;
 @synthesize overviewCache_months;
 @synthesize overviewCache_cellCache;
+@synthesize overviewCache_cellCache_nonfiltered;
+- (NSMutableDictionary*)overviewCache_cellCache_nonfiltered {
+	if (overviewCache_cellCache_nonfiltered == nil) {self.overviewCache_cellCache_nonfiltered = [[NSMutableDictionary alloc] init];}
+	return overviewCache_cellCache_nonfiltered;
+}
 - (NSMutableDictionary*)overviewCache_cellCache {
 	/* 
 	 We load in the cached cell data as well
@@ -249,12 +279,10 @@ static CacheMasterSingleton *sharedCacheMaster = nil;
 	 */
 	if (overviewCache_cellCache == nil) {
 		// Not loaded yet => load
-		//CacheLog(@"Loading overview table cache");
-		self.overviewCache_cellCache = [NSKeyedUnarchiver unarchiveObjectWithFile:[self overviewCache_cachePath]];
+		overviewCache_cellCache = (NSMutableDictionary*)[NSKeyedUnarchiver unarchiveObjectWithFile:[self overviewCache_cachePath]];
 		if (overviewCache_cellCache == nil) { 
 			// There didn't exist any cache. We create an empty dictionary
-			//CacheLog(@"There was no overview table cache. Created it");
-			self.overviewCache_cellCache = [[NSMutableDictionary alloc] init];
+			overviewCache_cellCache = [[NSMutableDictionary alloc] init];
 		}
 	}
 	return overviewCache_cellCache;
@@ -266,10 +294,30 @@ static CacheMasterSingleton *sharedCacheMaster = nil;
 }
 - (NSMutableArray*)overviewCache_months {
 	if (overviewCache_months == nil) {
+		NSLog(@"Creating overviewCache_months");
+		
 		overviewCache_months = [[NSMutableArray alloc] init];
 		for (NSString * key in self.overviewCache_cellCache) {
 			[overviewCache_months addObject:key];
 		}
+		
+		/* 
+		 What if there are no entries in the cache? Then we should check with
+		 the fetched results controller, to see if that is right
+		 */
+		if ([overviewCache_months count] == 0) {
+			for (int n = 0; n < [[self.overviewTableDelegate.resultsController sections] count]; n++) {
+				NSLog(@"At index %i out of %i", n, [[self.overviewTableDelegate.resultsController sections] count]-1);
+				id <NSFetchedResultsSectionInfo> currenctSection = [[self.overviewTableDelegate.resultsController sections] objectAtIndex:n];
+				NSArray * _transactionsInSection = [currenctSection objects];
+				Transaction * aTransaction = (Transaction*)[_transactionsInSection objectAtIndex:0];
+				
+				NSString * yearMonth = aTransaction.yearMonth;
+				NSLog(@"Adding yearMonth %@ to the overviewCache_months array as index %i out of %i", yearMonth, n, [[self.overviewTableDelegate.resultsController sections] count]-1);
+				[overviewCache_months addObject:yearMonth];
+			}
+		}
+
 		[self overviewCache_sortMonthsArray];
 	}
 	return overviewCache_months;
@@ -278,35 +326,25 @@ static CacheMasterSingleton *sharedCacheMaster = nil;
 	
 	NSString * yearMonth = [self.overviewCache_months objectAtIndex:row];
 	
-	//NSLog(@"CacheManager (%i): getting cache for row %i (%@)", runNum, row, yearMonth);
-	
 	if ([self.overviewCache_cellCache objectForKey:yearMonth] == nil) {
 		
-		//NSLog(@"CacheManager (%i): Generating overview data for row: %i (%@)", runNum, row, yearMonth);
-		
 		// Get info to put into cell:
-		if (self.overviewTableDelegate == nil) {
-			//CacheLog(@"ERROR - there is no overviewTableDelegate. Can't return cache");
-			return nil;
-		}
+		if (self.overviewTableDelegate == nil) {return nil;}
 		
 		NSArray * sections = [self.overviewTableDelegate.resultsController sections];
-		
-		//NSLog(@"CacheManager (%i): There are %i sections", runNum, [sections count]);
 		
 		if ([sections count] <= row) {
 			/* 
 			 This section is activated if there are no sections, or we try to generate cache
 			 for a section that is out of bounds, which means it doesn't exist and should be cleared.
 			 */
-			//CacheLog(@"Not enough sections. No work to do. Trying to access a section out of bounds.");
 			
 		} else {
 			
 			id <NSFetchedResultsSectionInfo> currenctSection = [sections objectAtIndex:row];
 			
 			NSArray * _transactionsInSection = [currenctSection objects];
-			NSArray * transactionsInSection = [_transactionsInSection filteredArrayUsingPredicate:self.overviewTableDelegate.filteringPredicate];
+			NSArray * transactionsInSection = [_transactionsInSection filteredArrayUsingPredicate:self.filteringPredicate];
 			
 			Transaction * aTransaction = (Transaction*)[_transactionsInSection objectAtIndex:0];
 			
@@ -372,13 +410,13 @@ static CacheMasterSingleton *sharedCacheMaster = nil;
 		 Make the cache persistant so it is saved for later 
 		 iff the don't have some filtering predicate
 		 */
-		if (self.overviewTableDelegate.filteringPredicate == self.truePredicate) {
+		if (self.filteringPredicate == self.truePredicate) {
 			/*
 			 Only save the cache for non-empty sections!
 			 This to not get cache, when there is no data!
 			 */
 			NSDictionary * dict = [self.overviewCache_cellCache objectForKey:yearMonth];
-			if ([[dict objectForKey:@"totalNumberOfObjectsInSection"] intValue] != 0) {
+			if ([[dict objectForKey:@"totNumObjects"] intValue] != 0) {
 				[self overviewCache_makePersistent];
 			}
 			

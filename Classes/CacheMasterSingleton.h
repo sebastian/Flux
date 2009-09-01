@@ -17,6 +17,7 @@
 @interface CacheMasterSingleton : NSObject {
 
 	NSPredicate * truePredicate;
+	NSPredicate * filteringPredicate;
 	
 	// Detail table cell - resources
 	UIFont  * detailTableCellFont;
@@ -33,6 +34,7 @@
 	// OverviewTable cache
 	NSMutableArray * overviewCache_months;
 	NSMutableDictionary * overviewCache_cellCache;
+	NSMutableDictionary * overviewCache_cellCache_nonfiltered;
 	OverviewTableViewController * overviewTableDelegate;
 		
 	int runNum;
@@ -41,6 +43,7 @@
 #pragma mark General methods
 @property (nonatomic, assign) int runNum;
 @property (nonatomic, retain) NSPredicate * truePredicate;
+@property (nonatomic, retain) NSPredicate * filteringPredicate;
 + (CacheMasterSingleton*)sharedCacheMaster;
 - (void) clearCache;
 - (void) updatedTransaction:(Transaction*)transaction;
@@ -73,6 +76,7 @@
 @property (nonatomic, assign) OverviewTableViewController * overviewTableDelegate;
 @property (nonatomic, retain) NSMutableArray * overviewCache_months;
 @property (nonatomic, retain) NSMutableDictionary * overviewCache_cellCache;
+@property (nonatomic, copy) NSMutableDictionary * overviewCache_cellCache_nonfiltered;
 - (NSString*)overviewCache_cachePath;
 - (NSDictionary*)overviewCache_forRow:(NSInteger)row;
 - (void) overviewCache_makePersistent;

@@ -15,7 +15,7 @@
 static KleioSearchBar * sharedSearchBar = nil;
 @synthesize delegate;
 @synthesize tagSuggester;
-
+@synthesize	searchBarTerm;
 
 #pragma mark
 #pragma mark -
