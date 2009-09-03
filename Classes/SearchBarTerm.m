@@ -17,15 +17,12 @@
 
 -(NSMutableArray*)searchBarWords {
 	if (searchBarWords == nil) {
-		NSLog(@"Creating searchBarWords array");
 		searchBarWords = [[NSMutableArray alloc] init];
 	}
 	return searchBarWords;
 }
 
 -(void)setText:(NSString*)text {
-	
-	NSLog(@"Getting text to process: %@", text);
 	
 	// Split the search term into words
 	NSArray * words = [[Utilities toolbox] tagStringToArray:text];
@@ -68,7 +65,8 @@
 			[newWord setWord:word fromContext:context];
 			
 			[self.searchBarWords addObject:newWord];
-				
+			[newWord release];
+			
 		}
 	
 	}
@@ -82,20 +80,11 @@
 		}
 	}
 }
--(void)printTheWords  {
-	for (SearchBarWord * word in searchBarWords) {
-		if (word.validTag) {
-			NSLog(@"%@[T] ", word.word);
-		} else {
-			NSLog(@"%@ ", word.word);
-		}
-	}
-}
+
 -(NSArray*)words {
 	return searchBarWords;
 }
 -(NSArray*)tags {
-	NSLog(@"Getting tags...");
 	NSMutableArray * tags = [[NSMutableArray alloc] init];
 	for (SearchBarWord * word in searchBarWords) {
 		if (word.validTag) {
@@ -129,21 +118,10 @@
 		}
 		
 		filteringPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:tagPredicates];
-		
+		[tagPredicates release];
 	}
 	
-	NSLog(@"Notifying CacheManager about predicate %@", filteringPredicate);
 	[[CacheMasterSingleton sharedCacheMaster] setFilteringPredicate:filteringPredicate];
-/*
-	NSDictionary * predicateDict = [NSDictionary dictionaryWithObject:filteringPredicate 
-	forKey:@"predicate"];
- 
-	NSLog(@"Sent out a filtering predicate that looks like this: %@", filteringPredicate);
- 
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"KleioPredicateUpdated" 
-														object:self 
-													  userInfo:predicateDict];
- */
 }
 
 -(void)clear {

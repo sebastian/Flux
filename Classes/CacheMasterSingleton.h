@@ -27,14 +27,20 @@
 	UIImage * detailTableCellSelectedBackgroundImage;
 	UIImage * detailTableCellSeparator;	
 	
+	// Detail header view - resource
+	UIFont * detailHeaderViewFont;
+	UIColor * detailHeaderViewGrayColor;
+	UIColor * detailHeaderViewBlackColor;
+	UIImage * detailHeaderViewBackgroundImage;
+	
 	// DetailTable cache
 	DetailTableViewController * detailTableDelegate;
 	NSMutableDictionary * detailCache_cellCache;
+	NSMutableDictionary * detailCache_headerViewCache;
 	
 	// OverviewTable cache
 	NSMutableArray * overviewCache_months;
 	NSMutableDictionary * overviewCache_cellCache;
-	NSMutableDictionary * overviewCache_cellCache_nonfiltered;
 	OverviewTableViewController * overviewTableDelegate;
 		
 	int runNum;
@@ -47,15 +53,26 @@
 + (CacheMasterSingleton*)sharedCacheMaster;
 - (void) clearCache;
 - (void) updatedTransaction:(Transaction*)transaction;
-- (void) detailCache_tellDelegateThatItsWorthUpdating;
+- (void) tellDelegatesItsWorthReloading;
+- (void) reloadDelegateData;
 
 #pragma mark DetailTable cache
 @property (nonatomic, assign) DetailTableViewController * detailTableDelegate;
 @property (nonatomic, retain) NSMutableDictionary * detailCache_cellCache;
+@property (nonatomic, retain) NSMutableDictionary * detailCache_headerViewCache;
+- (void) detailCache_clearCache;
 - (void) detailCacheUpdatedTransaction:(Transaction*)transaction;
 - (NSDictionary*) detailCache_dataForSection:(NSInteger)_section;
 - (NSInteger) detailCache_numberOfSections;
 - (NSInteger) detailCache_numberOfRowsInSection:(NSInteger)section;
+- (void) detailCache_tellDelegateThatItsWorthUpdating;
+- (UIView*) detailCache_headerViewForSection:(NSInteger)section;
+
+#pragma mark Shared data for Detail header view
+@property (nonatomic, retain) UIFont * detailHeaderViewFont;
+@property (nonatomic, retain) UIColor * detailHeaderViewGrayColor;
+@property (nonatomic, retain) UIColor * detailHeaderViewBlackColor;
+@property (nonatomic, retain) UIImage * detailHeaderViewBackgroundImage;
 
 #pragma mark Shared data for Detail Content Table cell
 @property (nonatomic, retain) UIFont * detailTableCellFont;
@@ -76,10 +93,10 @@
 @property (nonatomic, assign) OverviewTableViewController * overviewTableDelegate;
 @property (nonatomic, retain) NSMutableArray * overviewCache_months;
 @property (nonatomic, retain) NSMutableDictionary * overviewCache_cellCache;
-@property (nonatomic, copy) NSMutableDictionary * overviewCache_cellCache_nonfiltered;
 - (NSString*)overviewCache_cachePath;
 - (NSDictionary*)overviewCache_forRow:(NSInteger)row;
 - (void) overviewCache_makePersistent;
+- (void) overviewCache_removePersistentCache;
 - (NSInteger) overviewCache_numberOfRows;
 // Interface for transactions
 - (void) overviewCacheUpdatedTransaction:(Transaction*)transaction;
@@ -87,5 +104,6 @@
 - (void) overviewCache_delete:(NSString*)yearMonth;
 - (void) overviewCache_sortMonthsArray;
 - (void)overviewCache_tellDelegateThatItsWorthUpdating;
+- (void)overviewCache_removeCacheForYearMonth:(NSString*)yearMonth;
 
 @end

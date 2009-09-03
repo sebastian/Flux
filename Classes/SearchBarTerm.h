@@ -19,7 +19,6 @@
 -(void)setText:(NSString*)text;
 -(NSMutableArray*)searchBarWords;
 
--(void)printTheWords;
 -(NSArray*)words;
 -(void)notifyNewTag;
 -(NSArray*)tags;

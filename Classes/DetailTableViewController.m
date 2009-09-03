@@ -38,7 +38,6 @@
 	// Set local delete to a logic state;
 	localDelete = NO;
 	
-	NSLog(@"Finding the calendar representation of %@", yearMonthToDisplay);
 	// Get the calendar values
 	NSLocale * userLocale = [NSLocale currentLocale];
 	NSDateFormatter * dateFormatter = [[NSDateFormatter alloc] init];
@@ -48,8 +47,6 @@
 	NSRange range;
 	range.length = 2;
 	range.location = 4;
-	
-	NSLog(@"in %@. yearMonthToDisplay has value: %@", self, self.yearMonthToDisplay);
 	
 	@try {
 		// Set the title to the month and year that is viewed
@@ -79,14 +76,6 @@
 	}
 		
 	[self updateIfWorthIt];
-//	/*
-//	 If there is no cache, then the table should be reloaded!
-//	 Because that means there have been changes!
-//	 */
-//	if ((self.transactionsDataCache != nil) & ([self.transactionsDataCache count] == 0)) {
-//		NSLog(@"Reloading table view because of empty cache in %@", self);
-//		
-//	}
 	
 	UIImageView * paperTop = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DetailCellTop.png"]];
 	self.tableView.tableHeaderView = paperTop;
@@ -110,10 +99,7 @@
 
 	self.delegate = nil;
 
-	NSLog(@"Setting detailTableDelegate to nil in dealloc of %@", self);
 	[[CacheMasterSingleton sharedCacheMaster] setDetailTableDelegate:nil];
-
-	NSLog(@"%@ was dealloced", self);
 	
 	[super dealloc];
 }
@@ -141,13 +127,12 @@
 
 #pragma mark Table view methods
 // To get the section shower on the side
-- (NSArray *) sectionIndexTitlesForTableView:(UITableView *)tableView {
+/*- (NSArray *) sectionIndexTitlesForTableView:(UITableView *)tableView {
 	NSLog(@"Asked to regenerate the index titles");
 	
-	NSArray * sections = resultsController.sections;
-	NSInteger sectionCount = sections.count;
+	NSInteger sectionCount = [[CacheMasterSingleton sharedCacheMaster] detailCache_numberOfSections];
 	
-	NSMutableArray * titles = [[[NSMutableArray alloc] initWithCapacity:sectionCount] autorelease];
+	NSMutableArray * titles = [[NSMutableArray alloc] initWithCapacity:sectionCount];
 	
 	for (NSInteger n = 0; n < sectionCount; n++) {
 		NSDictionary * data = [[CacheMasterSingleton sharedCacheMaster] detailCache_dataForSection:n];
@@ -157,9 +142,11 @@
 			[titles addObject:[NSString stringWithFormat:@"%i", [trs.day intValue]]];			
 		}
 	}
-		
-	return titles;
-}
+	NSArray * returnTitles = [NSArray arrayWithArray:titles];
+	[titles release];
+	
+	return returnTitles;
+}*/
 
 /*
  Optimize by only ever calculating the data once!
@@ -225,11 +212,10 @@
 
 // Content cell
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	
-	NSLog(@"Getting cell for indexPath %@", indexPath);
-	
+		
 	// Access the object from the filtered array
 	NSDictionary * data = [[CacheMasterSingleton sharedCacheMaster] detailCache_dataForSection:indexPath.section];
+	
 	Transaction *trs = (Transaction *)[[data objectForKey:@"transactions"] objectAtIndex:indexPath.row];
     
 	static NSString *CellIdentifier = @"DetailCell";
@@ -247,35 +233,8 @@
 	return 40;
 }
 // section header view
-- (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)_section {
-	/*
-	 If there are no elements in the section, then we don't want to display it
-	 */
-	NSDictionary * data = [[CacheMasterSingleton sharedCacheMaster] detailCache_dataForSection:_section];
-	NSInteger count = [[data objectForKey:@"transactions"] count];
-	if (count == 0) {return nil;}
-	
-	
-	NSString * section = [NSString stringWithFormat:@"%i", _section];
-	
-	if (self.headerViewCache == nil) { self.headerViewCache = [[NSMutableDictionary alloc] init];}
-	
-	if ([headerViewCache objectForKey:section] == nil) {
-
-		[[NSBundle mainBundle] loadNibNamed:@"DetailHeaderAndFooter" owner:self options:nil]; 
-				
-		// TODO: Localize the date format display
-		detailHeaderView.monthYear.text = self.title;
-		detailHeaderView.date.text = [data objectForKey:@"date"];
-		detailHeaderView.amount.text = [data objectForKey:@"amount"];
-		
-		// Store view
-		[headerViewCache setObject:detailHeaderView forKey:section];
-		
-	}
-	
-	return [headerViewCache objectForKey:section];
-	
+- (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+	return [[CacheMasterSingleton sharedCacheMaster] detailCache_headerViewForSection:section];
 }
 - (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
 	/*
@@ -310,6 +269,7 @@
 		UIImageView * bottom = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DetailCellFooter.png"]];
 		// Store view
 		[footerViewCache setObject:bottom forKey:section];
+		[bottom release];
 	}
 	return [footerViewCache objectForKey:section];
 }
@@ -331,9 +291,7 @@
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
-	
-	NSLog(@"Selected <%i:%i>", indexPath.section, indexPath.row);
-	
+		
 	// Create new display that shows the transaction
 	TransactionDisplay * infoDisplay =
 		[[TransactionDisplay alloc] initWithNibName:@"TransactionDisplay" 
@@ -358,14 +316,10 @@
 }
 
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView {
-	int temp = [[CacheMasterSingleton sharedCacheMaster] detailCache_numberOfSections];
-	NSLog(@"Getting number of sections in table (in %@) = %i", self, temp);
-	return temp;
+	return [[CacheMasterSingleton sharedCacheMaster] detailCache_numberOfSections];
 }
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	int temp = [[CacheMasterSingleton sharedCacheMaster] detailCache_numberOfRowsInSection:section];
-	NSLog(@"Getting number of rows for section %i (in %@) = %i", section, self, temp);
-	return temp;
+	return [[CacheMasterSingleton sharedCacheMaster] detailCache_numberOfRowsInSection:section];
 }
 
 // Override to support editing the table view.
@@ -405,6 +359,7 @@
 /**
  Delegate methods of NSFetchedResultsController to respond to additions, removals and so on.
  */
+
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
 	if (localDelete) {
 		[self.tableView beginUpdates];
@@ -416,8 +371,9 @@
 		switch(type) {
 			case NSFetchedResultsChangeDelete:
 				[self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationBottom];
-				[self.tableView performSelector:@selector(reloadData) withObject:nil afterDelay:0.3];
-				
+				//[self.tableView performSelector:@selector(reloadData) withObject:nil afterDelay:0.3];
+				//[self performSelector:@selector(updateDataIfWorthIt) withObject:nil afterDelay:0.3];
+
 				break;
 		}
 	}
@@ -433,7 +389,8 @@
 				[self clearDataCache];
 				
 				[self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationBottom];
-				[self.tableView performSelector:@selector(reloadData) withObject:nil afterDelay:0.3];
+				//[self.tableView performSelector:@selector(reloadData) withObject:nil afterDelay:0.3];
+				//[self performSelector:@selector(updateIfWorthIt) withObject:nil afterDelay:0.3];
 				break;
 		}
 	}
@@ -442,17 +399,14 @@
 	if (localDelete) {
 		[self.tableView endUpdates];
 	} else {
-
 		[self updateIfWorthIt];
-//		if ([[Utilities toolbox] isReloadingTableAllowed]) {
-//			[self.tableView reloadData];
-//			NSLog(@"Reloaded data in %@", self);
-//		} else {
-//			NSLog(@"Reloaded data NOT ALLOWED in %@", self);
-//		}
-
 	}
 	localDelete = NO;
 }
+//#pragma mark -
+//#pragma mark NSFetchedResultsController delegate methods
+//- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+//	[self updateIfWorthIt];
+//}
 
 @end

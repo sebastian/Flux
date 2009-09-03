@@ -279,9 +279,11 @@
 	}
 	[urlString appendString:@"&f=nl1"];
 	
-	NSString *csv = [NSString stringWithContentsOfURL:[NSURL URLWithString:urlString]];
+	NSStringEncoding enc;
+	NSString *csv = [NSString stringWithContentsOfURL:[NSURL URLWithString:urlString] usedEncoding:&enc error:NULL]; //[NSString stringWithContentsOfURL:[NSURL URLWithString:urlString]];
+
 	if (!csv) {
-		//NSLog(@"URL could not be retrieved");
+		NSLog(@"URL could not be retrieved in %@", self);
 		[self performSelectorOnMainThread:@selector(refreshFailed) withObject:nil waitUntilDone:YES];
 		[pool release];
 		return;
@@ -316,7 +318,7 @@
 		/* Convert to euros, our universal common factor */
 		NSNumber *conversionRateEuroNumber = [exchangeRates objectForKey:[NSString stringWithFormat:@"\"%@ to EUR\"", sourceCurrency]];
 		if (!conversionRateEuroNumber) {
-			//NSLog(@"Error: Currency code not found or exchange rates not downloaded yet");
+			NSLog(@"Error: Currency code not found or exchange rates not downloaded yet");
 			return 0.0;
 		}	
 		

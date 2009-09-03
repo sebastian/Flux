@@ -10,13 +10,15 @@
 
 
 @interface DetailHeaderView : UIView {
-	UILabel * date;
-	UILabel * amount;
-	UILabel * monthYear;
+	NSString * date;
+	NSString * amount;
+	NSString * monthYear;
 }
 
-@property (nonatomic, retain) IBOutlet UILabel * monthYear;
-@property (nonatomic, retain) IBOutlet UILabel * date;
-@property (nonatomic, retain) IBOutlet UILabel * amount;
+@property (nonatomic, retain) NSString * date;
+@property (nonatomic, retain) NSString * amount;
+@property (nonatomic, retain) NSString * monthYear;
+
+- (void) setDate:(NSString*)_date amount:(NSString*)_amount andMonthYear:(NSString*)_monthYear;
 
 @end

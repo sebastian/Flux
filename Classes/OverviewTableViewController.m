@@ -64,7 +64,6 @@
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	
-	NSLog(@"Reloading tableview on viewWillAppear in %@", self);
 	[self updateIfWorthIt];
 	
 }
@@ -98,11 +97,8 @@
 // Initiates the fetch of results for the table view
 - (void)updateData {
 	@synchronized(self) {
-		NSLog(@"Starting synchronized data load in %@", self);
 		
 		NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-		
-		NSLog(@"Updating data... Getting it from the datastore");
 		
 		// Sort descriptors
 		NSSortDescriptor * sortByYearMonth = [[NSSortDescriptor alloc] initWithKey:@"yearMonth" ascending:NO];	
@@ -113,7 +109,6 @@
 		[self loadDataWithSortDescriptors:sortDescriptors predicates:nil sectionNameKeyPath:@"yearMonth" cacheName:@"overviewTransactionCache"];	
 		
 		[pool release];
-		NSLog(@"Ended synchronized data load in %@", self);
 	}
 }
 - (NSMutableDictionary*)cellCalculations {
@@ -125,11 +120,9 @@
 	 */
 	if (cellCalculations == nil) {
 		// Not loaded yet => load
-		NSLog(@"Loading cell cache");
 		self.cellCalculations = [NSKeyedUnarchiver unarchiveObjectWithFile:[self cellCachePath]];
 		if (cellCalculations == nil) { 
 			// There didn't exist any cache. We create an empty dictionary
-			NSLog(@"Cache was nil... has to be regenerated!");
 			self.cellCalculations = [[NSMutableDictionary alloc] init];
 		}
 	}
@@ -167,10 +160,6 @@
 //	return [[self.cellCalculations objectForKey:@"numOfRows"] intValue];
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-//	[self computeDataForIndexPath:indexPath];
-//	
-//	// Values to use
-//	NSDictionary * dict = [cellCalculations objectForKey:indexPath];
 
 	NSDictionary * dict = [[CacheMasterSingleton sharedCacheMaster] overviewCache_forRow:indexPath.row];
 	
@@ -216,7 +205,6 @@
 - (void) computeDataForIndexPath:(NSIndexPath *)indexPath {
 	if ([cellCalculations objectForKey:indexPath] == nil) {
 				
-		NSLog(@"Generating overview data for row: %i", indexPath.row);
 		
 		// Get info to put into cell:
 		NSArray * sections = [self.resultsController sections];
@@ -317,14 +305,6 @@
 #pragma mark NSFetchedResultsController delegate methods
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
 	[self updateIfWorthIt];
-	
-//	if ([[Utilities toolbox] isReloadingTableAllowed]) {
-//		[self.tableView reloadData];
-//		NSLog(@"Reloaded data in %@ because of controllerDidChangeContent:", self);
-//		[self setBadgeBalance];
-//	} else {
-//		NSLog(@"Reloaded data NOT ALLOWED in %@", self);
-//	}
 }
 
 @end

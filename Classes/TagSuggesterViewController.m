@@ -62,17 +62,11 @@
 -(void)setTagText:(NSString*)text {
 	NSArray * words = [text componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
 	NSString * word = [words lastObject];
-	NSLog(@"Currently working with: %@", word);
 	
 	self.currentWord = word;
 		
 	self.matchingTags = [[Utilities toolbox] twoTagsStartingWith:word];
-	
-	NSLog(@"Tags:");
-	for (Tag * tag in self.matchingTags) {
-		NSLog(@"\t%@", tag.name);
-	}
-	
+		
 	[self.localTableView reloadData];
 	
 	if ((![word isEqualToString:@""]) && ([self.matchingTags count] > 0)){
@@ -142,7 +136,6 @@
     return cell;
 }	
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	NSLog(@"Clicked on the tableview cell");
 	
 	NSString * tag = ((Tag*)[self.matchingTags objectAtIndex:indexPath.row]).name;
 	

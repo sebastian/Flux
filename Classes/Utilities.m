@@ -68,26 +68,8 @@ static Utilities *sharedUtilitiesToolbox = nil;
 	} else {
 		[tagExistance setValue:[NSNumber numberWithBool:YES] forKey:tag];
 		
-		/*
-		 If the user does not use autotags, then we have to say no
-		 if the current tag is actually an autotag!
-		 */
-		if (![[[NSUserDefaults standardUserDefaults] objectForKey:@"KleioTransactionsAutoTags"] boolValue]) {
-			if ([((NSNumber*)[[Utilities toolbox] tagObjectforTag:tag].autotag) boolValue] == YES) {
-				/*
-				 The user does not want to use autotags. 
-				 Hence this tag "doesn't" exist in his or her opinion
-				 */
-				return NO;
-			} else {
-				return YES;
-			}
-			
-		} else {
+		return YES;
 
-			// There is a tag, so return yes if the user has autotags enabled
-			return YES;
-		}
 	}
 }
 -(void)addTag:(NSString*)tag autotag:(BOOL)autotag location:(CLLocation*)loc {
@@ -103,8 +85,6 @@ static Utilities *sharedUtilitiesToolbox = nil;
 
 	if (currentTag == nil) {
 
-		NSLog(@"Creating a new tag for: %@", tag);
-		
 		Tag * newTag = [NSEntityDescription insertNewObjectForEntityForName:@"Tag" 
 													 inManagedObjectContext:self.managedObjectContext];
 		
@@ -260,11 +240,8 @@ static Utilities *sharedUtilitiesToolbox = nil;
 		 Finish its work
 		 */
 		
-		NSLog(@"There is a preexisting geocoder");
-
 		// Cancel querying if it is doing work
 		if ([self.geoCoder isQuerying]) {
-			NSLog(@"\tit is still working. Shutting it down.");
 			// Terminate the current geocoding
 			if (self.geoCoder.delegate != nil) {
 				[self.geoCoder.delegate reverseGeocoder:self.geoCoder didFailWithError:[NSError errorWithDomain:@"GeoCoderKleioOtherUserWantedToGeoCode" code:1 userInfo:nil]];
@@ -301,7 +278,6 @@ static Utilities *sharedUtilitiesToolbox = nil;
 	//[self save:self.managedObjectContext];
 }
 - (void)save:(NSManagedObjectContext*)context {
-
 	NSError *error;
     if (context != nil) {
 		if ([context hasChanges]) {

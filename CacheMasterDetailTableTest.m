@@ -103,13 +103,17 @@
 	STAssertEquals(controller.worthUpdating, YES, @"Should be worth updating after save");
 	numOfElements = [[[CacheMasterSingleton sharedCacheMaster] detailCache_cellCache] count];
 	STAssertEquals(numOfElements, 0, @"Shouldn't have any elements");
-	
+	numOfElements = [[[CacheMasterSingleton sharedCacheMaster] detailCache_headerViewCache] count];
+	STAssertEquals(numOfElements, 0, @"Shouldn't have any elements");
+
 	Transaction * t2 = [self getTransaction];
 	t2.date = date2;
 	controller.worthUpdating = NO;
 	[[Utilities toolbox] save:context];
 	STAssertEquals(controller.worthUpdating, NO, @"Should not care about transactions that don't belong to the detail view");
 	numOfElements = [[[CacheMasterSingleton sharedCacheMaster] detailCache_cellCache] count];
+	STAssertEquals(numOfElements, 0, @"Shouldn't have any elements");
+	numOfElements = [[[CacheMasterSingleton sharedCacheMaster] detailCache_headerViewCache] count];
 	STAssertEquals(numOfElements, 0, @"Shouldn't have any elements");
 	
 	Transaction * t3 = [self getTransaction];
@@ -119,6 +123,8 @@
 	STAssertEquals(controller.worthUpdating, YES, @"Should care about transactions that belong to the detail view");
 	numOfElements = [[[CacheMasterSingleton sharedCacheMaster] detailCache_cellCache] count];
 	STAssertEquals(numOfElements, 0, @"Shouldn't have any elements");
+	numOfElements = [[[CacheMasterSingleton sharedCacheMaster] detailCache_headerViewCache] count];
+	STAssertEquals(numOfElements, 0, @"Shouldn't have any elements");
 	
 	Transaction * t4 = [self getTransaction];
 	t4.date = date3;
@@ -127,7 +133,8 @@
 	STAssertEquals(controller.worthUpdating, NO, @"Should not care about transactions that don't belong to the detail view");
 	numOfElements = [[[CacheMasterSingleton sharedCacheMaster] detailCache_cellCache] count];
 	STAssertEquals(numOfElements, 0, @"Shouldn't have any elements");
-	
+	numOfElements = [[[CacheMasterSingleton sharedCacheMaster] detailCache_headerViewCache] count];
+	STAssertEquals(numOfElements, 0, @"Shouldn't have any elements");
 	
 }
 
@@ -154,6 +161,8 @@
 	STAssertEquals(controller.worthUpdating, YES, @"Should be worth updating after save");
 	numOfElements = [[[CacheMasterSingleton sharedCacheMaster] detailCache_cellCache] count];
 	STAssertEquals(numOfElements, 0, @"Shouldn't have any elements");
+	numOfElements = [[[CacheMasterSingleton sharedCacheMaster] detailCache_headerViewCache] count];
+	STAssertEquals(numOfElements, 0, @"Shouldn't have any elements");
 	
 	[controller setWorthUpdating:NO];
 	[context deleteObject:trs];
@@ -161,13 +170,15 @@
 	STAssertEquals(controller.worthUpdating, YES, @"Should be worth updating after save");
 	numOfElements = [[[CacheMasterSingleton sharedCacheMaster] detailCache_cellCache] count];
 	STAssertEquals(numOfElements, 0, @"Shouldn't have any elements");
-
+	numOfElements = [[[CacheMasterSingleton sharedCacheMaster] detailCache_headerViewCache] count];
+	STAssertEquals(numOfElements, 0, @"Shouldn't have any elements");
+	
 	[controller setWorthUpdating:NO];
 	[context deleteObject:t3];
 	[[Utilities toolbox] save:context];	
 	STAssertEquals(controller.worthUpdating, NO, @"Should be worth updating after save");
 	numOfElements = [[[CacheMasterSingleton sharedCacheMaster] detailCache_cellCache] count];
-
+	
 	[controller setWorthUpdating:NO];
 	[context deleteObject:t4];
 	[[Utilities toolbox] save:context];	
@@ -180,7 +191,8 @@
 	STAssertEquals(controller.worthUpdating, YES, @"Should be worth updating after save");
 	numOfElements = [[[CacheMasterSingleton sharedCacheMaster] detailCache_cellCache] count];
 	STAssertEquals(numOfElements, 0, @"Shouldn't have any elements");
-	
+	numOfElements = [[[CacheMasterSingleton sharedCacheMaster] detailCache_headerViewCache] count];
+	STAssertEquals(numOfElements, 0, @"Shouldn't have any elements");	
 }
 
 #pragma mark Updating transactions
@@ -216,18 +228,24 @@
 	STAssertEquals(controller.worthUpdating, YES, @"Should be worth updating after save");
 	numOfElements = [[[CacheMasterSingleton sharedCacheMaster] detailCache_cellCache] count];
 	STAssertEquals(numOfElements, 0, @"Shouldn't have any elements");
+	numOfElements = [[[CacheMasterSingleton sharedCacheMaster] detailCache_headerViewCache] count];
+	STAssertEquals(numOfElements, 0, @"Shouldn't have any elements");
 	
 	t3.date = date3;
 	[controller setWorthUpdating:NO];
 	[[Utilities toolbox] save:context];	
 	STAssertEquals(controller.worthUpdating, NO, @"Should be worth updating after save");
 	numOfElements = [[[CacheMasterSingleton sharedCacheMaster] detailCache_cellCache] count];
+	numOfElements = [[[CacheMasterSingleton sharedCacheMaster] detailCache_headerViewCache] count];
+	STAssertEquals(numOfElements, 0, @"Shouldn't have any elements");
 	
 	t4.date = date1;
 	[controller setWorthUpdating:NO];
 	[[Utilities toolbox] save:context];	
 	STAssertEquals(controller.worthUpdating, YES, @"Should be worth updating after save");
 	numOfElements = [[[CacheMasterSingleton sharedCacheMaster] detailCache_cellCache] count];
+	numOfElements = [[[CacheMasterSingleton sharedCacheMaster] detailCache_headerViewCache] count];
+	STAssertEquals(numOfElements, 0, @"Shouldn't have any elements");
 	
 	[controller setWorthUpdating:NO];
 	t2.date = date1;
@@ -235,12 +253,16 @@
 	STAssertEquals(controller.worthUpdating, YES, @"Should be worth updating after save");
 	numOfElements = [[[CacheMasterSingleton sharedCacheMaster] detailCache_cellCache] count];
 	STAssertEquals(numOfElements, 0, @"Shouldn't have any elements");
-
+	numOfElements = [[[CacheMasterSingleton sharedCacheMaster] detailCache_headerViewCache] count];
+	STAssertEquals(numOfElements, 0, @"Shouldn't have any elements");
+	
 	[controller setWorthUpdating:NO];
 	t2.date = date4;
 	[[Utilities toolbox] save:context];	
 	STAssertEquals(controller.worthUpdating, YES, @"Should be worth updating after save");
 	numOfElements = [[[CacheMasterSingleton sharedCacheMaster] detailCache_cellCache] count];
+	STAssertEquals(numOfElements, 0, @"Shouldn't have any elements");
+	numOfElements = [[[CacheMasterSingleton sharedCacheMaster] detailCache_headerViewCache] count];
 	STAssertEquals(numOfElements, 0, @"Shouldn't have any elements");
 }
 

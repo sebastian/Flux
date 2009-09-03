@@ -62,42 +62,8 @@
 	[super viewDidUnload];
 }
 
-- (void)objectContextUpdated:(NSNotification *)notification {		
-	NSDictionary * dict = notification.userInfo;
-	NSArray * inserted = [dict objectForKey:@"inserted"];
-	NSArray * updated = [dict objectForKey:@"updated"];
-	NSArray * deleted = [dict objectForKey:@"deleted"];
-	
-	BOOL thereIsATransactionObject = NO;
-	
-	/* 
-	 Check if there has been changes to a Transaction object
-	 */
-	for (id trs in updated) {if ([trs class] == [Transaction class]) {thereIsATransactionObject = YES;}}
-	for (id trs in deleted) {if ([trs class] == [Transaction class]) {thereIsATransactionObject = YES;}}
-	for (id trs in inserted) {if ([trs class] == [Transaction class]) {thereIsATransactionObject = YES;}}
-
-	/*
-	 Ok, if there is one or more, then we have to update the table views
-	 */
-	if (thereIsATransactionObject) {
-		/* 
-		 Do the brute force approach. If something has been deleted, inserted or changed,
-		 kill the cache and regenerate it again
-		 */
-		NSLog(@"Merging changes to object context for changed transaction");
-//		[[NSNotificationCenter defaultCenter] postNotificationName:@"FinanceKillAllCache" object:self];
-	}
-//	
-//	/* 
-//	 Now merge the data into the context's around the world. 
-//	 That in turn will trigger the reloading of the tables...
-//	 */
-	
-	
-	NSLog(@"Merging changes for NSFetchedResultsController in %@", self);
-	[self.managedObjectContext mergeChangesFromContextDidSaveNotification:notification];
-	
+- (void)objectContextUpdated:(NSNotification *)notification {
+	[self.managedObjectContext mergeChangesFromContextDidSaveNotification:notification];	
 }
 
 - (void)dealloc {

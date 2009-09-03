@@ -102,7 +102,7 @@
 -(void)hideSearchBar {
 	searchIsVisible = NO;
 	
-	[[KleioSearchBar searchBar] resignFirstResponder];
+	[[KleioSearchBar searchBar] doResignFirstResponder];
 	
 	CGRect frame = self.contentView.frame;
 	frame.origin.y = 0;

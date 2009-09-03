@@ -38,7 +38,6 @@ static KleioSearchBar * sharedSearchBar = nil;
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
 	
 	if (self.tagSuggester == nil) {
-		NSLog(@"Created a tag suggester");
 		self.tagSuggester = [[TagSuggesterViewController alloc] init];
 		self.tagSuggester.delegate = self;
 		[self.tagSuggester isForSearchBar];
@@ -57,7 +56,7 @@ static KleioSearchBar * sharedSearchBar = nil;
 	return YES;
 }
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-	[self resignFirstResponder];
+	[self doResignFirstResponder];
 	return YES;
 }
 - (BOOL)textFieldShouldClear:(UITextField *)textField {
@@ -70,7 +69,6 @@ static KleioSearchBar * sharedSearchBar = nil;
 #pragma mark -
 #pragma mark Methods that can be externally called
 - (void) hide {
-	NSLog(@"Removed a tag suggester");
 	[self.tagSuggester remove];
 	self.tagSuggester = nil;
 	
@@ -82,7 +80,6 @@ static KleioSearchBar * sharedSearchBar = nil;
 }
 - (void) toggle {
 	if ([delegate isVisible]) {
-		NSLog(@"Removed a tag suggester");
 		[self.tagSuggester remove];
 		self.tagSuggester = nil;
 	}		
@@ -90,13 +87,12 @@ static KleioSearchBar * sharedSearchBar = nil;
 	[delegate wantsToBeToggled];
 }
 - (void) hideButRetainState {
-	NSLog(@"Removed a tag suggester");
 	[self.tagSuggester remove];
 	self.tagSuggester = nil;
 		
 	[delegate wantsToBeHiddenWithoutClearingState];
 }
-- (void) resignFirstResponder { [searchBarTextField resignFirstResponder]; }
+- (void) doResignFirstResponder { [searchBarTextField resignFirstResponder]; }
 - (void) clearSearchState {
 	
 	// Clear the search when it is hidden
@@ -142,7 +138,6 @@ static KleioSearchBar * sharedSearchBar = nil;
 #pragma mark -
 #pragma mark TagSuggesterDelegate methods
 -(void)addTagWord:(NSString*)tag {
-	NSLog(@"Adding tag: %@", tag);
 	searchBarTextField.text = [searchBarTextField.text stringByAppendingString:tag];
 	[searchBarTerm setText:searchBarTextField.text];
 	[bubbleView setNeedsDisplay];

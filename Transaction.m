@@ -122,7 +122,7 @@
 }
 
 - (void)willSave {
-	self.changes = [self changedValues];
+	self.changes = [self changedValues];	
 }
 - (void)didSave {	
 	if (!self.isDeleted) {
@@ -166,7 +166,7 @@
 			}
 		}
 	}
-	
+
 	// Notify the cache master of the change
 	[[CacheMasterSingleton sharedCacheMaster] updatedTransaction:self];
 	

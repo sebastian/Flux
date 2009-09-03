@@ -31,8 +31,6 @@
 	word = aWord;
 	validTag = [[Utilities toolbox] doesTagExist:aWord];
 	
-	NSLog(@"%@ is a valid tag? %i", aWord, validTag);
-	
 	/*
 	 If the current word is valid then we should notify 
 	 the delegate. Likewise if it previously was a valid tag

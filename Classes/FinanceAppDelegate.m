@@ -9,10 +9,8 @@
 #import "FinanceAppDelegate.h"
 #import "ExpenseInputViewController.h"
 #import "TransactionsNavigationController.h"
-#import "BetaViewController.h"
 #import "Utilities.h"
 #import "TransactionsMainViewController.h"
-#import "SettingsViewController.h"
 
 @implementation FinanceAppDelegate
 
@@ -45,8 +43,6 @@
 		[[TransactionsMainViewController alloc] initWithNibName:@"TransactionFilterViewController" 
 														  bundle:[NSBundle mainBundle]
 													  andContext:context];
-	//TransactionsViewController * transactionViewController = [[TransactionsViewController alloc] initWithContext:context];
-	[context release];
 
 	
 	/*
@@ -68,33 +64,13 @@
 	addExpenseController.managedObjectContext = contextAddExpense;
 	[contextAddExpense release];
 	
-	/*
-	 We also give the beta screen a context of its own
-	 */
-	NSManagedObjectContext *contextBeta = [[NSManagedObjectContext alloc] init];
-	[contextBeta setPersistentStoreCoordinator: [self persistentStoreCoordinator]];
-    if (!contextBeta) { 
-        NSLog(@"Couldn't get a managedObjectContext number 2");
-    }
-	BetaViewController * betaController = [[BetaViewController alloc] initWithNibName:@"BetaViewController" bundle:[NSBundle mainBundle]];
-	betaController.managedObjectContext = contextBeta;
-	[contextBeta release];
-	
-
-	/*
-	 Settings controller
-	 */
-	SettingsViewController * settingsController = [[SettingsViewController alloc] initWithNibName:@"SettingsViewController" bundle:[NSBundle mainBundle]];
-	
 		
 	// Group all the view controllers
-	NSArray * controllers = [NSArray arrayWithObjects:addExpenseController, transactionViewController, settingsController, betaController, nil];
+	NSArray * controllers = [NSArray arrayWithObjects:addExpenseController, transactionViewController, nil];
 
 	// The control over the view controllers is now the business of the controllers array
 	[transactionViewController release];
 	[addExpenseController release];
-	[betaController release];
-	[settingsController release];
 	
 	self.tabBarController = [[UITabBarController alloc] initWithNibName:nil bundle:nil]; 	
 	[self.tabBarController setViewControllers:controllers]; 
@@ -110,9 +86,7 @@
  applicationWillTerminate: saves changes in the application's managed object context before the application terminates.
  */
 - (void)applicationWillTerminate:(UIApplication *)application {
-	
-	NSLog(@"Application will terminate");
-	
+		
     NSError *error;
     if (managedObjectContext != nil) {
         if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {

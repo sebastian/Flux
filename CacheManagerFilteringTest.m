@@ -147,28 +147,23 @@
  something
  else
 */ 
-/*- (void) testPropagationOfPredicates {
+- (void) testPropagationOfPredicates {
 	NSPredicate * newPredicate = [NSPredicate predicateWithFormat:@"tags contains[cd] \" hallo \""];
 	[[CacheMasterSingleton sharedCacheMaster] setFilteringPredicate:newPredicate];
 	BOOL equality = [[[CacheMasterSingleton sharedCacheMaster] truePredicate] isEqual:[[CacheMasterSingleton sharedCacheMaster] filteringPredicate]];
 	STAssertFalse(equality, @"Should have updated the filtering predicate");
-}*/
+}
 - (void) testSetPredicatesOverview {
 	[self populateCacheOverview];
-	NSDictionary * originalDict = [[[CacheMasterSingleton sharedCacheMaster] overviewCache_cellCache] copy];
-	NSDictionary * dict = [[CacheMasterSingleton sharedCacheMaster] overviewCache_cellCache];
+	NSDictionary * dict;
 		
 	NSPredicate * newPredicate = [NSPredicate predicateWithFormat:@"tags contains[cd] \" hallo \""];
 	[[CacheMasterSingleton sharedCacheMaster] setFilteringPredicate:newPredicate];
 	
-	NSDictionary * nonFilteredDict = [[CacheMasterSingleton sharedCacheMaster] overviewCache_cellCache_nonfiltered];
-	
-	STAssertTrue([originalDict isEqual:nonFilteredDict], @"Should have a nonfiltered copy");
-
 	// Should have cleared the current dict
 	dict = [[CacheMasterSingleton sharedCacheMaster] overviewCache_cellCache];
 	STAssertEquals((NSInteger)[dict count], 0, @"Shouldn't have any elements");
-	
+		
 	// It should have elements after the cache has been populated
 	[self populateCacheOverview];
 	dict = [[CacheMasterSingleton sharedCacheMaster] overviewCache_cellCache];
@@ -178,6 +173,7 @@
 	NSInteger amount2 = [[[dict objectForKey:@"197002"] objectForKey:@"rawAmount"] intValue];
 	STAssertTrue(amount1 != 0, @"Should have an amount");
 	STAssertEquals(amount2, 0, @"Should have no amount");
+	
 	
 	// Should not clear the cache if the same predicate is set again
 	[[CacheMasterSingleton sharedCacheMaster] setFilteringPredicate:newPredicate];
@@ -190,25 +186,71 @@
 	STAssertTrue(amount1 != 0, @"Should have an amount");
 	STAssertEquals(amount2, 0, @"Should have no amount");
 	
-	NSLog(@"Cache: %@",dict);
-	NSLog(@"OrigCache: %@",originalDict);
-	
-	// Should set back the main cache if the true predicate is set
-	[[CacheMasterSingleton sharedCacheMaster] setFilteringPredicate:[NSPredicate predicateWithValue:YES]];
-	STAssertEqualObjects(originalDict, [[CacheMasterSingleton sharedCacheMaster] overviewCache_cellCache], @"Should be the same");
- 
 }
-- (void) testSetPredicatesDetail {
-	[self populateCacheDetail];
-	 
-	NSDictionary * dict = [[CacheMasterSingleton sharedCacheMaster] detailCache_cellCache];
-	NSInteger count = [dict count];
-	STAssertTrue(count == 1, @"Should have one section/day");
+- (void) testDeleteAndChangeWhileFilteringForOverview {
+	Transaction * toDelete = [self getTransaction];
+	toDelete.date = [NSDate dateWithTimeIntervalSince1970:0]; // 1 January 1970
+	toDelete.kroner = [NSNumber numberWithInt:100];
+	[[Utilities toolbox] save:context];
+		
+	[self populateCacheOverview];
+	NSDictionary * originalDict = [[[CacheMasterSingleton sharedCacheMaster] overviewCache_cellCache] copy];
 	
 	NSPredicate * newPredicate = [NSPredicate predicateWithFormat:@"tags contains[cd] \" hallo \""];
 	[[CacheMasterSingleton sharedCacheMaster] setFilteringPredicate:newPredicate];
+	[self populateCacheOverview];
+	NSDictionary * dict = [[[CacheMasterSingleton sharedCacheMaster] overviewCache_cellCache] copy];
+	
+	STAssertTrue(![originalDict isEqualToDictionary:dict], @"Should not be equal after the change of filtering");
+	
+	[context deleteObject:toDelete];
+	[[Utilities toolbox] save:context];	
+	[self populateCacheOverview];
+	NSDictionary * dict2 = [[CacheMasterSingleton sharedCacheMaster] overviewCache_cellCache];
+	STAssertTrue(![dict isEqualToDictionary:dict2], @"Should not be equal, since I have deleted one element");
+			
+}
+- (void) testSetPredicatesDetail {
 
- 
+	[self populateCacheDetail];
+	
+	NSInteger numOfTransactions;
+	NSDictionary * dict;
+	NSPredicate * newPredicate;
+	
+	dict = [[CacheMasterSingleton sharedCacheMaster] detailCache_cellCache];
+	numOfTransactions = (NSInteger)[[[dict objectForKey:[NSNumber numberWithInt:0]] objectForKey:@"transactions"] count];
+	STAssertEquals(numOfTransactions, 9,@"Should have all objects");
+	
+	//*******
+	
+	newPredicate = [NSPredicate predicateWithFormat:@"tags contains[cd] \" hallo \""];
+	[[CacheMasterSingleton sharedCacheMaster] setFilteringPredicate:newPredicate];
+		
+	dict = [[CacheMasterSingleton sharedCacheMaster] detailCache_cellCache];
+	numOfTransactions = (NSInteger)[[[dict objectForKey:[NSNumber numberWithInt:0]] objectForKey:@"transactions"] count];
+	STAssertEquals(numOfTransactions, 4, @"Should less objects (only with tag hallo)");
+	
+	//*******
+	
+	newPredicate = [NSPredicate predicateWithFormat:@"tags contains[cd] \" hallo \" AND tags contains[cd] \" test \""];
+	[[CacheMasterSingleton sharedCacheMaster] setFilteringPredicate:newPredicate];
+	
+	dict = [[CacheMasterSingleton sharedCacheMaster] detailCache_cellCache];
+	numOfTransactions = (NSInteger)[[[dict objectForKey:[NSNumber numberWithInt:0]] objectForKey:@"transactions"] count];
+	STAssertEquals(numOfTransactions, 2, @"Should less objects (only with tag hallo and tag test)");
+	
+	//*******
+
+	newPredicate = [NSPredicate predicateWithFormat:@"tags contains[cd] \" hallo \" AND tags contains[cd] \" test \" AND tags contains[cd] \" sugar \""];
+	[[CacheMasterSingleton sharedCacheMaster] setFilteringPredicate:newPredicate];
+	
+	dict = [[CacheMasterSingleton sharedCacheMaster] detailCache_cellCache];
+	numOfTransactions = (NSInteger)[[[dict objectForKey:[NSNumber numberWithInt:0]] objectForKey:@"transactions"] count];
+	STAssertEquals(numOfTransactions, 0, @"Should less objects (only with tag hallo and tag test and sugar)");
+	
+	//*******
+
 }
 
 @end

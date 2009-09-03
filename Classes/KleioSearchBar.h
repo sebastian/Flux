@@ -56,7 +56,7 @@
 - (void) show;
 - (void) toggle;
 - (void) hideButRetainState;
-- (void)resignFirstResponder;
+- (void)doResignFirstResponder;
 - (void)clearSearchState;
 - (void)setSearchString:(NSString*)text;
 - (BOOL)isVisible;

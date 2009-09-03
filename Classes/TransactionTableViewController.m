@@ -46,10 +46,8 @@
 		 Set the cache delegate
 		 */
 		if ([self class] == [OverviewTableViewController class]) {
-			NSLog(@"Setting overviewTableDelegate in viewDidLoad of %@", self);
 			[[CacheMasterSingleton sharedCacheMaster] setOverviewTableDelegate:(OverviewTableViewController*)self];
 		} else if ([self class] == [DetailTableViewController class]) {
-			NSLog(@"Setting detailTableDelegate in viewDidLoad of %@", self);
 			[[CacheMasterSingleton sharedCacheMaster] setDetailTableDelegate:(DetailTableViewController*)self];
 		}
 		
@@ -107,13 +105,6 @@
 	
 	self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 	self.tableView.backgroundColor = [UIColor clearColor];
-}
-- (void)viewDidUnload {
-	
-	//NSLog(@"View Did Unload called in %@", self);
-	// Remove from NotificationCenter
-	//[[NSNotificationCenter defaultCenter] removeObserver:self];
-	
 }
 
 - (NSFetchedResultsController*)resultsController {
@@ -217,7 +208,7 @@
 		[self.tableView reloadData];
 		self.worthUpdating = NO;
 	} else {
-		NSLog(@"Not worth the hassle reloading table view data.");
+		NSLog(@"Not worth the hassle reloading table view data. (%@)", self);
 	}
 }
 
@@ -242,6 +233,7 @@
 	
 	NSLog(@"Clearing cache in %@ to help", self);
 	[self clearCacheIfAvailable];
+	[[CacheMasterSingleton sharedCacheMaster] clearCache];
 	
     [super didReceiveMemoryWarning];
 }

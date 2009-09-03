@@ -17,7 +17,7 @@
 #import "Location.h"
 #import "Tag.h"
 #import "Transaction.h"
-
+#import "CacheMasterSingleton.h"
 
 @interface ExpenseInputViewController (Private)
 -(void)updateExpenseDisplay;
@@ -229,101 +229,95 @@
 	
 	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
 	
-	// Find tags close by if the user wants location tags
-	if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"KleioTransactionsLocationTags"] boolValue]) {
-		
-		NSError *error;
-		
-		// Get all the transactions
-		NSFetchRequest * fetchRequest = [[NSFetchRequest alloc] init];
-		NSEntityDescription * entity = [NSEntityDescription entityForName:@"Location" inManagedObjectContext:self.managedObjectContext];
-		[fetchRequest setEntity:entity];
-		
-		// TODO: limit tag lookup
-		/*
-		 Should look for tags with location that are within a certain latitudal range.
-		 1 degree in latitude is approx 111 km
-		 Hence I should store lat in the location class and then I can look for
-		 within a range... To speed up the lookup.
-		 */
-		
-		double diff = 0.0005;
-		double plusLatDelta = self.bestLocation.coordinate.latitude + diff;
-		double minusLatDelta = self.bestLocation.coordinate.latitude - diff;
-
-		/* the longitutes are dependent on location, so I make the delta bigger to make sure I get something! */
-		double lngDiff = 0.005;
-		double plusLngDelta = self.bestLocation.coordinate.longitude + lngDiff;
-		double minusLngDelta = self.bestLocation.coordinate.longitude - lngDiff;
-		
-		NSPredicate * deltaLatPredicate = [NSPredicate predicateWithFormat:@"latitude BETWEEN {%f, %f}", minusLatDelta, plusLatDelta];
-		NSPredicate * deltaLngPredicate = [NSPredicate predicateWithFormat:@"longitude BETWEEN {%f, %f}", minusLngDelta, plusLngDelta];
-		NSPredicate * notAutotags = [NSPredicate predicateWithFormat:@"tag.autotag = NO"];
-		NSPredicate * locationPredicate = 
-			[NSCompoundPredicate andPredicateWithSubpredicates:[NSArray arrayWithObjects:deltaLatPredicate, deltaLngPredicate, notAutotags, nil]];
-		
-		[fetchRequest setPredicate:locationPredicate];
-		
-		
-		NSArray * fetchedLocations = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
-		[fetchRequest release];
-		
-		NSMutableArray * tagsToSuggest = [[NSMutableArray alloc] init];
-		
-		for (Location * location in fetchedLocations) {
-			CLLocationDistance distance;
-			@try {
-				distance = [self.bestLocation getDistanceFrom:location.location];
-			}
-			@catch (NSException * e) {
-				NSLog(@"Got strange error when trying to check distance of tag! %@", e);
-				distance = 3000; // Some strange error... just set it to something we won't use...
-			}
-			/* If the tag is closer than 50 meters then use it */
-			if (distance < 150.f) {
-				/*
-				 This is a tag we can use! Add it unless, it has already been added
-				 */
-				if (![tagsToSuggest containsObject:location.tag]) {
-					[tagsToSuggest addObject:location.tag];
-				}
-			}
-			
+	NSError *error;
+	
+	// Get all the transactions
+	NSFetchRequest * fetchRequest = [[NSFetchRequest alloc] init];
+	NSEntityDescription * entity = [NSEntityDescription entityForName:@"Location" inManagedObjectContext:self.managedObjectContext];
+	[fetchRequest setEntity:entity];
+	
+	// TODO: limit tag lookup
+	/*
+	 Should look for tags with location that are within a certain latitudal range.
+	 1 degree in latitude is approx 111 km
+	 Hence I should store lat in the location class and then I can look for
+	 within a range... To speed up the lookup.
+	 */
+	
+	double diff = 0.0005;
+	double plusLatDelta = self.bestLocation.coordinate.latitude + diff;
+	double minusLatDelta = self.bestLocation.coordinate.latitude - diff;
+	
+	/* the longitutes are dependent on location, so I make the delta bigger to make sure I get something! */
+	double lngDiff = 0.005;
+	double plusLngDelta = self.bestLocation.coordinate.longitude + lngDiff;
+	double minusLngDelta = self.bestLocation.coordinate.longitude - lngDiff;
+	
+	NSPredicate * deltaLatPredicate = [NSPredicate predicateWithFormat:@"latitude BETWEEN {%f, %f}", minusLatDelta, plusLatDelta];
+	NSPredicate * deltaLngPredicate = [NSPredicate predicateWithFormat:@"longitude BETWEEN {%f, %f}", minusLngDelta, plusLngDelta];
+	NSPredicate * notAutotags = [NSPredicate predicateWithFormat:@"tag.autotag = NO"];
+	NSPredicate * locationPredicate = 
+	[NSCompoundPredicate andPredicateWithSubpredicates:[NSArray arrayWithObjects:deltaLatPredicate, deltaLngPredicate, notAutotags, nil]];
+	
+	[fetchRequest setPredicate:locationPredicate];
+	
+	
+	NSArray * fetchedLocations = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+	[fetchRequest release];
+	
+	NSMutableArray * tagsToSuggest = [[NSMutableArray alloc] init];
+	
+	for (Location * location in fetchedLocations) {
+		CLLocationDistance distance;
+		@try {
+			distance = [self.bestLocation getDistanceFrom:location.location];
 		}
-		
-		if (([tagsToSuggest count] > 0) && (isVisible == YES)) {
-			UIAlertView * alert = [[UIAlertView alloc] init];
-			
-			// save them so we have them for the answer
-			suggestedTags = [tagsToSuggest copy];
-			
-			alert.title = NSLocalizedString(@"Found tags previously used in this area",nil);
-			
-			alert.message = NSLocalizedString(@"Do you want to use the following tags:",nil);
-			
-			NSString * tagNames = [NSString stringWithFormat:@" %@", ((Tag*)[tagsToSuggest objectAtIndex:0]).name];
-			[tagsToSuggest removeObjectAtIndex:0];
-			
-			for (Tag * tag in tagsToSuggest) {
-				tagNames = [tagNames stringByAppendingFormat:@", %@", tag.name];
-			}
-			tagNames = [tagNames stringByAppendingString:@"."];
-			
-			alert.message = [alert.message stringByAppendingString:tagNames];
-			
-			[alert addButtonWithTitle:NSLocalizedString(@"Yes",nil)];
-			[alert addButtonWithTitle:NSLocalizedString(@"No",nil)];
-			
-			alert.delegate = self;
-			
-			[alert show];
+		@catch (NSException * e) {
+			NSLog(@"Got strange error when trying to check distance of tag! %@", e);
+			distance = 3000; // Some strange error... just set it to something we won't use...
 		}
-		
-		[tagsToSuggest release];
+		/* If the tag is closer than 50 meters then use it */
+		if (distance < 150.f) {
+			/*
+			 This is a tag we can use! Add it unless, it has already been added
+			 */
+			if (![tagsToSuggest containsObject:location.tag]) {
+				[tagsToSuggest addObject:location.tag];
+			}
+		}
 		
 	}
 	
+	if (([tagsToSuggest count] > 0) && (isVisible == YES)) {
+		UIAlertView * alert = [[UIAlertView alloc] init];
+		
+		// save them so we have them for the answer
+		suggestedTags = [tagsToSuggest copy];
+		
+		alert.title = NSLocalizedString(@"Found tags previously used in this area",nil);
+		
+		alert.message = NSLocalizedString(@"Do you want to use the following tags:",nil);
+		
+		NSString * tagNames = [NSString stringWithFormat:@" %@", ((Tag*)[tagsToSuggest objectAtIndex:0]).name];
+		[tagsToSuggest removeObjectAtIndex:0];
+		
+		for (Tag * tag in tagsToSuggest) {
+			tagNames = [tagNames stringByAppendingFormat:@", %@", tag.name];
+		}
+		tagNames = [tagNames stringByAppendingString:@"."];
+		
+		alert.message = [alert.message stringByAppendingString:tagNames];
+		
+		[alert addButtonWithTitle:NSLocalizedString(@"Yes",nil)];
+		[alert addButtonWithTitle:NSLocalizedString(@"No",nil)];
+		
+		alert.delegate = self;
+		
+		[alert show];
+	}
 	
+	[tagsToSuggest release];
+		
 	[pool release];
 	
 }
@@ -362,21 +356,17 @@
 #pragma mark -
 #pragma mark TagSuggesterDelegate methods
 -(void)addTagWord:(NSString*)tag {
-	NSLog(@"Adding tag: %@", tag);
 	tagsField.text = [tagsField.text stringByAppendingString:tag];
 }
 -(IBAction)textChanged {
-	NSLog(@"Text changed");
 	[self.tagSuggester setTagText:tagsField.text];
 }
 -(IBAction)startedEditing {
-	NSLog(@"Created a tag suggester");
 	self.tagSuggester = [[TagSuggesterViewController alloc] init];
 	self.tagSuggester.delegate = self;
 	[self.tagSuggester isForAddExpenseView];
 }
 -(IBAction)stoppedEditing {
-	NSLog(@"Removed a tag suggester");
 	[self.tagSuggester remove];
 	self.tagSuggester = nil;
 }
@@ -563,36 +553,37 @@
 	// Set tags and description
 	currentTransaction.tags = tagsField.text;
 	
-	// The user did also want autotags (ie. August Friday 2009 Hammerstadsgate)
-	if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"KleioTransactionsAutoTags"] boolValue]) {
-		NSMutableArray * autotags = [[NSMutableArray alloc] init];
-		[self add:@"country" toArray:autotags];
-		[self add:@"administrativeArea" toArray:autotags];
-		[self add:@"locality" toArray:autotags];
-		[self add:@"subAdministrativeArea" toArray:autotags];
-		[self add:@"subLocality" toArray:autotags];
-		[self add:@"thoroughfare" toArray:autotags];
-		
-		NSDateFormatter * dateFormatter = [[Utilities toolbox] dateFormatter];
-		NSArray * weekdays = [dateFormatter weekdaySymbols];
-		NSArray * months = [dateFormatter monthSymbols];
-		
-		// Set the month and year for easier searching and displaying and most importantly grouping!
-		NSCalendar * currentCalendar = [NSCalendar currentCalendar];
-		NSDateComponents * components = [currentCalendar components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSWeekdayCalendarUnit) fromDate:self.currentTransaction.date];
+	/*
+	 Adding autotags
+	 */
+	NSMutableArray * autotags = [[NSMutableArray alloc] init];
+	[self add:@"country" toArray:autotags];
+	[self add:@"administrativeArea" toArray:autotags];
+	[self add:@"locality" toArray:autotags];
+	[self add:@"subAdministrativeArea" toArray:autotags];
+	[self add:@"subLocality" toArray:autotags];
+	[self add:@"thoroughfare" toArray:autotags];
+	
+	NSDateFormatter * dateFormatter = [[Utilities toolbox] dateFormatter];
+	NSArray * weekdays = [dateFormatter weekdaySymbols];
+	NSArray * months = [dateFormatter monthSymbols];
+	
+	// Set the month and year for easier searching and displaying and most importantly grouping!
+	NSCalendar * currentCalendar = [NSCalendar currentCalendar];
+	NSDateComponents * components = [currentCalendar components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSWeekdayCalendarUnit) fromDate:self.currentTransaction.date];
+	
+	NSString * month = [months objectAtIndex:components.month-1];
+	NSString * weekday = [weekdays objectAtIndex:components.weekday-1];
+	NSString * year = [NSString stringWithFormat:@"%i", components.year];
+	
+	[autotags addObject:month];
+	[autotags addObject:weekday];
+	[autotags addObject:year];
+	
+	NSString * newAutoTags = [autotags componentsJoinedByString:@" "];
+	currentTransaction.autotags = [NSString stringWithFormat:@" %@ ", newAutoTags];
+	
 
-		NSString * month = [months objectAtIndex:components.month-1];
-		NSString * weekday = [weekdays objectAtIndex:components.weekday-1];
-		NSString * year = [NSString stringWithFormat:@"%i", components.year];
-		
-		[autotags addObject:month];
-		[autotags addObject:weekday];
-		[autotags addObject:year];
-		
-		NSString * newAutoTags = [autotags componentsJoinedByString:@" "];
-		currentTransaction.autotags = [NSString stringWithFormat:@" %@ ", newAutoTags];
-	}
-	 
 	currentTransaction.transactionDescription = descriptionField.text;
 		
 	// Save the expense
@@ -679,7 +670,10 @@
 
 - (void)didReceiveMemoryWarning {
 	NSLog(@"didReceiveMemoryWarning: %@", self);
-		
+
+	[[CacheMasterSingleton sharedCacheMaster] clearCache];	
+	
+	// TODO: REMOVE this box! Fix memory problems instead!
 	UIAlertView * alert = [[UIAlertView alloc] init];
 	alert.message = NSLocalizedString(@"Your phone is critically low on memory! This application might soon crash. You should try restarting your phone.", @"Low memory alert message");
 	[alert addButtonWithTitle:NSLocalizedString(@"OK", @"memory alert OK button")];
