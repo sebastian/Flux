@@ -104,6 +104,24 @@
 		96B1A63A101B6DF500DB6787 /* DetailCellFooter.png in Resources */ = {isa = PBXBuildFile; fileRef = 96B1A639101B6DF500DB6787 /* DetailCellFooter.png */; };
 		96BD3E6C101744DB00926A83 /* CurrencyKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 96BD3E6A101744DB00926A83 /* CurrencyKeyboard.m */; };
 		96BD3E6D101744DB00926A83 /* CurrencyKeyboard.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96BD3E6B101744DB00926A83 /* CurrencyKeyboard.xib */; };
+		96BE96F71050139500507F49 /* AmountController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96BE96F51050139500507F49 /* AmountController.m */; };
+		96BE96F91050139500507F49 /* AmountController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96BE96F51050139500507F49 /* AmountController.m */; };
+		96BE983F10501BE300507F49 /* Three20.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 96BE983E10501BE300507F49 /* Three20.bundle */; };
+		96BE988D10501D8900507F49 /* libThree20.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 96BE983D10501BD400507F49 /* libThree20.a */; };
+		96BE99181050231900507F49 /* AddScreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 96BE99171050231900507F49 /* AddScreen.png */; };
+		96BE99561050298700507F49 /* AmountController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96BE99551050298700507F49 /* AmountController.xib */; };
+		96BE99F51050376600507F49 /* TagController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96BE99F31050376600507F49 /* TagController.m */; };
+		96BE99F61050376600507F49 /* TagController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96BE99F41050376600507F49 /* TagController.xib */; };
+		96BE9A4F1050465300507F49 /* AddScreenExpense.png in Resources */ = {isa = PBXBuildFile; fileRef = 96BE9A4D1050465300507F49 /* AddScreenExpense.png */; };
+		96BE9A501050465300507F49 /* AddScreenIncome.png in Resources */ = {isa = PBXBuildFile; fileRef = 96BE9A4E1050465300507F49 /* AddScreenIncome.png */; };
+		96C508FF105175F1009CE76E /* TagSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = 96C508FE105175F1009CE76E /* TagSelector.m */; };
+		96C50900105175F1009CE76E /* TagSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = 96C508FE105175F1009CE76E /* TagSelector.m */; };
+		96C5093E10517BA3009CE76E /* TagDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 96C5093D10517BA3009CE76E /* TagDataSource.m */; };
+		96C5093F10517BA3009CE76E /* TagDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 96C5093D10517BA3009CE76E /* TagDataSource.m */; };
+		96C50B8C1052C9EF009CE76E /* KleioPickerTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 96C50B8B1052C9EF009CE76E /* KleioPickerTextField.m */; };
+		96C50B8D1052C9EF009CE76E /* KleioPickerTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 96C50B8B1052C9EF009CE76E /* KleioPickerTextField.m */; };
+		96C50D741053B55C009CE76E /* SuggestedTags.m in Sources */ = {isa = PBXBuildFile; fileRef = 96C50D731053B55C009CE76E /* SuggestedTags.m */; };
+		96C50D751053B55C009CE76E /* SuggestedTags.m in Sources */ = {isa = PBXBuildFile; fileRef = 96C50D731053B55C009CE76E /* SuggestedTags.m */; };
 		96D217C21038A15D003C5FC7 /* SuggestBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 96D217C11038A15D003C5FC7 /* SuggestBackground.png */; };
 		96D28063101F621000B0A026 /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 96D28062101F621000B0A026 /* Entitlements.plist */; };
 		96D7A91B10281F04000FCC42 /* TransactionDisplay.png in Resources */ = {isa = PBXBuildFile; fileRef = 96D7A91A10281F04000FCC42 /* TransactionDisplay.png */; };
@@ -185,6 +203,23 @@
 		96FFFA8E1015EDC600A53779 /* DetailContentTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 96FFFA8D1015EDC600A53779 /* DetailContentTableCell.m */; };
 		96FFFAE01015F8E200A53779 /* DetailHeaderAndFooter.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96FFFADF1015F8E200A53779 /* DetailHeaderAndFooter.xib */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		96BE983C10501BD400507F49 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 96BE983810501BD400507F49 /* Three20.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BEF31F3A0F352DF5000DE5D2;
+			remoteInfo = Three20;
+		};
+		96BE985110501C4F00507F49 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 96BE983810501BD400507F49 /* Three20.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = BEF31F390F352DF5000DE5D2;
+			remoteInfo = Three20;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		96F662CD10419AAF00845F0E /* Copy testing frameworks */ = {
@@ -322,6 +357,25 @@
 		96BD3E69101744DB00926A83 /* CurrencyKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrencyKeyboard.h; sourceTree = "<group>"; };
 		96BD3E6A101744DB00926A83 /* CurrencyKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrencyKeyboard.m; sourceTree = "<group>"; };
 		96BD3E6B101744DB00926A83 /* CurrencyKeyboard.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CurrencyKeyboard.xib; sourceTree = "<group>"; };
+		96BE96F41050139500507F49 /* AmountController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AmountController.h; sourceTree = "<group>"; };
+		96BE96F51050139500507F49 /* AmountController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AmountController.m; sourceTree = "<group>"; };
+		96BE983810501BD400507F49 /* Three20.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Three20.xcodeproj; path = ../../../Resurser/iPhone/three20/src/Three20.xcodeproj; sourceTree = SOURCE_ROOT; };
+		96BE983E10501BE300507F49 /* Three20.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Three20.bundle; path = ../../../Resurser/iPhone/three20/src/Three20.bundle; sourceTree = SOURCE_ROOT; };
+		96BE99171050231900507F49 /* AddScreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AddScreen.png; path = Graphics/AddScreen.png; sourceTree = SOURCE_ROOT; };
+		96BE99551050298700507F49 /* AmountController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AmountController.xib; sourceTree = "<group>"; };
+		96BE99F21050376600507F49 /* TagController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagController.h; sourceTree = "<group>"; };
+		96BE99F31050376600507F49 /* TagController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagController.m; sourceTree = "<group>"; };
+		96BE99F41050376600507F49 /* TagController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TagController.xib; sourceTree = "<group>"; };
+		96BE9A4D1050465300507F49 /* AddScreenExpense.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AddScreenExpense.png; path = Graphics/AddScreenExpense.png; sourceTree = SOURCE_ROOT; };
+		96BE9A4E1050465300507F49 /* AddScreenIncome.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AddScreenIncome.png; path = Graphics/AddScreenIncome.png; sourceTree = SOURCE_ROOT; };
+		96C508FD105175F1009CE76E /* TagSelector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagSelector.h; sourceTree = "<group>"; };
+		96C508FE105175F1009CE76E /* TagSelector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagSelector.m; sourceTree = "<group>"; };
+		96C5093C10517BA3009CE76E /* TagDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagDataSource.h; sourceTree = "<group>"; };
+		96C5093D10517BA3009CE76E /* TagDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagDataSource.m; sourceTree = "<group>"; };
+		96C50B8A1052C9EF009CE76E /* KleioPickerTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KleioPickerTextField.h; sourceTree = "<group>"; };
+		96C50B8B1052C9EF009CE76E /* KleioPickerTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KleioPickerTextField.m; sourceTree = "<group>"; };
+		96C50D721053B55C009CE76E /* SuggestedTags.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuggestedTags.h; sourceTree = "<group>"; };
+		96C50D731053B55C009CE76E /* SuggestedTags.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuggestedTags.m; sourceTree = "<group>"; };
 		96D217C11038A15D003C5FC7 /* SuggestBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SuggestBackground.png; path = Graphics/SuggestBackground.png; sourceTree = "<group>"; };
 		96D28058101F5DC900B0A026 /* Beta-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Beta-Info.plist"; sourceTree = "<group>"; };
 		96D28062101F621000B0A026 /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
@@ -386,6 +440,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96BE988D10501D8900507F49 /* libThree20.a in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				288765080DF74369002DB57D /* CoreGraphics.framework in Frameworks */,
@@ -418,6 +473,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				966200A21026E15600B670D6 /* Tags */,
 				96FAE6DD1024C29F0060384F /* Models */,
 				960C07FF1021AFF900B9C2A3 /* Div */,
 				964F1E6D101CDB66004EA5C3 /* CoreLocation */,
@@ -466,6 +522,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				96BE983E10501BE300507F49 /* Three20.bundle */,
 				96426E74104DF133002C218D /* Settings.bundle */,
 				96FFEAB6103879650086BF66 /* Localizable.strings */,
 				96F1579310384B4A00ECBF03 /* Localizable.strings */,
@@ -483,6 +540,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				96BE983810501BD400507F49 /* Three20.xcodeproj */,
 				96AA708F100656E600206A37 /* CoreData.framework */,
 				964F1E84101CDE31004EA5C3 /* CoreLocation.framework */,
 				96419D1E101C7E9B0066D6D8 /* MapKit.framework */,
@@ -498,7 +556,6 @@
 		960C07FF1021AFF900B9C2A3 /* Div */ = {
 			isa = PBXGroup;
 			children = (
-				966200A21026E15600B670D6 /* FilterField */,
 				966C2CF3103EE0D700725372 /* CacheMaster */,
 				966C2C1A103ECA3900725372 /* ABTableViewCell.h */,
 				966C2C1B103ECA3900725372 /* ABTableViewCell.m */,
@@ -533,6 +590,7 @@
 		963B020A10185D6E00CD5184 /* Add Expenses */ = {
 			isa = PBXGroup;
 			children = (
+				96BE96F01050136500507F49 /* NewAdder */,
 				96FFEAD710387FA00086BF66 /* Suggestive tags */,
 				96676F381022F311000C6FF5 /* ControlViev */,
 				96BD3E67101744C600926A83 /* Keyboard */,
@@ -612,12 +670,13 @@
 			name = "Edit transaction";
 			sourceTree = "<group>";
 		};
-		966200A21026E15600B670D6 /* FilterField */ = {
+		966200A21026E15600B670D6 /* Tags */ = {
 			isa = PBXGroup;
 			children = (
+				96C508FC105175D8009CE76E /* TagSelector */,
 				9623070D10347864003ED654 /* SearchBar */,
 			);
-			name = FilterField;
+			name = Tags;
 			sourceTree = "<group>";
 		};
 		96676F381022F311000C6FF5 /* ControlViev */ = {
@@ -655,6 +714,9 @@
 		96AA703710061CF600206A37 /* Graphics */ = {
 			isa = PBXGroup;
 			children = (
+				96BE9A4D1050465300507F49 /* AddScreenExpense.png */,
+				96BE9A4E1050465300507F49 /* AddScreenIncome.png */,
+				96BE99171050231900507F49 /* AddScreen.png */,
 				966C2C62103ECFAA00725372 /* CellSeparator288.png */,
 				96D217C11038A15D003C5FC7 /* SuggestBackground.png */,
 				964700F3103830EC00ABE764 /* Pricetag.png */,
@@ -735,6 +797,42 @@
 				96BD3E6B101744DB00926A83 /* CurrencyKeyboard.xib */,
 			);
 			name = Keyboard;
+			sourceTree = "<group>";
+		};
+		96BE96F01050136500507F49 /* NewAdder */ = {
+			isa = PBXGroup;
+			children = (
+				96BE96F41050139500507F49 /* AmountController.h */,
+				96BE96F51050139500507F49 /* AmountController.m */,
+				96BE99551050298700507F49 /* AmountController.xib */,
+				96BE99F21050376600507F49 /* TagController.h */,
+				96BE99F31050376600507F49 /* TagController.m */,
+				96BE99F41050376600507F49 /* TagController.xib */,
+			);
+			name = NewAdder;
+			sourceTree = "<group>";
+		};
+		96BE983910501BD400507F49 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				96BE983D10501BD400507F49 /* libThree20.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		96C508FC105175D8009CE76E /* TagSelector */ = {
+			isa = PBXGroup;
+			children = (
+				96C508FD105175F1009CE76E /* TagSelector.h */,
+				96C508FE105175F1009CE76E /* TagSelector.m */,
+				96C5093C10517BA3009CE76E /* TagDataSource.h */,
+				96C5093D10517BA3009CE76E /* TagDataSource.m */,
+				96C50B8A1052C9EF009CE76E /* KleioPickerTextField.h */,
+				96C50B8B1052C9EF009CE76E /* KleioPickerTextField.m */,
+				96C50D721053B55C009CE76E /* SuggestedTags.h */,
+				96C50D731053B55C009CE76E /* SuggestedTags.m */,
+			);
+			name = TagSelector;
 			sourceTree = "<group>";
 		};
 		96F649D41041650400845F0E /* Tests */ = {
@@ -829,6 +927,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				96BE985210501C4F00507F49 /* PBXTargetDependency */,
 			);
 			name = Finance;
 			productName = Finance;
@@ -873,6 +972,12 @@
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* Finance */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 96BE983910501BD400507F49 /* Products */;
+					ProjectRef = 96BE983810501BD400507F49 /* Three20.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				1D6058900D05DD3D006BFB54 /* Finance */,
@@ -880,6 +985,16 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		96BE983D10501BD400507F49 /* libThree20.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libThree20.a;
+			remoteRef = 96BE983C10501BD400507F49 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		1D60588D0D05DD3D006BFB54 /* Resources */ = {
@@ -975,6 +1090,12 @@
 				96D217C21038A15D003C5FC7 /* SuggestBackground.png in Resources */,
 				966C2C63103ECFAA00725372 /* CellSeparator288.png in Resources */,
 				96426E76104DF133002C218D /* Settings.bundle in Resources */,
+				96BE983F10501BE300507F49 /* Three20.bundle in Resources */,
+				96BE99181050231900507F49 /* AddScreen.png in Resources */,
+				96BE99561050298700507F49 /* AmountController.xib in Resources */,
+				96BE99F61050376600507F49 /* TagController.xib in Resources */,
+				96BE9A4F1050465300507F49 /* AddScreenExpense.png in Resources */,
+				96BE9A501050465300507F49 /* AddScreenIncome.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1042,6 +1163,12 @@
 				96903C7A1038AA7E009D5D49 /* TagSuggesterViewController.m in Sources */,
 				966C2C1C103ECA3900725372 /* ABTableViewCell.m in Sources */,
 				966C2C68103ECFFF00725372 /* CacheMasterSingleton.m in Sources */,
+				96BE96F91050139500507F49 /* AmountController.m in Sources */,
+				96BE99F51050376600507F49 /* TagController.m in Sources */,
+				96C50900105175F1009CE76E /* TagSelector.m in Sources */,
+				96C5093F10517BA3009CE76E /* TagDataSource.m in Sources */,
+				96C50B8D1052C9EF009CE76E /* KleioPickerTextField.m in Sources */,
+				96C50D751053B55C009CE76E /* SuggestedTags.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1087,10 +1214,23 @@
 				96F663A11041A1BE00845F0E /* TestUtils.m in Sources */,
 				9664C9C11045603600BE55DD /* CacheMasterDetailTableTest.m in Sources */,
 				961E4D25104D41BB0081ADE7 /* CacheManagerFilteringTest.m in Sources */,
+				96BE96F71050139500507F49 /* AmountController.m in Sources */,
+				96C508FF105175F1009CE76E /* TagSelector.m in Sources */,
+				96C5093E10517BA3009CE76E /* TagDataSource.m in Sources */,
+				96C50B8C1052C9EF009CE76E /* KleioPickerTextField.m in Sources */,
+				96C50D741053B55C009CE76E /* SuggestedTags.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		96BE985210501C4F00507F49 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Three20;
+			targetProxy = 96BE985110501C4F00507F49 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		96F1579310384B4A00ECBF03 /* Localizable.strings */ = {
@@ -1142,6 +1282,11 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = ../../../Resurser/iPhone/three20/src;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
 				PREBINDING = NO;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E4A18EB0-EE8E-4A57-A527-32F66A5DA67F";
 				SDKROOT = iphonesimulator3.0;
@@ -1170,6 +1315,11 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = ../../../Resurser/iPhone/three20/src;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
 				PREBINDING = NO;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "1D7C1593-B04D-4C1A-A6F1-913C118F3C88";
 				SDKROOT = iphonesimulator3.0;
@@ -1324,6 +1474,11 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = ../../../Resurser/iPhone/three20/src;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
 				PREBINDING = NO;
 				SDKROOT = iphonesimulator3.0;
 			};
@@ -1337,6 +1492,11 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = ../../../Resurser/iPhone/three20/src;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
 				PREBINDING = NO;
 				SDKROOT = iphonesimulator3.0;
 			};

@@ -22,6 +22,7 @@
 @synthesize managedObjectContext;
 @synthesize dateFormatter;
 @synthesize geoCoder;
+@synthesize tempVariable;
 
 static Utilities *sharedUtilitiesToolbox = nil;
 
@@ -52,8 +53,38 @@ static Utilities *sharedUtilitiesToolbox = nil;
 	
 }
 -(float)keyboardAnimationDuration {return 0.3;}
--(BOOL)doesTagExist:(NSString*)tag {
 
+-(NSDateFormatter*)dateFormatter {
+	if (dateFormatter == nil) { 
+		NSDateFormatter * df = [[NSDateFormatter alloc] init];
+		self.dateFormatter = df;
+		[df setTimeStyle:NSDateFormatterShortStyle];
+	}
+	return dateFormatter;
+}
+-(CGSize)sizeOfTextOfField:(UITextField*)field {
+	NSString * text = field.text;
+	CGSize size = [text sizeWithFont:field.font];
+	return size;
+}
+-(CGSize)sizeOfTextOfLabel:(UILabel*)label {
+	NSString * text = label.text;
+	CGSize size = [text sizeWithFont:label.font];
+	return size;
+}
+-(void) setReloadingTableAllowed {
+	reloadingTableAllowed = YES;
+}
+-(void) setReloadingTableNotAllowed {
+	reloadingTableAllowed = NO;
+}
+-(BOOL) isReloadingTableAllowed {return reloadingTableAllowed;}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//	Tag
+@synthesize suggestedTagsForCurrentLocation;
+-(BOOL)doesTagExist:(NSString*)tag {
+	
 	// Lowercase it so that we can normalize it here
 	tag = [tag lowercaseString];
 	
@@ -69,24 +100,24 @@ static Utilities *sharedUtilitiesToolbox = nil;
 		[tagExistance setValue:[NSNumber numberWithBool:YES] forKey:tag];
 		
 		return YES;
-
+		
 	}
 }
 -(void)addTag:(NSString*)tag autotag:(BOOL)autotag location:(CLLocation*)loc {
-
+	
 	tag = [tag lowercaseString];
 	
 	Tag * currentTag = [[Utilities toolbox] tagObjectforTag:tag];
-
+	
 	// Create an object to hold the location
 	Location * newLocation = [NSEntityDescription insertNewObjectForEntityForName:@"Location" 
-														   inManagedObjectContext:self.managedObjectContext];
+																												 inManagedObjectContext:self.managedObjectContext];
 	newLocation.location = loc;
-
+	
 	if (currentTag == nil) {
-
+		
 		Tag * newTag = [NSEntityDescription insertNewObjectForEntityForName:@"Tag" 
-													 inManagedObjectContext:self.managedObjectContext];
+																								 inManagedObjectContext:self.managedObjectContext];
 		
 		newTag.autotag = [NSNumber numberWithBool:autotag];
 		newTag.name = tag;
@@ -95,7 +126,7 @@ static Utilities *sharedUtilitiesToolbox = nil;
 		[tagCache setObject:newTag forKey:tag];
 		
 		[newTag addLocationObject:newLocation];
-				
+		
 	} else {
 		
 		[currentTag addLocationObject:newLocation];
@@ -116,7 +147,7 @@ static Utilities *sharedUtilitiesToolbox = nil;
 	if ([tagCache objectForKey:tag] != nil) {return [tagCache objectForKey:tag];}
 	
 	NSEntityDescription *entity = [NSEntityDescription entityForName:@"Tag" 
-											  inManagedObjectContext:self.managedObjectContext]; 
+																						inManagedObjectContext:self.managedObjectContext]; 
 	
 	// Create a predicate
 	NSPredicate * predicate = [NSPredicate predicateWithFormat:@"name = %@", tag];
@@ -127,7 +158,7 @@ static Utilities *sharedUtilitiesToolbox = nil;
 	[request setPredicate:predicate];
 	
 	NSError *error; 
-		
+	
 	NSArray *localTags = [self.managedObjectContext executeFetchRequest:request error:&error]; 
 	[request release];
 	
@@ -167,7 +198,7 @@ static Utilities *sharedUtilitiesToolbox = nil;
 	for (Tag * tag in fetchedTags) {
 		[tagCache setObject:tag forKey:tag.name];
 	}
-
+	
 	return fetchedTags;
 }
 -(NSArray*)tagStringToArray:(NSString*)tagString {
@@ -183,7 +214,7 @@ static Utilities *sharedUtilitiesToolbox = nil;
 	NSMutableArray * strippedTags = [[[NSMutableArray alloc] init] autorelease];
 	
 	for (NSString * tag in localTags) {
-
+		
 		// Remove all illegal punctuations and suchs
 		NSString * tagsWithoutPunctuation = [tag stringByTrimmingCharactersInSet:[NSCharacterSet punctuationCharacterSet]];
 		
@@ -197,31 +228,81 @@ static Utilities *sharedUtilitiesToolbox = nil;
 	return strippedTags;
 	
 }
--(NSDateFormatter*)dateFormatter {
-	if (dateFormatter == nil) { 
-		NSDateFormatter * df = [[NSDateFormatter alloc] init];
-		self.dateFormatter = df;
-		[df setTimeStyle:NSDateFormatterShortStyle];
+-(NSArray*)allTagNames {
+	return [self allTagNamesIncludingAutotags:NO];
+}
+-(NSArray*)allTagNamesIncludingAutotags:(BOOL)autotags {
+	
+	NSEntityDescription *entity = [NSEntityDescription entityForName:@"Tag" 
+																						inManagedObjectContext:self.managedObjectContext]; 
+	
+	NSPredicate * autotagPredicate;
+	if (autotags) {
+		autotagPredicate = [NSPredicate predicateWithValue:YES];
+	} else {
+		autotagPredicate = [NSPredicate predicateWithFormat:@"autotag = NO"];
 	}
-	return dateFormatter;
+	
+	// Create and setup the request
+	NSFetchRequest *request = [[NSFetchRequest alloc] init]; 
+	[request setEntity:entity];
+	[request setPredicate:autotagPredicate];
+	
+	NSError *error; 
+	
+	NSArray *tags = [self.managedObjectContext executeFetchRequest:request error:&error]; 
+	[request release];
+	
+	NSMutableArray * tagNames = [[NSMutableArray alloc] init];
+	for (Tag * tag in tags) {
+		[tagNames addObject:tag.name];
+	}
+	
+	return [tagNames autorelease];
+	
 }
--(CGSize)sizeOfTextOfField:(UITextField*)field {
-	NSString * text = field.text;
-	CGSize size = [text sizeWithFont:field.font];
-	return size;
+-(NSArray*)topTagsIncludingAutotags:(BOOL)autotags {
+
+	NSEntityDescription *entity = [NSEntityDescription entityForName:@"Tag" 
+																						inManagedObjectContext:self.managedObjectContext]; 
+	
+	NSPredicate * autotagPredicate;
+	if (autotags) {
+		autotagPredicate = [NSPredicate predicateWithValue:YES];
+	} else {
+		autotagPredicate = [NSPredicate predicateWithFormat:@"autotag = NO"];
+	}
+
+	NSPredicate * onlyPopularTags = [NSPredicate predicateWithFormat:@"location.@count > @avg.(location.@count)"];
+	NSPredicate * andPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:[NSArray arrayWithObjects:autotagPredicate, nil]];
+	
+	//- (id)initWithKey:(NSString *)key ascending:(BOOL)ascending;
+//	NSSortDescriptor * sort = [[NSSortDescriptor alloc] initWithKey:@"location.@count" ascending:NO];
+	
+//	NSArray * sortDescriptors = [NSArray arrayWithObject:sort];
+//	[sort release];
+	
+	// Create and setup the request
+	NSFetchRequest *request = [[NSFetchRequest alloc] init]; 
+	[request setEntity:entity];
+//	[request setSortDescriptors:sortDescriptors];
+	[request setPredicate:andPredicate];
+	[request setFetchLimit:10];
+	
+	NSError *error; 
+	
+	NSArray *tags = [self.managedObjectContext executeFetchRequest:request error:&error]; 
+	[request release];
+	
+	NSMutableArray * tagNames = [[NSMutableArray alloc] init];
+	for (Tag * tag in tags) {
+		[tagNames addObject:tag.name];
+	}
+	
+	return [tagNames autorelease];
+	
+	
 }
--(CGSize)sizeOfTextOfLabel:(UILabel*)label {
-	NSString * text = label.text;
-	CGSize size = [text sizeWithFont:label.font];
-	return size;
-}
--(void) setReloadingTableAllowed {
-	reloadingTableAllowed = YES;
-}
--(void) setReloadingTableNotAllowed {
-	reloadingTableAllowed = NO;
-}
--(BOOL) isReloadingTableAllowed {return reloadingTableAllowed;}
 
 -(void)clearCache {
 	[tagExistance removeAllObjects];

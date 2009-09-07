@@ -288,32 +288,20 @@
 		
 	}
 	
-	if (([tagsToSuggest count] > 0) && (isVisible == YES)) {
-		UIAlertView * alert = [[UIAlertView alloc] init];
-		
+	if ([tagsToSuggest count] > 0) {
 		// save them so we have them for the answer
 		suggestedTags = [tagsToSuggest copy];
-		
-		alert.title = NSLocalizedString(@"Found tags previously used in this area",nil);
-		
-		alert.message = NSLocalizedString(@"Do you want to use the following tags:",nil);
-		
-		NSString * tagNames = [NSString stringWithFormat:@" %@", ((Tag*)[tagsToSuggest objectAtIndex:0]).name];
-		[tagsToSuggest removeObjectAtIndex:0];
-		
+
+		NSMutableArray * tagNames = [[NSMutableArray alloc] init];
 		for (Tag * tag in tagsToSuggest) {
-			tagNames = [tagNames stringByAppendingFormat:@", %@", tag.name];
+			[tagNames addObject:tag.name];
 		}
-		tagNames = [tagNames stringByAppendingString:@"."];
+
+		[Utilities toolbox].suggestedTagsForCurrentLocation = tagNames;
 		
-		alert.message = [alert.message stringByAppendingString:tagNames];
+		NSLog(@"Added suggested tags...");
 		
-		[alert addButtonWithTitle:NSLocalizedString(@"Yes",nil)];
-		[alert addButtonWithTitle:NSLocalizedString(@"No",nil)];
-		
-		alert.delegate = self;
-		
-		[alert show];
+		[tagNames release]; tagNames = nil;
 	}
 	
 	[tagsToSuggest release];

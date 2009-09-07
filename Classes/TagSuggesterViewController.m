@@ -133,7 +133,8 @@
 	cell.backgroundColor = [UIColor clearColor];
 	cell.textLabel.textColor = [UIColor blackColor];
 	cell.textLabel.text = ((Tag*)[self.matchingTags objectAtIndex:indexPath.row]).name;	
-    return cell;
+	
+	return cell;
 }	
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	

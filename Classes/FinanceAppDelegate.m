@@ -11,6 +11,8 @@
 #import "TransactionsNavigationController.h"
 #import "Utilities.h"
 #import "TransactionsMainViewController.h"
+#import "AmountController.h"
+#import "TagSelector.h"
 
 @implementation FinanceAppDelegate
 
@@ -23,27 +25,65 @@
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
 
 	/*
+	 Navigation controller
+	 In my next app it will all be written using one!
+	 In this I'll just have to fase things over slowly
+	 */
+	TTNavigator* navigator = [TTNavigator navigator];
+  navigator.persistenceMode = TTNavigatorPersistenceModeAll;
+  navigator.window = self.window;
+	
+	TTURLMap* map = navigator.URLMap;
+	[map from:@"*" toViewController:[TTWebController class]]; // Fall back URL
+	[map from:@"kleio://tagSelector" toViewController:[TagSelector class]];
+	
+	
+	/*
+	 Setting up all the different tab bar elements
+	 */
+	[self setupTabBar];
+	[window addSubview:self.tabBarController.view];
+	[window makeKeyAndVisible];
+
+}
+- (void)applicationWillTerminate:(UIApplication *)application {
+	
+	NSError *error;
+	if (managedObjectContext != nil) {
+		if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
+			// Handle error
+			NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+			exit(-1);  // Fail
+		} 
+	}
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+ 
+- (void) setupTabBar {
+	/*
 	 Setup the utilities toolbox for use
 	 */
 	NSManagedObjectContext *utilitiesContext = [[NSManagedObjectContext alloc] init];
 	[utilitiesContext setPersistentStoreCoordinator: [self persistentStoreCoordinator]];
-    if (!utilitiesContext) { 
-        NSLog(@"Couldn't get a managedObjectContext for the utilities context");
-    }
+	if (!utilitiesContext) { 
+		NSLog(@"Couldn't get a managedObjectContext for the utilities context");
+	}
 	// Give it a managed context for tags and locations
 	[Utilities toolbox].managedObjectContext = utilitiesContext;
 	[utilitiesContext release];
-
+	
 	
 	NSManagedObjectContext *context = [self managedObjectContext]; 
-    if (!context) { 
-        NSLog(@"Couldn't get a managedObjectContext number 1");
-    }
+	if (!context) { 
+		NSLog(@"Couldn't get a managedObjectContext number 1");
+	}
 	TransactionsMainViewController * transactionViewController = 
-		[[TransactionsMainViewController alloc] initWithNibName:@"TransactionFilterViewController" 
-														  bundle:[NSBundle mainBundle]
-													  andContext:context];
-
+	[[TransactionsMainViewController alloc] initWithNibName:@"TransactionFilterViewController" 
+																									 bundle:[NSBundle mainBundle]
+																							 andContext:context];
+	
 	
 	/*
 	 Why does the addContext need a context of it's own?
@@ -51,78 +91,40 @@
 	 * I don't want the temporary transactions to be autosaved
 	 * I don't want the temporary transactions to show up in the table views
 	 * I want to be able to make changes to transaction objects in the table views
-		and have them autosaved on app termination
+	 and have them autosaved on app termination
 	 */
 	NSManagedObjectContext *contextAddExpense = [[NSManagedObjectContext alloc] init];
 	[contextAddExpense setPersistentStoreCoordinator: [self persistentStoreCoordinator]];
-    if (!contextAddExpense) { 
-        NSLog(@"Couldn't get a managedObjectContext number 2 for addExpenseController");
-    }
+	if (!contextAddExpense) { 
+		NSLog(@"Couldn't get a managedObjectContext number 2 for addExpenseController");
+	}
 	ExpenseInputViewController * addExpenseController = 
-		[[ExpenseInputViewController alloc] initWithNibName:@"ExpenseEditor" bundle:[NSBundle mainBundle]];
+	[[ExpenseInputViewController alloc] initWithNibName:@"ExpenseEditor" bundle:[NSBundle mainBundle]];
 	// Pass it the managed object context that is only for its privte use :)
 	addExpenseController.managedObjectContext = contextAddExpense;
+	
+	AmountController * amountController = [[AmountController alloc] initWithContext:contextAddExpense];
 	[contextAddExpense release];
 	
-		
 	// Group all the view controllers
-	NSArray * controllers = [NSArray arrayWithObjects:addExpenseController, transactionViewController, nil];
-
+	NSArray * controllers = [NSArray arrayWithObjects:addExpenseController, transactionViewController, amountController, nil];
+	
 	// The control over the view controllers is now the business of the controllers array
 	[transactionViewController release];
 	[addExpenseController release];
+	[amountController release];
 	
 	self.tabBarController = [[UITabBarController alloc] initWithNibName:nil bundle:nil]; 	
 	[self.tabBarController setViewControllers:controllers]; 
 	[self.tabBarController setSelectedIndex:0];
 	
-	[window addSubview:self.tabBarController.view];
-
-	[window makeKeyAndVisible];
-	
 }
 
-/**
- applicationWillTerminate: saves changes in the application's managed object context before the application terminates.
- */
-- (void)applicationWillTerminate:(UIApplication *)application {
-		
-    NSError *error;
-    if (managedObjectContext != nil) {
-        if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
-			// Handle error
-			NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-			exit(-1);  // Fail
-        } 
-    }
-}
-
-
-#pragma mark -
-#pragma mark Saving
-
-/**
- Performs the save action for the application, which is to send the save:
- message to the application's managed object context.
- */
-- (IBAction)saveAction:(id)sender {
-	
-    NSError *error;
-    if (![[self managedObjectContext] save:&error]) {
-		// Handle error
-		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-		exit(-1);  // Fail
-    }
-}
-
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//	Core data
 
 #pragma mark -
 #pragma mark Core Data stack
-
-/**
- Returns the managed object context for the application.
- If the context doesn't already exist, it is created and bound to the persistent store coordinator for the application.
- */
 - (NSManagedObjectContext *) managedObjectContext {
 	
     if (managedObjectContext != nil) {
@@ -136,12 +138,6 @@
     }
     return managedObjectContext;
 }
-
-
-/**
- Returns the managed object model for the application.
- If the model doesn't already exist, it is created by merging all of the models found in the application bundle.
- */
 - (NSManagedObjectModel *)managedObjectModel {
 	
     if (managedObjectModel != nil) {
@@ -150,12 +146,6 @@
     managedObjectModel = [[NSManagedObjectModel mergedModelFromBundles:nil] retain];    
     return managedObjectModel;
 }
-
-
-/**
- Returns the persistent store coordinator for the application.
- If the coordinator doesn't already exist, it is created and the application's store added to it.
- */
 - (NSPersistentStoreCoordinator *)persistentStoreCoordinator {
 	
     if (persistentStoreCoordinator != nil) {
@@ -178,10 +168,6 @@
 
 #pragma mark -
 #pragma mark Application's documents directory
-
-/**
- Returns the path to the application's documents directory.
- */
 - (NSString *)applicationDocumentsDirectory {
 	
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -199,7 +185,7 @@
     [managedObjectModel release];
     [persistentStoreCoordinator release];
 		
-	[tabBarController release];
+		[tabBarController release];
     [window release];
 	
     [super dealloc];

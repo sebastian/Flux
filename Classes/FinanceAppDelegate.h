@@ -10,12 +10,13 @@
 #import <CoreData/CoreData.h>
 
 @interface FinanceAppDelegate : NSObject <UIApplicationDelegate, UITabBarControllerDelegate> {
-    UIWindow *window;
-    UITabBarController *tabBarController;
+
+	UIWindow *window;
+	UITabBarController *tabBarController;
 	
 	NSManagedObjectModel *managedObjectModel;
-    NSManagedObjectContext *managedObjectContext;	    
-    NSPersistentStoreCoordinator *persistentStoreCoordinator;
+  NSManagedObjectContext *managedObjectContext;	    
+	NSPersistentStoreCoordinator *persistentStoreCoordinator;
 	
 }
 
@@ -23,10 +24,11 @@
 @property (nonatomic, retain) UITabBarController *tabBarController;
 
 // CoreData
-- (IBAction)saveAction:sender;
 @property (nonatomic, retain, readonly) NSManagedObjectModel *managedObjectModel;
 @property (nonatomic, retain, readonly) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, retain, readonly) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (nonatomic, readonly) NSString *applicationDocumentsDirectory;
 
+
+- (void) setupTabBar;
 @end

@@ -196,9 +196,9 @@
 }
 -(double)normalizedAmount {
 	double dAmount = [self.kroner doubleValue]/100;
-	if ([self.expense boolValue] == YES) {
-		dAmount = dAmount * (-1);
-	}
+//	if ([self.expense boolValue] == YES) {
+//		dAmount = dAmount * (-1);
+//	}
 	return dAmount;
 }
 -(NSString*)amountInLocalCurrency {

@@ -32,6 +32,11 @@
     }
     return self;
 }
+- (id) init {
+	if (self = [super initWithNibName:@"CurrencyKeyboard" bundle:[NSBundle mainBundle]]) {
+	}
+	return self;
+}
 
 #pragma mark
 #pragma mark -

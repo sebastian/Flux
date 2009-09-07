@@ -22,11 +22,17 @@
 	
 	NSDateFormatter * dateFormatter;
 	
+	NSArray * suggestedTagsForCurrentLocation;
+	
 	BOOL searchIsVisible;
 	BOOL saving;
 	BOOL reloadingTableAllowed;
+	
+	id tempVariable;
 }
 
+
+@property (nonatomic, retain) id tempVariable;
 @property (nonatomic, retain) NSManagedObjectContext * managedObjectContext;
 @property (nonatomic, retain) NSDateFormatter * dateFormatter;
 @property (nonatomic, retain) MKReverseGeocoder * geoCoder;
@@ -36,14 +42,22 @@
 
 -(double)sumAmountForTransactionArray:(NSArray*)transactions;
 -(float)keyboardAnimationDuration;
+
+-(void)clearCache;
+-(CGSize)sizeOfTextOfField:(UITextField*)field;
+-(CGSize)sizeOfTextOfLabel:(UILabel*)label;
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//	Tags
+@property (nonatomic, retain) NSArray * suggestedTagsForCurrentLocation;
 -(BOOL)doesTagExist:(NSString*)tag;
 -(void)addTag:(NSString*)tag autotag:(BOOL)autotag location:(CLLocation*)loc;
 -(Tag*)tagObjectforTag:(NSString*)tag;
 -(NSArray*)twoTagsStartingWith:(NSString*)start;
 -(NSArray*)tagStringToArray:(NSString*)tagString;
--(void)clearCache;
--(CGSize)sizeOfTextOfField:(UITextField*)field;
--(CGSize)sizeOfTextOfLabel:(UILabel*)label;
+-(NSArray*)allTagNames;
+-(NSArray*)allTagNamesIncludingAutotags:(BOOL)autotags;
+-(NSArray*)topTagsIncludingAutotags:(BOOL)autotags;
 
 // ReverseGeocoder methods
 - (void)reverseGeoCode:(CLLocationCoordinate2D)coordinate forDelegate:(id<MKReverseGeocoderDelegate>)delegate;
