@@ -222,8 +222,8 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 274271982;
-			PBXWorkspaceStateSaveDate = 274271982;
+			PBXPerProjectTemplateStateSaveDate = 274275571;
+			PBXWorkspaceStateSaveDate = 274275571;
 		};
 		perUserProjectItems = {
 			960491151031F7A900CB659A = 960491151031F7A900CB659A /* PBXTextBookmark */;
@@ -266,102 +266,107 @@
 			9674F3ED1053E92D00725FE9 = 9674F3ED1053E92D00725FE9 /* PBXTextBookmark */;
 			9674F43B1053EDC000725FE9 = 9674F43B1053EDC000725FE9 /* XDModelBookmark */;
 			9674F57D1054057100725FE9 = 9674F57D1054057100725FE9 /* PBXTextBookmark */;
-			9685102610590EF300815038 /* PBXTextBookmark */ = 9685102610590EF300815038 /* PBXTextBookmark */;
-			9685102F10590EF300815038 /* PBXTextBookmark */ = 9685102F10590EF300815038 /* PBXTextBookmark */;
-			9685103010590EF300815038 /* PBXTextBookmark */ = 9685103010590EF300815038 /* PBXTextBookmark */;
-			9685103110590F0B00815038 /* PBXTextBookmark */ = 9685103110590F0B00815038 /* PBXTextBookmark */;
-			9685103210590F0B00815038 /* PBXTextBookmark */ = 9685103210590F0B00815038 /* PBXTextBookmark */;
-			9685103310590F4500815038 /* PBXTextBookmark */ = 9685103310590F4500815038 /* PBXTextBookmark */;
-			9685103410590F4500815038 /* PBXTextBookmark */ = 9685103410590F4500815038 /* PBXTextBookmark */;
-			9685103910590F5500815038 /* PBXTextBookmark */ = 9685103910590F5500815038 /* PBXTextBookmark */;
-			9685103E10590F6300815038 /* PBXTextBookmark */ = 9685103E10590F6300815038 /* PBXTextBookmark */;
-			9685104310590FF400815038 /* PBXTextBookmark */ = 9685104310590FF400815038 /* PBXTextBookmark */;
-			9685104A1059103700815038 /* PBXTextBookmark */ = 9685104A1059103700815038 /* PBXTextBookmark */;
-			9685104B1059103700815038 /* PBXTextBookmark */ = 9685104B1059103700815038 /* PBXTextBookmark */;
-			9685104C1059103700815038 /* PBXTextBookmark */ = 9685104C1059103700815038 /* PBXTextBookmark */;
-			9685104D1059103700815038 /* PBXTextBookmark */ = 9685104D1059103700815038 /* PBXTextBookmark */;
-			9685104E1059103700815038 /* PBXTextBookmark */ = 9685104E1059103700815038 /* PBXTextBookmark */;
-			9685104F1059103700815038 /* PBXTextBookmark */ = 9685104F1059103700815038 /* PBXTextBookmark */;
-			968510541059104200815038 /* PBXTextBookmark */ = 968510541059104200815038 /* PBXTextBookmark */;
-			968510551059104200815038 /* PBXTextBookmark */ = 968510551059104200815038 /* PBXTextBookmark */;
-			968510561059104200815038 /* XCBuildMessageTextBookmark */ = 968510561059104200815038 /* XCBuildMessageTextBookmark */;
-			968510571059104200815038 /* PBXTextBookmark */ = 968510571059104200815038 /* PBXTextBookmark */;
-			9685105E105911CF00815038 /* PBXTextBookmark */ = 9685105E105911CF00815038 /* PBXTextBookmark */;
-			9685105F105911CF00815038 /* PBXTextBookmark */ = 9685105F105911CF00815038 /* PBXTextBookmark */;
-			96851060105911CF00815038 /* PBXTextBookmark */ = 96851060105911CF00815038 /* PBXTextBookmark */;
-			96851061105911CF00815038 /* PBXTextBookmark */ = 96851061105911CF00815038 /* PBXTextBookmark */;
-			96851062105911CF00815038 /* PBXTextBookmark */ = 96851062105911CF00815038 /* PBXTextBookmark */;
-			96851063105911CF00815038 /* PBXTextBookmark */ = 96851063105911CF00815038 /* PBXTextBookmark */;
-			968510691059124B00815038 /* PBXTextBookmark */ = 968510691059124B00815038 /* PBXTextBookmark */;
-			9685106A1059124B00815038 /* PBXTextBookmark */ = 9685106A1059124B00815038 /* PBXTextBookmark */;
-			9685106B1059124B00815038 /* PBXTextBookmark */ = 9685106B1059124B00815038 /* PBXTextBookmark */;
-			9685106C1059124B00815038 /* PBXTextBookmark */ = 9685106C1059124B00815038 /* PBXTextBookmark */;
-			9685106D1059124B00815038 /* PBXTextBookmark */ = 9685106D1059124B00815038 /* PBXTextBookmark */;
-			9685106E1059124B00815038 /* PBXTextBookmark */ = 9685106E1059124B00815038 /* PBXTextBookmark */;
-			9685106F1059124B00815038 /* PBXTextBookmark */ = 9685106F1059124B00815038 /* PBXTextBookmark */;
-			968510711059124C00815038 /* PBXTextBookmark */ = 968510711059124C00815038 /* PBXTextBookmark */;
-			968510721059124F00815038 /* PBXTextBookmark */ = 968510721059124F00815038 /* PBXTextBookmark */;
-			968510731059125B00815038 /* PBXTextBookmark */ = 968510731059125B00815038 /* PBXTextBookmark */;
-			968510741059125B00815038 /* PBXTextBookmark */ = 968510741059125B00815038 /* PBXTextBookmark */;
-			968510751059125B00815038 /* PBXTextBookmark */ = 968510751059125B00815038 /* PBXTextBookmark */;
-			968510761059125B00815038 /* PBXTextBookmark */ = 968510761059125B00815038 /* PBXTextBookmark */;
-			9685107B1059128900815038 /* PBXTextBookmark */ = 9685107B1059128900815038 /* PBXTextBookmark */;
-			9685107C1059128900815038 /* PBXTextBookmark */ = 9685107C1059128900815038 /* PBXTextBookmark */;
-			9685107D1059128900815038 /* PBXTextBookmark */ = 9685107D1059128900815038 /* PBXTextBookmark */;
-			96851080105912CF00815038 /* PBXTextBookmark */ = 96851080105912CF00815038 /* PBXTextBookmark */;
-			96851081105912CF00815038 /* PBXTextBookmark */ = 96851081105912CF00815038 /* PBXTextBookmark */;
-			96851082105912CF00815038 /* PBXTextBookmark */ = 96851082105912CF00815038 /* PBXTextBookmark */;
-			96851083105912CF00815038 /* PBXTextBookmark */ = 96851083105912CF00815038 /* PBXTextBookmark */;
-			96851084105912CF00815038 /* PBXTextBookmark */ = 96851084105912CF00815038 /* PBXTextBookmark */;
-			9685108B1059131D00815038 /* PBXTextBookmark */ = 9685108B1059131D00815038 /* PBXTextBookmark */;
-			9685108C1059131D00815038 /* PBXTextBookmark */ = 9685108C1059131D00815038 /* PBXTextBookmark */;
-			9685108D1059131D00815038 /* PBXTextBookmark */ = 9685108D1059131D00815038 /* PBXTextBookmark */;
-			96851090105916B000815038 /* PBXTextBookmark */ = 96851090105916B000815038 /* PBXTextBookmark */;
-			96851091105916B000815038 /* PBXTextBookmark */ = 96851091105916B000815038 /* PBXTextBookmark */;
-			96851092105916B000815038 /* PBXTextBookmark */ = 96851092105916B000815038 /* PBXTextBookmark */;
-			96851093105916B000815038 /* PBXTextBookmark */ = 96851093105916B000815038 /* PBXTextBookmark */;
-			96851094105916B000815038 /* PBXTextBookmark */ = 96851094105916B000815038 /* PBXTextBookmark */;
-			96851095105916B000815038 /* PBXTextBookmark */ = 96851095105916B000815038 /* PBXTextBookmark */;
-			96851096105916B000815038 /* PBXTextBookmark */ = 96851096105916B000815038 /* PBXTextBookmark */;
-			96851099105916D700815038 /* PBXTextBookmark */ = 96851099105916D700815038 /* PBXTextBookmark */;
-			9685109A105916D700815038 /* PBXTextBookmark */ = 9685109A105916D700815038 /* PBXTextBookmark */;
-			9685109B105916D700815038 /* PBXTextBookmark */ = 9685109B105916D700815038 /* PBXTextBookmark */;
-			9685109C105916D700815038 /* PBXTextBookmark */ = 9685109C105916D700815038 /* PBXTextBookmark */;
-			9685109F105916F400815038 /* PBXTextBookmark */ = 9685109F105916F400815038 /* PBXTextBookmark */;
-			968510A0105916F400815038 /* PBXTextBookmark */ = 968510A0105916F400815038 /* PBXTextBookmark */;
-			968510A1105916F400815038 /* PBXTextBookmark */ = 968510A1105916F400815038 /* PBXTextBookmark */;
-			968510A41059176300815038 /* PBXTextBookmark */ = 968510A41059176300815038 /* PBXTextBookmark */;
-			968510A91059177F00815038 /* PBXTextBookmark */ = 968510A91059177F00815038 /* PBXTextBookmark */;
-			968510AA1059177F00815038 /* PBXTextBookmark */ = 968510AA1059177F00815038 /* PBXTextBookmark */;
-			968510AB1059177F00815038 /* PBXTextBookmark */ = 968510AB1059177F00815038 /* PBXTextBookmark */;
-			968510CA1059189A00815038 /* PBXTextBookmark */ = 968510CA1059189A00815038 /* PBXTextBookmark */;
-			968510CB1059189A00815038 /* PBXTextBookmark */ = 968510CB1059189A00815038 /* PBXTextBookmark */;
-			968510CC1059189A00815038 /* PBXTextBookmark */ = 968510CC1059189A00815038 /* PBXTextBookmark */;
-			968510CD1059189A00815038 /* PBXTextBookmark */ = 968510CD1059189A00815038 /* PBXTextBookmark */;
-			968510D0105918CA00815038 /* PBXTextBookmark */ = 968510D0105918CA00815038 /* PBXTextBookmark */;
-			968510D31059193200815038 /* PBXTextBookmark */ = 968510D31059193200815038 /* PBXTextBookmark */;
-			968510D61059195400815038 /* PBXTextBookmark */ = 968510D61059195400815038 /* PBXTextBookmark */;
-			968510D910591AAE00815038 /* PBXTextBookmark */ = 968510D910591AAE00815038 /* PBXTextBookmark */;
-			968510DA10591AAE00815038 /* PBXTextBookmark */ = 968510DA10591AAE00815038 /* PBXTextBookmark */;
-			968510DB10591AAE00815038 /* PBXTextBookmark */ = 968510DB10591AAE00815038 /* PBXTextBookmark */;
-			968510DC10591AAE00815038 /* PBXTextBookmark */ = 968510DC10591AAE00815038 /* PBXTextBookmark */;
-			968510DD10591AAE00815038 /* PBXTextBookmark */ = 968510DD10591AAE00815038 /* PBXTextBookmark */;
-			968510DE10591AAE00815038 /* PBXTextBookmark */ = 968510DE10591AAE00815038 /* PBXTextBookmark */;
-			968510E110591AD600815038 /* PBXTextBookmark */ = 968510E110591AD600815038 /* PBXTextBookmark */;
-			968510E210591AD600815038 /* PBXTextBookmark */ = 968510E210591AD600815038 /* PBXTextBookmark */;
-			968510E310591AD600815038 /* PBXTextBookmark */ = 968510E310591AD600815038 /* PBXTextBookmark */;
-			968510E410591AD600815038 /* PBXTextBookmark */ = 968510E410591AD600815038 /* PBXTextBookmark */;
-			968510E910591B1B00815038 /* PBXTextBookmark */ = 968510E910591B1B00815038 /* PBXTextBookmark */;
-			968510EA10591B1B00815038 /* PBXTextBookmark */ = 968510EA10591B1B00815038 /* PBXTextBookmark */;
-			968510EB10591B1B00815038 /* PBXTextBookmark */ = 968510EB10591B1B00815038 /* PBXTextBookmark */;
-			968510F010591B3100815038 /* PBXTextBookmark */ = 968510F010591B3100815038 /* PBXTextBookmark */;
-			968510F310591B6B00815038 /* PBXTextBookmark */ = 968510F310591B6B00815038 /* PBXTextBookmark */;
-			968510F410591B6B00815038 /* PBXTextBookmark */ = 968510F410591B6B00815038 /* PBXTextBookmark */;
-			968510F510591B6B00815038 /* PBXTextBookmark */ = 968510F510591B6B00815038 /* PBXTextBookmark */;
-			968510F610591B8F00815038 /* PBXTextBookmark */ = 968510F610591B8F00815038 /* PBXTextBookmark */;
-			968510F910591B9A00815038 /* PBXTextBookmark */ = 968510F910591B9A00815038 /* PBXTextBookmark */;
-			968510FC10591BA200815038 /* PBXTextBookmark */ = 968510FC10591BA200815038 /* PBXTextBookmark */;
-			968510FD10591C0600815038 /* PBXTextBookmark */ = 968510FD10591C0600815038 /* PBXTextBookmark */;
+			9685102610590EF300815038 = 9685102610590EF300815038 /* PBXTextBookmark */;
+			9685102F10590EF300815038 = 9685102F10590EF300815038 /* PBXTextBookmark */;
+			9685103010590EF300815038 = 9685103010590EF300815038 /* PBXTextBookmark */;
+			9685103110590F0B00815038 = 9685103110590F0B00815038 /* PBXTextBookmark */;
+			9685103210590F0B00815038 = 9685103210590F0B00815038 /* PBXTextBookmark */;
+			9685103310590F4500815038 = 9685103310590F4500815038 /* PBXTextBookmark */;
+			9685103410590F4500815038 = 9685103410590F4500815038 /* PBXTextBookmark */;
+			9685103910590F5500815038 = 9685103910590F5500815038 /* PBXTextBookmark */;
+			9685103E10590F6300815038 = 9685103E10590F6300815038 /* PBXTextBookmark */;
+			9685104310590FF400815038 = 9685104310590FF400815038 /* PBXTextBookmark */;
+			9685104A1059103700815038 = 9685104A1059103700815038 /* PBXTextBookmark */;
+			9685104B1059103700815038 = 9685104B1059103700815038 /* PBXTextBookmark */;
+			9685104C1059103700815038 = 9685104C1059103700815038 /* PBXTextBookmark */;
+			9685104D1059103700815038 = 9685104D1059103700815038 /* PBXTextBookmark */;
+			9685104E1059103700815038 = 9685104E1059103700815038 /* PBXTextBookmark */;
+			9685104F1059103700815038 = 9685104F1059103700815038 /* PBXTextBookmark */;
+			968510541059104200815038 = 968510541059104200815038 /* PBXTextBookmark */;
+			968510551059104200815038 = 968510551059104200815038 /* PBXTextBookmark */;
+			968510561059104200815038 = 968510561059104200815038 /* PBXTextBookmark */;
+			968510571059104200815038 = 968510571059104200815038 /* PBXTextBookmark */;
+			9685105E105911CF00815038 = 9685105E105911CF00815038 /* PBXTextBookmark */;
+			9685105F105911CF00815038 = 9685105F105911CF00815038 /* PBXTextBookmark */;
+			96851060105911CF00815038 = 96851060105911CF00815038 /* PBXTextBookmark */;
+			96851061105911CF00815038 = 96851061105911CF00815038 /* PBXTextBookmark */;
+			96851062105911CF00815038 = 96851062105911CF00815038 /* PBXTextBookmark */;
+			96851063105911CF00815038 = 96851063105911CF00815038 /* PBXTextBookmark */;
+			968510691059124B00815038 = 968510691059124B00815038 /* PBXTextBookmark */;
+			9685106A1059124B00815038 = 9685106A1059124B00815038 /* PBXTextBookmark */;
+			9685106B1059124B00815038 = 9685106B1059124B00815038 /* PBXTextBookmark */;
+			9685106C1059124B00815038 = 9685106C1059124B00815038 /* PBXTextBookmark */;
+			9685106D1059124B00815038 = 9685106D1059124B00815038 /* PBXTextBookmark */;
+			9685106E1059124B00815038 = 9685106E1059124B00815038 /* PBXTextBookmark */;
+			9685106F1059124B00815038 = 9685106F1059124B00815038 /* PBXTextBookmark */;
+			968510711059124C00815038 = 968510711059124C00815038 /* PBXTextBookmark */;
+			968510721059124F00815038 = 968510721059124F00815038 /* PBXTextBookmark */;
+			968510731059125B00815038 = 968510731059125B00815038 /* PBXTextBookmark */;
+			968510741059125B00815038 = 968510741059125B00815038 /* PBXTextBookmark */;
+			968510751059125B00815038 = 968510751059125B00815038 /* PBXTextBookmark */;
+			968510761059125B00815038 = 968510761059125B00815038 /* PBXTextBookmark */;
+			9685107B1059128900815038 = 9685107B1059128900815038 /* PBXTextBookmark */;
+			9685107C1059128900815038 = 9685107C1059128900815038 /* PBXTextBookmark */;
+			9685107D1059128900815038 = 9685107D1059128900815038 /* PBXTextBookmark */;
+			96851080105912CF00815038 = 96851080105912CF00815038 /* PBXTextBookmark */;
+			96851081105912CF00815038 = 96851081105912CF00815038 /* PBXTextBookmark */;
+			96851082105912CF00815038 = 96851082105912CF00815038 /* PBXTextBookmark */;
+			96851083105912CF00815038 = 96851083105912CF00815038 /* PBXTextBookmark */;
+			96851084105912CF00815038 = 96851084105912CF00815038 /* PBXTextBookmark */;
+			9685108B1059131D00815038 = 9685108B1059131D00815038 /* PBXTextBookmark */;
+			9685108C1059131D00815038 = 9685108C1059131D00815038 /* PBXTextBookmark */;
+			9685108D1059131D00815038 = 9685108D1059131D00815038 /* PBXTextBookmark */;
+			96851090105916B000815038 = 96851090105916B000815038 /* PBXTextBookmark */;
+			96851091105916B000815038 = 96851091105916B000815038 /* PBXTextBookmark */;
+			96851092105916B000815038 = 96851092105916B000815038 /* PBXTextBookmark */;
+			96851093105916B000815038 = 96851093105916B000815038 /* PBXTextBookmark */;
+			96851094105916B000815038 = 96851094105916B000815038 /* PBXTextBookmark */;
+			96851095105916B000815038 = 96851095105916B000815038 /* PBXTextBookmark */;
+			96851096105916B000815038 = 96851096105916B000815038 /* PBXTextBookmark */;
+			96851099105916D700815038 = 96851099105916D700815038 /* PBXTextBookmark */;
+			9685109A105916D700815038 = 9685109A105916D700815038 /* PBXTextBookmark */;
+			9685109B105916D700815038 = 9685109B105916D700815038 /* PBXTextBookmark */;
+			9685109C105916D700815038 = 9685109C105916D700815038 /* PBXTextBookmark */;
+			9685109F105916F400815038 = 9685109F105916F400815038 /* PBXTextBookmark */;
+			968510A0105916F400815038 = 968510A0105916F400815038 /* PBXTextBookmark */;
+			968510A1105916F400815038 = 968510A1105916F400815038 /* PBXTextBookmark */;
+			968510A41059176300815038 = 968510A41059176300815038 /* PBXTextBookmark */;
+			968510A91059177F00815038 = 968510A91059177F00815038 /* PBXTextBookmark */;
+			968510AA1059177F00815038 = 968510AA1059177F00815038 /* PBXTextBookmark */;
+			968510AB1059177F00815038 = 968510AB1059177F00815038 /* PBXTextBookmark */;
+			968510CA1059189A00815038 = 968510CA1059189A00815038 /* PBXTextBookmark */;
+			968510CB1059189A00815038 = 968510CB1059189A00815038 /* PBXTextBookmark */;
+			968510CC1059189A00815038 = 968510CC1059189A00815038 /* PBXTextBookmark */;
+			968510CD1059189A00815038 = 968510CD1059189A00815038 /* PBXTextBookmark */;
+			968510D0105918CA00815038 = 968510D0105918CA00815038 /* PBXTextBookmark */;
+			968510D31059193200815038 = 968510D31059193200815038 /* PBXTextBookmark */;
+			968510D61059195400815038 = 968510D61059195400815038 /* PBXTextBookmark */;
+			968510D910591AAE00815038 = 968510D910591AAE00815038 /* PBXTextBookmark */;
+			968510DA10591AAE00815038 = 968510DA10591AAE00815038 /* PBXTextBookmark */;
+			968510DB10591AAE00815038 = 968510DB10591AAE00815038 /* PBXTextBookmark */;
+			968510DC10591AAE00815038 = 968510DC10591AAE00815038 /* PBXTextBookmark */;
+			968510DD10591AAE00815038 = 968510DD10591AAE00815038 /* PBXTextBookmark */;
+			968510DE10591AAE00815038 = 968510DE10591AAE00815038 /* PBXTextBookmark */;
+			968510E110591AD600815038 = 968510E110591AD600815038 /* PBXTextBookmark */;
+			968510E210591AD600815038 = 968510E210591AD600815038 /* PBXTextBookmark */;
+			968510E310591AD600815038 = 968510E310591AD600815038 /* PBXTextBookmark */;
+			968510E410591AD600815038 = 968510E410591AD600815038 /* PBXTextBookmark */;
+			968510E910591B1B00815038 = 968510E910591B1B00815038 /* PBXTextBookmark */;
+			968510EA10591B1B00815038 = 968510EA10591B1B00815038 /* PBXTextBookmark */;
+			968510EB10591B1B00815038 = 968510EB10591B1B00815038 /* PBXTextBookmark */;
+			968510F010591B3100815038 = 968510F010591B3100815038 /* PBXTextBookmark */;
+			968510F310591B6B00815038 = 968510F310591B6B00815038 /* PBXTextBookmark */;
+			968510F410591B6B00815038 = 968510F410591B6B00815038 /* PBXTextBookmark */;
+			968510F510591B6B00815038 = 968510F510591B6B00815038 /* PBXTextBookmark */;
+			968510F610591B8F00815038 = 968510F610591B8F00815038 /* PBXTextBookmark */;
+			968510F910591B9A00815038 = 968510F910591B9A00815038 /* PBXTextBookmark */;
+			968510FC10591BA200815038 = 968510FC10591BA200815038 /* PBXTextBookmark */;
+			968510FD10591C0600815038 = 968510FD10591C0600815038 /* PBXTextBookmark */;
+			9685111910591D0900815038 /* PBXTextBookmark */ = 9685111910591D0900815038 /* PBXTextBookmark */;
+			9685111A10591D0900815038 /* PBXTextBookmark */ = 9685111A10591D0900815038 /* PBXTextBookmark */;
+			9685111B10591D0900815038 /* PBXTextBookmark */ = 9685111B10591D0900815038 /* PBXTextBookmark */;
+			9685111C10591D0900815038 /* PBXTextBookmark */ = 9685111C10591D0900815038 /* PBXTextBookmark */;
+			9685111D10591D0900815038 /* PBXTextBookmark */ = 9685111D10591D0900815038 /* PBXTextBookmark */;
 			9697740A101AFA0F00F0DC3D = 9697740A101AFA0F00F0DC3D /* PBXTextBookmark */;
 			969DDABB104E7FCC0087CD9E = 969DDABB104E7FCC0087CD9E /* PBXTextBookmark */;
 			969DDB4B104E8FEC0087CD9E = 969DDB4B104E8FEC0087CD9E /* PBXTextBookmark */;
@@ -1273,11 +1278,6 @@
 		name = TTNavigator.h;
 		path = /Users/seb/Programmering/Resurser/iPhone/three20/src/Three20/TTNavigator.h;
 		sourceTree = "<absolute>";
-		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {995, 3220}}";
-			sepNavSelRange = "{6370, 41}";
-			sepNavVisRange = "{0, 1744}";
-		};
 	};
 	9674F2241053D3D200725FE9 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
@@ -1302,11 +1302,6 @@
 		name = TTViewController.h;
 		path = /Users/seb/Programmering/Resurser/iPhone/three20/src/Three20/TTViewController.h;
 		sourceTree = "<absolute>";
-		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {995, 1078}}";
-			sepNavSelRange = "{176, 16}";
-			sepNavVisRange = "{0, 1756}";
-		};
 	};
 	9674F2481053D4D000725FE9 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
@@ -1324,11 +1319,6 @@
 		name = UIViewController.h;
 		path = /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator3.0.sdk/System/Library/Frameworks/UIKit.framework/Headers/UIViewController.h;
 		sourceTree = "<absolute>";
-		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1476, 2254}}";
-			sepNavSelRange = "{910, 74}";
-			sepNavVisRange = "{0, 1766}";
-		};
 	};
 	9674F2A01053D96500725FE9 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
@@ -1398,11 +1388,6 @@
 		name = TTViewController.m;
 		path = /Users/seb/Programmering/Kleio/Finance/iPhone/../../../Resurser/iPhone/three20/src/TTViewController.m;
 		sourceTree = "<absolute>";
-		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {995, 4494}}";
-			sepNavSelRange = "{10253, 146}";
-			sepNavVisRange = "{7976, 2115}";
-		};
 	};
 	9674F57D1054057100725FE9 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
@@ -1431,7 +1416,7 @@
 		rLen = 0;
 		rLoc = 500;
 		rType = 0;
-		vrLen = 540;
+		vrLen = 528;
 		vrLoc = 0;
 	};
 	9685103010590EF300815038 /* PBXTextBookmark */ = {
@@ -1461,7 +1446,7 @@
 		rLen = 0;
 		rLoc = 520;
 		rType = 0;
-		vrLen = 540;
+		vrLen = 528;
 		vrLoc = 0;
 	};
 	9685103310590F4500815038 /* PBXTextBookmark */ = {
@@ -1591,11 +1576,10 @@
 		vrLen = 2349;
 		vrLoc = 0;
 	};
-	968510561059104200815038 /* XCBuildMessageTextBookmark */ = {
+	968510561059104200815038 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		comments = "Expected ')' before ';' token";
 		fRef = 963B03C71019EF8E00CD5184 /* TransactionTableViewController.m */;
-		fallbackIsa = XCBuildMessageTextBookmark;
 		rLen = 1;
 		rLoc = 40;
 		rType = 1;
@@ -1992,7 +1976,7 @@
 		rLen = 0;
 		rLoc = 520;
 		rType = 0;
-		vrLen = 583;
+		vrLen = 528;
 		vrLoc = 0;
 	};
 	96851099105916D700815038 /* PBXTextBookmark */ = {
@@ -2002,7 +1986,7 @@
 		rLen = 0;
 		rLoc = 520;
 		rType = 0;
-		vrLen = 583;
+		vrLen = 528;
 		vrLoc = 0;
 	};
 	9685109A105916D700815038 /* PBXTextBookmark */ = {
@@ -2262,7 +2246,7 @@
 		rLen = 0;
 		rLoc = 520;
 		rType = 0;
-		vrLen = 583;
+		vrLen = 528;
 		vrLoc = 0;
 	};
 	968510E410591AD600815038 /* PBXTextBookmark */ = {
@@ -2272,7 +2256,7 @@
 		rLen = 0;
 		rLoc = 520;
 		rType = 0;
-		vrLen = 595;
+		vrLen = 528;
 		vrLoc = 0;
 	};
 	968510E910591B1B00815038 /* PBXTextBookmark */ = {
@@ -2292,7 +2276,7 @@
 		rLen = 0;
 		rLoc = 520;
 		rType = 0;
-		vrLen = 597;
+		vrLen = 528;
 		vrLoc = 0;
 	};
 	968510EB10591B1B00815038 /* PBXTextBookmark */ = {
@@ -2302,7 +2286,7 @@
 		rLen = 0;
 		rLoc = 519;
 		rType = 0;
-		vrLen = 652;
+		vrLen = 528;
 		vrLoc = 0;
 	};
 	968510F010591B3100815038 /* PBXTextBookmark */ = {
@@ -2312,7 +2296,7 @@
 		rLen = 0;
 		rLoc = 519;
 		rType = 0;
-		vrLen = 672;
+		vrLen = 528;
 		vrLoc = 0;
 	};
 	968510F310591B6B00815038 /* PBXTextBookmark */ = {
@@ -2384,6 +2368,56 @@
 		rType = 0;
 		vrLen = 2337;
 		vrLoc = 530;
+	};
+	9685111910591D0900815038 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 96A98E571025D45100FFA6D0 /* TransactionsMainViewController.m */;
+		name = "TransactionsMainViewController.m: 36";
+		rLen = 106;
+		rLoc = 895;
+		rType = 0;
+		vrLen = 3303;
+		vrLoc = 557;
+	};
+	9685111A10591D0900815038 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 96A98E561025D45100FFA6D0 /* TransactionsMainViewController.h */;
+		name = "TransactionsMainViewController.h: 16";
+		rLen = 16;
+		rLoc = 341;
+		rType = 0;
+		vrLen = 999;
+		vrLoc = 0;
+	};
+	9685111B10591D0900815038 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 96BBA6FF10550D7000F5D537 /* TabBarController.h */;
+		name = "TabBarController.h: 12";
+		rLen = 0;
+		rLoc = 203;
+		rType = 0;
+		vrLen = 232;
+		vrLoc = 0;
+	};
+	9685111C10591D0900815038 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 96BBA70010550D7000F5D537 /* TabBarController.m */;
+		name = "TabBarController.m: 20";
+		rLen = 0;
+		rLoc = 519;
+		rType = 0;
+		vrLen = 528;
+		vrLoc = 0;
+	};
+	9685111D10591D0900815038 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 96BBA70010550D7000F5D537 /* TabBarController.m */;
+		name = "TabBarController.m: 20";
+		rLen = 0;
+		rLoc = 519;
+		rType = 0;
+		vrLen = 528;
+		vrLoc = 0;
 	};
 	96885B7F1004EB01003090D8 /* Finance */ = {
 		isa = PBXExecutable;
@@ -2584,7 +2618,7 @@
 	};
 	96A98E561025D45100FFA6D0 /* TransactionsMainViewController.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {995, 599}}";
+			sepNavIntBoundsRect = "{{0, 0}, {995, 779}}";
 			sepNavSelRange = "{341, 16}";
 			sepNavVisRange = "{0, 999}";
 			sepNavWindowFrame = "{{389, 304}, {1145, 778}}";
@@ -2593,9 +2627,9 @@
 	96A98E571025D45100FFA6D0 /* TransactionsMainViewController.m */ = {
 		uiCtxt = {
 			sepNavFolds = "{\n    c =     (\n                {\n            r = \"{2130, 141}\";\n            s = 0;\n        },\n                {\n            r = \"{2295, 62}\";\n            s = 0;\n        },\n                {\n            r = \"{2377, 101}\";\n            s = 0;\n        },\n                {\n            r = \"{2563, 302}\";\n            s = 0;\n        },\n                {\n            r = \"{2911, 193}\";\n            s = 0;\n        },\n                {\n            r = \"{3125, 166}\";\n            s = 0;\n        },\n                {\n            r = \"{3315, 232}\";\n            s = 0;\n        },\n                {\n            r = \"{3568, 290}\";\n            s = 0;\n        },\n                {\n            r = \"{3881, 80}\";\n            s = 0;\n        },\n                {\n            r = \"{4012, 21}\";\n            s = 0;\n        },\n                {\n            r = \"{4084, 370}\";\n            s = 0;\n        },\n                {\n            r = \"{4490, 255}\";\n            s = 0;\n        },\n                {\n            r = \"{4837, 26}\";\n            s = 0;\n        },\n                {\n            r = \"{4889, 34}\";\n            s = 0;\n        },\n                {\n            r = \"{4958, 33}\";\n            s = 0;\n        },\n                {\n            r = \"{5017, 21}\";\n            s = 0;\n        },\n                {\n            r = \"{5065, 21}\";\n            s = 0;\n        },\n                {\n            r = \"{5114, 23}\";\n            s = 0;\n        },\n                {\n            r = \"{5184, 24}\";\n            s = 0;\n        }\n    );\n    r = \"{0, 5215}\";\n    s = 0;\n}";
-			sepNavIntBoundsRect = "{{0, 0}, {995, 1386}}";
-			sepNavSelRange = "{1001, 0}";
-			sepNavVisRange = "{530, 1735}";
+			sepNavIntBoundsRect = "{{0, 0}, {995, 1372}}";
+			sepNavSelRange = "{895, 106}";
+			sepNavVisRange = "{557, 1824}";
 			sepNavWindowFrame = "{{490, 233}, {1145, 778}}";
 		};
 	};
@@ -2986,14 +3020,14 @@
 	};
 	96BBA6FF10550D7000F5D537 /* TabBarController.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {995, 759}}";
+			sepNavIntBoundsRect = "{{0, 0}, {995, 779}}";
 			sepNavSelRange = "{203, 0}";
 			sepNavVisRange = "{0, 232}";
 		};
 	};
 	96BBA70010550D7000F5D537 /* TabBarController.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {995, 759}}";
+			sepNavIntBoundsRect = "{{0, 0}, {995, 756}}";
 			sepNavSelRange = "{519, 0}";
 			sepNavVisRange = "{0, 528}";
 			sepNavWindowFrame = "{{603, 445}, {1280, 703}}";
@@ -3079,7 +3113,7 @@
 		hitCount = 0;
 		ignoreCount = 0;
 		lineNumber = 318;
-		modificationTime = 274272907.941593;
+		modificationTime = 274272907.9415931;
 		originalNumberOfMultipleMatches = 0;
 		state = 2;
 	};
@@ -3555,11 +3589,6 @@
 		name = UIViewControllerAdditions.m;
 		path = /Users/seb/Programmering/Resurser/iPhone/three20/src/UIViewControllerAdditions.m;
 		sourceTree = "<absolute>";
-		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1246, 3262}}";
-			sepNavSelRange = "{1909, 0}";
-			sepNavVisRange = "{1571, 708}";
-		};
 	};
 	96C509A11051860E009CE76E /* TTURLPattern.m */ = {
 		isa = PBXFileReference;
@@ -3601,12 +3630,6 @@
 		name = TTNavigator.m;
 		path = /Users/seb/Programmering/Resurser/iPhone/three20/src/TTNavigator.m;
 		sourceTree = "<absolute>";
-		uiCtxt = {
-			sepNavFolds = "{\n    c =     (\n                {\n            r = \"{478, 141}\";\n            s = 0;\n        },\n                {\n            r = \"{1241, 128}\";\n            s = 0;\n        },\n                {\n            r = \"{2340, 568}\";\n            s = 0;\n        },\n                {\n            r = \"{2953, 251}\";\n            s = 0;\n        },\n                {\n            r = \"{3268, 185}\";\n            s = 0;\n        },\n                {\n            r = \"{3556, 654}\";\n            s = 0;\n        },\n                {\n            r = \"{4355, 170}\";\n            s = 0;\n        },\n                {\n            r = \"{4706, 454}\";\n            s = 0;\n        },\n                {\n            r = \"{5356, 1269}\";\n            s = 0;\n        },\n                {\n            r = \"{6830, 721}\";\n            s = 0;\n        },\n                {\n            r = \"{7822, 1861}\";\n            s = 0;\n        },\n                {\n            r = \"{9811, 1066}\";\n            s = 0;\n        },\n                {\n            r = \"{10897, 380}\";\n            s = 0;\n        },\n                {\n            r = \"{11458, 66}\";\n            s = 0;\n        },\n                {\n            r = \"{11659, 299}\";\n            s = 0;\n        },\n                {\n            r = \"{12005, 648}\";\n            s = 0;\n        },\n                {\n            r = \"{12696, 401}\";\n            s = 0;\n        },\n                {\n            r = \"{13118, 47}\";\n            s = 0;\n        },\n                {\n            r = \"{13199, 36}\";\n            s = 0;\n        },\n                {\n            r = \"{13307, 148}\";\n            s = 0;\n        },\n                {\n            r = \"{13597, 129}\";\n            s = 0;\n        },\n                {\n            r = \"{13826, 154}\";\n            s = 0;\n        },\n                {\n            r = \"{14079, 150}\";\n            s = 0;\n        },\n                {\n            r = \"{14377, 156}\";\n            s = 0;\n        },\n                {\n            r = \"{14730, 156}\";\n            s = 0;\n        },\n                {\n            r = \"{15613, 65}\";\n            s = 0;\n        },\n                {\n            r = \"{15766, 67}\";\n            s = 0;\n        },\n                {\n            r = \"{17362, 27}\";\n            s = 0;\n        },\n                {\n            r = \"{17412, 18}\";\n            s = 0;\n        },\n                {\n            r = \"{17451, 195}\";\n            s = 0;\n        },\n                {\n            r = \"{17670, 88}\";\n            s = 0;\n        },\n                {\n            r = \"{17793, 931}\";\n            s = 0;\n        },\n                {\n            r = \"{18772, 1663}\";\n            s = 0;\n        },\n                {\n            r = \"{21350, 123}\";\n            s = 0;\n        },\n                {\n            r = \"{21515, 500}\";\n            s = 0;\n        },\n                {\n            r = \"{22055, 252}\";\n            s = 0;\n        },\n                {\n            r = \"{22333, 273}\";\n            s = 0;\n        },\n                {\n            r = \"{22625, 237}\";\n            s = 0;\n        },\n                {\n            r = \"{23026, 62}\";\n            s = 0;\n        }\n    );\n    r = \"{0, 23090}\";\n    s = 0;\n}";
-			sepNavIntBoundsRect = "{{0, 0}, {995, 3402}}";
-			sepNavSelRange = "{6997, 0}";
-			sepNavVisRange = "{366, 2253}";
-		};
 	};
 	96C509A61051860E009CE76E /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
@@ -4122,7 +4145,7 @@
 		rLen = 0;
 		rLoc = 520;
 		rType = 0;
-		vrLen = 529;
+		vrLen = 528;
 		vrLoc = 0;
 	};
 	96E153C91057BE6B001F9691 /* PBXTextBookmark */ = {
@@ -4248,7 +4271,7 @@
 		rLen = 0;
 		rLoc = 500;
 		rType = 0;
-		vrLen = 540;
+		vrLen = 528;
 		vrLoc = 0;
 	};
 	96E1540F10581E9A001F9691 /* PBXTextBookmark */ = {
