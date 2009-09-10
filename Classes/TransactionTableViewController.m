@@ -32,12 +32,15 @@
 @synthesize filteredSearchResults;
 @synthesize worthUpdating;
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//	NSObject
 #pragma mark -
 #pragma mark Setup and teardown
-- (id)initWithStyle:(UITableViewStyle)style andContext:(NSManagedObjectContext*)context {
-	self = [super initWithStyle:style];
-	if (self != nil) {
-		self.managedObjectContext = context;
+- (id)initWithStyle:(UITableViewStyle)style {
+
+	if (self = [super initWithStyle:style]) {
+		
+		//self.managedObjectContext = context;
 		self.filteringPredicate = [NSPredicate predicateWithValue:YES];
 		
 		self.worthUpdating = YES;
@@ -50,26 +53,18 @@
 		} else if ([self class] == [DetailTableViewController class]) {
 			[[CacheMasterSingleton sharedCacheMaster] setDetailTableDelegate:(DetailTableViewController*)self];
 		}
-		
-		/*
-		 If we don't start listening for cache changes
-		 already on the init, then we miss insertions of new
-		 transactions that occure before the overview page has been visited!
-		 */
-/*		[[NSNotificationCenter defaultCenter]
-			addObserver:self
-			selector:@selector(clearCacheIfAvailable)
-			name:@"FinanceKillAllCache"
-			object:nil];		*/
-		
+				
 	}	
 	return self;
 }
+
+- (id) initWithStyle:(UITableViewStyle)style andContext:(NSManagedObjectContext *)context {
+	self = [self initWithStyle:style];
+	[self setManagedObjectContext:context];
+	return self;
+}
+
 - (void)dealloc {
-//	NSLog(@"Unregistering observer %@", self);
-//	[[NSNotificationCenter defaultCenter] removeObserver:self.tableView];
-//	[[NSNotificationCenter defaultCenter] removeObserver:self];
-	
 	NSLog(@"Deallocing %@", self);
 	
 	// Release all resources

@@ -9,27 +9,34 @@
 #import <Three20/Three20.h>
 #import "AmountController.h"
 #import "TagController.h"
-
+#import "Utilities.h"
 
 @implementation AmountController
 
+@synthesize managedObjectContext = _managedObjectContext;
+- (NSManagedObjectContext*)managedObjectContext {
+	if (_managedObjectContext == nil) {
+		_managedObjectContext = [[[Utilities toolbox] createObjectContext] retain];
+	}
+	return _managedObjectContext;
+}
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //	NSObject
 
 
-- (id)initWithContext:(NSManagedObjectContext*)context {
+- (id)init {
     if (self = [super initWithNibName:@"AmountController" bundle:[NSBundle mainBundle]]) {
-		self.title = @"NewAmount";
+		self.title = @"Add transaction";
 
-		managedObjectContext = [context retain];
-		currentTransaction = [[NSEntityDescription insertNewObjectForEntityForName:@"Transaction" inManagedObjectContext:managedObjectContext] retain];
+		currentTransaction = [[NSEntityDescription insertNewObjectForEntityForName:@"Transaction" inManagedObjectContext:self.managedObjectContext] retain];
 		
     }
     return self;
 }
 
 - (void) dealloc {
+	TT_RELEASE_SAFELY(_managedObjectContext);
 	[super dealloc];
 }
 
@@ -42,15 +49,11 @@
 	// CurrencyKeyboard
 	keyboard = [[CurrencyKeyboard alloc] init];
 	[keyboard setDelegate:self];
-	[keyboard showKeyboardWithAnimation:YES];
+	[keyboard showKeyboardWithAnimation:NO];
 	
 	[nextButton addTarget:@"kleio://tagSelector" action:@selector(openURL) forControlEvents:UIControlEventValueChanged];
 	
 	[self updateExpenseDisplay];
-}
-- (void) viewWillDisappear:(BOOL)animated {
-	[super viewWillDisappear:animated];
-	[keyboard hideKeyboardWithAnimation:YES];
 }
 - (void) viewDidDisappear:(BOOL)animated {
 	[super viewDidDisappear:animated];

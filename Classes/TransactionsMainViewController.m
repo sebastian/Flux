@@ -10,6 +10,7 @@
 #import "TransactionsNavigationController.h"
 #import "Utilities.h"
 #import "CacheMasterSingleton.h"
+#import "OverviewTableViewController.h"
 
 @interface TransactionsMainViewController (PrivateMethods)
 -(void)moveMainContentDown:(BOOL)down;
@@ -29,25 +30,41 @@
 #pragma mark
 #pragma mark -
 #pragma mark Setup init and teardown
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil andContext:(NSManagedObjectContext*)context {
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
+			
+			self.navigationBarStyle = UIBarStyleBlackOpaque;
+			self.statusBarStyle = UIStatusBarStyleBlackOpaque;
+			
+			[[Utilities toolbox] setReloadingTableAllowed];	
 		
-		[[Utilities toolbox] setReloadingTableAllowed];	
+			NSManagedObjectContext * context = [[Utilities toolbox] createObjectContext];
+			
+			OverviewTableViewController * overviewController = [[OverviewTableViewController alloc] initWithStyle:UITableViewStylePlain];
+			self.navController = [[TransactionsNavigationController alloc] initWithRootViewController:overviewController];
+			[self.navController setManagedObjectContext:context];
+			[overviewController setManagedObjectContext:context];
+			
+			//self.navController = [[TransactionsNavigationController alloc] init];
+			
+			self.contentView = self.navController.view;
 		
-		self.navController = [[TransactionsNavigationController alloc] initWithContext:context];
-		self.contentView = self.navController.view;
+			[[KleioSearchBar searchBar] setDelegate:self];
+			[[KleioSearchBar searchBar] hide];
 		
-		[[KleioSearchBar searchBar] setDelegate:self];
-		[[KleioSearchBar searchBar] hide];
+			// Add the contentview to the subview
+			[self.view addSubview:self.contentView];
 		
-		// Add the contentview to the subview
-		[self.view addSubview:self.contentView];
+			[self.tabBarItem setImage:[UIImage imageNamed:@"Transactions.png"]];
 		
-		[self.tabBarItem setImage:[UIImage imageNamed:@"Transactions.png"]];
-		
-		self.title = NSLocalizedString(@"Transactions",@"Tab bar title");
+			self.title = NSLocalizedString(@"Transactions",@"Tab bar title");
     }
     return self;
+}
+
+- (id) init {
+	return [self initWithNibName:@"TransactionFilterViewController" 
+												bundle:[NSBundle mainBundle]];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];

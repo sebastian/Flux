@@ -120,10 +120,6 @@
 							<reference ref="4"/>
 						</object>
 						<bool key="IBMomentary">YES</bool>
-						<object class="NSColor" key="IBTintColor">
-							<int key="NSColorSpace">1</int>
-							<bytes key="NSRGB">MC4yOTU2MjA0MzggMC4yOTU2MjA0MzggMQA</bytes>
-						</object>
 					</object>
 					<object class="IBUILabel" id="538391531">
 						<reference key="NSNextResponder" ref="713560101"/>
@@ -300,7 +296,7 @@
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>AmountController</string>
 					<string>UIResponder</string>
-					<string>{{677, 340}, {320, 400}}</string>
+					<string>{{423, 340}, {320, 400}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>

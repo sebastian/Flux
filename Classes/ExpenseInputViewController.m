@@ -36,6 +36,12 @@
 
 @synthesize currentTransaction;
 @synthesize managedObjectContext;
+- (NSManagedObjectContext*)managedObjectContext {
+	if (managedObjectContext == nil) {
+		managedObjectContext = [[[Utilities toolbox] createObjectContext] retain];
+	}
+	return managedObjectContext;
+}
 
 @synthesize controller;
 @synthesize currencyKeyboard;
@@ -50,6 +56,8 @@
 #pragma mark
 #pragma mark -
 #pragma mark Init, setup and teardown etc
+
+
 -(id) initWithNibName:(NSString*)nibName bundle:(NSBundle*)bundle {
 	self = [super initWithNibName:nibName bundle:bundle];
 	if (self) {
@@ -58,6 +66,9 @@
 		[self.tabBarItem setImage:[UIImage imageNamed:@"Add.png"]];
 	}
 	return self;	
+}
+- (id) init {
+	return [self initWithNibName:@"ExpenseEditor" bundle:[NSBundle mainBundle]];
 }
 
 - (void)viewDidLoad {

@@ -6,13 +6,14 @@
 //  Copyright 2009 Kle.io. All rights reserved.
 //
 
+#import <Three20/Three20.h>
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
 #import "KleioSearchBar.h"
 
 @class TransactionsNavigationController;
 
-@interface TransactionsMainViewController : UIViewController <KleioSearchBarDelegate> {
+@interface TransactionsMainViewController : TTViewController <KleioSearchBarDelegate> {
 	UIView * contentView;
 	BOOL searchIsVisible;
 	
@@ -25,7 +26,7 @@
 @property (nonatomic, retain) TransactionsNavigationController * navController;
 @property (nonatomic, retain) IBOutlet UIImageView * backgroundImage;
 
-- (id)initWithNibName:(NSString*)nibNameOrNil bundle:(NSBundle*)nibBundleOrNil andContext:(NSManagedObjectContext*)context;
+- (id)initWithNibName:(NSString*)nibNameOrNil bundle:(NSBundle*)nibBundleOrNil;
 
 // KleioSearchBarDelegate methods
 - (BOOL)isVisible;

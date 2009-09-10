@@ -10,34 +10,58 @@
 #import "OverviewTableViewController.h"
 #import "DetailTableViewController.h"
 #import "Transaction.h"
+#import "Utilities.h"
 
 @implementation TransactionsNavigationController
 
 @synthesize managedObjectContext;
+- (NSManagedObjectContext*)managedObjectContext {
+	if (managedObjectContext == nil) {
+		managedObjectContext = [[[Utilities toolbox] createObjectContext] retain];
+	}
+	return managedObjectContext;
+}
 
--(id)initWithContext:(NSManagedObjectContext*)context {
+-(id)initWithRootViewController:(id)rootviewcontroller {
 	
-	OverviewTableViewController * overviewController = 
-		[[OverviewTableViewController alloc] initWithStyle:UITableViewStylePlain andContext:context];
-	
-	NSLog(@"Updating data in background thread (synchronized)");
-	[overviewController performSelectorInBackground:@selector(updateData) withObject:nil];
-	
-	self = [super initWithRootViewController:overviewController];
-	[overviewController release];
-	
-	if (self != nil) {	
+	if (self = [super initWithRootViewController:rootviewcontroller]) {
+		
 		// Setting the delegate to self so that I can inform the views that they will be appearing
 		self.delegate = self;
 		
 		// Setup style
 		self.navigationBar.barStyle = UIBarStyleBlackOpaque;
-
+		
 		// Needed so that I can receive the info about changes in the managedObjectContext and
 		// propagate them!
-		self.managedObjectContext = context;
 		self.title = NSLocalizedString(@"Transactions", @"Transaction table view header");
-	}
+				
+	}	
+		
+	
+//	// Create a managed object context
+//	managedObjectContext = [[[Utilities toolbox] createObjectContext] retain];
+//	
+//	OverviewTableViewController * overviewController = 
+//		[[OverviewTableViewController alloc] initWithStyle:UITableViewStylePlain andContext:managedObjectContext];
+//	
+////	NSLog(@"Updating data in background thread (synchronized)");
+////	[overviewController performSelectorInBackground:@selector(updateData) withObject:nil];
+//	
+//	self = [super initWithRootViewController:overviewController];
+//	[overviewController release];
+//	
+//	if (self != nil) {	
+//		// Setting the delegate to self so that I can inform the views that they will be appearing
+//		self.delegate = self;
+//		
+//		// Setup style
+//		self.navigationBar.barStyle = UIBarStyleBlackOpaque;
+//
+//		// Needed so that I can receive the info about changes in the managedObjectContext and
+//		// propagate them!
+//		self.title = NSLocalizedString(@"Transactions", @"Transaction table view header");
+//	}
 	
 	return self;
 }

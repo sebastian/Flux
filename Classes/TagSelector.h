@@ -25,8 +25,6 @@
 	TTView * suggestedTagsView;
 	CGRect _keyboardBounds;
 
-	
-	
 	BOOL keybordVisible;
 }
 

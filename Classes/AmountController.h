@@ -18,7 +18,7 @@
 	CurrencyKeyboard * keyboard;
 	
 	// CoreData stuff
-	NSManagedObjectContext *managedObjectContext;
+	NSManagedObjectContext *_managedObjectContext;
 	Transaction * currentTransaction;
 	
 	IBOutlet UILabel * amountLabel;
@@ -27,7 +27,7 @@
 	IBOutlet UIImageView * backgroundImageView;
 	
 }
-
+@property (nonatomic, retain) NSManagedObjectContext * managedObjectContext;
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //	CurrencyKeyboardDelegate
 - (void)numericButtonPressed:(NSInteger)key;

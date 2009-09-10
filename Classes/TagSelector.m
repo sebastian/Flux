@@ -13,6 +13,31 @@
 #import <Three20/Three20.h>
 #import "Utilities.h"
 
+#define LOGRECT(rect) \
+NSLog(@"%s x=%f, y=%f, w=%f, h=%f", #rect, rect.origin.x, rect.origin.y, \
+rect.size.width, rect.size.height)
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+@interface KleioViewHolder : TTView
+@end
+
+@implementation KleioViewHolder
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//	Keyboard actions
+- (void)keyboardDidAppear:(BOOL)animated withBounds:(CGRect)bounds {
+	LOGRECT(bounds);
+}
+
+- (void)keyboardDidDisappear:(BOOL)animated withBounds:(CGRect)bounds {
+	LOGRECT(bounds);
+}
+@end
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 @implementation TagSelector
 
@@ -33,18 +58,17 @@
 	[self dismissModalViewControllerAnimated:YES];
 }
 
-#define LOGRECT(rect) \
-NSLog(@"%s x=%f, y=%f, w=%f, h=%f", #rect, rect.origin.x, rect.origin.y, \
-rect.size.width, rect.size.height)
-
 - (void)layout {
 	
 	CGRect workableSpace;
 	
 	if (keybordVisible) {
 		workableSpace = TTKeyboardNavigationFrame();
+		
 	} else {
-		workableSpace = TTNavigationFrame();
+		workableSpace = TTNavigationFrame(); //TTToolbarNavigationFrame();
+		//workableSpace = CGRectMake(workableSpace.origin.x, workableSpace.origin.y, workableSpace.size.width, workableSpace.size.height - 5);
+		
 	}
 	
 	// Set right location for picker frame;
@@ -55,16 +79,15 @@ rect.size.width, rect.size.height)
 	separator.height = 1;
 	
 	// Get the right height for the tableview
-	suggestedTagsView.height = workableSpace.size.height - separator.bottom;
+	suggestedTagsView.height = workableSpace.size.height - _pickerTextField.height - separator.height;
 	suggestedTagsView.top = separator.bottom;
-	
-
-	
+		
 	TTFlowLayout * flow = [[TTFlowLayout alloc] init];
 	flow.padding = 0;
 	flow.spacing = 0;
 	[flow layoutSubviews:self.view.subviews forView:self.view];
-
+	[flow release];
+	
 }
 
 - (KleioPickerTextField*)createPicker {
@@ -144,7 +167,9 @@ rect.size.width, rect.size.height)
 
 		self.autoresizesForKeyboard = YES;
 		self.dataSource = [[[TagDataSource alloc] init] autorelease];
-		self.navigationBarStyle = UIBarStyleBlackOpaque;
+
+		[[TTNavigator navigator].URLMap from:@"kleio://addTagToTagSugester" toObject:self selector:@selector(addCellWithObject)];
+		
 	}
 	return self;
 }
@@ -155,7 +180,7 @@ rect.size.width, rect.size.height)
 	KleioPickerTextField * picker = [self createPicker];
 	[self.view addSubview:picker];
 	
-	separator = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 1)] autorelease];
+	separator = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 1)];
 	separator.backgroundColor = TTSTYLEVAR(messageFieldSeparatorColor);
 	separator.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 	[self.view addSubview:separator];
@@ -164,19 +189,17 @@ rect.size.width, rect.size.height)
 
 	[self layout];
 	
-	[[TTNavigator navigator].URLMap from:@"kleio://addTagToTagSugester" toObject:self selector:@selector(addCellWithObject)];
+	self.navigationBarTintColor = [UIColor blackColor];
+	self.navigationBarStyle = UIBarStyleBlackOpaque;
 
 }
 
 - (void) dealloc {
-	TT_RELEASE_SAFELY(_dataSource);
-	TT_RELEASE_SAFELY(_pickerTextField);
-	TT_RELEASE_SAFELY(otherTags);
-	[super dealloc];
-}
-
-- (void) viewDidUnload {
 	[[TTNavigator navigator].URLMap removeURL:@"kleio://addTagToTagSugester"];
+	TT_RELEASE_SAFELY(otherTags);
+	TT_RELEASE_SAFELY(_dataSource);
+	TT_RELEASE_SAFELY(separator);
+	[super dealloc];
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -221,17 +244,17 @@ rect.size.width, rect.size.height)
 }
 
 
-
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //	Keyboard action...
 - (void)keyboardDidAppear:(BOOL)animated withBounds:(CGRect)bounds {
-	_keyboardBounds = bounds;
+	NSLog(@"Keyboard did appear");
+	keybordVisible = YES;
 	[self layout];
 }
 
 - (void)keyboardDidDisappear:(BOOL)animated withBounds:(CGRect)bounds {
-	_keyboardBounds = bounds;
+	NSLog(@"Keyboard did dissapear");
+	keybordVisible = NO;
 	[self layout];
 }
 

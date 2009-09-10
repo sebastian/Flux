@@ -9,6 +9,7 @@
 #import "Utilities.h"
 #import "Tag.h"
 #import "Location.h"
+#import "FinanceAppDelegate.h"
 
 @interface Utilities (PrivateMethods)
 - (void)doSave:(NSManagedObjectContext*)context;
@@ -19,7 +20,6 @@
 
 @implementation Utilities
 
-@synthesize managedObjectContext;
 @synthesize dateFormatter;
 @synthesize geoCoder;
 @synthesize tempVariable;
@@ -273,7 +273,7 @@ static Utilities *sharedUtilitiesToolbox = nil;
 		autotagPredicate = [NSPredicate predicateWithFormat:@"autotag = NO"];
 	}
 
-	NSPredicate * onlyPopularTags = [NSPredicate predicateWithFormat:@"location.@count > @avg.(location.@count)"];
+//	NSPredicate * onlyPopularTags = [NSPredicate predicateWithFormat:@"location.@count > @avg.(location.@count)"];
 	NSPredicate * andPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:[NSArray arrayWithObjects:autotagPredicate, nil]];
 	
 	//- (id)initWithKey:(NSString *)key ascending:(BOOL)ascending;
@@ -351,6 +351,15 @@ static Utilities *sharedUtilitiesToolbox = nil;
 #pragma mark
 #pragma mark -
 #pragma mark CoreData methods
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//	CoreData
+@synthesize managedObjectContext;
+- (NSManagedObjectContext*)managedObjectContext {
+	if (managedObjectContext == nil) {
+		managedObjectContext = [[self createObjectContext] retain];
+	}
+	return managedObjectContext;
+}
 - (void)privateSave {
 	if (saving == NO) {
 		saving = YES;
@@ -395,6 +404,18 @@ static Utilities *sharedUtilitiesToolbox = nil;
 			saving = NO;
 		}
     }	
+}
+- (NSManagedObjectContext*) createObjectContext {
+
+	FinanceAppDelegate * appDelegate = (FinanceAppDelegate*)[[UIApplication sharedApplication] delegate];
+	NSManagedObjectContext *newContext = [[NSManagedObjectContext alloc] init];
+	[newContext setPersistentStoreCoordinator: [appDelegate persistentStoreCoordinator]];
+	if (!newContext) { 
+		NSLog(@"Couldn't create a managedObjectContext in the Utilities helper function");
+	}
+
+	return [newContext autorelease];
+	
 }
 
 

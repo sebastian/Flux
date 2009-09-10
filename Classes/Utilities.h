@@ -33,7 +33,6 @@
 
 
 @property (nonatomic, retain) id tempVariable;
-@property (nonatomic, retain) NSManagedObjectContext * managedObjectContext;
 @property (nonatomic, retain) NSDateFormatter * dateFormatter;
 @property (nonatomic, retain) MKReverseGeocoder * geoCoder;
 
@@ -59,7 +58,24 @@
 -(NSArray*)allTagNamesIncludingAutotags:(BOOL)autotags;
 -(NSArray*)topTagsIncludingAutotags:(BOOL)autotags;
 
-// ReverseGeocoder methods
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//	CoreData
+// CoreData
+@property (nonatomic, retain) NSManagedObjectContext * managedObjectContext;
+- (void)save:(NSManagedObjectContext*)context;
+- (void)privateSave;
+- (void)setSavignIsFalse;
+
+/*
+ * Handles the creation of new manage object contexts that can be used
+ * throught the app
+ */
+- (NSManagedObjectContext*) createObjectContext;
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//	GeoCoding
 - (void)reverseGeoCode:(CLLocationCoordinate2D)coordinate forDelegate:(id<MKReverseGeocoderDelegate>)delegate;
 
 -(void) setReloadingTableAllowed;
@@ -67,8 +83,4 @@
 -(BOOL) isReloadingTableAllowed;
 
 
-// CoreData
-- (void)save:(NSManagedObjectContext*)context;
-- (void)privateSave;
-- (void)setSavignIsFalse;
 @end

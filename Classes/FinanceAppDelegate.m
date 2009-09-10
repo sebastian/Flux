@@ -13,6 +13,7 @@
 #import "TransactionsMainViewController.h"
 #import "AmountController.h"
 #import "TagSelector.h"
+#import "TabBarController.h"
 
 @implementation FinanceAppDelegate
 
@@ -32,18 +33,23 @@
 	TTNavigator* navigator = [TTNavigator navigator];
   navigator.persistenceMode = TTNavigatorPersistenceModeAll;
   navigator.window = self.window;
+
 	
 	TTURLMap* map = navigator.URLMap;
 	[map from:@"*" toViewController:[TTWebController class]]; // Fall back URL
-	[map from:@"kleio://tagSelector" toViewController:[TagSelector class]];
-	
-	
+	[map from:@"kleio://tagSelector" toModalViewController:[TagSelector class]];
+	[map from:@"kleio://tabBar" toSharedViewController:[TabBarController class]];
+	[map from:@"kleio://addTransaction" toSharedViewController:[ExpenseInputViewController class]];
+	[map from:@"kleio://listTransactions" toSharedViewController:[TransactionsMainViewController class]];
+	[map from:@"kleio://testAddTransaction" toSharedViewController:[AmountController class]];
+
+	[navigator openURL:@"kleio://tabBar" animated:NO];
 	/*
 	 Setting up all the different tab bar elements
 	 */
-	[self setupTabBar];
-	[window addSubview:self.tabBarController.view];
-	[window makeKeyAndVisible];
+//	[self setupTabBar];
+//	[window addSubview:self.tabBarController.view];
+//	[window makeKeyAndVisible];
 
 }
 - (void)applicationWillTerminate:(UIApplication *)application {
@@ -59,66 +65,6 @@
 }
 
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////
- 
-- (void) setupTabBar {
-	/*
-	 Setup the utilities toolbox for use
-	 */
-	NSManagedObjectContext *utilitiesContext = [[NSManagedObjectContext alloc] init];
-	[utilitiesContext setPersistentStoreCoordinator: [self persistentStoreCoordinator]];
-	if (!utilitiesContext) { 
-		NSLog(@"Couldn't get a managedObjectContext for the utilities context");
-	}
-	// Give it a managed context for tags and locations
-	[Utilities toolbox].managedObjectContext = utilitiesContext;
-	[utilitiesContext release];
-	
-	
-	NSManagedObjectContext *context = [self managedObjectContext]; 
-	if (!context) { 
-		NSLog(@"Couldn't get a managedObjectContext number 1");
-	}
-	TransactionsMainViewController * transactionViewController = 
-	[[TransactionsMainViewController alloc] initWithNibName:@"TransactionFilterViewController" 
-																									 bundle:[NSBundle mainBundle]
-																							 andContext:context];
-	
-	
-	/*
-	 Why does the addContext need a context of it's own?
-	 There are several reasons:
-	 * I don't want the temporary transactions to be autosaved
-	 * I don't want the temporary transactions to show up in the table views
-	 * I want to be able to make changes to transaction objects in the table views
-	 and have them autosaved on app termination
-	 */
-	NSManagedObjectContext *contextAddExpense = [[NSManagedObjectContext alloc] init];
-	[contextAddExpense setPersistentStoreCoordinator: [self persistentStoreCoordinator]];
-	if (!contextAddExpense) { 
-		NSLog(@"Couldn't get a managedObjectContext number 2 for addExpenseController");
-	}
-	ExpenseInputViewController * addExpenseController = 
-	[[ExpenseInputViewController alloc] initWithNibName:@"ExpenseEditor" bundle:[NSBundle mainBundle]];
-	// Pass it the managed object context that is only for its privte use :)
-	addExpenseController.managedObjectContext = contextAddExpense;
-	
-	AmountController * amountController = [[AmountController alloc] initWithContext:contextAddExpense];
-	[contextAddExpense release];
-	
-	// Group all the view controllers
-	NSArray * controllers = [NSArray arrayWithObjects:addExpenseController, transactionViewController, amountController, nil];
-	
-	// The control over the view controllers is now the business of the controllers array
-	[transactionViewController release];
-	[addExpenseController release];
-	[amountController release];
-	
-	self.tabBarController = [[UITabBarController alloc] initWithNibName:nil bundle:nil]; 	
-	[self.tabBarController setViewControllers:controllers]; 
-	[self.tabBarController setSelectedIndex:0];
-	
-}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //	Core data

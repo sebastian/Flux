@@ -102,6 +102,8 @@
 		96AA70EE10065AB200206A37 /* Finance.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 96AA70ED10065AB200206A37 /* Finance.xcdatamodel */; };
 		96AA710C1006616700206A37 /* Transaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 96AA710B1006616700206A37 /* Transaction.m */; };
 		96B1A63A101B6DF500DB6787 /* DetailCellFooter.png in Resources */ = {isa = PBXBuildFile; fileRef = 96B1A639101B6DF500DB6787 /* DetailCellFooter.png */; };
+		96BBA70110550D7000F5D537 /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96BBA70010550D7000F5D537 /* TabBarController.m */; };
+		96BBA70210550D7000F5D537 /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96BBA70010550D7000F5D537 /* TabBarController.m */; };
 		96BD3E6C101744DB00926A83 /* CurrencyKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 96BD3E6A101744DB00926A83 /* CurrencyKeyboard.m */; };
 		96BD3E6D101744DB00926A83 /* CurrencyKeyboard.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96BD3E6B101744DB00926A83 /* CurrencyKeyboard.xib */; };
 		96BE96F71050139500507F49 /* AmountController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96BE96F51050139500507F49 /* AmountController.m */; };
@@ -354,6 +356,8 @@
 		96AA710A1006616700206A37 /* Transaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Transaction.h; path = ../Transaction.h; sourceTree = "<group>"; };
 		96AA710B1006616700206A37 /* Transaction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Transaction.m; path = ../Transaction.m; sourceTree = "<group>"; };
 		96B1A639101B6DF500DB6787 /* DetailCellFooter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = DetailCellFooter.png; path = Graphics/DetailCellFooter.png; sourceTree = "<group>"; };
+		96BBA6FF10550D7000F5D537 /* TabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabBarController.h; sourceTree = "<group>"; };
+		96BBA70010550D7000F5D537 /* TabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabBarController.m; sourceTree = "<group>"; };
 		96BD3E69101744DB00926A83 /* CurrencyKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrencyKeyboard.h; sourceTree = "<group>"; };
 		96BD3E6A101744DB00926A83 /* CurrencyKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrencyKeyboard.m; sourceTree = "<group>"; };
 		96BD3E6B101744DB00926A83 /* CurrencyKeyboard.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CurrencyKeyboard.xib; sourceTree = "<group>"; };
@@ -567,6 +571,8 @@
 				1D3623250D0F684500981E51 /* FinanceAppDelegate.m */,
 				960C07FC1021AFF300B9C2A3 /* Utilities.h */,
 				960C07FD1021AFF300B9C2A3 /* Utilities.m */,
+				96BBA6FF10550D7000F5D537 /* TabBarController.h */,
+				96BBA70010550D7000F5D537 /* TabBarController.m */,
 			);
 			name = Div;
 			sourceTree = "<group>";
@@ -1169,6 +1175,7 @@
 				96C5093F10517BA3009CE76E /* TagDataSource.m in Sources */,
 				96C50B8D1052C9EF009CE76E /* KleioPickerTextField.m in Sources */,
 				96C50D751053B55C009CE76E /* SuggestedTags.m in Sources */,
+				96BBA70210550D7000F5D537 /* TabBarController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1219,6 +1226,7 @@
 				96C5093E10517BA3009CE76E /* TagDataSource.m in Sources */,
 				96C50B8C1052C9EF009CE76E /* KleioPickerTextField.m in Sources */,
 				96C50D741053B55C009CE76E /* SuggestedTags.m in Sources */,
+				96BBA70110550D7000F5D537 /* TabBarController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

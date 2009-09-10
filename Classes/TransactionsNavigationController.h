@@ -18,8 +18,6 @@
 
 @property (nonatomic, retain) NSManagedObjectContext * managedObjectContext;
 
--(id)initWithContext:(NSManagedObjectContext*)context;
-
 - (void)objectContextUpdated:(NSNotification *)notification;
 
 @end
