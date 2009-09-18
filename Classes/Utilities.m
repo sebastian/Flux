@@ -81,6 +81,22 @@ static Utilities *sharedUtilitiesToolbox = nil;
 -(BOOL) isReloadingTableAllowed {return reloadingTableAllowed;}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//	Miscelaneous
+- (void) setBarColours:(TTViewController*)sender {
+	sender.navigationBarStyle = UIBarStyleBlack;
+	sender.navigationBarTintColor = [UIColor blackColor];
+	sender.statusBarStyle = UIStatusBarStyleBlackOpaque;
+}
+
+- (NSString *)applicationDocumentsDirectory {
+	
+	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+	NSString *basePath = ([paths count] > 0) ? [paths objectAtIndex:0] : nil;
+	return basePath;
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //	Tag
 @synthesize suggestedTagsForCurrentLocation;
 -(BOOL)doesTagExist:(NSString*)tag {

@@ -60,20 +60,22 @@
 		self.title = NSLocalizedString(@"ERROR", @"Some error...");
 	}
 	
+	self.tabBarItem.title = NSLocalizedString(@"Transactions",@"Tab bar title");	
+
 	[dateFormatter release];
 		
 }
 - (void) viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 
-	// Check if the filter was active
-	if (filterActive) {
-		// Reset
-		filterActive = NO;
-		if (filterString != nil) {[[KleioSearchBar searchBar] setSearchString:filterString];}
-		[filterString release];
-		[[KleioSearchBar searchBar] show];
-	}
+//	// Check if the filter was active
+//	if (filterActive) {
+//		// Reset
+//		filterActive = NO;
+//		if (filterString != nil) {[[KleioSearchBar searchBar] setSearchString:filterString];}
+//		[filterString release];
+//		[[KleioSearchBar searchBar] show];
+//	}
 		
 	[self updateIfWorthIt];
 	
@@ -147,67 +149,6 @@
 	
 	return returnTitles;
 }*/
-
-/*
- Optimize by only ever calculating the data once!
- */
-- (NSDictionary*) dataForSection:(NSInteger)_section {
-	
-	NSString * section = [NSString stringWithFormat:@"%i", _section];
-	
-	// Init if it doesn't exist
-	if (self.transactionsDataCache == nil) {
-		self.transactionsDataCache = [NSMutableDictionary dictionary];
-	}
-	
-	if ([transactionsDataCache objectForKey:section] == nil) {
-			
-		NSLog(@"Generating data for section %i", _section);
-		
-		// General data
-		NSArray * _transactions = [[[resultsController sections] objectAtIndex:_section] objects];
-		NSArray * transactions = [_transactions filteredArrayUsingPredicate:self.filteringPredicate];
-		
-		// Data for header
-		Transaction * aTransaction = (Transaction*) [_transactions objectAtIndex:0];
-		
-		// Calculate the amount
-		double dAmount = [[Utilities toolbox] sumAmountForTransactionArray:transactions];
-		NSNumber * numAmount = [NSNumber numberWithDouble:dAmount];
-			
-		// TODO: Localize the date format display
-		NSString * date = [aTransaction.day stringValue];
-		//NSString * amount = [aTransaction numberToMoney:numAmount];
-		NSString * amount = [[CurrencyManager sharedManager] baseCurrencyDescriptionForAmount:numAmount withFraction:YES];
-			
-		// Data that has been worked on
-		NSArray * objects = [NSArray arrayWithObjects:transactions, date, amount,nil];
-		NSArray * keys = [NSArray arrayWithObjects:@"transactions", @"date", @"amount", nil];
-		NSDictionary * data = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
-			
-		// Insert into dictionary
-		[transactionsDataCache setObject:data forKey:section];
-
-	} 
-		
-	return [transactionsDataCache objectForKey:section];
-		
-}
-- (void)clearDataCache {
-	[self.transactionsDataCache removeAllObjects];
-	[self.headerViewCache removeAllObjects];
-	[self.footerViewCache removeAllObjects];
-}
-- (void)clearDataCacheForSection:(NSInteger)_section {
-	NSString * section = [NSString stringWithFormat:@"%i", _section];
-
-	// Remove data for all sections
-	[self.transactionsDataCache removeObjectForKey:section];
-	[self.headerViewCache removeObjectForKey:section];
-
-	// It is fast to regenerate, and clearing it might fix some bugs...
-	[self.footerViewCache removeAllObjects];
-}
 
 
 // Content cell
@@ -305,9 +246,9 @@
 
 	// We are now going to show another page where the search bar is not required
 	// Save search state:
-	filterActive = [[KleioSearchBar searchBar] isVisible];
-	filterString = [[[KleioSearchBar searchBar] searchString] retain];
-	[[KleioSearchBar searchBar] hideButRetainState];
+//	filterActive = [[KleioSearchBar searchBar] isVisible];
+//	filterString = [[[KleioSearchBar searchBar] searchString] retain];
+//	[[KleioSearchBar searchBar] hideButRetainState];
 	
 	// Show it
 	[self.navigationController pushViewController:infoDisplay animated:YES];
@@ -335,14 +276,10 @@
 		 because it has summaries of the transactions
 		 */
 		localDelete = YES;
-		//[self.delegate clearDataCache];
 		
 		NSDictionary * data = [[CacheMasterSingleton sharedCacheMaster] detailCache_dataForSection:indexPath.section];
 		Transaction *trs = (Transaction *)[[data objectForKey:@"transactions"] objectAtIndex:indexPath.row];
-		
-		// Delete cache for section
-		[self clearDataCacheForSection:indexPath.section];
-		
+				
 		// Delete the managed object for the given index path
 		[self.managedObjectContext deleteObject:trs];
 

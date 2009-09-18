@@ -67,7 +67,7 @@
 												bundle:[NSBundle mainBundle]];
 }
 - (void)viewDidLoad {
-    [super viewDidLoad];
+  [super viewDidLoad];
 	
 	[self showSearch];
 	

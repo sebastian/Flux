@@ -14,9 +14,7 @@
 
 
 @protocol DetailTableViewDelegate
-- (void)clearDataCache;
 - (UITableView*)tableView;
-- (void)clearDataCache;
 @end
 
 

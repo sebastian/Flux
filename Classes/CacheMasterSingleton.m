@@ -383,8 +383,11 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 	return overviewCache_cellCache;
 }
 - (NSString*)overviewCache_cachePath {
-	FinanceAppDelegate * app = (FinanceAppDelegate*)[[UIApplication sharedApplication] delegate];
-	NSString *archivePath = [app.applicationDocumentsDirectory stringByAppendingPathComponent:@"OverviewTableCache.archive"];
+//	FinanceAppDelegate * app = (FinanceAppDelegate*)[[UIApplication sharedApplication] delegate];
+//	NSString *archivePath = [app.applicationDocumentsDirectory stringByAppendingPathComponent:@"OverviewTableCache.archive"];
+	NSString *archivePath = [[[Utilities toolbox] applicationDocumentsDirectory] stringByAppendingPathComponent:@"OverviewTableCache.archive"];	
+	NSLog(@"***** I AM HERE ******");
+	NSLog(@"Returning path: %@", archivePath);
 	return archivePath;
 }
 - (NSMutableArray*)overviewCache_months {
@@ -420,7 +423,7 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 	
 	if ([self.overviewCache_cellCache objectForKey:yearMonth] == nil) {
 		
-		NSLog(@"Generating data for yearMonth %@", yearMonth);
+		NSLog(@"Generating data for yearMonth %@, row %i", yearMonth, row);
 		
 		// Get info to put into cell:
 		if (self.overviewTableDelegate == nil) {return nil;}
@@ -434,7 +437,7 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 			 */
 			
 		} else {
-			
+						
 			id <NSFetchedResultsSectionInfo> currenctSection = [sections objectAtIndex:row];
 			
 			NSArray * _transactionsInSection = [currenctSection objects];
@@ -475,6 +478,7 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 			NSNumber * numAmount = [NSNumber numberWithDouble:amount];
 			
 			NSString * calculatedAmount = [[CurrencyManager sharedManager] baseCurrencyDescriptionForAmount:numAmount withFraction:YES];
+			
 			
 			NSString * realYearMonth = aTransaction.yearMonth;
 			if (![realYearMonth isEqualToString:yearMonth]) {
@@ -524,6 +528,7 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 - (void) overviewCache_removePersistentCache {
 	NSError * error = nil;
 	[[NSFileManager defaultManager] removeItemAtPath:[self overviewCache_cachePath] error:&error];
+	
 	if (error != nil) {
 		NSLog(@"There was an error removing the cache: %@", error);
 	}

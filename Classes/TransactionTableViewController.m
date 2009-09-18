@@ -64,6 +64,17 @@
 	return self;
 }
 
+- (id) init {
+	
+	if (self = [super initWithStyle:UITableViewStylePlain]) {
+		[self.tabBarItem setImage:[UIImage imageNamed:@"Transactions.png"]];
+		self.tabBarItem.title = NSLocalizedString(@"Transactions",@"Tab bar title");
+	}
+
+	return self;
+	
+}
+
 - (void)dealloc {
 	NSLog(@"Deallocing %@", self);
 	
@@ -76,30 +87,32 @@
 	[super dealloc];
 }
 - (void)viewDidLoad {
+	[super viewDidLoad];
 	
-	UIBarButtonItem * searchButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch 
-																				   target:self 
-																				   action:@selector(toggleSearch)];
-	
-	self.navigationItem.rightBarButtonItem = searchButton;
+	UIBarButtonItem * searchButton;
+	if ([[[CacheMasterSingleton sharedCacheMaster] filteringPredicate] isEqual:[[CacheMasterSingleton sharedCacheMaster] truePredicate]]) {
 
+		searchButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Set filter",nil) 
+																										style:UIBarButtonItemStyleBordered 
+																									 target:self 
+																									 action:@selector(setFilter)];		
+ 	} else {
+
+		searchButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Edit filter",nil) 
+																										style:UIBarButtonItemStyleBordered 
+																									 target:self 
+																									 action:@selector(setFilter)];
+
+	}
+
+	self.navigationItem.rightBarButtonItem = searchButton;
 	[searchButton release];
-	
-	// Register to get a notification whenever the predicate is changed!
-//	[[NSNotificationCenter defaultCenter]
-//		addObserver:self
-//		selector:@selector(updatePredicate:)
-//		name:@"KleioPredicateUpdated"
-//		object:nil];
-//
-//	[[NSNotificationCenter defaultCenter]
-//		addObserver:self.tableView
-//		selector:@selector(reloadData)
-//		name:@"GlobalTableViewReloadData"
-//		object:nil];		
-	
+		
 	self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-	self.tableView.backgroundColor = [UIColor clearColor];
+	self.tableView.backgroundColor = [UIColor blackColor]; //[UIColor clearColor]; // TODO: Fix background that is nice and make color clear
+	[self.navigationController.navigationBar setBarStyle:UIBarStyleBlackOpaque];
+	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque];
+
 }
 
 - (NSFetchedResultsController*)resultsController {
@@ -114,9 +127,10 @@
 #pragma mark
 #pragma mark -
 #pragma mark Private methods
--(void)toggleSearch {
-	// Send show notification
-	[[KleioSearchBar searchBar] toggle];
+-(void)setFilter {
+
+	[[TTNavigator navigator] openURL:@"kleio://tagSelector" animated:YES];
+
 }
 -(void)updatePredicate:(NSNotification*)notification {
 

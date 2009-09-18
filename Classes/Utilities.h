@@ -6,7 +6,7 @@
 //  Copyright 2009 Kle.io. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <Three20/Three20.h>
 #import <CoreData/CoreData.h>
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
@@ -45,6 +45,11 @@
 -(void)clearCache;
 -(CGSize)sizeOfTextOfField:(UITextField*)field;
 -(CGSize)sizeOfTextOfLabel:(UILabel*)label;
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//	Miscelaneous
+- (void) setBarColours:(TTViewController*)sender;
+- (NSString *)applicationDocumentsDirectory;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //	Tags
