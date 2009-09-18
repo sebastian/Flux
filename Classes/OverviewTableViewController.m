@@ -38,30 +38,20 @@
 - (id) init {
 	if (self = [super init]) {
 		self.managedObjectContext = [[Utilities toolbox] createObjectContext];
+		
+		TTLOG(@"Registering for managedObjectContext changes in %@", self);
+		[[NSNotificationCenter defaultCenter]
+		 addObserver:self
+		 selector:@selector(objectContextUpdated:)
+		 name:NSManagedObjectContextDidSaveNotification
+		 object:nil];	
 	}
 	return self;
 }
 
--(void)viewDidUnload {
-	
-	NSLog(@"View DID UNLOAD called for nav controller");
-	
-	// Remove as observer
-	[[NSNotificationCenter defaultCenter] removeObserver:self];
-	
-	[super viewDidUnload];
-}
-
 - (void)viewDidLoad {
 	[super viewDidLoad];
-
-	TTLOG(@"Registering for managedObjectContext changes in %@", self);
-	[[NSNotificationCenter defaultCenter]
-	 addObserver:self
-	 selector:@selector(objectContextUpdated:)
-	 name:NSManagedObjectContextDidSaveNotification
-	 object:nil];	
-		
+	
 	self.title = NSLocalizedString(@"Overview", @"Overview table transaction view");
 	self.tabBarItem.title = NSLocalizedString(@"Transactions",@"Tab bar title");
 	
@@ -81,6 +71,7 @@
 	onlyLast3Months = NO;
 	
 }
+
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	
@@ -88,9 +79,11 @@
 	
 }
 
-
 - (void)dealloc {
-	[overviewTableCell release];
+	// Remove as observer
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
+
+	TT_RELEASE_SAFELY(overviewTableCell);
 	
 	[[CacheMasterSingleton sharedCacheMaster] setOverviewTableDelegate:nil];
 	[super dealloc];

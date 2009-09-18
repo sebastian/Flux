@@ -66,11 +66,10 @@
 
 - (id) init {
 	
-	if (self = [super initWithStyle:UITableViewStylePlain]) {
-		[self.tabBarItem setImage:[UIImage imageNamed:@"Transactions.png"]];
-		self.tabBarItem.title = NSLocalizedString(@"Transactions",@"Tab bar title");
-	}
-
+	self = [self initWithStyle:UITableViewStylePlain];
+	[self.tabBarItem setImage:[UIImage imageNamed:@"Transactions.png"]];
+	self.tabBarItem.title = NSLocalizedString(@"Transactions",@"Tab bar title");
+	
 	return self;
 	
 }
@@ -109,7 +108,7 @@
 	[searchButton release];
 		
 	self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-	self.tableView.backgroundColor = [UIColor blackColor]; //[UIColor clearColor]; // TODO: Fix background that is nice and make color clear
+	self.tableView.backgroundColor = RGBACOLOR(50,50,50,0.6); //[UIColor clearColor]; // TODO: Fix background that is nice and make color clear
 	[self.navigationController.navigationBar setBarStyle:UIBarStyleBlackOpaque];
 	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque];
 

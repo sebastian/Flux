@@ -188,10 +188,8 @@
 	// Show delete button if there is a value
 	if ([currentTransaction needsDeleteButton]) {
 		[keyboard enableClearButton];
-		//[nextButton setEnabled:YES forSegmentAtIndex:0];
 	} else {
 		[keyboard disableClearButton];
-		//[nextButton setEnabled:NO forSegmentAtIndex:0];
 	}
 	
 	// Check if it can be added to?
@@ -201,7 +199,7 @@
 		[keyboard disableNumericButtons];
 	}
 
-	NSString * text = [currentTransaction amountInLocalCurrency];
+	NSString * text = [currentTransaction absAmountInLocalCurrency];
 	[_amount setAmount:text];
 }
 
@@ -225,13 +223,13 @@
 		currentTransaction.currency = self.localCurrency;
 	}
 	
-	[_amount setAmount:[currentTransaction amountInLocalCurrency]];
+	[self updateExpenseDisplay];
 	[_expenseIncomeControl reset];
 }
 
 -(void)currencySelected:(NSString*)currencyCode {
 	currentTransaction.currency = currencyCode;
-	[_amount setAmount:[currentTransaction amountInLocalCurrency]];
+	[self updateExpenseDisplay];
 }
 
 
@@ -440,7 +438,7 @@
 		if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"KleioTransactionsUseLocalCurrency"] boolValue] == YES) {
 			currentTransaction.currency = currencyCode;
 			self.localCurrency = currencyCode;
-			[_amount setAmount:[currentTransaction amountInLocalCurrency]];
+			[self updateExpenseDisplay];
 		}
 		
 	} else {
