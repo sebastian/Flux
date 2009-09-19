@@ -244,9 +244,7 @@
 			[self.tabBarItem setImage:[UIImage imageNamed:@"Add.png"]];
 			
 			[TTStyleSheet setGlobalStyleSheet:[[[KleioCustomStyles alloc] init] autorelease]];
-			
-			[self createAndSetupTransaction];
-			
+						
 			// Get the location
 			[LocationController sharedInstance].delegate = self;
 			[LocationController sharedInstance].locationManager.desiredAccuracy = kCLLocationAccuracyBest;

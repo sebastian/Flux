@@ -14,7 +14,7 @@
 
 - (void)viewDidLoad {
   [self setTabURLs:[NSArray arrayWithObjects:@"kleio://testAddTransaction",
-										@"kleio://addTransaction",
+										//@"kleio://addTransaction",
 										@"kleio://listTransactions",
 										nil]];	
 	

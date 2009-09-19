@@ -10,6 +10,7 @@
 
 #define KLEIO_GRAY_COLOR [UIColor colorWithRed:80/255.0 green:80/255.0 blue:80/255.0 alpha:1]
 #define KLEIO_GREEN_COLOR RGBCOLOR(0,153,0)
+#define KLEIO_RED_COLOR RGBACOLOR(100, 0, 0, 1)
 
 @implementation KleioCustomStyles
 
@@ -55,6 +56,32 @@
 - (TTStyle*) amountFieldStyle {
 	return [TTSolidFillStyle styleWithColor:[UIColor blackColor] next:nil];
 }
+
+// Filter buttons
+- (TTStyle*)filteringButtonActive:(UIControlState)state {
+  return [self toolbarButtonForState:state
+															 shape:[TTRoundedRectangleShape shapeWithRadius:4.5]
+													 tintColor:KLEIO_RED_COLOR
+																font:nil];
+}
+- (TTStyle*)filteringButtonPassive:(UIControlState)state {
+  TTStyle * returnStyle = [self toolbarButtonForState:state
+															 shape:[TTRoundedRectangleShape shapeWithRadius:4.5]
+													 tintColor:KLEIO_GRAY_COLOR
+																font:nil];
+	return returnStyle;
+}
+
+// Tags
+- (TTStyle*)filterButtonTag {
+	return 
+	[TTShapeStyle styleWithShape:[TTRoundedRectangleShape shapeWithTopLeft:-1 topRight:-1 bottomRight:-1 bottomLeft:-1] next:
+	 [TTInsetStyle styleWithInset:UIEdgeInsetsMake(-2, -5, -4, -5) next:
+		[TTSolidFillStyle styleWithColor:RGBACOLOR(255, 255, 255, 0.2) next:
+		 [TTSolidBorderStyle styleWithColor:RGBACOLOR(255,255,255,0.3) width:1.f next:
+			[TTTextStyle styleWithFont:[UIFont systemFontOfSize:12.f] color:[UIColor whiteColor] next:nil]]]]];
+}
+
 
 
 @end

@@ -14,6 +14,175 @@
 #import "CurrencyManager.h"
 #import "DetailTableViewController.h"
 #import "OverviewTableViewController.h"
+#import "KleioCustomStyles.h"
+
+#define IMAGE_WIDTH 17
+
+
+@interface FilterButton : TTView {
+	BOOL active;
+	UIImage * searchIcon;
+	UIFont * font;
+	int padding;
+	NSMutableArray * tags;
+}
+- (id) initWithFilterinYes;
+- (id) initWithFilterinNo;
+@end
+
+@implementation FilterButton
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//	Private
+- (void) openFilteringPanel {
+	[[TTNavigator navigator] openURL:@"kleio://tagSelector" animated:YES];
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//	NSObject
+
+- (id) init {
+	if (self = [super init]) {
+		
+		[TTStyleSheet setGlobalStyleSheet:[[[KleioCustomStyles alloc] init] autorelease]];
+		
+		padding = 6;
+		
+		self.backgroundColor = [UIColor clearColor];
+		self.multipleTouchEnabled = YES;
+		
+		self.style = active 
+		? TTSTYLEVAR(filteringButtonActive:UIControlStateNormal)
+		: TTSTYLEVAR(filteringButtonPassive:UIControlStateNormal);
+		
+
+		// Alloc objects needed
+
+		searchIcon = TTIMAGE(@"bundle://filterIcon.png");
+		
+		int overallWidth = - padding;
+		
+		tags = [[NSMutableArray alloc] init];
+		
+		if (active) {
+		
+			font = [[UIFont systemFontOfSize:12.f] retain];
+			NSArray * tagWords = [CacheMasterSingleton sharedCacheMaster].tagWords;
+			for (int n = 0; n < [tagWords count]; n++) {
+				
+				NSString * text;
+				if (n > 1) {
+					text = @"...";
+				} else {
+					text = [tagWords objectAtIndex:n];
+				}
+			
+				CGSize textSize = [text sizeWithFont:font];
+				text = [NSString stringWithFormat:@"<span class=\"filterButtonTag\">%@</span>", text];
+				TTStyledTextLabel * textLabel = [[TTStyledTextLabel alloc] initWithFrame:CGRectMake(0, 0, textSize.width + 10, 50)];
+				textLabel.font = font;
+				textLabel.text = [TTStyledText textFromXHTML:text lineBreaks:NO URLs:NO];
+				textLabel.contentInset = UIEdgeInsetsMake(8, 5, 0, 5);
+				textLabel.backgroundColor = [UIColor clearColor];
+				
+				overallWidth += textLabel.width + padding;
+				
+				[tags addObject:[textLabel autorelease]];
+				
+				if (n > 1) {
+					break;
+				}
+			}
+			
+		} else {
+			
+			font = [[UIFont systemFontOfSize:14.f] retain];
+			
+			NSString * text = NSLocalizedString(@"Filter", nil);
+			CGSize textSize = [text sizeWithFont:font];
+			TTStyledTextLabel * textLabel = [[TTStyledTextLabel alloc] initWithFrame:CGRectMake(0, 0, textSize.width + padding, 33)];
+			textLabel.font = font;
+			textLabel.text = [TTStyledText textFromXHTML:text];
+			textLabel.contentInset = UIEdgeInsetsMake(8, 0, 0, 0);
+			textLabel.textColor = [UIColor whiteColor];
+			textLabel.backgroundColor = [UIColor clearColor];
+			[textLabel sizeToFit];
+			overallWidth += textLabel.width + padding;
+			
+			[tags addObject:[textLabel autorelease]];
+		}
+		
+		CGSize buttonSize;
+		buttonSize.width = padding + IMAGE_WIDTH + padding + overallWidth + padding;
+		buttonSize.height = 33;
+		
+		self.frame = CGRectMake(0, 0, buttonSize.width, buttonSize.height);
+		
+	}
+	
+	return self;
+}
+
+- (id) initWithFilterinYes {
+	active = YES;
+	self = [self init];		
+	return self;
+}
+
+- (id) initWithFilterinNo {
+	active = NO;
+	self = [self init];
+	return self;
+}
+
+- (void) dealloc {
+	TT_RELEASE_SAFELY(searchIcon);
+	TT_RELEASE_SAFELY(font);
+	TT_RELEASE_SAFELY(tags);
+	[super dealloc];
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//	TTView
+
+- (void)drawContent:(CGRect)rect {
+	CGPoint point = CGPointMake(padding, 7);
+	
+	// Draw icon
+	[searchIcon drawAtPoint:point];
+	
+	// Set location for text
+	point.x += IMAGE_WIDTH + padding;
+	point.y = 0;
+	
+	for (TTStyledTextLabel * label in tags) {
+		label.frame = CGRectMake(point.x, point.y, label.width, label.height);
+		[self addSubview:label];
+		
+		point.x += 3 + label.width;
+	}
+	
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//	Touch handling
+- (void)touchesBegan:(NSSet*)touches withEvent:(UIEvent*)event {
+	[super touchesBegan:touches withEvent:event];
+	
+	self.style = active
+		? TTSTYLEVAR(filteringButtonActive:UIControlStateHighlighted) 
+		: TTSTYLEVAR(filteringButtonPassive:UIControlStateHighlighted);
+
+	[self setNeedsLayout];
+	
+	[self openFilteringPanel];
+	
+}
+
+
+@end
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 #define CacheLog(what) NSLog([@"CacheManager (%i): " stringByAppendingString:what], runNum)
 
@@ -22,6 +191,19 @@
 static CacheMasterSingleton * sharedCacheMaster = nil;
 
 @synthesize runNum;
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//	NSObject
+
+- (id) init {
+	if (self = [super init]) {
+		[TTStyleSheet setGlobalStyleSheet:[[[KleioCustomStyles alloc] init] autorelease]];
+	}
+	return self;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//	Misc
 
 #pragma mark
 #pragma mark -
@@ -68,6 +250,7 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 	
 	// General
 	self.truePredicate == nil;
+	self.filterButton = nil;
 	
 	// Clear all the cached files
 	// Detail content cell
@@ -117,6 +300,75 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 		// Nothing to do...
 	}
 }
+
+#pragma mark
+#pragma mark -
+#pragma mark Filtering
+@synthesize tagWords, filterButton;
+- (void) setTagWords:(NSArray *)tags {
+	
+	// first we need to keep the new tags
+	[tags retain];
+	[tagWords release];
+	tagWords = tags;
+	
+	// reset the filtering button
+	self.filterButton = nil;
+	
+	// create a predicate, and update the cache master
+	
+	NSPredicate * localFilteringPredicate;
+	
+	if ((tagWords == nil) || ([tagWords count] == 0)) {
+		localFilteringPredicate = [NSPredicate predicateWithValue:YES];
+		
+	} else {
+		
+		NSMutableArray * tagPredicates = [[NSMutableArray alloc] init];
+		
+		for (NSString * tag in tagWords) {
+			
+			if ([[Utilities toolbox] doesTagExist:tag]) {
+				// Create a predicate
+				NSPredicate * autotagPredicate = [NSPredicate predicateWithFormat:@"autotags contains[cd] %@", [NSString stringWithFormat:@" %@ ", tag]];
+				NSPredicate * tagPredicate = [NSPredicate predicateWithFormat:@"tags contains[cd] %@", [NSString stringWithFormat:@" %@ ", tag]];
+				NSPredicate * orPredicate = [NSCompoundPredicate orPredicateWithSubpredicates:[NSArray arrayWithObjects:tagPredicate,autotagPredicate,nil]];			
+				
+				// Add to predicate list
+				[tagPredicates addObject:orPredicate];
+			}
+			
+		}
+		
+		localFilteringPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:tagPredicates];
+		[tagPredicates release];
+	}
+	
+	[self setFilteringPredicate:localFilteringPredicate];
+
+}
+- (UIBarButtonItem*)filterButton {
+
+	if (filterButton != nil) {
+		return filterButton;
+	}
+		
+	FilterButton * button;
+	if ([[self filteringPredicate] isEqual:[self truePredicate]]) {
+	
+		button = [[FilterButton alloc] initWithFilterinNo];
+	
+ 	} else {
+		
+		button = [[FilterButton alloc] initWithFilterinYes];
+		
+	}
+	
+	filterButton = [[UIBarButtonItem alloc] initWithCustomView:button];
+	
+	return filterButton;
+}
+
 
 #pragma mark
 #pragma mark -

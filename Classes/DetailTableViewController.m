@@ -67,15 +67,6 @@
 }
 - (void) viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-
-//	// Check if the filter was active
-//	if (filterActive) {
-//		// Reset
-//		filterActive = NO;
-//		if (filterString != nil) {[[KleioSearchBar searchBar] setSearchString:filterString];}
-//		[filterString release];
-//		[[KleioSearchBar searchBar] show];
-//	}
 		
 	[self updateIfWorthIt];
 	
@@ -243,12 +234,6 @@
 	
 	// Give it the current transaction to speed things up
 	infoDisplay.currentTransaction = theTransaction;
-
-	// We are now going to show another page where the search bar is not required
-	// Save search state:
-//	filterActive = [[KleioSearchBar searchBar] isVisible];
-//	filterString = [[[KleioSearchBar searchBar] searchString] retain];
-//	[[KleioSearchBar searchBar] hideButRetainState];
 	
 	// Show it
 	[self.navigationController pushViewController:infoDisplay animated:YES];
@@ -308,8 +293,6 @@
 		switch(type) {
 			case NSFetchedResultsChangeDelete:
 				[self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationBottom];
-				//[self.tableView performSelector:@selector(reloadData) withObject:nil afterDelay:0.3];
-				//[self performSelector:@selector(updateDataIfWorthIt) withObject:nil afterDelay:0.3];
 
 				break;
 		}
@@ -326,8 +309,6 @@
 				[self clearDataCache];
 				
 				[self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationBottom];
-				//[self.tableView performSelector:@selector(reloadData) withObject:nil afterDelay:0.3];
-				//[self performSelector:@selector(updateIfWorthIt) withObject:nil afterDelay:0.3];
 				break;
 		}
 	}
@@ -335,15 +316,12 @@
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
 	if (localDelete) {
 		[self.tableView endUpdates];
+		[self performSelector:@selector(updateIfWorthIt) withObject:nil afterDelay:0.3];
+
 	} else {
 		[self updateIfWorthIt];
 	}
 	localDelete = NO;
 }
-//#pragma mark -
-//#pragma mark NSFetchedResultsController delegate methods
-//- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-//	[self updateIfWorthIt];
-//}
 
 @end

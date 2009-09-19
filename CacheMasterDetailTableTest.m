@@ -157,6 +157,7 @@
 	t3.date = date2;
 	t4.date = date3;
 	
+	// Adding 4 new transactions. Not all in the same month
 	[[Utilities toolbox] save:context];	
 	STAssertEquals(controller.worthUpdating, YES, @"Should be worth updating after save");
 	numOfElements = [[[CacheMasterSingleton sharedCacheMaster] detailCache_cellCache] count];
@@ -164,6 +165,7 @@
 	numOfElements = [[[CacheMasterSingleton sharedCacheMaster] detailCache_headerViewCache] count];
 	STAssertEquals(numOfElements, 0, @"Shouldn't have any elements");
 	
+	// Deleting object in the current view
 	[controller setWorthUpdating:NO];
 	[context deleteObject:trs];
 	[[Utilities toolbox] save:context];	
@@ -173,18 +175,20 @@
 	numOfElements = [[[CacheMasterSingleton sharedCacheMaster] detailCache_headerViewCache] count];
 	STAssertEquals(numOfElements, 0, @"Shouldn't have any elements");
 	
+	// Deleting object from another view
 	[controller setWorthUpdating:NO];
 	[context deleteObject:t3];
 	[[Utilities toolbox] save:context];	
 	STAssertEquals(controller.worthUpdating, NO, @"Should be worth updating after save");
-	numOfElements = [[[CacheMasterSingleton sharedCacheMaster] detailCache_cellCache] count];
-	
+
+	// Deleting another object not in the view
 	[controller setWorthUpdating:NO];
 	[context deleteObject:t4];
 	[[Utilities toolbox] save:context];	
 	STAssertEquals(controller.worthUpdating, NO, @"Should be worth updating after save");
 	numOfElements = [[[CacheMasterSingleton sharedCacheMaster] detailCache_cellCache] count];
 
+	// Deleting object in view
 	[controller setWorthUpdating:NO];
 	[context deleteObject:t2];
 	[[Utilities toolbox] save:context];	

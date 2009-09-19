@@ -88,25 +88,6 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	
-	UIBarButtonItem * searchButton;
-	if ([[[CacheMasterSingleton sharedCacheMaster] filteringPredicate] isEqual:[[CacheMasterSingleton sharedCacheMaster] truePredicate]]) {
-
-		searchButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Set filter",nil) 
-																										style:UIBarButtonItemStyleBordered 
-																									 target:self 
-																									 action:@selector(setFilter)];		
- 	} else {
-
-		searchButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Edit filter",nil) 
-																										style:UIBarButtonItemStyleBordered 
-																									 target:self 
-																									 action:@selector(setFilter)];
-
-	}
-
-	self.navigationItem.rightBarButtonItem = searchButton;
-	[searchButton release];
-		
 	self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 	self.tableView.backgroundColor = RGBACOLOR(50,50,50,0.6); //[UIColor clearColor]; // TODO: Fix background that is nice and make color clear
 	[self.navigationController.navigationBar setBarStyle:UIBarStyleBlackOpaque];
@@ -126,11 +107,6 @@
 #pragma mark
 #pragma mark -
 #pragma mark Private methods
--(void)setFilter {
-
-	[[TTNavigator navigator] openURL:@"kleio://tagSelector" animated:YES];
-
-}
 -(void)updatePredicate:(NSNotification*)notification {
 
 	// Store the new predicate
@@ -212,11 +188,18 @@
 
 - (void) updateIfWorthIt {
 	if (self.worthUpdating) {
-		NSLog(@"Reloading tableview data, because it is worth it :) (%@)", self);
+		TTLOG(@"Reloading tableview data, because it is worth it :) (%@)", self);
 		[self.tableView reloadData];
 		self.worthUpdating = NO;
+		
+		/*
+		 Update the filtering button, 
+		 it might just as well be that it has been updated!
+		 */
+		self.navigationItem.rightBarButtonItem = [[CacheMasterSingleton sharedCacheMaster] filterButton];
+		
 	} else {
-		NSLog(@"Not worth the hassle reloading table view data. (%@)", self);
+		TTLOG(@"Not worth the hassle reloading table view data. (%@)", self);
 	}
 }
 

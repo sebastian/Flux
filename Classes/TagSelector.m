@@ -13,12 +13,7 @@
 #import <Three20/Three20.h>
 #import "Utilities.h"
 #import "KleioCustomStyles.h"
-
-@implementation OKScreen
-
-
-@end
-
+#import "CacheMasterSingleton.h"
 
 
 #define LOGRECT(rect) \
@@ -58,19 +53,40 @@ rect.size.width, rect.size.height)
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //	Private
+- (void) makeCurrentTextIntoTag {
+	if ([_pickerTextField.text isEqualToString:@""]) {
+		return;
+	}
+	
+	NSCharacterSet * whitespace = [NSCharacterSet whitespaceCharacterSet];
+	NSString * newTagText = [_pickerTextField.text stringByTrimmingCharactersInSet:whitespace];
+	// Add if not empty
+	if (![newTagText isEqualToString:@""]) {
+		[_pickerTextField addCellWithObject:newTagText];
+	}
+	
+	// Remove the old text
+	[_pickerTextField setText:@""];
+	
+}
+
 - (void) done {
-	/*
-	 TODO: Notify about new tags
-	 if there are any. Otherwise set truePredicate
-	 */
+
+	// Update the cache master
+	[CacheMasterSingleton sharedCacheMaster].tagWords = _pickerTextField.cells;
+	
+	// Remove window
 	[self dismissModalViewControllerAnimated:YES];	
 }
 
 - (void) clearTagsAndExit {
-	/*
-	 TODO: clear all the tags
-	 */
-	[self done];
+	
+	// Remove all tags
+	[CacheMasterSingleton sharedCacheMaster].tagWords = nil;
+	
+	// Remove window
+	[self dismissModalViewControllerAnimated:YES];	
+
 }
 
 /*
@@ -83,7 +99,11 @@ rect.size.width, rect.size.height)
 		[_delegate tagSelectorFinishedWithTagWords:_pickerTextField.cells];
 	}
 }
+
 - (void) save {
+	
+	[self makeCurrentTextIntoTag];
+	
 	/*
 	 Notify the delegate to save with the new tags
 	 Then do a fancy animation to show that it has been saved!
@@ -166,6 +186,7 @@ rect.size.width, rect.size.height)
 }
 
 - (void) addCellWithObject {
+	[self makeCurrentTextIntoTag];
 	[_pickerTextField addCellWithObject:[[Utilities toolbox] tempVariable]];
 }
 
@@ -190,20 +211,6 @@ rect.size.width, rect.size.height)
 	
 }
 
-- (void) makeCurrentTextIntoTag {
-	
-	NSCharacterSet * whitespace = [NSCharacterSet whitespaceCharacterSet];
-	NSString * newTagText = [_pickerTextField.text stringByTrimmingCharactersInSet:whitespace];
-	// Add if not empty
-	if (![newTagText isEqualToString:@""]) {
-		[_pickerTextField addCellWithObject:newTagText];
-	}
-	
-	// Remove the old text
-	[_pickerTextField setText:@""];
-	
-}
-
 - (void) setupNavigationButtons {
 	/* 
 	 Setup the right navigation bar buttons
@@ -217,7 +224,6 @@ rect.size.width, rect.size.height)
 		[saveButton addTarget:self action:@selector(save) forControlEvents:UIControlEventTouchUpInside];
 		
 		self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:saveButton];
-		
 		
 		// Left button
 		TTButton * backButton = [[TTButton buttonWithStyle:@"blackBackwardButton:" title:NSLocalizedString(@"Back",nil)] autorelease];
@@ -289,8 +295,15 @@ rect.size.width, rect.size.height)
 
 	// Layout the controls
 	[self layout];
-	
-	NSLog(@"Array: %@", _preexistingTags);
+
+	/*
+	 If we are in filter mode then there might just as well
+	 be preexisting tags to filter by. 
+	 They should be added to the list so that the filter can be adjusted!
+	 */
+	if (_mode == TagSelectorModeFilter) {self.tags = [CacheMasterSingleton sharedCacheMaster].tagWords;}
+
+	// add all the current tags to the field so that they are visually selected
 	for (NSString * tag in _preexistingTags) {
 		if (![tag isEqualToString:@""]) {[_pickerTextField addCellWithObject:tag];}
 	}

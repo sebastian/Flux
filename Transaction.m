@@ -206,7 +206,7 @@
 	return [[CurrencyManager sharedManager] currencyDescriptionForAmount:amount withFraction:YES currency:self.currency];
 }
 -(NSString*)absAmountInLocalCurrency {
-	NSNumber * amount = [NSNumber numberWithDouble:abs([self normalizedAmount])];
+	NSNumber * amount = [NSNumber numberWithDouble:(abs(100 * [self normalizedAmount]) / 100.f)];
 	return [[CurrencyManager sharedManager] currencyDescriptionForAmount:amount withFraction:YES currency:self.currency];
 }
 -(NSString*)amountInBaseCurrency {

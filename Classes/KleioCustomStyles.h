@@ -20,5 +20,10 @@
 // Add amount controller
 - (TTStyle*) expenseInputField;
 - (TTStyle*) amountFieldStyle;
+
+// Filter buttons
+- (TTStyle*)filteringButtonActive:(UIControlState)state;
+- (TTStyle*)filteringButtonPassive:(UIControlState)state;
+	
 @end
 
