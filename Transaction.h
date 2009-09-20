@@ -49,6 +49,7 @@
 
 // Methods
 -(NSString*)amountInLocalCurrency;
+-(NSString*)absAmountInLocalCurrency;
 -(void)addNumber:(NSInteger)num;
 -(void)eraseOneNum;
 -(NSString*)formattedDate;

@@ -72,7 +72,7 @@
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
+	[super viewDidLoad];
 	
 	// Used to set the currency for new transactions
 	self.localCurrency = [[CurrencyManager sharedManager] baseCurrency];

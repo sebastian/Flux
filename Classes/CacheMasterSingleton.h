@@ -43,6 +43,10 @@
 	NSMutableDictionary * overviewCache_cellCache;
 	OverviewTableViewController * overviewTableDelegate;
 		
+	// Filtering
+	NSArray * tagWords;
+	UIBarButtonItem * filterButton;
+	
 	int runNum;
 }
 
@@ -55,6 +59,11 @@
 - (void) updatedTransaction:(Transaction*)transaction;
 - (void) tellDelegatesItsWorthReloading;
 - (void) reloadDelegateData;
+
+#pragma mark Filtering
+@property (nonatomic, retain) NSArray * tagWords;
+@property (nonatomic, retain) UIBarButtonItem * filterButton;
+- (UIBarButtonItem*)filterButton;
 
 #pragma mark DetailTable cache
 @property (nonatomic, assign) DetailTableViewController * detailTableDelegate;

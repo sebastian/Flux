@@ -10,7 +10,8 @@
 #import "ExpenseInputViewController.h"
 #import "TransactionsNavigationController.h"
 #import "Utilities.h"
-#import "TransactionsMainViewController.h"
+//#import "TransactionsMainViewController.h"
+#import "OverviewTableViewController.h"
 #import "AmountController.h"
 #import "TagSelector.h"
 #import "TabBarController.h"
@@ -37,19 +38,13 @@
 	
 	TTURLMap* map = navigator.URLMap;
 	[map from:@"*" toViewController:[TTWebController class]]; // Fall back URL
-	[map from:@"kleio://tagSelector" toModalViewController:[TagSelector class]];
+	[map from:@"kleio://tagSelector" toModalViewController:[TagSelector class] transition:0];
 	[map from:@"kleio://tabBar" toSharedViewController:[TabBarController class]];
 	[map from:@"kleio://addTransaction" toSharedViewController:[ExpenseInputViewController class]];
-	[map from:@"kleio://listTransactions" toSharedViewController:[TransactionsMainViewController class]];
+	[map from:@"kleio://listTransactions" toSharedViewController:[OverviewTableViewController class]];
 	[map from:@"kleio://testAddTransaction" toSharedViewController:[AmountController class]];
 
 	[navigator openURL:@"kleio://tabBar" animated:NO];
-	/*
-	 Setting up all the different tab bar elements
-	 */
-//	[self setupTabBar];
-//	[window addSubview:self.tabBarController.view];
-//	[window makeKeyAndVisible];
 
 }
 - (void)applicationWillTerminate:(UIApplication *)application {

@@ -12,6 +12,9 @@
 #import "SuggestedTags.h"
 #import <Three20/Three20.h>
 #import "Utilities.h"
+#import "KleioCustomStyles.h"
+#import "CacheMasterSingleton.h"
+
 
 #define LOGRECT(rect) \
 NSLog(@"%s x=%f, y=%f, w=%f, h=%f", #rect, rect.origin.x, rect.origin.y, \
@@ -44,18 +47,84 @@ rect.size.width, rect.size.height)
 @synthesize delegate = _delegate;
 @synthesize dataSource = _dataSource;
 @synthesize pickerTextField = _pickerTextField;
+@synthesize mode = _mode;
+@synthesize tags = _preexistingTags;
+- (NSArray*) tags {return nil;} // Fix if needed...
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //	Private
+- (void) makeCurrentTextIntoTag {
+	if ([_pickerTextField.text isEqualToString:@""]) {
+		return;
+	}
+	
+	NSCharacterSet * whitespace = [NSCharacterSet whitespaceCharacterSet];
+	NSString * newTagText = [_pickerTextField.text stringByTrimmingCharactersInSet:whitespace];
+	// Add if not empty
+	if (![newTagText isEqualToString:@""]) {
+		[_pickerTextField addCellWithObject:newTagText];
+	}
+	
+	// Remove the old text
+	[_pickerTextField setText:@""];
+	
+}
+
 - (void) done {
-	// TODO: tell the delegate about the tags
+
+	// Update the cache master
+	[CacheMasterSingleton sharedCacheMaster].tagWords = _pickerTextField.cells;
+	
+	// Remove window
+	[self dismissModalViewControllerAnimated:YES];	
+}
+
+- (void) clearTagsAndExit {
+	
+	// Remove all tags
+	[CacheMasterSingleton sharedCacheMaster].tagWords = nil;
+	
+	// Remove window
+	[self dismissModalViewControllerAnimated:YES];	
+
+}
+
+/*
+ "Save" and "Back" are both for the transaction mode,
+ where we are NOT in modal view mode, but belong directly 
+ to a controller
+ */
+- (void) sendTagsToDelegate {
+	if ([_delegate respondsToSelector:@selector(tagSelectorFinishedWithTagWords:)]) {
+		[_delegate tagSelectorFinishedWithTagWords:_pickerTextField.cells];
+	}
+}
+
+- (void) save {
+	
+	[self makeCurrentTextIntoTag];
+	
 	/*
-	NSArray * tagWords = [[NSMutableArray alloc] init];
-	[_delegate tagSelectorFinishedWithTagWords:tagWords];
-	TT_RELEASE_SAFELY(tagWords);
+	 Notify the delegate to save with the new tags
+	 Then do a fancy animation to show that it has been saved!
 	 */
-	TTLOG(@"Called 'done'");
-	[self dismissModalViewControllerAnimated:YES];
+	[self sendTagsToDelegate];
+	
+	if ([_delegate respondsToSelector:@selector(save)]) {
+		[_delegate save];
+	}
+	
+	[self.navigationController popViewControllerAnimatedWithTransition:UIViewAnimationTransitionCurlUp];
+}
+
+- (void) back {
+	/*
+	 Send the tags back to the delegate
+	 and then go back
+	 */
+	[self sendTagsToDelegate];
+	
+	[self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)layout {
@@ -117,6 +186,7 @@ rect.size.width, rect.size.height)
 }
 
 - (void) addCellWithObject {
+	[self makeCurrentTextIntoTag];
 	[_pickerTextField addCellWithObject:[[Utilities toolbox] tempVariable]];
 }
 
@@ -141,17 +211,49 @@ rect.size.width, rect.size.height)
 	
 }
 
-- (void) makeCurrentTextIntoTag {
-	
-	NSCharacterSet * whitespace = [NSCharacterSet whitespaceCharacterSet];
-	NSString * newTagText = [_pickerTextField.text stringByTrimmingCharactersInSet:whitespace];
-	// Add if not empty
-	if (![newTagText isEqualToString:@""]) {
-		[_pickerTextField addCellWithObject:newTagText];
+- (void) setupNavigationButtons {
+	/* 
+	 Setup the right navigation bar buttons
+	 */
+	if (_mode == TagSelectorModeTransaction) {
+		
+		// Right button
+		TTButton * saveButton = [[TTButton buttonWithStyle:@"blueToolbarButton:" title:NSLocalizedString(@"Save",nil)] autorelease];
+		saveButton.font = [UIFont boldSystemFontOfSize:12];
+		[saveButton sizeToFit];
+		[saveButton addTarget:self action:@selector(save) forControlEvents:UIControlEventTouchUpInside];
+		
+		self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:saveButton];
+		
+		// Left button
+		TTButton * backButton = [[TTButton buttonWithStyle:@"blackBackwardButton:" title:NSLocalizedString(@"Back",nil)] autorelease];
+		backButton.font = [UIFont boldSystemFontOfSize:12];
+		[backButton sizeToFit];
+		[backButton addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
+		
+		self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
+		
+	} else {
+		
+		// Right button
+		TTButton * doneButton = [[TTButton buttonWithStyle:@"blueToolbarButton:" title:NSLocalizedString(@"Done",nil)] autorelease];
+		doneButton.font = [UIFont boldSystemFontOfSize:12];
+		[doneButton sizeToFit];
+		[doneButton addTarget:self action:@selector(done) forControlEvents:UIControlEventTouchUpInside];
+		
+		self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:doneButton];
+		
+		
+		// Left button
+		TTButton * clearButton = [[TTButton buttonWithStyle:@"grayToolbarButton:" title:NSLocalizedString(@"Clear filter",nil)] autorelease];
+		clearButton.font = [UIFont boldSystemFontOfSize:12];
+		[clearButton sizeToFit];
+		[clearButton addTarget:self action:@selector(clearTagsAndExit) forControlEvents:UIControlEventTouchUpInside];
+		
+		self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:clearButton];
+		
+		
 	}
-	
-	// Remove the old text
-	[_pickerTextField setText:@""];
 	
 }
 
@@ -162,12 +264,11 @@ rect.size.width, rect.size.height)
 	if (self = [super init]) {
 		self.title = NSLocalizedString(@"Select keywords", nil);
 		self.navigationBarStyle = UIBarStyleBlackOpaque;
-		self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
-																																														target:self action:@selector(done)] autorelease];
 
 		self.autoresizesForKeyboard = YES;
 		self.dataSource = [[[TagDataSource alloc] init] autorelease];
 
+		[TTStyleSheet setGlobalStyleSheet:[[[KleioCustomStyles alloc] init] autorelease]];
 		[[TTNavigator navigator].URLMap from:@"kleio://addTagToTagSugester" toObject:self selector:@selector(addCellWithObject)];
 		
 	}
@@ -187,11 +288,25 @@ rect.size.width, rect.size.height)
 	
 	[self addTagTableView];
 
-	[self layout];
+	// Make the navigation bar and status bar black
+	[[Utilities toolbox] setBarColours:self];
 	
-	self.navigationBarTintColor = [UIColor blackColor];
-	self.navigationBarStyle = UIBarStyleBlackOpaque;
+	[self setupNavigationButtons];
 
+	// Layout the controls
+	[self layout];
+
+	/*
+	 If we are in filter mode then there might just as well
+	 be preexisting tags to filter by. 
+	 They should be added to the list so that the filter can be adjusted!
+	 */
+	if (_mode == TagSelectorModeFilter) {self.tags = [CacheMasterSingleton sharedCacheMaster].tagWords;}
+
+	// add all the current tags to the field so that they are visually selected
+	for (NSString * tag in _preexistingTags) {
+		if (![tag isEqualToString:@""]) {[_pickerTextField addCellWithObject:tag];}
+	}
 }
 
 - (void) dealloc {
@@ -201,6 +316,7 @@ rect.size.width, rect.size.height)
 	TT_RELEASE_SAFELY(separator);
 	[super dealloc];
 }
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //	TTPickerTextFieldDelegate

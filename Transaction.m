@@ -196,13 +196,17 @@
 }
 -(double)normalizedAmount {
 	double dAmount = [self.kroner doubleValue]/100;
-//	if ([self.expense boolValue] == YES) {
-//		dAmount = dAmount * (-1);
-//	}
+	if ([self.expense boolValue] == YES) {
+		dAmount = dAmount * (-1);
+	}
 	return dAmount;
 }
 -(NSString*)amountInLocalCurrency {
 	NSNumber * amount = [NSNumber numberWithDouble:[self normalizedAmount]];
+	return [[CurrencyManager sharedManager] currencyDescriptionForAmount:amount withFraction:YES currency:self.currency];
+}
+-(NSString*)absAmountInLocalCurrency {
+	NSNumber * amount = [NSNumber numberWithDouble:(abs(100 * [self normalizedAmount]) / 100.f)];
 	return [[CurrencyManager sharedManager] currencyDescriptionForAmount:amount withFraction:YES currency:self.currency];
 }
 -(NSString*)amountInBaseCurrency {

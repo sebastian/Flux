@@ -64,6 +64,16 @@
 	return self;
 }
 
+- (id) init {
+	
+	self = [self initWithStyle:UITableViewStylePlain];
+	[self.tabBarItem setImage:[UIImage imageNamed:@"Transactions.png"]];
+	self.tabBarItem.title = NSLocalizedString(@"Transactions",@"Tab bar title");
+	
+	return self;
+	
+}
+
 - (void)dealloc {
 	NSLog(@"Deallocing %@", self);
 	
@@ -76,30 +86,13 @@
 	[super dealloc];
 }
 - (void)viewDidLoad {
-	
-	UIBarButtonItem * searchButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch 
-																				   target:self 
-																				   action:@selector(toggleSearch)];
-	
-	self.navigationItem.rightBarButtonItem = searchButton;
-
-	[searchButton release];
-	
-	// Register to get a notification whenever the predicate is changed!
-//	[[NSNotificationCenter defaultCenter]
-//		addObserver:self
-//		selector:@selector(updatePredicate:)
-//		name:@"KleioPredicateUpdated"
-//		object:nil];
-//
-//	[[NSNotificationCenter defaultCenter]
-//		addObserver:self.tableView
-//		selector:@selector(reloadData)
-//		name:@"GlobalTableViewReloadData"
-//		object:nil];		
+	[super viewDidLoad];
 	
 	self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-	self.tableView.backgroundColor = [UIColor clearColor];
+	self.tableView.backgroundColor = RGBACOLOR(50,50,50,0.6); //[UIColor clearColor]; // TODO: Fix background that is nice and make color clear
+	[self.navigationController.navigationBar setBarStyle:UIBarStyleBlackOpaque];
+	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque];
+
 }
 
 - (NSFetchedResultsController*)resultsController {
@@ -114,10 +107,6 @@
 #pragma mark
 #pragma mark -
 #pragma mark Private methods
--(void)toggleSearch {
-	// Send show notification
-	[[KleioSearchBar searchBar] toggle];
-}
 -(void)updatePredicate:(NSNotification*)notification {
 
 	// Store the new predicate
@@ -199,11 +188,18 @@
 
 - (void) updateIfWorthIt {
 	if (self.worthUpdating) {
-		NSLog(@"Reloading tableview data, because it is worth it :) (%@)", self);
+		TTLOG(@"Reloading tableview data, because it is worth it :) (%@)", self);
 		[self.tableView reloadData];
 		self.worthUpdating = NO;
+		
+		/*
+		 Update the filtering button, 
+		 it might just as well be that it has been updated!
+		 */
+		self.navigationItem.rightBarButtonItem = [[CacheMasterSingleton sharedCacheMaster] filterButton];
+		
 	} else {
-		NSLog(@"Not worth the hassle reloading table view data. (%@)", self);
+		TTLOG(@"Not worth the hassle reloading table view data. (%@)", self);
 	}
 }
 

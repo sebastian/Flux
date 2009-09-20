@@ -6,7 +6,7 @@
 //  Copyright 2009 Kle.io. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <Three20/Three20.h>
 #import <CoreData/CoreData.h>
 
 @class TagFilterDisplay;

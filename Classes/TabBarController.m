@@ -13,11 +13,12 @@
 // UIViewController
 
 - (void)viewDidLoad {
-  [self setTabURLs:[NSArray arrayWithObjects:@"kleio://addTransaction",
-										@"kleio://testAddTransaction",
+  [self setTabURLs:[NSArray arrayWithObjects:@"kleio://testAddTransaction",
+										//@"kleio://addTransaction",
 										@"kleio://listTransactions",
 										nil]];	
 	
+	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque];
 }
 
 @end

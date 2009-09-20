@@ -19,6 +19,8 @@
 		960CCB2B1027264F00A6B945 /* CellSeparator.png in Resources */ = {isa = PBXBuildFile; fileRef = 960CCB2A1027264F00A6B945 /* CellSeparator.png */; };
 		960CCB5710272A2E00A6B945 /* CellSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = 960CCB5610272A2E00A6B945 /* CellSelected.png */; };
 		960CCBE310273B5400A6B945 /* CellSelectedDetail.png in Resources */ = {isa = PBXBuildFile; fileRef = 960CCBE210273B5400A6B945 /* CellSelectedDetail.png */; };
+		9610852F1063BE45009F0A22 /* Three20.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 96BE983E10501BE300507F49 /* Three20.bundle */; };
+		961085321063BE5D009F0A22 /* libThree20.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 96BE983D10501BD400507F49 /* libThree20.a */; };
 		961E4D25104D41BB0081ADE7 /* CacheManagerFilteringTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 961E4D24104D41BB0081ADE7 /* CacheManagerFilteringTest.m */; };
 		962306FF10347318003ED654 /* SearchBarBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 962306FE10347318003ED654 /* SearchBarBackground.png */; };
 		9623071310347864003ED654 /* KleioSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 9623070F10347864003ED654 /* KleioSearchBar.m */; };
@@ -64,6 +66,8 @@
 		9653EBE6101104FB00B714BB /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9653EBE5101104FB00B714BB /* MainWindow.xib */; };
 		9657530310303B9100F93557 /* CurrencyManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9657530210303B9100F93557 /* CurrencyManager.m */; };
 		9657534510303FCB00F93557 /* CurrencySelectionDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 9657534410303FCB00F93557 /* CurrencySelectionDialog.m */; };
+		965F5DC410594D1600426DF9 /* KleioCustomStyles.m in Sources */ = {isa = PBXBuildFile; fileRef = 965F5DC310594D1600426DF9 /* KleioCustomStyles.m */; };
+		965F5DC510594D1600426DF9 /* KleioCustomStyles.m in Sources */ = {isa = PBXBuildFile; fileRef = 965F5DC310594D1600426DF9 /* KleioCustomStyles.m */; };
 		9664C9C11045603600BE55DD /* CacheMasterDetailTableTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9664C9C01045603600BE55DD /* CacheMasterDetailTableTest.m */; };
 		9666E6001020B66E000B9325 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 9666E5FF1020B66E000B9325 /* Default.png */; };
 		96676E9C1022DA96000C6FF5 /* deleteButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 96676E9B1022DA96000C6FF5 /* deleteButton.png */; };
@@ -111,11 +115,12 @@
 		96BE983F10501BE300507F49 /* Three20.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 96BE983E10501BE300507F49 /* Three20.bundle */; };
 		96BE988D10501D8900507F49 /* libThree20.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 96BE983D10501BD400507F49 /* libThree20.a */; };
 		96BE99181050231900507F49 /* AddScreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 96BE99171050231900507F49 /* AddScreen.png */; };
-		96BE99561050298700507F49 /* AmountController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96BE99551050298700507F49 /* AmountController.xib */; };
-		96BE99F51050376600507F49 /* TagController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96BE99F31050376600507F49 /* TagController.m */; };
-		96BE99F61050376600507F49 /* TagController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96BE99F41050376600507F49 /* TagController.xib */; };
 		96BE9A4F1050465300507F49 /* AddScreenExpense.png in Resources */ = {isa = PBXBuildFile; fileRef = 96BE9A4D1050465300507F49 /* AddScreenExpense.png */; };
 		96BE9A501050465300507F49 /* AddScreenIncome.png in Resources */ = {isa = PBXBuildFile; fileRef = 96BE9A4E1050465300507F49 /* AddScreenIncome.png */; };
+		96C2C04310650A320057F142 /* searchIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 96C2C04210650A320057F142 /* searchIcon.png */; };
+		96C2C04410650A320057F142 /* searchIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 96C2C04210650A320057F142 /* searchIcon.png */; };
+		96C2C098106532320057F142 /* filterIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 96C2C097106532320057F142 /* filterIcon.png */; };
+		96C2C099106532320057F142 /* filterIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 96C2C097106532320057F142 /* filterIcon.png */; };
 		96C508FF105175F1009CE76E /* TagSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = 96C508FE105175F1009CE76E /* TagSelector.m */; };
 		96C50900105175F1009CE76E /* TagSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = 96C508FE105175F1009CE76E /* TagSelector.m */; };
 		96C5093E10517BA3009CE76E /* TagDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 96C5093D10517BA3009CE76E /* TagDataSource.m */; };
@@ -163,7 +168,6 @@
 		96F65EFE10417C5500845F0E /* DetailContentTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 96FFFA8D1015EDC600A53779 /* DetailContentTableCell.m */; };
 		96F65EFF10417C5500845F0E /* CurrencyKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 96BD3E6A101744DB00926A83 /* CurrencyKeyboard.m */; };
 		96F65F0010417C5500845F0E /* ConfirmationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 963B020D10185D8C00CD5184 /* ConfirmationView.m */; };
-		96F65F0110417C5500845F0E /* TransactionsNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 963B02991019E10900CD5184 /* TransactionsNavigationController.m */; };
 		96F65F0210417C5500845F0E /* DetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 963B02BC1019E8D600CD5184 /* DetailTableViewController.m */; };
 		96F65F0310417C5500845F0E /* TransactionTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 963B03C71019EF8E00CD5184 /* TransactionTableViewController.m */; };
 		96F65F0510417C5500845F0E /* TransactionDisplay.m in Sources */ = {isa = PBXBuildFile; fileRef = 96419CBC101C77530066D6D8 /* TransactionDisplay.m */; };
@@ -173,7 +177,6 @@
 		96F65F0910417C5500845F0E /* ControlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96676F3A1022F323000C6FF5 /* ControlViewController.m */; };
 		96F65F0A10417C5500845F0E /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 96FAE6DA1024C2970060384F /* Location.m */; };
 		96F65F0B10417C5500845F0E /* Tag.m in Sources */ = {isa = PBXBuildFile; fileRef = 96FAE6DF1024C30A0060384F /* Tag.m */; };
-		96F65F0C10417C5500845F0E /* TransactionsMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96A98E571025D45100FFA6D0 /* TransactionsMainViewController.m */; };
 		96F65F0D10417C5500845F0E /* MapFullScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D7A94210282D28000FCC42 /* MapFullScreen.m */; };
 		96F65F0E10417C5500845F0E /* EditTransaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D7A9A610285949000FCC42 /* EditTransaction.m */; };
 		96F65F0F10417C5500845F0E /* CurrencyManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9657530210303B9100F93557 /* CurrencyManager.m */; };
@@ -207,6 +210,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		961085031063BE23009F0A22 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 96BE983810501BD400507F49 /* Three20.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = BEF31F390F352DF5000DE5D2;
+			remoteInfo = Three20;
+		};
 		96BE983C10501BD400507F49 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 96BE983810501BD400507F49 /* Three20.xcodeproj */;
@@ -313,6 +323,8 @@
 		9657530210303B9100F93557 /* CurrencyManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrencyManager.m; sourceTree = "<group>"; };
 		9657534310303FCB00F93557 /* CurrencySelectionDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrencySelectionDialog.h; sourceTree = "<group>"; };
 		9657534410303FCB00F93557 /* CurrencySelectionDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrencySelectionDialog.m; sourceTree = "<group>"; };
+		965F5DC210594D1600426DF9 /* KleioCustomStyles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KleioCustomStyles.h; sourceTree = "<group>"; };
+		965F5DC310594D1600426DF9 /* KleioCustomStyles.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KleioCustomStyles.m; sourceTree = "<group>"; };
 		9664C9C01045603600BE55DD /* CacheMasterDetailTableTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacheMasterDetailTableTest.m; sourceTree = "<group>"; };
 		9666E5FF1020B66E000B9325 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = Graphics/Default.png; sourceTree = "<group>"; };
 		96676E9B1022DA96000C6FF5 /* deleteButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = deleteButton.png; path = Graphics/deleteButton.png; sourceTree = "<group>"; };
@@ -366,12 +378,10 @@
 		96BE983810501BD400507F49 /* Three20.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Three20.xcodeproj; path = ../../../Resurser/iPhone/three20/src/Three20.xcodeproj; sourceTree = SOURCE_ROOT; };
 		96BE983E10501BE300507F49 /* Three20.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Three20.bundle; path = ../../../Resurser/iPhone/three20/src/Three20.bundle; sourceTree = SOURCE_ROOT; };
 		96BE99171050231900507F49 /* AddScreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AddScreen.png; path = Graphics/AddScreen.png; sourceTree = SOURCE_ROOT; };
-		96BE99551050298700507F49 /* AmountController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AmountController.xib; sourceTree = "<group>"; };
-		96BE99F21050376600507F49 /* TagController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagController.h; sourceTree = "<group>"; };
-		96BE99F31050376600507F49 /* TagController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagController.m; sourceTree = "<group>"; };
-		96BE99F41050376600507F49 /* TagController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TagController.xib; sourceTree = "<group>"; };
 		96BE9A4D1050465300507F49 /* AddScreenExpense.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AddScreenExpense.png; path = Graphics/AddScreenExpense.png; sourceTree = SOURCE_ROOT; };
 		96BE9A4E1050465300507F49 /* AddScreenIncome.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AddScreenIncome.png; path = Graphics/AddScreenIncome.png; sourceTree = SOURCE_ROOT; };
+		96C2C04210650A320057F142 /* searchIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = searchIcon.png; sourceTree = "<group>"; };
+		96C2C097106532320057F142 /* filterIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = filterIcon.png; sourceTree = "<group>"; };
 		96C508FD105175F1009CE76E /* TagSelector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagSelector.h; sourceTree = "<group>"; };
 		96C508FE105175F1009CE76E /* TagSelector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagSelector.m; sourceTree = "<group>"; };
 		96C5093C10517BA3009CE76E /* TagDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagDataSource.h; sourceTree = "<group>"; };
@@ -460,6 +470,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				961085321063BE5D009F0A22 /* libThree20.a in Frameworks */,
 				96F6600710417D1600845F0E /* Foundation.framework in Frameworks */,
 				96F6600810417D1600845F0E /* UIKit.framework in Frameworks */,
 				96F6600910417D1600845F0E /* CoreGraphics.framework in Frameworks */,
@@ -573,6 +584,8 @@
 				960C07FD1021AFF300B9C2A3 /* Utilities.m */,
 				96BBA6FF10550D7000F5D537 /* TabBarController.h */,
 				96BBA70010550D7000F5D537 /* TabBarController.m */,
+				965F5DC210594D1600426DF9 /* KleioCustomStyles.h */,
+				965F5DC310594D1600426DF9 /* KleioCustomStyles.m */,
 			);
 			name = Div;
 			sourceTree = "<group>";
@@ -720,6 +733,8 @@
 		96AA703710061CF600206A37 /* Graphics */ = {
 			isa = PBXGroup;
 			children = (
+				96C2C097106532320057F142 /* filterIcon.png */,
+				96C2C04210650A320057F142 /* searchIcon.png */,
 				96BE9A4D1050465300507F49 /* AddScreenExpense.png */,
 				96BE9A4E1050465300507F49 /* AddScreenIncome.png */,
 				96BE99171050231900507F49 /* AddScreen.png */,
@@ -810,10 +825,6 @@
 			children = (
 				96BE96F41050139500507F49 /* AmountController.h */,
 				96BE96F51050139500507F49 /* AmountController.m */,
-				96BE99551050298700507F49 /* AmountController.xib */,
-				96BE99F21050376600507F49 /* TagController.h */,
-				96BE99F31050376600507F49 /* TagController.m */,
-				96BE99F41050376600507F49 /* TagController.xib */,
 			);
 			name = NewAdder;
 			sourceTree = "<group>";
@@ -953,6 +964,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				961085041063BE23009F0A22 /* PBXTargetDependency */,
 			);
 			name = UnitTests;
 			productName = UnitTests;
@@ -1098,10 +1110,10 @@
 				96426E76104DF133002C218D /* Settings.bundle in Resources */,
 				96BE983F10501BE300507F49 /* Three20.bundle in Resources */,
 				96BE99181050231900507F49 /* AddScreen.png in Resources */,
-				96BE99561050298700507F49 /* AmountController.xib in Resources */,
-				96BE99F61050376600507F49 /* TagController.xib in Resources */,
 				96BE9A4F1050465300507F49 /* AddScreenExpense.png in Resources */,
 				96BE9A501050465300507F49 /* AddScreenIncome.png in Resources */,
+				96C2C04410650A320057F142 /* searchIcon.png in Resources */,
+				96C2C099106532320057F142 /* filterIcon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1109,7 +1121,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9610852F1063BE45009F0A22 /* Three20.bundle in Resources */,
 				96426E75104DF133002C218D /* Settings.bundle in Resources */,
+				96C2C04310650A320057F142 /* searchIcon.png in Resources */,
+				96C2C098106532320057F142 /* filterIcon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1170,12 +1185,12 @@
 				966C2C1C103ECA3900725372 /* ABTableViewCell.m in Sources */,
 				966C2C68103ECFFF00725372 /* CacheMasterSingleton.m in Sources */,
 				96BE96F91050139500507F49 /* AmountController.m in Sources */,
-				96BE99F51050376600507F49 /* TagController.m in Sources */,
 				96C50900105175F1009CE76E /* TagSelector.m in Sources */,
 				96C5093F10517BA3009CE76E /* TagDataSource.m in Sources */,
 				96C50B8D1052C9EF009CE76E /* KleioPickerTextField.m in Sources */,
 				96C50D751053B55C009CE76E /* SuggestedTags.m in Sources */,
 				96BBA70210550D7000F5D537 /* TabBarController.m in Sources */,
+				965F5DC510594D1600426DF9 /* KleioCustomStyles.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1194,7 +1209,6 @@
 				96F65EFE10417C5500845F0E /* DetailContentTableCell.m in Sources */,
 				96F65EFF10417C5500845F0E /* CurrencyKeyboard.m in Sources */,
 				96F65F0010417C5500845F0E /* ConfirmationView.m in Sources */,
-				96F65F0110417C5500845F0E /* TransactionsNavigationController.m in Sources */,
 				96F65F0210417C5500845F0E /* DetailTableViewController.m in Sources */,
 				96F65F0310417C5500845F0E /* TransactionTableViewController.m in Sources */,
 				96F65F0510417C5500845F0E /* TransactionDisplay.m in Sources */,
@@ -1204,7 +1218,6 @@
 				96F65F0910417C5500845F0E /* ControlViewController.m in Sources */,
 				96F65F0A10417C5500845F0E /* Location.m in Sources */,
 				96F65F0B10417C5500845F0E /* Tag.m in Sources */,
-				96F65F0C10417C5500845F0E /* TransactionsMainViewController.m in Sources */,
 				96F65F0D10417C5500845F0E /* MapFullScreen.m in Sources */,
 				96F65F0E10417C5500845F0E /* EditTransaction.m in Sources */,
 				96F65F0F10417C5500845F0E /* CurrencyManager.m in Sources */,
@@ -1227,12 +1240,18 @@
 				96C50B8C1052C9EF009CE76E /* KleioPickerTextField.m in Sources */,
 				96C50D741053B55C009CE76E /* SuggestedTags.m in Sources */,
 				96BBA70110550D7000F5D537 /* TabBarController.m in Sources */,
+				965F5DC410594D1600426DF9 /* KleioCustomStyles.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		961085041063BE23009F0A22 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Three20;
+			targetProxy = 961085031063BE23009F0A22 /* PBXContainerItemProxy */;
+		};
 		96BE985210501C4F00507F49 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = Three20;
