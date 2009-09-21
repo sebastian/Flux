@@ -50,12 +50,11 @@
 		
 		self.backgroundColor = [UIColor clearColor];
 		self.multipleTouchEnabled = YES;
-		
-		self.style = active 
-		? TTSTYLEVAR(filteringButtonActive:UIControlStateNormal)
-		: TTSTYLEVAR(filteringButtonPassive:UIControlStateNormal);
-		
 
+		self.style = active 
+			? TTSTYLEVAR(filteringButtonActive:UIControlStateNormal)
+			: TTSTYLEVAR(filteringButtonPassive:UIControlStateNormal);
+		
 		// Alloc objects needed
 
 		searchIcon = TTIMAGE(@"bundle://filterIcon.png");
@@ -228,6 +227,7 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 	// Clear the cache
 	[self.overviewCache_cellCache removeAllObjects];
 	[self detailCache_clearCache];
+	self.detailTableCellData = nil;
 	
 	[predicate retain];
 	[filteringPredicate release];
@@ -260,6 +260,8 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 	self.detailTableCellBackgroundImage = nil;
 	self.detailTableCellSelectedBackgroundImage = nil;
 	self.detailTableCellSeparator = nil;
+	self.detailTableCellData = nil;
+	
 	// Detail header view
 	self.detailHeaderViewFont = nil;
 	self.detailHeaderViewGrayColor = nil;
@@ -275,6 +277,7 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 	
 }
 - (void) updatedTransaction:(Transaction*)transaction {
+
 	[self overviewCacheUpdatedTransaction:transaction];
 	
 	if (self.detailTableDelegate != nil) {
@@ -528,6 +531,7 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 @synthesize detailTableCellBackgroundImage;
 @synthesize detailTableCellSelectedBackgroundImage;
 @synthesize detailTableCellSeparator;
+@synthesize detailTableCellData;
 // Getters
 - (UIFont*)detailTableCellFont {
 	if (detailTableCellFont == nil) {
@@ -564,6 +568,12 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 		detailTableCellSeparator = [[UIImage imageNamed:@"CellSeparator288.png"] retain];
 	}
 	return detailTableCellSeparator;
+}
+- (NSMutableDictionary*)detailTableCellData {
+	if (detailTableCellData == nil) {
+		detailTableCellData = [[NSMutableDictionary alloc] init];
+	}
+	return detailTableCellData;
 }
 
 #pragma mark

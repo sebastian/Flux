@@ -18,7 +18,6 @@
 
 @interface DetailTableViewController (PrivateMethods)
 - (NSDictionary*)dataForSection:(NSInteger)_section;
-- (void)clearDataCache;
 @end
 
 
@@ -119,28 +118,6 @@
 }
 
 #pragma mark Table view methods
-// To get the section shower on the side
-/*- (NSArray *) sectionIndexTitlesForTableView:(UITableView *)tableView {
-	NSLog(@"Asked to regenerate the index titles");
-	
-	NSInteger sectionCount = [[CacheMasterSingleton sharedCacheMaster] detailCache_numberOfSections];
-	
-	NSMutableArray * titles = [[NSMutableArray alloc] initWithCapacity:sectionCount];
-	
-	for (NSInteger n = 0; n < sectionCount; n++) {
-		NSDictionary * data = [[CacheMasterSingleton sharedCacheMaster] detailCache_dataForSection:n];
-		NSArray * objectsInSection = [data objectForKey:@"transactions"];
-		if ([objectsInSection count] > 0) {
-			Transaction * trs = [objectsInSection objectAtIndex:0];
-			[titles addObject:[NSString stringWithFormat:@"%i", [trs.day intValue]]];			
-		}
-	}
-	NSArray * returnTitles = [NSArray arrayWithArray:titles];
-	[titles release];
-	
-	return returnTitles;
-}*/
-
 
 // Content cell
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -302,12 +279,7 @@
 	if (localDelete) {
 		switch(type) {
 				
-			case NSFetchedResultsChangeDelete:				
-				/*
-				 All the cached data has been removed, so we can just as well reload the whole table
-				 */
-				[self clearDataCache];
-				
+			case NSFetchedResultsChangeDelete:								
 				[self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationBottom];
 				break;
 		}

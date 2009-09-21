@@ -219,7 +219,7 @@ rect.size.width, rect.size.height)
 		
 		// Right button
 		TTButton * saveButton = [[TTButton buttonWithStyle:@"blueToolbarButton:" title:NSLocalizedString(@"Save",nil)] autorelease];
-		saveButton.font = [UIFont boldSystemFontOfSize:12];
+		saveButton.font = [UIFont boldSystemFontOfSize:16.f];
 		[saveButton sizeToFit];
 		[saveButton addTarget:self action:@selector(save) forControlEvents:UIControlEventTouchUpInside];
 		
@@ -227,7 +227,7 @@ rect.size.width, rect.size.height)
 		
 		// Left button
 		TTButton * backButton = [[TTButton buttonWithStyle:@"blackBackwardButton:" title:NSLocalizedString(@"Back",nil)] autorelease];
-		backButton.font = [UIFont boldSystemFontOfSize:12];
+		backButton.font = [UIFont boldSystemFontOfSize:16.f];
 		[backButton sizeToFit];
 		[backButton addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
 		

@@ -227,7 +227,7 @@
 	[_expenseIncomeControl reset];
 }
 
--(void)currencySelected:(NSString*)currencyCode {
+-(void) currencySelected:(NSString*)currencyCode {
 	currentTransaction.currency = currencyCode;
 	[self updateExpenseDisplay];
 }
@@ -244,19 +244,8 @@
 			[self.tabBarItem setImage:[UIImage imageNamed:@"Add.png"]];
 			
 			[TTStyleSheet setGlobalStyleSheet:[[[KleioCustomStyles alloc] init] autorelease]];
-						
-			// Get the location
-			[LocationController sharedInstance].delegate = self;
-			[LocationController sharedInstance].locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-			[[LocationController sharedInstance].locationManager startUpdatingLocation];
-			
     }
     return self;
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-	[super viewWillDisappear:animated];	
-	[[LocationController sharedInstance].locationManager stopUpdatingLocation];
 }
 
 - (void) dealloc {
@@ -275,9 +264,14 @@
 - (void) loadView {
 	[super loadView];
 	
+	// Get the location
+	[LocationController sharedInstance].delegate = self;
+	[LocationController sharedInstance].locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+	[[LocationController sharedInstance].locationManager startUpdatingLocation];
+		
 	// Setup next button
 	TTButton * nextButton = [[TTButton buttonWithStyle:@"greenForwardButton:" title:@"Next"] autorelease];
-	nextButton.font = [UIFont boldSystemFontOfSize:12];
+	nextButton.font = [UIFont boldSystemFontOfSize:16.f];
 	[nextButton sizeToFit];
 	[nextButton addTarget:self action:@selector(nextButtonAction) forControlEvents:UIControlEventTouchUpInside];
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:nextButton];
@@ -294,7 +288,7 @@
 	[self.view addSubview:_amount];
 	[self.view addSubview:_expenseIncomeControl];
 
-	self.view.backgroundColor = [UIColor blackColor];
+	self.view.backgroundColor = [UIColor greenColor]; //RGBCOLOR(255,255,150);
 	
 	[self layout];
 	
@@ -309,6 +303,12 @@
 	[keyboard showKeyboardWithAnimation:NO];
 	
 	[self updateExpenseDisplay];
+}
+
+- (void) viewDidUnload {
+	[super viewDidUnload];
+	NSLog(@"Location manager stopped");
+	[[LocationController sharedInstance].locationManager stopUpdatingLocation];
 }
 
 
@@ -353,9 +353,7 @@
 	[tagSelector setMode:TagSelectorModeTransaction];
 
 	// Send the tags to the tagSelector if the transaction already has tags
-	NSString * trimmedString = [currentTransaction.tags stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-	NSArray * tags = [trimmedString componentsSeparatedByString:@" "];
-	tagSelector.tags = tags;
+	tagSelector.tags = currentTransaction.tagsArray;
 	
 	[self.navigationController pushViewController:tagSelector animated:YES];
 		
@@ -367,8 +365,7 @@
 //	TagSelectorDelegate
 
 - (void) tagSelectorFinishedWithTagWords:(NSArray*)tagsWords {
-	TTLOG(@"Returned with tagswords");
-	currentTransaction.tags = [NSString stringWithFormat:@" %@ ", [tagsWords componentsJoinedByString:@" "]];
+	currentTransaction.tagsArray = tagsWords;
 }
 
 - (void) save {
@@ -413,7 +410,6 @@
 	/*
 	 We have to find the currency corrensponding to the country!
 	 */
-	//self.placemark = _placemark;
 	
 	NSString * countryCode = _placemark.countryCode;
 	NSString * currencyCode = [[[CurrencyManager sharedManager] countryToCurrency] objectForKey:countryCode];
@@ -428,6 +424,14 @@
 																							forKey:@"KleioFinanceFirstRunBaseCurrency"];
 		
 		[[CurrencyManager sharedManager] setBaseCurrency:currencyCode];
+		
+		/*
+		 This is probably (hopefully) the first time the app runs.
+		 We now have to set the transactions currency to the same currency as well,
+		 and update the display!
+		 */
+		currentTransaction.currency = currencyCode;
+		[self updateExpenseDisplay];
 	}
 	
 	if (!(currencyCode == nil)) {

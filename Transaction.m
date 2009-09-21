@@ -103,9 +103,9 @@
 	 */
 	NSString * tags = [NSString stringWithFormat:@" %@ ", value];
 	
-    [self willChangeValueForKey:@"tags"];
-    [self setPrimitiveTags:tags];
-    [self didChangeValueForKey:@"tags"];
+	[self willChangeValueForKey:@"tags"];
+  [self setPrimitiveTags:tags];
+  [self didChangeValueForKey:@"tags"];
 }
 - (NSString*)trimmedTags {
 	return [self.tags stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
@@ -174,6 +174,40 @@
 	isNew = NO;
 }
 	
+// Tags
+- (void) setTagsArray:(NSArray *)_tags {
+	
+	NSCharacterSet * whitespaceCharacterSet = [NSCharacterSet whitespaceCharacterSet];
+	
+	NSMutableArray * _cleanedArray = [[NSMutableArray alloc] init];
+	for (NSString * tag in _tags) {
+		if (![tag isEqualToString:@""] && ![_cleanedArray containsObject:tag]) {
+			tag = [tag stringByTrimmingCharactersInSet:whitespaceCharacterSet];
+			[_cleanedArray addObject:tag];
+		}
+	}
+	
+	NSString * tagString = [NSString stringWithFormat:@" %@ ", [_cleanedArray componentsJoinedByString:@" "]];
+		
+	[self willChangeValueForKey:@"tags"];
+  [self setPrimitiveTags:tagString];
+  [self didChangeValueForKey:@"tags"];
+		
+}
+- (NSArray *) tagsArray {
+	NSString * prepareTags = [self.tags stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+	NSArray * preparedTags = [prepareTags componentsSeparatedByString:@" "]; 
+	
+	NSMutableArray * returnArray = [[NSMutableArray alloc] init];
+	
+	for (NSString * tag in preparedTags) {
+		if (![tag isEqualToString:@""]) {
+			[returnArray addObject:tag];
+		}
+	}
+	
+	return returnArray;
+}
 
 #pragma mark
 #pragma mark -

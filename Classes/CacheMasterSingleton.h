@@ -26,6 +26,8 @@
 	UIImage * detailTableCellBackgroundImage;
 	UIImage * detailTableCellSelectedBackgroundImage;
 	UIImage * detailTableCellSeparator;	
+	NSMutableDictionary * detailTableCellData;
+	
 	
 	// Detail header view - resource
 	UIFont * detailHeaderViewFont;
@@ -46,7 +48,7 @@
 	// Filtering
 	NSArray * tagWords;
 	UIBarButtonItem * filterButton;
-	
+		
 	int runNum;
 }
 
@@ -90,6 +92,7 @@
 @property (nonatomic, retain) UIImage * detailTableCellBackgroundImage;
 @property (nonatomic, retain) UIImage * detailTableCellSelectedBackgroundImage;
 @property (nonatomic, retain) UIImage * detailTableCellSeparator;
+@property (nonatomic, retain) NSMutableDictionary * detailTableCellData;
 
 - (UIFont*)detailTableCellFont;
 - (UIColor*)detailTableCellGrayColor;

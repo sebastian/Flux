@@ -188,11 +188,12 @@
 	
 }
 - (void) testDeleteAndChangeWhileFilteringForOverview {
+
 	Transaction * toDelete = [self getTransaction];
 	toDelete.date = [NSDate dateWithTimeIntervalSince1970:0]; // 1 January 1970
 	toDelete.kroner = [NSNumber numberWithInt:100];
 	[[Utilities toolbox] save:context];
-		
+	
 	[self populateCacheOverview];
 	NSDictionary * originalDict = [[[CacheMasterSingleton sharedCacheMaster] overviewCache_cellCache] copy];
 	

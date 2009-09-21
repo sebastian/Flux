@@ -49,6 +49,10 @@
 }
 - (void)applicationWillTerminate:(UIApplication *)application {
 	
+	// Forcefully remove the singleton classes
+	[[CacheMasterSingleton sharedCacheMaster] dealloc];
+	[[Utilities toolbox] dealloc];
+	
 	NSError *error;
 	if (managedObjectContext != nil) {
 		if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {

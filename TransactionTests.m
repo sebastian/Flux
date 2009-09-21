@@ -61,5 +61,39 @@
 	
 }
 
+// Test tags accessors
+- (void) testGetTagsArray {
+	
+	STAssertTrue([trs respondsToSelector:@selector(tagsArray)], @"Should have a tags array method");
+	
+	trs.tags = @"";
+	STAssertEqualObjects(trs.tagsArray, [[[NSArray alloc] init] autorelease], @"Should be empty array for no tags");
+
+	trs.tags = @" hehe ";
+	STAssertTrue([trs.tagsArray count] == 1, @"Should have 1 element");
+	
+	trs.tags = @" hehe haha ";
+	STAssertTrue([trs.tagsArray count] == 2, @"Should have 1 element");
+}
+- (void) testSetTagsArray {
+	
+	STAssertTrue([trs respondsToSelector:@selector(setTagsArray:)], @"Should have a method to set the tags as an array");
+	NSMutableArray * tags = [[NSMutableArray alloc] init];
+	
+	[tags addObject:@"test"];
+	trs.tagsArray = tags;
+	STAssertTrue([trs.tags isEqualToString:@" test "], @"Should be able to set tags from an array");
+	
+	[tags addObject:@"haha"];
+	[tags addObject:@"hehe"];
+	trs.tagsArray = tags;
+	STAssertTrue([trs.tags isEqualToString:@" test haha hehe "], @"Should be able to set tags from an array");
+	
+	// Remove duplicates
+	[tags addObject:@"hehe"];
+	trs.tagsArray = tags;
+	STAssertTrue([trs.tags isEqualToString:@" test haha hehe "], @"Should be able to set tags from an array");
+
+}
 
 @end

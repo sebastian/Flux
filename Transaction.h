@@ -47,6 +47,10 @@
 // General non savable parameters
 @property (nonatomic, retain) NSNumberFormatter * formatter;
 
+// Tags
+@property (nonatomic, retain) NSArray * tagsArray;
+- (NSArray*) tagsArray;
+
 // Methods
 -(NSString*)amountInLocalCurrency;
 -(NSString*)absAmountInLocalCurrency;
