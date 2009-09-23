@@ -40,7 +40,7 @@
 	
 	for (NSString * tag in self.tags) {
 
-		width += [[tag stringByAppendingString:@"  "] sizeWithFont:[[CacheMasterSingleton sharedCacheMaster] detailTableCellFont]].width + 6;
+		width += [[tag stringByAppendingString:@"   "] sizeWithFont:[[CacheMasterSingleton sharedCacheMaster] detailTableCellFont]].width + 6;
 		if (width > maxWidth) {
 			[text appendFormat:@"<span class=\"tagBox\">...</span>"];		
 			break;

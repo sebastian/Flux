@@ -383,6 +383,7 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 - (void) detailCache_clearCache {
 	self.detailCache_cellCache = nil;
 	self.detailCache_headerViewCache = nil;
+	self.detailTableCellData = nil;
 }
 - (NSMutableDictionary*) detailCache_headerViewCache {
 	if (detailCache_headerViewCache == nil) {
@@ -535,6 +536,7 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 	}
 
 }
+
 
 #pragma mark
 #pragma mark -
