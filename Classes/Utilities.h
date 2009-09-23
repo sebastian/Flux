@@ -71,6 +71,7 @@
 - (void)save:(NSManagedObjectContext*)context;
 - (void)privateSave;
 - (void)setSavignIsFalse;
+- (void)delayedSave:(NSManagedObjectContext*)context forDelegate:(id)delegate;
 
 /*
  * Handles the creation of new manage object contexts that can be used

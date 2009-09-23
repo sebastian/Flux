@@ -15,7 +15,6 @@
 #import "KleioCustomStyles.h"
 #import "CacheMasterSingleton.h"
 
-
 #define LOGRECT(rect) \
 NSLog(@"%s x=%f, y=%f, w=%f, h=%f", #rect, rect.origin.x, rect.origin.y, \
 rect.size.width, rect.size.height)
@@ -89,6 +88,12 @@ rect.size.width, rect.size.height)
 
 }
 
+- (void) cancel {
+	
+	[self.navigationController popViewControllerAnimated:YES];
+	
+}
+
 /*
  "Save" and "Back" are both for the transaction mode,
  where we are NOT in modal view mode, but belong directly 
@@ -96,11 +101,25 @@ rect.size.width, rect.size.height)
  */
 - (void) sendTagsToDelegate {
 	if ([_delegate respondsToSelector:@selector(tagSelectorFinishedWithTagWords:)]) {
-		[_delegate tagSelectorFinishedWithTagWords:_pickerTextField.cells];
+		NSMutableArray * returnTags = [[NSMutableArray alloc] init];
+		for (id tag in _pickerTextField.cells) {
+			
+			if ([tag isKindOfClass:[NSString class]]) {
+				[returnTags addObject:tag];
+			}
+			
+			if ([tag isKindOfClass:[TTTableTextItem class]]) {
+				TTTableTextItem * item = tag;
+				[returnTags addObject:item.text];
+			}
+			
+		}
+		[_delegate tagSelectorFinishedWithTagWords:returnTags];
+		[returnTags release];
 	}
 }
 
-- (void) save {
+- (void) doSave {
 	
 	[self makeCurrentTextIntoTag];
 	
@@ -114,7 +133,20 @@ rect.size.width, rect.size.height)
 		[_delegate save];
 	}
 	
+}
+
+- (void) editorSave {
+	
+	[self cancel];
+	[self doSave];
+	
+}
+
+- (void) save {
+	
 	[self.navigationController popViewControllerAnimatedWithTransition:UIViewAnimationTransitionCurlUp];
+	[self doSave];
+	
 }
 
 - (void) back {
@@ -122,6 +154,7 @@ rect.size.width, rect.size.height)
 	 Send the tags back to the delegate
 	 and then go back
 	 */
+	[self makeCurrentTextIntoTag];
 	[self sendTagsToDelegate];
 	
 	[self.navigationController popViewControllerAnimated:YES];
@@ -135,8 +168,8 @@ rect.size.width, rect.size.height)
 		workableSpace = TTKeyboardNavigationFrame();
 		
 	} else {
-		workableSpace = TTNavigationFrame(); //TTToolbarNavigationFrame();
-		//workableSpace = CGRectMake(workableSpace.origin.x, workableSpace.origin.y, workableSpace.size.width, workableSpace.size.height - 5);
+		workableSpace = TTToolbarNavigationFrame(); //TTNavigationFrame(); //TTToolbarNavigationFrame();
+		workableSpace = CGRectMake(workableSpace.origin.x, workableSpace.origin.y, workableSpace.size.width, workableSpace.size.height - 5);
 		
 	}
 	
@@ -218,40 +251,61 @@ rect.size.width, rect.size.height)
 	if (_mode == TagSelectorModeTransaction) {
 		
 		// Right button
-		TTButton * saveButton = [[TTButton buttonWithStyle:@"blueToolbarButton:" title:NSLocalizedString(@"Save",nil)] autorelease];
+		TTButton * saveButton = [TTButton buttonWithStyle:@"blueToolbarButton:" title:NSLocalizedString(@"Save",nil)];
 		saveButton.font = [UIFont boldSystemFontOfSize:16.f];
 		[saveButton sizeToFit];
 		[saveButton addTarget:self action:@selector(save) forControlEvents:UIControlEventTouchUpInside];
 		
-		self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:saveButton];
+		self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithCustomView:saveButton] autorelease];
 		
 		// Left button
-		TTButton * backButton = [[TTButton buttonWithStyle:@"blackBackwardButton:" title:NSLocalizedString(@"Back",nil)] autorelease];
+		TTButton * backButton = [TTButton buttonWithStyle:@"blackBackwardButton:" title:NSLocalizedString(@"Back",nil)];
 		backButton.font = [UIFont boldSystemFontOfSize:16.f];
 		[backButton sizeToFit];
 		[backButton addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
 		
-		self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
+		self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithCustomView:backButton] autorelease];
 		
-	} else {
+	} 
+	
+	if (_mode == TagSelectorModeFilter) {
 		
 		// Right button
-		TTButton * doneButton = [[TTButton buttonWithStyle:@"blueToolbarButton:" title:NSLocalizedString(@"Done",nil)] autorelease];
+		TTButton * doneButton = [TTButton buttonWithStyle:@"blueToolbarButton:" title:NSLocalizedString(@"Done",nil)];
 		doneButton.font = [UIFont boldSystemFontOfSize:12];
 		[doneButton sizeToFit];
 		[doneButton addTarget:self action:@selector(done) forControlEvents:UIControlEventTouchUpInside];
 		
-		self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:doneButton];
+		self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithCustomView:doneButton] autorelease];
 		
 		
 		// Left button
-		TTButton * clearButton = [[TTButton buttonWithStyle:@"grayToolbarButton:" title:NSLocalizedString(@"Clear filter",nil)] autorelease];
+		TTButton * clearButton = [TTButton buttonWithStyle:@"grayToolbarButton:" title:NSLocalizedString(@"Clear filter",nil)];
 		clearButton.font = [UIFont boldSystemFontOfSize:12];
 		[clearButton sizeToFit];
 		[clearButton addTarget:self action:@selector(clearTagsAndExit) forControlEvents:UIControlEventTouchUpInside];
 		
-		self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:clearButton];
+		self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithCustomView:clearButton] autorelease];
 		
+	}
+	
+	if (_mode == TagSelectorModeEditor) {
+		
+		// Right button
+		TTButton * doneButton = [TTButton buttonWithStyle:@"blueToolbarButton:" title:NSLocalizedString(@"Save",nil)];
+		doneButton.font = [UIFont boldSystemFontOfSize:12];
+		[doneButton sizeToFit];
+		[doneButton addTarget:self action:@selector(editorSave) forControlEvents:UIControlEventTouchUpInside];
+		
+		self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithCustomView:doneButton] autorelease];
+		
+		// Left button
+		TTButton * clearButton = [TTButton buttonWithStyle:@"grayToolbarButton:" title:NSLocalizedString(@"Cancel",nil)];
+		clearButton.font = [UIFont boldSystemFontOfSize:12];
+		[clearButton sizeToFit];
+		[clearButton addTarget:self action:@selector(cancel) forControlEvents:UIControlEventTouchUpInside];
+		
+		self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithCustomView:clearButton] autorelease];
 		
 	}
 	

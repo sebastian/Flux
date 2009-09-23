@@ -89,7 +89,7 @@
 	[super viewDidLoad];
 	
 	self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-	self.tableView.backgroundColor = RGBACOLOR(50,50,50,0.6); //[UIColor clearColor]; // TODO: Fix background that is nice and make color clear
+	self.tableView.backgroundColor = RGBACOLOR(50,50,50,0.6); 
 	[self.navigationController.navigationBar setBarStyle:UIBarStyleBlackOpaque];
 	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque];
 

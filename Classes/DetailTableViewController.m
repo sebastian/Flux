@@ -14,7 +14,7 @@
 #import "KleioSearchBar.h"
 #import "CurrencyManager.h"
 #import "CacheMasterSingleton.h"
-#import "CacheMasterSingleton.h"
+#import "TransactionViewController.h"
 
 @interface DetailTableViewController (PrivateMethods)
 - (NSDictionary*)dataForSection:(NSInteger)_section;
@@ -135,7 +135,7 @@
 
 	[cell configureCellForTransaction:trs];
 				
-    return cell;
+	return cell;
 }
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -162,25 +162,9 @@
 }
 // Footer view
 - (UIView *) tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)_section {
-	/*
-	 If there are no elements in the section, then we don't want to display it
-	 */
-	NSDictionary * data = [[CacheMasterSingleton sharedCacheMaster] detailCache_dataForSection:_section];
-	NSInteger count = [[data objectForKey:@"transactions"] count];
-	if (count == 0) {
-		return nil;
-	}
-	
-	NSString * section = [NSString stringWithFormat:@"%i", _section];	
-	if (self.footerViewCache == nil) { self.footerViewCache = [[NSMutableDictionary alloc] init];}
-	
-	if ([footerViewCache objectForKey:section] == nil) {
-		UIImageView * bottom = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DetailCellFooter.png"]];
-		// Store view
-		[footerViewCache setObject:bottom forKey:section];
-		[bottom release];
-	}
-	return [footerViewCache objectForKey:section];
+
+	return [[CacheMasterSingleton sharedCacheMaster] detailCache_footerViewForSection:_section];
+
 }
 - (CGFloat) tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
 	/*
@@ -201,10 +185,12 @@
 	
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 		
-	// Create new display that shows the transaction
-	TransactionDisplay * infoDisplay =
-		[[TransactionDisplay alloc] initWithNibName:@"TransactionDisplay" 
-											 bundle:[NSBundle mainBundle]];
+//	// Create new display that shows the transaction
+//	TransactionDisplay * infoDisplay =
+//		[[TransactionDisplay alloc] initWithNibName:@"TransactionDisplay" 
+//											 bundle:[NSBundle mainBundle]];
+
+	TransactionViewController * infoDisplay = [[TransactionViewController alloc] init];
 	
 	NSDictionary * data = [[CacheMasterSingleton sharedCacheMaster] detailCache_dataForSection:indexPath.section];
 	Transaction * theTransaction = (Transaction*)[[data objectForKey:@"transactions"] objectAtIndex:indexPath.row];

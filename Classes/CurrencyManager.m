@@ -166,16 +166,6 @@
 - (NSString *)baseCurrencyDescription
 {
 	return [self currencyDescription:baseCurrency];
-//	if ([baseCurrency isEqual:@"EUR"])
-//		return @"€";
-//	else if ([baseCurrency isEqual:@"USD"])
-//		return @"$";
-//	else if ([baseCurrency isEqual:@"JPY"])
-//		return @"¥";
-//	else if ([baseCurrency isEqual:@"GBP"])
-//		return @"£";
-//	
-//	return baseCurrency;
 }
 - (NSString *)currencyDescription:(NSString*)currencyCode {
 	if ([currencyCode isEqual:@"EUR"])
@@ -193,11 +183,6 @@
 - (NSString *)baseCurrencyDescriptionForAmount:(NSString *)amount
 {
 	return [self currencyDescriptionForAmount:amount currency:baseCurrency];
-//	if ([baseCurrency isEqual:@"USD"]) {
-//		return [NSString stringWithFormat:@"$%@", amount];
-//	} else {
-//		return [NSString stringWithFormat:@"%@ %@", amount, [self baseCurrencyDescription]];
-//	}
 }
 - (NSString *)currencyDescriptionForAmount:(NSString*)amount currency:(NSString*)currencyCode {
 	if ([currencyCode isEqual:@"USD"]) {
@@ -211,9 +196,6 @@
 - (NSString *)baseCurrencyDescriptionForAmount:(NSNumber *)amount withFraction:(BOOL)withFraction
 {
 	return [self currencyDescriptionForAmount:amount withFraction:withFraction currency:baseCurrency];
-//	NSNumberFormatter *numberFormatter = (withFraction) ? (numberFormatterWithFraction) : (numberFormatterWithoutFraction);
-//	NSString *formattedAmount = [numberFormatter stringFromNumber:amount];
-//	return [self baseCurrencyDescriptionForAmount:formattedAmount];
 }
 - (NSString *)currencyDescriptionForAmount:(NSNumber *)amount withFraction:(BOOL)withFraction currency:(NSString*)currencyCode
 {
@@ -249,7 +231,6 @@
 	self.exchangeRates = newExchangeRates;
 	isRefreshing = NO;
 	self.lastRefresh = [NSDate date];
-	//NSLog(@"%@", self.exchangeRates);
 
 	[self.conversionDict removeAllObjects];
 
@@ -267,7 +248,6 @@
 	[newExchangeRates setObject:[NSNumber numberWithFloat:1.0] forKey:@"\"EUR to EUR\""];
 	
 	NSMutableString *urlString = [NSMutableString stringWithString:@"http://quote.yahoo.com/d/quotes.csv?s="];
-	//NSMutableArray *currencies = [NSMutableArray arrayWithObjects:@"USD", @"AUD", @"CAD", @"GBP", @"JPY", nil];
 		
 	int i = 0;
 	for (NSString *currency in self.availableCurrencies) {

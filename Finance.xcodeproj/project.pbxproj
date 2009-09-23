@@ -90,6 +90,8 @@
 		966D70E91008B23100D781B8 /* KeyboardButtonOKUnclicked.png in Resources */ = {isa = PBXBuildFile; fileRef = 966D70E71008B23100D781B8 /* KeyboardButtonOKUnclicked.png */; };
 		966D71091008B5E600D781B8 /* DeleteButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 966D71081008B5E600D781B8 /* DeleteButton.png */; };
 		9676AB6F10246586009A3429 /* WhatHighlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 9676AB6E10246586009A3429 /* WhatHighlighted.png */; };
+		967C9E1710678D5400B9F6A2 /* TransactionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 967C9E1610678D5400B9F6A2 /* TransactionViewController.m */; };
+		967C9E1810678D5400B9F6A2 /* TransactionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 967C9E1610678D5400B9F6A2 /* TransactionViewController.m */; };
 		96903C7A1038AA7E009D5D49 /* TagSuggesterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96903C791038AA7E009D5D49 /* TagSuggesterViewController.m */; };
 		969776A8101B662300F0DC3D /* DetailCellHeader.png in Resources */ = {isa = PBXBuildFile; fileRef = 969776A7101B662300F0DC3D /* DetailCellHeader.png */; };
 		969C6C56101F8A79007B5CC8 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 969C6C55101F8A79007B5CC8 /* Icon.png */; };
@@ -350,6 +352,8 @@
 		966D70E71008B23100D781B8 /* KeyboardButtonOKUnclicked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = KeyboardButtonOKUnclicked.png; path = Graphics/KeyboardButtonOKUnclicked.png; sourceTree = "<group>"; };
 		966D71081008B5E600D781B8 /* DeleteButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = DeleteButton.png; path = Graphics/DeleteButton.png; sourceTree = "<group>"; };
 		9676AB6E10246586009A3429 /* WhatHighlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = WhatHighlighted.png; path = Graphics/WhatHighlighted.png; sourceTree = "<group>"; };
+		967C9E1510678D5400B9F6A2 /* TransactionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionViewController.h; sourceTree = "<group>"; };
+		967C9E1610678D5400B9F6A2 /* TransactionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionViewController.m; sourceTree = "<group>"; };
 		96903C791038AA7E009D5D49 /* TagSuggesterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagSuggesterViewController.m; sourceTree = "<group>"; };
 		969776A7101B662300F0DC3D /* DetailCellHeader.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = DetailCellHeader.png; path = Graphics/DetailCellHeader.png; sourceTree = "<group>"; };
 		969C6C55101F8A79007B5CC8 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = Graphics/Icon.png; sourceTree = "<group>"; };
@@ -655,6 +659,8 @@
 				96D7A94110282D28000FCC42 /* MapFullScreen.h */,
 				96D7A94210282D28000FCC42 /* MapFullScreen.m */,
 				96D7A94310282D28000FCC42 /* MapFullScreen.xib */,
+				967C9E1510678D5400B9F6A2 /* TransactionViewController.h */,
+				967C9E1610678D5400B9F6A2 /* TransactionViewController.m */,
 			);
 			name = TransactionDetail;
 			sourceTree = "<group>";
@@ -1191,6 +1197,7 @@
 				96C50D751053B55C009CE76E /* SuggestedTags.m in Sources */,
 				96BBA70210550D7000F5D537 /* TabBarController.m in Sources */,
 				965F5DC510594D1600426DF9 /* KleioCustomStyles.m in Sources */,
+				967C9E1710678D5400B9F6A2 /* TransactionViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1241,6 +1248,7 @@
 				96C50D741053B55C009CE76E /* SuggestedTags.m in Sources */,
 				96BBA70110550D7000F5D537 /* TabBarController.m in Sources */,
 				965F5DC410594D1600426DF9 /* KleioCustomStyles.m in Sources */,
+				967C9E1810678D5400B9F6A2 /* TransactionViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1283,6 +1291,16 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Finance_Prefix.pch;
+				GCC_WARN_CHECK_SWITCH_STATEMENTS = YES;
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
+				GCC_WARN_INITIALIZER_NOT_FULLY_BRACKETED = YES;
+				GCC_WARN_MISSING_PARENTHESES = YES;
+				GCC_WARN_SHADOW = YES;
+				GCC_WARN_UNKNOWN_PRAGMAS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_LABEL = YES;
+				GCC_WARN_UNUSED_PARAMETER = YES;
+				GCC_WARN_UNUSED_VALUE = YES;
 				INFOPLIST_FILE = "Finance-Info.plist";
 				PRODUCT_NAME = Finance;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";

@@ -12,6 +12,7 @@
 typedef enum {
   TagSelectorModeFilter = 0,
   TagSelectorModeTransaction = 1,
+	TagSelectorModeEditor = 2
 } TagSelectorMode;
 
 

@@ -10,6 +10,7 @@
 #import "Tag.h"
 #import "Location.h"
 #import "FinanceAppDelegate.h"
+#import "AmountController.h"
 
 @interface Utilities (PrivateMethods)
 - (void)doSave:(NSManagedObjectContext*)context;
@@ -434,6 +435,27 @@ static Utilities *sharedUtilitiesToolbox = nil;
 	
 }
 
+- (void)performDelayedSave:(NSDictionary*)dict {
+	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+	
+	sleep(0.2);
+	[self save:[dict objectForKey:@"context"]];
+	
+	id delegate = [dict objectForKey:@"delegate"];
+	SEL selector = @selector(createAndSetupTransaction);
+	if ([delegate respondsToSelector:selector]) {
+		[delegate performSelector:selector];
+	}
+	
+	[pool release];
+}
+- (void)delayedSave:(NSManagedObjectContext*)context forDelegate:(id)delegate {
+	NSDictionary * dict = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:context, delegate, nil] 
+																										forKeys:[NSArray arrayWithObjects:@"context", @"delegate", nil]];
+	
+	[self performSelectorInBackground:@selector(performDelayedSave:) withObject:dict];
+
+}
 
 #pragma mark
 #pragma mark -

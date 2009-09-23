@@ -78,6 +78,7 @@
 - (NSInteger) detailCache_numberOfRowsInSection:(NSInteger)section;
 - (void) detailCache_tellDelegateThatItsWorthUpdating;
 - (UIView*) detailCache_headerViewForSection:(NSInteger)section;
+- (UIImageView*) detailCache_footerViewForSection:(NSInteger)section;
 
 #pragma mark Shared data for Detail header view
 @property (nonatomic, retain) UIFont * detailHeaderViewFont;

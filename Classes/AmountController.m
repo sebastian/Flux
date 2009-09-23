@@ -82,7 +82,6 @@
 
 @synthesize amount = _amount, delegate = _delegate;
 - (void) setAmount:(NSString *)theAmount {
-	NSLog(@"setAmount: called for amountLabel");
 	[theAmount retain];
 	[_amount release];
 	_amount = theAmount;
@@ -207,10 +206,12 @@
 	
 	TTFlowLayout * flow = [[TTFlowLayout alloc] init];
 	[flow layoutSubviews:self.view.subviews forView:self.view];
+	[flow release];
 	
 }
 
 - (void) createAndSetupTransaction {
+	
 	// Get a clean slate by releasing previous transactions
 	if (currentTransaction != nil) {
 		TT_RELEASE_SAFELY(currentTransaction);
@@ -225,6 +226,7 @@
 	
 	[self updateExpenseDisplay];
 	[_expenseIncomeControl reset];
+	
 }
 
 -(void) currencySelected:(NSString*)currencyCode {
@@ -270,15 +272,15 @@
 	[[LocationController sharedInstance].locationManager startUpdatingLocation];
 		
 	// Setup next button
-	TTButton * nextButton = [[TTButton buttonWithStyle:@"greenForwardButton:" title:@"Next"] autorelease];
+	TTButton * nextButton = [TTButton buttonWithStyle:@"greenForwardButton:" title:@"Next"];
 	nextButton.font = [UIFont boldSystemFontOfSize:16.f];
 	[nextButton sizeToFit];
 	[nextButton addTarget:self action:@selector(nextButtonAction) forControlEvents:UIControlEventTouchUpInside];
-	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:nextButton];
+	self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithCustomView:nextButton] autorelease];
 
 	// Setup the amount label
-	self.amount = [[AmountLabel alloc] initWithFrame:CGRectMake(0, 0, 320, 100)];
-	self.amount.delegate = self;
+	self.amount = [[[AmountLabel alloc] initWithFrame:CGRectMake(0, 0, 320, 100)] autorelease];
+	_amount.delegate = self;
 	
 	_expenseIncomeControl = [[ExpenseToggle alloc] init];
 	_expenseIncomeControl.delegate = self;
@@ -288,8 +290,6 @@
 	[self.view addSubview:_amount];
 	[self.view addSubview:_expenseIncomeControl];
 
-	self.view.backgroundColor = [UIColor greenColor]; //RGBCOLOR(255,255,150);
-	
 	[self layout];
 	
 }
@@ -373,8 +373,13 @@
 	
 	currentTransaction.location = self.bestLocation;
 	
-	[[Utilities toolbox] save:self.managedObjectContext];
-	[self createAndSetupTransaction];
+//	[[Utilities toolbox] delayedSave:self.managedObjectContext];
+	/*
+	 This method also calls createAndSetupTransaction 
+	 so that it is done after the save has been performed
+	 */
+	[[Utilities toolbox] delayedSave:self.managedObjectContext forDelegate:self];
+
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

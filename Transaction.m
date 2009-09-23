@@ -188,7 +188,8 @@
 	}
 	
 	NSString * tagString = [NSString stringWithFormat:@" %@ ", [_cleanedArray componentsJoinedByString:@" "]];
-		
+	[_cleanedArray release];
+	
 	[self willChangeValueForKey:@"tags"];
   [self setPrimitiveTags:tagString];
   [self didChangeValueForKey:@"tags"];
@@ -206,7 +207,7 @@
 		}
 	}
 	
-	return returnArray;
+	return [returnArray autorelease];
 }
 
 #pragma mark

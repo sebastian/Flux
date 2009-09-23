@@ -57,7 +57,7 @@
 		
 		// Alloc objects needed
 
-		searchIcon = TTIMAGE(@"bundle://filterIcon.png");
+		searchIcon = [TTIMAGE(@"bundle://filterIcon.png") retain];
 		
 		int overallWidth = - padding;
 		
@@ -78,7 +78,7 @@
 			
 				CGSize textSize = [text sizeWithFont:font];
 				text = [NSString stringWithFormat:@"<span class=\"filterButtonTag\">%@</span>", text];
-				TTStyledTextLabel * textLabel = [[TTStyledTextLabel alloc] initWithFrame:CGRectMake(0, 0, textSize.width + 10, 50)];
+				TTStyledTextLabel * textLabel = [[[TTStyledTextLabel alloc] initWithFrame:CGRectMake(0, 0, textSize.width + 10, 50)] autorelease];
 				textLabel.font = font;
 				textLabel.text = [TTStyledText textFromXHTML:text lineBreaks:NO URLs:NO];
 				textLabel.contentInset = UIEdgeInsetsMake(8, 5, 0, 5);
@@ -86,7 +86,7 @@
 				
 				overallWidth += textLabel.width + padding;
 				
-				[tags addObject:[textLabel autorelease]];
+				[tags addObject:textLabel];
 				
 				if (n > 1) {
 					break;
@@ -95,11 +95,11 @@
 			
 		} else {
 			
-			font = [[UIFont systemFontOfSize:14.f] retain];
+			font = [UIFont systemFontOfSize:14.f];
 			
 			NSString * text = NSLocalizedString(@"Filter", nil);
 			CGSize textSize = [text sizeWithFont:font];
-			TTStyledTextLabel * textLabel = [[TTStyledTextLabel alloc] initWithFrame:CGRectMake(0, 0, textSize.width + padding, 33)];
+			TTStyledTextLabel * textLabel = [[[TTStyledTextLabel alloc] initWithFrame:CGRectMake(0, 0, textSize.width + padding, 33)] autorelease];
 			textLabel.font = font;
 			textLabel.text = [TTStyledText textFromXHTML:text];
 			textLabel.contentInset = UIEdgeInsetsMake(8, 0, 0, 0);
@@ -108,7 +108,7 @@
 			[textLabel sizeToFit];
 			overallWidth += textLabel.width + padding;
 			
-			[tags addObject:[textLabel autorelease]];
+			[tags addObject:textLabel];
 		}
 		
 		CGSize buttonSize;
@@ -368,6 +368,7 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 	}
 	
 	filterButton = [[UIBarButtonItem alloc] initWithCustomView:button];
+	[button release];
 	
 	return filterButton;
 }
@@ -520,6 +521,20 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 	return [self.detailCache_headerViewCache objectForKey:section];
 	
 }
+- (UIImageView*) detailCache_footerViewForSection:(NSInteger)_section {
+
+	/*
+	 If there are no elements in the section, then we don't want to display it
+	 */
+	NSDictionary * data = [self detailCache_dataForSection:_section];
+	NSInteger count = [[data objectForKey:@"transactions"] count];
+	if (count == 0) {
+		return nil;
+	} else {
+		return [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DetailCellFooter.png"]] autorelease];
+	}
+
+}
 
 #pragma mark
 #pragma mark -
@@ -645,11 +660,7 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 	return overviewCache_cellCache;
 }
 - (NSString*)overviewCache_cachePath {
-//	FinanceAppDelegate * app = (FinanceAppDelegate*)[[UIApplication sharedApplication] delegate];
-//	NSString *archivePath = [app.applicationDocumentsDirectory stringByAppendingPathComponent:@"OverviewTableCache.archive"];
 	NSString *archivePath = [[[Utilities toolbox] applicationDocumentsDirectory] stringByAppendingPathComponent:@"OverviewTableCache.archive"];	
-	NSLog(@"***** I AM HERE ******");
-	NSLog(@"Returning path: %@", archivePath);
 	return archivePath;
 }
 - (NSMutableArray*)overviewCache_months {
@@ -979,6 +990,8 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 }
 
 - (void)dealloc {	
+	// TODO: Add releasing of all the other variables that are held here...
+	
 	[super dealloc];
 }
 
