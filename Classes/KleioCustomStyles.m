@@ -115,10 +115,14 @@
 - (TTStyle*)tagList {
 	return [TTBoxStyle styleWithMargin:UIEdgeInsetsMake(0, 0, 0, 5) padding:UIEdgeInsetsMake(1, 5, 1, 5) next:
 					 [TTShapeStyle styleWithShape:[TTRoundedRectangleShape shapeWithRadius:-1] next:
-						[TTSolidFillStyle styleWithColor:RGBACOLOR(255, 255, 255, 0.7) next:
-						 [TTSolidBorderStyle styleWithColor:RGBACOLOR(150, 150, 150, 0.5) width:1 next:
-							[TTTextStyle styleWithFont:[UIFont systemFontOfSize:12.f] color:[UIColor blackColor] next:nil]]]]];
+						[TTSolidFillStyle styleWithColor:RGBACOLOR(0, 0, 0, 1) next:
+						 [TTTextStyle styleWithFont:[UIFont systemFontOfSize:12.f] color:[UIColor whiteColor] next:nil]]]];
 }
+- (TTStyle*)newTagList {
+	return [TTShapeStyle styleWithShape:[TTRoundedRectangleShape shapeWithRadius:-1] next:
+					[TTSolidFillStyle styleWithColor:[UIColor blackColor] next:nil]];
+}
+
 - (TTStyle*)embossedButton:(UIControlState)state {
   if (state == UIControlStateNormal) {
 		return 
@@ -149,12 +153,10 @@
   }
 }
 - (TTStyle*)descriptionField {
-	return [TTInsetStyle styleWithInset:UIEdgeInsetsMake(5, 5, 0, 5) next: 
+	return 
 	
-					[TTBoxStyle styleWithMargin:UIEdgeInsetsMake(0, 0, 0, 0) padding:UIEdgeInsetsMake(10, 15, 0, 15) next:
+					[TTBoxStyle styleWithMargin:UIEdgeInsetsMake(0, 0, 0, 0) padding:UIEdgeInsetsMake(1, 1, 1, 1) next:
 					[TTShapeStyle styleWithShape:[TTRoundedRectangleShape shapeWithRadius:5] next:
-					 [TTReflectiveFillStyle styleWithColor:RGBACOLOR(200, 200, 200, 1) next:
-						[TTInsetStyle styleWithInset:UIEdgeInsetsMake(5, 10, 5, 10) next:
 						 [TTTextStyle styleWithFont:[UIFont systemFontOfSize:14.f] 
 																	color:[UIColor blackColor] 
 												minimumFontSize:14.f 
@@ -163,7 +165,15 @@
 													textAlignment:UITextAlignmentLeft 
 											verticalAlignment:UIControlContentVerticalAlignmentTop 
 													lineBreakMode:UILineBreakModeTailTruncation 
-													numberOfLines:100 next:nil]]]]]];
+													numberOfLines:100 next:nil]]];
 }
+- (TTStyle*)contentBox {
+	return [TTInsetStyle styleWithInset:UIEdgeInsetsMake(5, 5, 0, 5) next: 
+					[TTBoxStyle styleWithMargin:UIEdgeInsetsMake(0, 0, 0, 0) padding:UIEdgeInsetsMake(10, 15, 0, 15) next:
+					 [TTShapeStyle styleWithShape:[TTSpeechBubbleShape shapeWithRadius:5 pointLocation:53 pointAngle:90 pointSize:CGSizeMake(10, 5)] next:
+						[TTSolidFillStyle styleWithColor:[UIColor whiteColor] next:
+						 [TTInsetStyle styleWithInset:UIEdgeInsetsMake(5, 10, 5, 10) next:nil]]]]];
+}
+
 
 @end

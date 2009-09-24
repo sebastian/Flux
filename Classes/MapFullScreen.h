@@ -22,4 +22,6 @@
 @property (nonatomic, retain) MapAnnotation * annotation;
 @property (nonatomic, assign) MKCoordinateRegion region;
 
+- (id) initWithTransaction:(Transaction*)trs;
+
 @end

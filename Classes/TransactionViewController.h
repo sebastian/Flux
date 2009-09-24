@@ -11,10 +11,16 @@
 
 @class Transaction;
 @class KleioTagCluster;
+@class ItemView;
 
 @interface TransactionViewController : TTViewController <TagSelectorDelegate, TTPostControllerDelegate> {
 	Transaction * _currentTransaction;
-	KleioTagCluster * _tagCluster;
+
+	ItemView * _tags;
+	ItemView * _dateItem;
+	ItemView * _locationItem;
+	ItemView * _descriptionItem;
+	
 	TTButton * _descriptionButton;
 }
 
