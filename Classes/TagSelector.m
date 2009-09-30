@@ -52,6 +52,24 @@ rect.size.width, rect.size.height)
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //	Private
+
+- (NSArray*) chosenTags {
+	NSMutableArray * returnTags = [[NSMutableArray alloc] init];
+	for (id tag in _pickerTextField.cells) {
+		
+		if ([tag isKindOfClass:[NSString class]]) {
+			[returnTags addObject:tag];
+		}
+		
+		if ([tag isKindOfClass:[TTTableTextItem class]]) {
+			TTTableTextItem * item = tag;
+			[returnTags addObject:item.text];
+		}
+	}	
+	
+	return [returnTags autorelease];
+}
+
 - (void) makeCurrentTextIntoTag {
 	if ([_pickerTextField.text isEqualToString:@""]) {
 		return;
@@ -72,7 +90,7 @@ rect.size.width, rect.size.height)
 - (void) done {
 
 	// Update the cache master
-	[CacheMasterSingleton sharedCacheMaster].tagWords = _pickerTextField.cells;
+	[CacheMasterSingleton sharedCacheMaster].tagWords = [self chosenTags];
 	
 	// Remove window
 	[self dismissModalViewControllerAnimated:YES];	
@@ -101,21 +119,10 @@ rect.size.width, rect.size.height)
  */
 - (void) sendTagsToDelegate {
 	if ([_delegate respondsToSelector:@selector(tagSelectorFinishedWithTagWords:)]) {
-		NSMutableArray * returnTags = [[NSMutableArray alloc] init];
-		for (id tag in _pickerTextField.cells) {
-			
-			if ([tag isKindOfClass:[NSString class]]) {
-				[returnTags addObject:tag];
-			}
-			
-			if ([tag isKindOfClass:[TTTableTextItem class]]) {
-				TTTableTextItem * item = tag;
-				[returnTags addObject:item.text];
-			}
-			
-		}
+
+		NSArray * returnTags = [self chosenTags];
 		[_delegate tagSelectorFinishedWithTagWords:returnTags];
-		[returnTags release];
+
 	}
 }
 

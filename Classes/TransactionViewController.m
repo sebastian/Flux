@@ -12,6 +12,7 @@
 #import "CacheMasterSingleton.h"
 #import "Utilities.h"
 #import "MapFullScreen.h"
+#import "EditAmountController.h"
 
 #define STANDARD_TEXT_FONT [UIFont systemFontOfSize:14.f]
 
@@ -36,6 +37,110 @@
 
 @end
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+@interface KleioMultilineLabel : TTView
+{
+	NSString * _text;
+	NSArray * _textArray;
+	UIFont * _font;
+	UIColor * _textColor;
+}
+@property (nonatomic, retain) NSString * text;
+@property (nonatomic, retain) UIFont * font;
+@property (nonatomic, retain) UIColor * textColor;
+@end
+
+@implementation KleioMultilineLabel
+
+@synthesize font = _font, textColor = _textColor;
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//	Accessor and getter for text
+- (void) setText:(NSString*)text {
+	[text retain];
+	[_text release];
+	_text = text;
+	
+	if (_textArray != nil) {TT_RELEASE_SAFELY(_textArray);}
+	_textArray = [[_text componentsSeparatedByString:@" "] retain];
+	
+	[self setNeedsLayout];
+	
+}
+- (NSString*) text {
+	return _text;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//	NSObject
+
+- (id) initWithFrame:(CGRect)frame {
+	if (self = [super initWithFrame:frame]) {
+		self.backgroundColor = [UIColor clearColor];
+		self.textColor = [UIColor blackColor];
+	}
+	return self;
+}
+
+- (void) dealloc {
+	TT_RELEASE_SAFELY(_text);
+	TT_RELEASE_SAFELY(_textArray);
+	TT_RELEASE_SAFELY(_font);
+	TT_RELEASE_SAFELY(_textColor);
+	
+	[super dealloc];
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//	TTView
+
+- (void)drawContent:(CGRect)rect {
+	int x = 0, y = 0;
+	CGSize spaceSize = [@" " sizeWithFont:_font];
+	
+	for (NSString * word in _textArray) {
+		CGSize sizeOfWord = [word sizeWithFont:_font];
+		if ((x + sizeOfWord.width) > rect.size.width) {
+			x = 0, y += spaceSize.height*1.4;
+			
+			if (y > rect.size.height) {
+				break;
+			}
+		}
+		
+		[word drawAtPoint:CGPointMake(x, y) withFont:_font];
+		x += sizeOfWord.width + spaceSize.width;
+		
+	}	
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//	UIView
+
+- (CGSize)sizeThatFits:(CGSize)size {
+
+	CGFloat lineHeightMultiplier = 1.4;
+	
+	int x = 0, y = 0;
+	CGSize spaceSize = [@" " sizeWithFont:_font];
+	
+	for (NSString * word in _textArray) {
+		CGSize sizeOfWord = [word sizeWithFont:_font];
+		if ((x + sizeOfWord.width) > size.width) {
+			x = 0, y += spaceSize.height*lineHeightMultiplier;
+		}
+		
+		x += sizeOfWord.width + spaceSize.width;
+		
+	}
+	return CGSizeMake(size.width, y + spaceSize.height*lineHeightMultiplier);
+	
+}
+
+
+@end
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -47,9 +152,6 @@
 
 @interface KleioTag : TTView {
 	NSString * _text;
-	int verticalPadding;
-	int horizontalPadding;
-	CGFloat fontSize;
 }
 - (id) initWithText:(NSString*)tag;
 @end
@@ -101,6 +203,7 @@
 @protocol EncapsulatingViewDelegate
 @required
 - (void) performLayout;
+- (void) invokeEdit;
 @end
 
 @interface EncapsulatingView : TTView {
@@ -157,6 +260,14 @@
 	return daSaiz;
 }
 
+- (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+	
+	if (event.type == UIEventTypeTouches) {
+		[_delegate invokeEdit];
+	}
+	
+}
+
 @end
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -190,16 +301,18 @@
 
 - (void) performLayout {
 	
+	int padding = 10;
+	
 	[_titleLabel sizeToFit];
-	_titleLabel.frame = CGRectMake(10, 10, _titleLabel.width, _titleLabel.height);
+	_titleLabel.frame = CGRectMake(padding, padding, _titleLabel.width, _titleLabel.height);
 	
 	if (_editButton != nil) {
-		_editButton.left = _titleLabel.right + 10;
-		_editButton.top = _titleLabel.top;
+		_editButton.left = _titleLabel.right + padding;
+		_editButton.top = padding;
 	}
-	
+
+	_contentView.top = _titleLabel.bottom;
 	[_contentView sizeToFit];
-	_contentView.frame = CGRectMake(0, _titleLabel.bottom, _contentView.width, _contentView.height);
 	
 	[self sizeToFit];
 	
@@ -237,7 +350,7 @@
 		_editDelegate = nil;
 		
 		_titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 40)];
-		_titleLabel.font = [UIFont systemFontOfSize:25.f];
+		_titleLabel.font = [UIFont systemFontOfSize:23.f];
 		_titleLabel.backgroundColor = [UIColor clearColor];
 		_titleLabel.textColor = [UIColor whiteColor];
 		[self addSubview:_titleLabel];
@@ -265,6 +378,21 @@
 
 - (CGSize)sizeThatFits:(CGSize)size {
 	CGSize selfSize = CGSizeMake(320, _contentView.bottom + 10);
+	
+	if (_editButton != nil) {
+		selfSize.width = _editButton.right;
+	} else {
+		selfSize.width = _titleLabel.right;
+	}
+
+	[_contentView sizeToFit];
+	
+	if (_contentView.right > selfSize.width) {
+		selfSize.width = _contentView.right;
+	}
+
+	selfSize.height = _contentView.bottom + 20;
+
 	return selfSize;
 }
 
@@ -288,15 +416,29 @@
 		if (_editDelegate != nil) {
 			TT_RELEASE_SAFELY(_editButton);
 		}
-		_editButton = [[TTButton buttonWithStyle:@"embossedButton:" title:NSLocalizedString(@"Edit", nil)] retain];
+		_editButton = [[TTButton buttonWithStyle:@"editTransactionDetailButton:" title:NSLocalizedString(@"Edit", nil)] retain];
 		[_editButton sizeToFit];
 		[_editButton addTarget:_editDelegate action:_delegateSelector forControlEvents:UIControlEventTouchUpInside];
 		
 		[self addSubview:_editButton];
 		
+		_contentView.multipleTouchEnabled = YES;
+		
 	}
 	
 	[self performLayout];
+}
+
+- (void) invokeEdit {
+	
+	if ((_editDelegate != nil) & [_editDelegate respondsToSelector:_delegateSelector]) {
+		if ([_editDelegate isKindOfClass:[NSString class]]) {
+			[_editDelegate openURLFromButton:self];
+		} else {
+			[_editDelegate performSelector:_delegateSelector];	
+		}
+	}
+	
 }
 
 @end
@@ -351,11 +493,17 @@
 	TTFlowLayout * layout = [[TTFlowLayout alloc] init];
 	layout.padding = 0;
 	layout.spacing = 3;
+	self.width = 270;
 	CGSize size = [layout layoutSubviews:self.subviews forView:self];
 	self.height = size.height;
+	self.width = size.width;
 	[layout release];
 	
 }
+
+//- (void) sizeThatFits:(CGSize)size {
+//	
+//}
 
 @end
 
@@ -370,6 +518,10 @@
 //	Private
 
 - (void) layout {
+	for (UIView* subview in self.view.subviews) {
+		[subview sizeToFit];
+	}
+	
 	TTFlowLayout* flowLayout = [[[TTFlowLayout alloc] init] autorelease];
   flowLayout.padding = 0;
   flowLayout.spacing = 0;
@@ -419,6 +571,10 @@
 //	Private (Amount)
 
 - (void) editAmount {
+	
+	EditAmountController * editAmount = [[EditAmountController alloc] initWithTransaction:self.currentTransaction];
+	[self.navigationController pushViewController:editAmount animated:YES];
+	[editAmount release];
 	
 }
 
@@ -485,12 +641,19 @@
 	[_descriptionItem enableEditForTarget:@"tt://post" selector:@selector(openURLFromButton:)];
 	[view addSubview:_descriptionItem];
 	
-	TTLabel * descriptionLabel = [[TTLabel alloc] initWithText:buttonTitle];
-	descriptionLabel.font = STANDARD_TEXT_FONT;
-//	descriptionLabel.width = 200;
-	[descriptionLabel sizeToFit];
-	[_descriptionItem.contentView addSubview:descriptionLabel];
-	[descriptionLabel release];
+	KleioMultilineLabel * myDescriptionLabel = [[KleioMultilineLabel alloc] initWithFrame:CGRectMake(0, 0, 250, 100)];
+	myDescriptionLabel.font = STANDARD_TEXT_FONT;
+	myDescriptionLabel.text = buttonTitle;
+	[myDescriptionLabel sizeToFit];
+	[_descriptionItem.contentView addSubview:myDescriptionLabel];
+	[myDescriptionLabel release];
+	
+//	TTLabel * descriptionLabel = [[TTLabel alloc] initWithText:buttonTitle];
+//	descriptionLabel.font = STANDARD_TEXT_FONT;
+////	descriptionLabel.width = 200;
+//	[descriptionLabel sizeToFit];
+//	[_descriptionItem.contentView addSubview:descriptionLabel];
+//	[descriptionLabel release];
 		
 //	_descriptionButton = [TTButton buttonWithStyle:@"descriptionField"];
 //	_descriptionButton.text = buttonTitle;
@@ -690,20 +853,12 @@
 - (BOOL)postController:(TTPostController*)postController willPostText:(NSString*)text {
 	_currentTransaction.transactionDescription = text;
 
-	UILabel * descriptionLabel = [[UILabel alloc] init];
-	descriptionLabel.font = STANDARD_TEXT_FONT;
-	descriptionLabel.text = text;
-	descriptionLabel.width = 200;
-	descriptionLabel.numberOfLines = INT_MAX;
-	[descriptionLabel sizeToFit];
-	[_descriptionItem.contentView removeAllSubviews];
-	[_descriptionItem.contentView addSubview:descriptionLabel];
-	[descriptionLabel release];
+	KleioMultilineLabel * label = (KleioMultilineLabel*)[_descriptionItem.contentView.subviews objectAtIndex:0];
+	label.text = text;
+	[label sizeToFit];
+	[_descriptionItem setNeedsDisplay];
 	
-//	_descriptionButton.text = text;
 	[[Utilities toolbox] save:[self.currentTransaction managedObjectContext]];
-	
-//	[self layout];
 	
 	return YES;
 }

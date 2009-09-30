@@ -152,6 +152,33 @@
     return nil;
   }
 }
+- (TTStyle*)editTransactionDetailButton:(UIControlState)state {
+  if (state == UIControlStateNormal) {
+		return 
+    [TTShapeStyle styleWithShape:[TTRoundedRectangleShape shapeWithRadius:8] next:
+		 [TTInsetStyle styleWithInset:UIEdgeInsetsMake(0, 0, 1, 0) next:
+			[TTShadowStyle styleWithColor:RGBACOLOR(255,255,255,0) blur:1 offset:CGSizeMake(0, 1) next:
+			 [TTSolidFillStyle styleWithColor:[UIColor colorWithWhite:200 alpha:0.1] next:
+				[TTSolidBorderStyle styleWithColor:RGBCOLOR(200, 200, 200) width:1 next:
+				 [TTBoxStyle styleWithPadding:UIEdgeInsetsMake(6, 8, 6, 9) next:
+					[TTTextStyle styleWithFont:[UIFont systemFontOfSize:15.f] color:[UIColor whiteColor]
+												 shadowColor:[UIColor colorWithWhite:255 alpha:0.4]
+												shadowOffset:CGSizeMake(0, -1) next:nil]]]]]]];
+  } else if (state == UIControlStateHighlighted) {
+    return 
+    [TTShapeStyle styleWithShape:[TTRoundedRectangleShape shapeWithRadius:8] next:
+		 [TTInsetStyle styleWithInset:UIEdgeInsetsMake(0, 0, 1, 0) next:
+			[TTShadowStyle styleWithColor:RGBACOLOR(255,255,255,0) blur:1 offset:CGSizeMake(0, 1) next:
+			 [TTLinearGradientFillStyle styleWithColor1:[UIColor whiteColor] color2:[UIColor colorWithWhite:10 alpha:1] next:
+				[TTSolidBorderStyle styleWithColor:RGBCOLOR(200, 200, 200) width:1 next:
+				 [TTBoxStyle styleWithPadding:UIEdgeInsetsMake(6, 8, 6, 9) next:
+					[TTTextStyle styleWithFont:[UIFont systemFontOfSize:15.f] color:[UIColor blackColor]
+												 shadowColor:[UIColor colorWithWhite:255 alpha:0.4]
+												shadowOffset:CGSizeMake(0, -1) next:nil]]]]]]];  } else {
+    return nil;
+  }
+}
+
 - (TTStyle*)descriptionField {
 	return 
 	
@@ -170,8 +197,8 @@
 - (TTStyle*)contentBox {
 	return [TTInsetStyle styleWithInset:UIEdgeInsetsMake(5, 5, 0, 5) next: 
 					[TTBoxStyle styleWithMargin:UIEdgeInsetsMake(0, 0, 0, 0) padding:UIEdgeInsetsMake(10, 15, 0, 15) next:
-					 [TTShapeStyle styleWithShape:[TTSpeechBubbleShape shapeWithRadius:5 pointLocation:53 pointAngle:90 pointSize:CGSizeMake(10, 5)] next:
-						[TTSolidFillStyle styleWithColor:[UIColor whiteColor] next:
+					 [TTShapeStyle styleWithShape:[TTSpeechBubbleShape shapeWithRadius:5 pointLocation:55 pointAngle:90 pointSize:CGSizeMake(10, 5)] next:
+						[TTSolidFillStyle styleWithColor:RGBACOLOR(255, 255, 255, 1) next:
 						 [TTInsetStyle styleWithInset:UIEdgeInsetsMake(5, 10, 5, 10) next:nil]]]]];
 }
 

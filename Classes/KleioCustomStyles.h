@@ -25,5 +25,15 @@
 - (TTStyle*)filteringButtonActive:(UIControlState)state;
 - (TTStyle*)filteringButtonPassive:(UIControlState)state;
 	
+// TransactionViewer
+- (TTStyle*)tagList;
+- (TTStyle*)newTagList;
+- (TTStyle*)filterButtonTag;
+- (TTStyle*)tagBox;
+- (TTStyle*)existingTagBox;
+- (TTStyle*)embossedButton:(UIControlState)state;
+- (TTStyle*)editTransactionDetailButton:(UIControlState)state;
+- (TTStyle*)descriptionField;
+- (TTStyle*)contentBox;
 @end
 

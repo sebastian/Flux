@@ -45,7 +45,7 @@
 
 - (void)viewDidLoad 
 {
-    [super viewDidLoad];
+	[super viewDidLoad];
 	
 	// Set it to be black and all, matching the rest of the app
 	

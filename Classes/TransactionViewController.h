@@ -8,12 +8,13 @@
 
 #import <Three20/Three20.h>
 #import "TagSelector.h"
+#import <MapKit/MapKit.h>
 
 @class Transaction;
 @class KleioTagCluster;
 @class ItemView;
 
-@interface TransactionViewController : TTViewController <TagSelectorDelegate, TTPostControllerDelegate> {
+@interface TransactionViewController : TTViewController <TagSelectorDelegate, TTPostControllerDelegate, MKReverseGeocoderDelegate> {
 	Transaction * _currentTransaction;
 
 	ItemView * _tags;

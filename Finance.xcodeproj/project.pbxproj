@@ -93,6 +93,8 @@
 		967C9E1710678D5400B9F6A2 /* TransactionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 967C9E1610678D5400B9F6A2 /* TransactionViewController.m */; };
 		967C9E1810678D5400B9F6A2 /* TransactionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 967C9E1610678D5400B9F6A2 /* TransactionViewController.m */; };
 		96903C7A1038AA7E009D5D49 /* TagSuggesterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96903C791038AA7E009D5D49 /* TagSuggesterViewController.m */; };
+		96953E3B1073B23300C9EFBE /* EditAmountController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96953E3A1073B23300C9EFBE /* EditAmountController.m */; };
+		96953E3C1073B23300C9EFBE /* EditAmountController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96953E3A1073B23300C9EFBE /* EditAmountController.m */; };
 		969776A8101B662300F0DC3D /* DetailCellHeader.png in Resources */ = {isa = PBXBuildFile; fileRef = 969776A7101B662300F0DC3D /* DetailCellHeader.png */; };
 		969C6C56101F8A79007B5CC8 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 969C6C55101F8A79007B5CC8 /* Icon.png */; };
 		96A98D241025BE8700FFA6D0 /* Transactions.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96A98D231025BE8700FFA6D0 /* Transactions.xib */; };
@@ -204,6 +206,8 @@
 		96F84082100A66E8008862CC /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96F84081100A66E8008862CC /* CoreData.framework */; };
 		96FAE6DC1024C2970060384F /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 96FAE6DA1024C2970060384F /* Location.m */; };
 		96FAE6E01024C30A0060384F /* Tag.m in Sources */ = {isa = PBXBuildFile; fileRef = 96FAE6DF1024C30A0060384F /* Tag.m */; };
+		96FBC2921071206100102CE2 /* AmountEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 96FBC2911071206100102CE2 /* AmountEditor.m */; };
+		96FBC2931071206100102CE2 /* AmountEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 96FBC2911071206100102CE2 /* AmountEditor.m */; };
 		96FFEAB7103879650086BF66 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 96FFEAB6103879650086BF66 /* Localizable.strings */; };
 		96FFEADC10387FBC0086BF66 /* TagSuggesterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96FFEADA10387FBC0086BF66 /* TagSuggesterViewController.xib */; };
 		96FFFA7C1015ED4600A53779 /* DetailHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96FFFA7B1015ED4600A53779 /* DetailHeaderView.m */; };
@@ -355,6 +359,8 @@
 		967C9E1510678D5400B9F6A2 /* TransactionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionViewController.h; sourceTree = "<group>"; };
 		967C9E1610678D5400B9F6A2 /* TransactionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionViewController.m; sourceTree = "<group>"; };
 		96903C791038AA7E009D5D49 /* TagSuggesterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagSuggesterViewController.m; sourceTree = "<group>"; };
+		96953E391073B23300C9EFBE /* EditAmountController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditAmountController.h; sourceTree = "<group>"; };
+		96953E3A1073B23300C9EFBE /* EditAmountController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditAmountController.m; sourceTree = "<group>"; };
 		969776A7101B662300F0DC3D /* DetailCellHeader.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = DetailCellHeader.png; path = Graphics/DetailCellHeader.png; sourceTree = "<group>"; };
 		969C6C55101F8A79007B5CC8 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = Graphics/Icon.png; sourceTree = "<group>"; };
 		96A98D231025BE8700FFA6D0 /* Transactions.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Transactions.xib; sourceTree = "<group>"; };
@@ -443,6 +449,8 @@
 		96FAE6DA1024C2970060384F /* Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Location.m; path = ../Location.m; sourceTree = "<group>"; };
 		96FAE6DE1024C30A0060384F /* Tag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Tag.h; path = ../Tag.h; sourceTree = "<group>"; };
 		96FAE6DF1024C30A0060384F /* Tag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Tag.m; path = ../Tag.m; sourceTree = "<group>"; };
+		96FBC2901071206100102CE2 /* AmountEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AmountEditor.h; sourceTree = "<group>"; };
+		96FBC2911071206100102CE2 /* AmountEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AmountEditor.m; sourceTree = "<group>"; };
 		96FFEAB6103879650086BF66 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		96FFEAD810387FBC0086BF66 /* TagSuggesterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagSuggesterViewController.h; sourceTree = "<group>"; };
 		96FFEADA10387FBC0086BF66 /* TagSuggesterViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TagSuggesterViewController.xib; sourceTree = "<group>"; };
@@ -590,6 +598,8 @@
 				96BBA70010550D7000F5D537 /* TabBarController.m */,
 				965F5DC210594D1600426DF9 /* KleioCustomStyles.h */,
 				965F5DC310594D1600426DF9 /* KleioCustomStyles.m */,
+				96FBC2901071206100102CE2 /* AmountEditor.h */,
+				96FBC2911071206100102CE2 /* AmountEditor.m */,
 			);
 			name = Div;
 			sourceTree = "<group>";
@@ -661,6 +671,8 @@
 				96D7A94310282D28000FCC42 /* MapFullScreen.xib */,
 				967C9E1510678D5400B9F6A2 /* TransactionViewController.h */,
 				967C9E1610678D5400B9F6A2 /* TransactionViewController.m */,
+				96953E391073B23300C9EFBE /* EditAmountController.h */,
+				96953E3A1073B23300C9EFBE /* EditAmountController.m */,
 			);
 			name = TransactionDetail;
 			sourceTree = "<group>";
@@ -1198,6 +1210,8 @@
 				96BBA70210550D7000F5D537 /* TabBarController.m in Sources */,
 				965F5DC510594D1600426DF9 /* KleioCustomStyles.m in Sources */,
 				967C9E1710678D5400B9F6A2 /* TransactionViewController.m in Sources */,
+				96FBC2921071206100102CE2 /* AmountEditor.m in Sources */,
+				96953E3B1073B23300C9EFBE /* EditAmountController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1249,6 +1263,8 @@
 				96BBA70110550D7000F5D537 /* TabBarController.m in Sources */,
 				965F5DC410594D1600426DF9 /* KleioCustomStyles.m in Sources */,
 				967C9E1810678D5400B9F6A2 /* TransactionViewController.m in Sources */,
+				96FBC2931071206100102CE2 /* AmountEditor.m in Sources */,
+				96953E3C1073B23300C9EFBE /* EditAmountController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -15,162 +15,10 @@
 #import "Tag.h"
 #import "CacheMasterSingleton.h"
 
-@implementation ExpenseToggle
-
-@synthesize delegate = _delegate;
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//	Public
-
-- (void) reset {
-	[eiCtrl setSelectedSegmentIndex:0];
-}
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//	Private
-- (void) setup {
-	
-	eiCtrl = [[[UISegmentedControl alloc] init] autorelease];
-	[eiCtrl insertSegmentWithTitle:NSLocalizedString(@"Expense", nil) atIndex:0 animated:NO];
-	[eiCtrl insertSegmentWithTitle:NSLocalizedString(@"Income", nil) atIndex:1 animated:NO];
-	[eiCtrl setSegmentedControlStyle:UISegmentedControlStylePlain];
-	[eiCtrl addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventValueChanged];
-	int padding = 10;
-	eiCtrl.frame = CGRectMake(padding, padding, self.width - 2*padding, self.height - 2*padding);
-	
-	[self reset];
-	
-	[self addSubview:eiCtrl];
-}
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//	Callbacks
-
-- (void) valueChanged:(UISegmentedControl*)sender {
-
-	if ([self.delegate respondsToSelector:@selector(expenseToggleChangedToValue:)]) {
-		TTLOG(@"Informing delegate about change of value for expense/income");
-		if ([sender selectedSegmentIndex] == 0) {
-			[self.delegate expenseToggleChangedToValue:KleioExpenseIncomeToggleSelectedExpense];
-		} else {
-			[self.delegate expenseToggleChangedToValue:KleioExpenseIncomeToggleSelectedIncome];
-		}
-	}
-}
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//	NSObject
-
-- (id) init {
-	if (self = [super init]) {
-		[TTStyleSheet setGlobalStyleSheet:[[[KleioCustomStyles alloc] init] autorelease]];
-		
-		self.frame = CGRectMake(0, 0, 320, 57);
-		self.style = TTSTYLEVAR(expenseInputField);
-		
-		[self setup];
-	}
-	return self;
-}
-
-@end
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-@implementation AmountLabel
-
-@synthesize amount = _amount, delegate = _delegate;
-- (void) setAmount:(NSString *)theAmount {
-	[theAmount retain];
-	[_amount release];
-	_amount = theAmount;
-	[self setNeedsDisplay];
-}
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//	Private
-
--(IBAction)changeCurrency {
-	/* 
-	 Called when the user clicks on the amount
-	 Let the user select another input currency
-	 */ 
-	
-	CurrencySelectionDialog *currencySelectionDialog = [[CurrencySelectionDialog new] autorelease];
-	// So we can report back the currency change
-	currencySelectionDialog.delegate = _delegate;
-	
-	UINavigationController *navController = [[[UINavigationController alloc] initWithRootViewController:currencySelectionDialog] autorelease];
-	navController.navigationBar.barStyle = UIBarStyleBlackOpaque;
-	[_delegate presentModalViewController:navController animated:YES];
-}
-
-/*
- If it receives a touch, then we should display the 
- dialog where currencies can be changed. The amount label delegate
- handles the actual work when the value is returned...
- */
-- (void)touchesBegan:(NSSet*)touches withEvent:(UIEvent*)event {
-	[super touchesBegan:touches withEvent:event];
-	
-	[self changeCurrency];
-}
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//	NSObject
-
-- (id) initWithFrame:(CGRect)frame {
-	if (self = [super initWithFrame:frame]) {
-		self.style = TTSTYLEVAR(amountFieldStyle);
-		self.multipleTouchEnabled = YES;
-	}
-	return self;
-}
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//	Puclib
-- (void)drawContent:(CGRect)rect {
-
-	int padding = 20;
-	CGRect frame = self.frame;
-	frame.size.width = frame.size.width - 2 * padding;
-	frame.size.height = frame.size.height - 2 * padding;
-	frame.origin.x = padding;
-	frame.origin.y = padding;
-	
-	UIFont * font = [UIFont systemFontOfSize:50];
-
-	CGPoint textPoint = CGPointMake(padding, padding);
-	CGSize textSize = [_amount sizeWithFont:font];
-	
-	if (textSize.width < frame.size.width) {
-		textPoint.x = padding + frame.size.width - textSize.width;
-	} else {
-		textSize.width = frame.size.width;
-	}
-
-	[[UIColor whiteColor] set];
-
-	[_amount drawAtPoint:textPoint 
-							forWidth:textSize.width
-							withFont:font
-					 minFontSize:12.f 
-				actualFontSize:nil
-				 lineBreakMode:UILineBreakModeHeadTruncation 
-		baselineAdjustment:UIBaselineAdjustmentAlignBaselines];
-	
-}
-
-@end
-
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 
 @implementation AmountController
 
-@synthesize managedObjectContext = _managedObjectContext, amount = _amount, 
+@synthesize managedObjectContext = _managedObjectContext, 
 	bestLocation = _bestLocation, localCurrency = _localCurrency;
 
 - (NSManagedObjectContext*)managedObjectContext {
@@ -182,25 +30,6 @@
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //	Private methods
-- (void) updateExpenseDisplay {
-
-	// Show delete button if there is a value
-	if ([currentTransaction needsDeleteButton]) {
-		[keyboard enableClearButton];
-	} else {
-		[keyboard disableClearButton];
-	}
-	
-	// Check if it can be added to?
-	if ([currentTransaction canBeAddedTo] == YES) {
-		[keyboard enableNumericButtons];
-	} else {
-		[keyboard disableNumericButtons];
-	}
-
-	NSString * text = [currentTransaction absAmountInLocalCurrency];
-	[_amount setAmount:text];
-}
 
 - (void) layout {
 	
@@ -224,16 +53,10 @@
 		currentTransaction.currency = self.localCurrency;
 	}
 	
-	[self updateExpenseDisplay];
-	[_expenseIncomeControl reset];
-	
+	// Set the new transaction for the delegate
+	_amountEditor.currentTransaction = currentTransaction;
+		
 }
-
--(void) currencySelected:(NSString*)currencyCode {
-	currentTransaction.currency = currencyCode;
-	[self updateExpenseDisplay];
-}
-
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //	NSObject
@@ -253,10 +76,9 @@
 - (void) dealloc {
 	TT_RELEASE_SAFELY(_managedObjectContext);
 	TT_RELEASE_SAFELY(currentTransaction);
-	TT_RELEASE_SAFELY(_amount);
-	TT_RELEASE_SAFELY(_expenseIncomeControl);
 	TT_RELEASE_SAFELY(_bestLocation);
 	TT_RELEASE_SAFELY(_localCurrency);
+	TT_RELEASE_SAFELY(_amountEditor);
 	[super dealloc];
 }
 
@@ -277,73 +99,19 @@
 	[nextButton sizeToFit];
 	[nextButton addTarget:self action:@selector(nextButtonAction) forControlEvents:UIControlEventTouchUpInside];
 	self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithCustomView:nextButton] autorelease];
-
-	// Setup the amount label
-	self.amount = [[[AmountLabel alloc] initWithFrame:CGRectMake(0, 0, 320, 100)] autorelease];
-	_amount.delegate = self;
-	
-	_expenseIncomeControl = [[ExpenseToggle alloc] init];
-	_expenseIncomeControl.delegate = self;
-
-	[self createAndSetupTransaction];
-	
-	[self.view addSubview:_amount];
-	[self.view addSubview:_expenseIncomeControl];
-
-	[self layout];
-	
-}
-	
-- (void) viewWillAppear:(BOOL)animated {
-	[super viewWillAppear:animated];
 		
-	// CurrencyKeyboard
-	keyboard = [[CurrencyKeyboard alloc] init];
-	[keyboard setDelegate:self];
-	[keyboard showKeyboardWithAnimation:NO];
-	
-	[self updateExpenseDisplay];
-}
+	_amountEditor = [[AmountEditor alloc] init];
+	_amountEditor.delegate = self;
+	[self createAndSetupTransaction];
 
+	[self.view addSubview:_amountEditor.view];
+	
+}
+	
 - (void) viewDidUnload {
 	[super viewDidUnload];
 	NSLog(@"Location manager stopped");
 	[[LocationController sharedInstance].locationManager stopUpdatingLocation];
-}
-
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//	CurrencyKeyboardDelegate
-- (void) numericButtonPressed:(NSInteger)key {
-	[currentTransaction addNumber:key];
-	[self updateExpenseDisplay];
-}
-- (void) deleteButtonPressed {
-	[currentTransaction eraseOneNum];
-	[self updateExpenseDisplay];
-}
-- (void) doubleZeroButtonPressed {
-	[currentTransaction addNumber:0];
-	[currentTransaction addNumber:0];
-	[self updateExpenseDisplay];
-}
-
-- (CGFloat) viewHeight {
-	return self.view.frame.size.height;
-}				
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//	Change of state - ExpenseToggleDelegate method(s)
-
-- (void)expenseToggleChangedToValue:(KleioExpenseIncomeToggle)value {
-		switch (value) {
-			case KleioExpenseIncomeToggleSelectedIncome:
-				[currentTransaction setExpense:[NSNumber numberWithBool:NO]];
-				break;
-			case KleioExpenseIncomeToggleSelectedExpense:
-				[currentTransaction setExpense:[NSNumber numberWithBool:YES]];
-				break;
-		}
 }
 
 - (IBAction) nextButtonAction {
@@ -373,7 +141,6 @@
 	
 	currentTransaction.location = self.bestLocation;
 	
-//	[[Utilities toolbox] delayedSave:self.managedObjectContext];
 	/*
 	 This method also calls createAndSetupTransaction 
 	 so that it is done after the save has been performed
@@ -436,7 +203,7 @@
 		 and update the display!
 		 */
 		currentTransaction.currency = currencyCode;
-		[self updateExpenseDisplay];
+		[_amountEditor updateExpenseDisplay];
 	}
 	
 	if (!(currencyCode == nil)) {
@@ -445,7 +212,7 @@
 		if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"KleioTransactionsUseLocalCurrency"] boolValue] == YES) {
 			currentTransaction.currency = currencyCode;
 			self.localCurrency = currencyCode;
-			[self updateExpenseDisplay];
+			[_amountEditor updateExpenseDisplay];
 		}
 		
 	} else {
