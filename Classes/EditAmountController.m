@@ -14,7 +14,7 @@
 
 @implementation EditAmountController
 
-@synthesize currentTransaction = _currentTransaction;
+@synthesize currentTransaction = _currentTransaction, delegate = _delegate;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //	NSObject
@@ -22,6 +22,7 @@
 - (id) initWithTransaction:(Transaction*)trs {
 	if (self = [super init]) {
 		_currentTransaction = [trs retain];
+		_delegate = nil;
 	}
 	return self;
 }
@@ -64,6 +65,7 @@
 
 - (void) save {
 	[[Utilities toolbox] save:_currentTransaction.managedObjectContext];
+	[_delegate updateAmount];
 	[self dismiss];
 }
 

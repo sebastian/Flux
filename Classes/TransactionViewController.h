@@ -9,18 +9,21 @@
 #import <Three20/Three20.h>
 #import "TagSelector.h"
 #import <MapKit/MapKit.h>
+#import "EditAmountController.h"
+#import "EditDateController.h"
 
 @class Transaction;
 @class KleioTagCluster;
 @class ItemView;
 
-@interface TransactionViewController : TTViewController <TagSelectorDelegate, TTPostControllerDelegate, MKReverseGeocoderDelegate> {
+@interface TransactionViewController : TTViewController <TagSelectorDelegate, TTPostControllerDelegate, MKReverseGeocoderDelegate, EditAmountControllerDelegate, EditDateControllerDelegate > {
 	Transaction * _currentTransaction;
 
 	ItemView * _tags;
 	ItemView * _dateItem;
 	ItemView * _locationItem;
 	ItemView * _descriptionItem;
+	ItemView * _amountItem;
 	
 	TTButton * _descriptionButton;
 }

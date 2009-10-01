@@ -95,6 +95,8 @@
 		96903C7A1038AA7E009D5D49 /* TagSuggesterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96903C791038AA7E009D5D49 /* TagSuggesterViewController.m */; };
 		96953E3B1073B23300C9EFBE /* EditAmountController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96953E3A1073B23300C9EFBE /* EditAmountController.m */; };
 		96953E3C1073B23300C9EFBE /* EditAmountController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96953E3A1073B23300C9EFBE /* EditAmountController.m */; };
+		96953F071074E55900C9EFBE /* EditDateController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96953F061074E55900C9EFBE /* EditDateController.m */; };
+		96953F081074E55900C9EFBE /* EditDateController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96953F061074E55900C9EFBE /* EditDateController.m */; };
 		969776A8101B662300F0DC3D /* DetailCellHeader.png in Resources */ = {isa = PBXBuildFile; fileRef = 969776A7101B662300F0DC3D /* DetailCellHeader.png */; };
 		969C6C56101F8A79007B5CC8 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 969C6C55101F8A79007B5CC8 /* Icon.png */; };
 		96A98D241025BE8700FFA6D0 /* Transactions.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96A98D231025BE8700FFA6D0 /* Transactions.xib */; };
@@ -361,6 +363,8 @@
 		96903C791038AA7E009D5D49 /* TagSuggesterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagSuggesterViewController.m; sourceTree = "<group>"; };
 		96953E391073B23300C9EFBE /* EditAmountController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditAmountController.h; sourceTree = "<group>"; };
 		96953E3A1073B23300C9EFBE /* EditAmountController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditAmountController.m; sourceTree = "<group>"; };
+		96953F051074E55900C9EFBE /* EditDateController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditDateController.h; sourceTree = "<group>"; };
+		96953F061074E55900C9EFBE /* EditDateController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditDateController.m; sourceTree = "<group>"; };
 		969776A7101B662300F0DC3D /* DetailCellHeader.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = DetailCellHeader.png; path = Graphics/DetailCellHeader.png; sourceTree = "<group>"; };
 		969C6C55101F8A79007B5CC8 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = Graphics/Icon.png; sourceTree = "<group>"; };
 		96A98D231025BE8700FFA6D0 /* Transactions.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Transactions.xib; sourceTree = "<group>"; };
@@ -673,6 +677,8 @@
 				967C9E1610678D5400B9F6A2 /* TransactionViewController.m */,
 				96953E391073B23300C9EFBE /* EditAmountController.h */,
 				96953E3A1073B23300C9EFBE /* EditAmountController.m */,
+				96953F051074E55900C9EFBE /* EditDateController.h */,
+				96953F061074E55900C9EFBE /* EditDateController.m */,
 			);
 			name = TransactionDetail;
 			sourceTree = "<group>";
@@ -1212,6 +1218,7 @@
 				967C9E1710678D5400B9F6A2 /* TransactionViewController.m in Sources */,
 				96FBC2921071206100102CE2 /* AmountEditor.m in Sources */,
 				96953E3B1073B23300C9EFBE /* EditAmountController.m in Sources */,
+				96953F071074E55900C9EFBE /* EditDateController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1265,6 +1272,7 @@
 				967C9E1810678D5400B9F6A2 /* TransactionViewController.m in Sources */,
 				96FBC2931071206100102CE2 /* AmountEditor.m in Sources */,
 				96953E3C1073B23300C9EFBE /* EditAmountController.m in Sources */,
+				96953F081074E55900C9EFBE /* EditDateController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

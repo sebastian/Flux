@@ -13,8 +13,9 @@
 #import "Utilities.h"
 #import "MapFullScreen.h"
 #import "EditAmountController.h"
+#import "EditDateController.h"
 
-#define STANDARD_TEXT_FONT [UIFont systemFontOfSize:14.f]
+#define STANDARD_TEXT_FONT [UIFont systemFontOfSize:16.f]
 
 
 @interface TTButton (KleioAddition)
@@ -257,6 +258,7 @@
 
 - (CGSize)sizeThatFits:(CGSize)size {
 	CGSize daSaiz = [self.layout layoutSubviews:self.subviews forView:self];
+	daSaiz.width = 320;
 	return daSaiz;
 }
 
@@ -305,14 +307,14 @@
 	
 	[_titleLabel sizeToFit];
 	_titleLabel.frame = CGRectMake(padding, padding, _titleLabel.width, _titleLabel.height);
-	
-	if (_editButton != nil) {
-		_editButton.left = _titleLabel.right + padding;
-		_editButton.top = padding;
-	}
 
 	_contentView.top = _titleLabel.bottom;
 	[_contentView sizeToFit];
+
+	if (_editButton != nil) {
+		_editButton.right = self.width - 10;
+		_editButton.bottom = _contentView.top + 16;
+	}
 	
 	[self sizeToFit];
 	
@@ -391,7 +393,7 @@
 		selfSize.width = _contentView.right;
 	}
 
-	selfSize.height = _contentView.bottom + 20;
+	selfSize.height = _contentView.bottom;
 
 	return selfSize;
 }
@@ -407,16 +409,17 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //	Public
 
-- (void) enableEditForTarget:(id)target selector:(SEL)selector {
+- (void) enableButtonWithTitle:(NSString*)title target:(id)target selector:(SEL)selector {
+
 	_editDelegate = target;
 	_delegateSelector = selector;
-
+	
 	// Add a button if there is a delegate
 	if ((_editDelegate != nil) & [_editDelegate respondsToSelector:_delegateSelector]) {
 		if (_editDelegate != nil) {
 			TT_RELEASE_SAFELY(_editButton);
 		}
-		_editButton = [[TTButton buttonWithStyle:@"editTransactionDetailButton:" title:NSLocalizedString(@"Edit", nil)] retain];
+		_editButton = [[TTButton buttonWithStyle:@"editTransactionDetailButton:" title:title] retain];
 		[_editButton sizeToFit];
 		[_editButton addTarget:_editDelegate action:_delegateSelector forControlEvents:UIControlEventTouchUpInside];
 		
@@ -427,6 +430,12 @@
 	}
 	
 	[self performLayout];
+	
+	
+}
+
+- (void) enableEditForTarget:(id)target selector:(SEL)selector {
+	[self enableButtonWithTitle:NSLocalizedString(@"Edit", nil) target:target selector:selector];
 }
 
 - (void) invokeEdit {
@@ -501,10 +510,6 @@
 	
 }
 
-//- (void) sizeThatFits:(CGSize)size {
-//	
-//}
-
 @end
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -524,14 +529,14 @@
 	
 	TTFlowLayout* flowLayout = [[[TTFlowLayout alloc] init] autorelease];
   flowLayout.padding = 0;
-  flowLayout.spacing = 0;
+  flowLayout.spacing = 10;
   CGSize size = [flowLayout layoutSubviews:self.view.subviews forView:self.view];
   
   UIScrollView* scrollView = (UIScrollView*)self.view;
   scrollView.contentSize = CGSizeMake(scrollView.width, size.height);
 }
 
-//	Private (Tags)
+//	Tags
 
 - (void) editTags {
 	
@@ -560,6 +565,96 @@
 	
 }
 
+//	Amount
+
+- (void) editAmount {
+	
+	EditAmountController * editAmount = [[EditAmountController alloc] initWithTransaction:self.currentTransaction];
+	editAmount.delegate = self;
+	[self.navigationController pushViewController:editAmount animated:YES];
+	[editAmount release];
+	
+}
+
+- (void) setupAmountLabels {
+	
+	[_amountItem.contentView removeAllSubviews];
+	
+	UILabel * amount = [[UILabel alloc] init];
+	amount.text = [_currentTransaction amountInLocalCurrency];
+	amount.font = STANDARD_TEXT_FONT;
+	[amount sizeToFit];
+	amount.backgroundColor = [UIColor clearColor];
+	[_amountItem.contentView addSubview:amount];
+	[amount release];
+	
+	if (![[_currentTransaction amountInLocalCurrency] isEqualToString:[_currentTransaction amountInBaseCurrency]]) {
+		UILabel * amountBase = [[UILabel alloc] init];
+		
+		NSString * baseCurrency = [NSString stringWithFormat:@"(%@)", [_currentTransaction amountInBaseCurrency]];
+		amountBase.text = baseCurrency;
+		amountBase.font = STANDARD_TEXT_FONT;
+		[amountBase sizeToFit];
+		amountBase.backgroundColor = [UIColor clearColor];
+		[_amountItem.contentView addSubview:amountBase];
+		[amountBase release];
+	}
+		
+}
+
+- (void) addTheAmountToView:(UIView*)view {
+	
+	_amountItem = [[ItemView alloc] init];
+	_amountItem.title = NSLocalizedString(@"Amount", nil);
+	_amountItem.delegate = self;
+	[_amountItem enableEditForTarget:self selector:@selector(editAmount)];
+	
+	[self setupAmountLabels];
+	
+	[view addSubview:_amountItem];
+	
+}
+
+//	Date
+
+- (void) editDate {
+
+	EditDateController * editDate = [[EditDateController alloc] initWithTransaction:self.currentTransaction];
+	editDate.delegate = self;
+	[self.navigationController pushViewController:editDate animated:YES];
+	[editDate release];
+	
+}
+
+- (void) setupDateLabel {
+
+	[_dateItem.contentView removeAllSubviews];
+	
+	// Create something about the date...
+	UILabel * when = [[UILabel alloc] init];
+	when.backgroundColor = [UIColor clearColor];
+	when.text = [_currentTransaction longFormattedDate];
+	when.font = STANDARD_TEXT_FONT;
+	[when sizeToFit];
+	[_dateItem.contentView addSubview:when];
+	[when release];
+	
+}
+
+- (void) addDateToView:(UIView*)view {
+
+	_dateItem = [[ItemView alloc] init];
+	_dateItem.title = NSLocalizedString(@"When", nil);
+	[_dateItem enableEditForTarget:self selector:@selector(editDate)];
+	_dateItem.delegate = self;
+	[view addSubview:_dateItem];
+	
+	[self setupDateLabel];
+	
+}
+
+//	Description
+
 - (UIViewController*)post:(NSDictionary*)query {
   TTPostController* controller = [[[TTPostController alloc] init] autorelease];
 	controller.delegate = self;
@@ -567,66 +662,6 @@
   controller.originView = [query objectForKey:@"__target__"];
   return controller;
 }
-
-//	Private (Amount)
-
-- (void) editAmount {
-	
-	EditAmountController * editAmount = [[EditAmountController alloc] initWithTransaction:self.currentTransaction];
-	[self.navigationController pushViewController:editAmount animated:YES];
-	[editAmount release];
-	
-}
-
-- (void) addTheAmountToView:(UIView*)view {
-	
-	ItemView * amountItem = [[ItemView alloc] init];
-	amountItem.title = NSLocalizedString(@"Amount", nil);
-	amountItem.delegate = self;
-	[amountItem enableEditForTarget:self selector:@selector(editAmount)];
-	
-	UIFont * font = [UIFont systemFontOfSize:16.f];
-	
-	UILabel * amount = [[[UILabel alloc] init] autorelease];
-	amount.text = [_currentTransaction amountInLocalCurrency];
-	amount.font = font;
-	[amount sizeToFit];
-	[amountItem.contentView addSubview:amount];
-	
-	if (![[_currentTransaction amountInLocalCurrency] isEqualToString:[_currentTransaction amountInBaseCurrency]]) {
-		UILabel * amountBase = [[[UILabel alloc] init] autorelease];
-
-		NSString * baseCurrency = [NSString stringWithFormat:@"(%@)", [_currentTransaction amountInBaseCurrency]];
-		amountBase.text = baseCurrency;
-		amountBase.font = font;
-		[amountBase sizeToFit];
-		[amountItem.contentView addSubview:amountBase];
-	}
-	
-	[view addSubview:amountItem];
-	[amountItem release];
-	
-}
-
-//	Private (Date)
-
-- (void) addDateToView:(UIView*)view {
-
-	_dateItem = [[ItemView alloc] init];
-	_dateItem.title = NSLocalizedString(@"When", nil);
-	_dateItem.delegate = self;
-	[view addSubview:_dateItem];
-	
-	// Create something about the date...
-	UILabel * when = [[[UILabel alloc] init] autorelease];
-	when.text = [_currentTransaction longFormattedDate];
-	when.font = STANDARD_TEXT_FONT;
-	[when sizeToFit];
-	[_dateItem.contentView addSubview:when];
-	
-}
-
-//	Private (Description)
 
 - (void) addDescriptionToView:(UIView*)view {
 
@@ -665,7 +700,7 @@
 	
 }
 
-// Private (Location)
+//	Location
 
 - (void) addLocationToView:(UIView *)view {
 	
@@ -684,6 +719,7 @@
 		[act release];
 		
 		UILabel * locationTempLabel = [[UILabel alloc] init];
+		locationTempLabel.backgroundColor = [UIColor clearColor];
 		locationTempLabel.font = STANDARD_TEXT_FONT;		
 		locationTempLabel.text = NSLocalizedString(@"Looking up address", nil);
 		[locationTempLabel sizeToFit];
@@ -723,19 +759,17 @@
 	// Setup location label
 	UILabel * location = [[UILabel alloc] init];
 	location.text = locationText;
+	location.backgroundColor = [UIColor clearColor];
 	location.numberOfLines = numberOfLines;
 	location.font = STANDARD_TEXT_FONT;
 	[location sizeToFit];
 	
 	[_locationItem.contentView removeAllSubviews];
 	[_locationItem.contentView addSubview:location];
-	
-	TTButton * showMapButton = [TTButton buttonWithStyle:@"embossedButton:"];
-	[showMapButton setText:NSLocalizedString(@"Show on map", nil)];
-	[showMapButton addTarget:self action:@selector(showMap) forControlEvents:UIControlEventTouchUpInside];
-	[showMapButton sizeToFit];
-	[_locationItem.contentView addSubview:showMapButton];
 
+	[_locationItem enableButtonWithTitle:NSLocalizedString(@"Show on map", nil) target:self selector:@selector(showMap)];
+	
+	[_locationItem sizeToFit];
 	[_locationItem setNeedsDisplay];
 
 	[location release];
@@ -748,11 +782,13 @@
 	// Setup location label
 	UILabel * location = [[UILabel alloc] init];
 	location.text = errorText;
+	location.backgroundColor = [UIColor clearColor];
 	location.font = STANDARD_TEXT_FONT;
 	[location sizeToFit];
 	
 	[_locationItem.contentView removeAllSubviews];
 	[_locationItem.contentView addSubview:location];
+	[_locationItem sizeToFit];
 	[_locationItem setNeedsDisplay];
 	
 	[location release];
@@ -785,6 +821,7 @@
 	
 	[[TTNavigator navigator].URLMap removeURL:@"tt://post"];
 	
+	TT_RELEASE_SAFELY(_amountItem);
 	TT_RELEASE_SAFELY(_tags);
 	TT_RELEASE_SAFELY(_dateItem);
 	TT_RELEASE_SAFELY(_descriptionItem);
@@ -861,6 +898,20 @@
 	[[Utilities toolbox] save:[self.currentTransaction managedObjectContext]];
 	
 	return YES;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//	EditAmountControllerDelegate methods
+- (void) updateAmount {
+	[self setupAmountLabels];
+	[_amountItem setNeedsDisplay];
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//	EditDateControllerDelegate methods
+- (void) updateDate {
+	[self setupDateLabel];
+	[_dateItem setNeedsDisplay];
 }
 
 @end

@@ -153,24 +153,25 @@
   }
 }
 - (TTStyle*)editTransactionDetailButton:(UIControlState)state {
+	UIColor * borderColor = [UIColor whiteColor];
   if (state == UIControlStateNormal) {
 		return 
-    [TTShapeStyle styleWithShape:[TTRoundedRectangleShape shapeWithRadius:8] next:
+    [TTShapeStyle styleWithShape:[TTRoundedRectangleShape shapeWithTopLeft:8 topRight:8 bottomRight:0 bottomLeft:0] next:
 		 [TTInsetStyle styleWithInset:UIEdgeInsetsMake(0, 0, 1, 0) next:
 			[TTShadowStyle styleWithColor:RGBACOLOR(255,255,255,0) blur:1 offset:CGSizeMake(0, 1) next:
 			 [TTSolidFillStyle styleWithColor:[UIColor colorWithWhite:200 alpha:0.1] next:
-				[TTSolidBorderStyle styleWithColor:RGBCOLOR(200, 200, 200) width:1 next:
+				[TTFourBorderStyle styleWithTop:borderColor right:borderColor bottom:[UIColor clearColor] left:borderColor width:1 next:
 				 [TTBoxStyle styleWithPadding:UIEdgeInsetsMake(6, 8, 6, 9) next:
 					[TTTextStyle styleWithFont:[UIFont systemFontOfSize:15.f] color:[UIColor whiteColor]
 												 shadowColor:[UIColor colorWithWhite:255 alpha:0.4]
 												shadowOffset:CGSizeMake(0, -1) next:nil]]]]]]];
   } else if (state == UIControlStateHighlighted) {
     return 
-    [TTShapeStyle styleWithShape:[TTRoundedRectangleShape shapeWithRadius:8] next:
+    [TTShapeStyle styleWithShape:[TTRoundedRectangleShape shapeWithTopLeft:8 topRight:8 bottomRight:0 bottomLeft:0] next:
 		 [TTInsetStyle styleWithInset:UIEdgeInsetsMake(0, 0, 1, 0) next:
 			[TTShadowStyle styleWithColor:RGBACOLOR(255,255,255,0) blur:1 offset:CGSizeMake(0, 1) next:
 			 [TTLinearGradientFillStyle styleWithColor1:[UIColor whiteColor] color2:[UIColor colorWithWhite:10 alpha:1] next:
-				[TTSolidBorderStyle styleWithColor:RGBCOLOR(200, 200, 200) width:1 next:
+				[TTFourBorderStyle styleWithTop:borderColor right:borderColor bottom:[UIColor clearColor] left:borderColor width:1 next:
 				 [TTBoxStyle styleWithPadding:UIEdgeInsetsMake(6, 8, 6, 9) next:
 					[TTTextStyle styleWithFont:[UIFont systemFontOfSize:15.f] color:[UIColor blackColor]
 												 shadowColor:[UIColor colorWithWhite:255 alpha:0.4]
@@ -197,8 +198,9 @@
 - (TTStyle*)contentBox {
 	return [TTInsetStyle styleWithInset:UIEdgeInsetsMake(5, 5, 0, 5) next: 
 					[TTBoxStyle styleWithMargin:UIEdgeInsetsMake(0, 0, 0, 0) padding:UIEdgeInsetsMake(10, 15, 0, 15) next:
-					 [TTShapeStyle styleWithShape:[TTSpeechBubbleShape shapeWithRadius:5 pointLocation:55 pointAngle:90 pointSize:CGSizeMake(10, 5)] next:
-						[TTSolidFillStyle styleWithColor:RGBACOLOR(255, 255, 255, 1) next:
+					 [TTShapeStyle styleWithShape:[TTSpeechBubbleShape shapeWithRadius:0 pointLocation:55 pointAngle:90 pointSize:CGSizeMake(12, 6)] next:
+						[TTReflectiveFillStyle styleWithColor:RGBACOLOR(240, 233, 219, 1) next:
+						//[TTSolidFillStyle styleWithColor:RGBACOLOR(255, 255, 255, 1) next:
 						 [TTInsetStyle styleWithInset:UIEdgeInsetsMake(5, 10, 5, 10) next:nil]]]]];
 }
 

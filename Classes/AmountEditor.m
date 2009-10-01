@@ -78,23 +78,6 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //	Private
 
-//-(void)changeCurrency {
-//	/* 
-//	 Called when the user clicks on the amount
-//	 Let the user select another input currency
-//	 */ 
-//	
-//	CurrencySelectionDialog *currencySelectionDialog = [[CurrencySelectionDialog new] autorelease];
-//	// So we can report back the currency change
-//	currencySelectionDialog.delegate = _delegate;
-//	
-//	UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:currencySelectionDialog];
-//	navController.navigationBar.barStyle = UIBarStyleBlackOpaque;
-//	[_delegate.delegate presentModalViewController:navController animated:YES];
-//	[navController release];
-//	
-//}
-
 /*
  If it receives a touch, then we should display the 
  dialog where currencies can be changed. The amount label delegate
@@ -104,7 +87,6 @@
 	[super touchesBegan:touches withEvent:event];
 	
 	[self.delegate presentCurrencyTable];
-//	[self changeCurrency];
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

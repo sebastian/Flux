@@ -11,12 +11,21 @@
 @class AmountEditor;
 @class Transaction;
 
+@protocol EditAmountControllerDelegate;
+
 @interface EditAmountController : UIViewController {
 	Transaction * _currentTransaction;
 	AmountEditor * _amountEditor;
+	id <EditAmountControllerDelegate> _delegate;
 }
 @property (nonatomic, retain) Transaction * currentTransaction;
+@property (nonatomic, assign) id <EditAmountControllerDelegate> delegate;
 
 - (id) initWithTransaction:(Transaction*)trs;
 
+@end
+
+@protocol EditAmountControllerDelegate
+@required
+- (void) updateAmount;
 @end
