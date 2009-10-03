@@ -11,6 +11,8 @@
 
 @property(nonatomic,retain) NSArray* tags;
 
+- (id) initWithAutotags:(BOOL)autotags;
+
 - (void)loadTagsFromStore;
 - (void)search:(NSString*)text;
 

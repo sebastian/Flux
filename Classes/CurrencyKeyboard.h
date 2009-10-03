@@ -7,8 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CurrencyKeyboard.h"
-
 
 @protocol CurrencyKeyboardDelegate
 @required

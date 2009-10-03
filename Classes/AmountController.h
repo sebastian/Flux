@@ -24,6 +24,8 @@
  KleioCoreLocationDelegate, 
  MKReverseGeocoderDelegate> {
 
+	MKPlacemark * _placemark;
+	 
 	CurrencyKeyboard * keyboard;
 	
 	// CoreData stuff

@@ -38,7 +38,7 @@
 	
 	TTURLMap* map = navigator.URLMap;
 	[map from:@"*" toViewController:[TTWebController class]]; // Fall back URL
-	[map from:@"kleio://tagSelector" toModalViewController:[TagSelector class] transition:0];
+	[map from:@"kleio://tagSelector" toModalViewController:[TagSelector class]];
 	[map from:@"kleio://tabBar" toSharedViewController:[TabBarController class]];
 	[map from:@"kleio://addTransaction" toSharedViewController:[ExpenseInputViewController class]];
 	[map from:@"kleio://listTransactions" toSharedViewController:[OverviewTableViewController class]];

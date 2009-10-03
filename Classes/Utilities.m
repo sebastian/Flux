@@ -435,25 +435,21 @@ static Utilities *sharedUtilitiesToolbox = nil;
 	
 }
 
-- (void)performDelayedSave:(NSDictionary*)dict {
+- (void)performDelayedSave:(Transaction*)trs {
 	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
 	
-	sleep(0.2);
-	[self save:[dict objectForKey:@"context"]];
-	
-	id delegate = [dict objectForKey:@"delegate"];
-	SEL selector = @selector(createAndSetupTransaction);
-	if ([delegate respondsToSelector:selector]) {
-		[delegate performSelector:selector];
-	}
-	
+	sleep(0.5);
+	NSManagedObjectContext * context = trs.managedObjectContext;
+	[self save:context];
+
+	[trs release];
+	[context release];
+			
 	[pool release];
 }
-- (void)delayedSave:(NSManagedObjectContext*)context forDelegate:(id)delegate {
-	NSDictionary * dict = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:context, delegate, nil] 
-																										forKeys:[NSArray arrayWithObjects:@"context", @"delegate", nil]];
-	
-	[self performSelectorInBackground:@selector(performDelayedSave:) withObject:dict];
+- (void)delayedSave:(Transaction*)transaction {
+	[transaction retain];
+	[self performSelectorInBackground:@selector(performDelayedSave:) withObject:transaction];
 
 }
 

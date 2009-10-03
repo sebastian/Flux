@@ -37,15 +37,23 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // NSObject
 
-- (id)init {
+- (id) initWithAutotags:(BOOL)autotags {
   if (self = [super init]) {
     _delegates = nil;
-		// TODO: or, depending on place, also include autotags
-		//_allTags = [[[Utilities toolbox] allTagNamesIncludingAutotags:YES] retain];
-		_allTags = [[[Utilities toolbox] allTagNames] retain];
+
+		if (autotags) {
+			_allTags = [[[Utilities toolbox] allTagNamesIncludingAutotags:YES] retain];
+		} else {
+			_allTags = [[[Utilities toolbox] allTagNames] retain];	
+		}
+		
     _tags = nil;
   }
-  return self;
+  return self;	
+}
+
+- (id)init {
+	return [self initWithAutotags:NO];
 }
 
 - (void)dealloc {
@@ -130,13 +138,25 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // NSObject
 
-- (id)init {
+- (id) initWithAutotags:(BOOL)autotags {
   if (self = [super init]) {
-		_tagBook = [[TagBook alloc] init];
+		if (autotags) {
+			_tagBook = [[TagBook alloc] initWithAutotags:YES];
+		}	else {
+			_tagBook = [[TagBook alloc] init];
+		}
+		
     self.model = _tagBook;
   }
   return self;
+	
 }
+
+- (id)init {
+	return [self initWithAutotags:NO];
+//	return [self initWithAutotags:YES];
+}
+
 
 - (void)dealloc {
   TT_RELEASE_SAFELY(_tagBook);

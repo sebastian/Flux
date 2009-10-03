@@ -11,6 +11,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
 
+@class Transaction;
 @class Tag;
 
 @interface Utilities : NSObject {
@@ -71,7 +72,7 @@
 - (void)save:(NSManagedObjectContext*)context;
 - (void)privateSave;
 - (void)setSavignIsFalse;
-- (void)delayedSave:(NSManagedObjectContext*)context forDelegate:(id)delegate;
+- (void)delayedSave:(Transaction*)transaction;
 
 /*
  * Handles the creation of new manage object contexts that can be used

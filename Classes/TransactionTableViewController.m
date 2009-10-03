@@ -34,8 +34,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //	NSObject
-#pragma mark -
-#pragma mark Setup and teardown
+
 - (id)initWithStyle:(UITableViewStyle)style {
 
 	if (self = [super initWithStyle:style]) {
@@ -85,6 +84,11 @@
 	
 	[super dealloc];
 }
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//	UITableView
+
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	
@@ -95,6 +99,20 @@
 
 }
 
+- (void)didReceiveMemoryWarning {
+	NSLog(@"didReceiveMemoryWarning: %@", self);
+	
+	NSLog(@"Clearing cache in %@ to help", self);
+	[self clearCacheIfAvailable];
+	[[CacheMasterSingleton sharedCacheMaster] clearCache];
+	
+	[super didReceiveMemoryWarning];
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//	CoreData
+
 - (NSFetchedResultsController*)resultsController {
 	if (resultsController == nil) {
 		NSLog(@"Creating and loading data for the resultsController in %@", self);
@@ -103,47 +121,7 @@
 	return resultsController;
 }
 
-
-#pragma mark
-#pragma mark -
-#pragma mark Private methods
--(void)updatePredicate:(NSNotification*)notification {
-
-	// Store the new predicate
-	NSDictionary * predicateDict = notification.userInfo;
-	
-	if (![self.filteringPredicate isEqual:[predicateDict objectForKey:@"predicate"]]) {
-		self.filteringPredicate = [predicateDict objectForKey:@"predicate"];
-			
-		[self clearCacheIfAvailable];
-		
-		// Reload data :)
-		NSLog(@"RELOADING DATA: %@", self);
-		[self.tableView reloadData];
-		
-	} 
-}
-- (void)clearCacheIfAvailable {
-	if ([self respondsToSelector:@selector(clearDataCache)]) {
-		[self performSelector:@selector(clearDataCache)];
-		NSLog(@"Clearing all cache in %@", self);
-	} else {
-		NSLog(@"ERROR: Could not find clearDataCache method in %@", self);
-	}
-}
-- (void)clearCacheIfAvailableForIndexPath:(NSIndexPath*)indexPath {
-	if ([self respondsToSelector:@selector(clearDataCacheForIndexPath:)]) {
-		[self performSelector:@selector(clearDataCacheForIndexPath:) withObject:indexPath];
-	} else {
-		NSLog(@"Does not respond to clearCacheForIndexPath");
-	}
-}
-
-
-
-#pragma mark -
-#pragma mark Powermethods for loading data from children
--(void)loadDataWithSortDescriptors:(NSArray*)sortDescriptors predicates:(NSPredicate*)predicate sectionNameKeyPath:(NSString*)sectionGroupingName cacheName:(NSString*)cacheName {
+- (void)loadDataWithSortDescriptors:(NSArray*)sortDescriptors predicates:(NSPredicate*)predicate sectionNameKeyPath:(NSString*)sectionGroupingName cacheName:(NSString*)cacheName {
 	
 	// Only load data once...
 	if (resultsController != nil) {
@@ -204,8 +182,9 @@
 }
 
 
-#pragma mark -
-#pragma mark To be implemented by subclasses
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//	To be implemented by children
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     NSLog(@"Method called that should be implemented by child!");
 	return 0;
@@ -216,17 +195,6 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	NSLog(@"Method called that should be implemented by child!");
 	return nil;
-}
-
-
-- (void)didReceiveMemoryWarning {
-	NSLog(@"didReceiveMemoryWarning: %@", self);
-	
-	NSLog(@"Clearing cache in %@ to help", self);
-	[self clearCacheIfAvailable];
-	[[CacheMasterSingleton sharedCacheMaster] clearCache];
-	
-    [super didReceiveMemoryWarning];
 }
 
 @end

@@ -175,8 +175,12 @@ rect.size.width, rect.size.height)
 		workableSpace = TTKeyboardNavigationFrame();
 		
 	} else {
-		workableSpace = TTToolbarNavigationFrame(); //TTNavigationFrame(); //TTToolbarNavigationFrame();
-		workableSpace = CGRectMake(workableSpace.origin.x, workableSpace.origin.y, workableSpace.size.width, workableSpace.size.height - 5);
+		if (_mode == TagSelectorModeFilter) {
+			workableSpace = TTNavigationFrame();
+		} else {
+			workableSpace = TTToolbarNavigationFrame(); //TTNavigationFrame(); //TTToolbarNavigationFrame();
+			workableSpace = CGRectMake(workableSpace.origin.x, workableSpace.origin.y, workableSpace.size.width, workableSpace.size.height - 5);
+		}
 		
 	}
 	
@@ -321,19 +325,27 @@ rect.size.width, rect.size.height)
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //	NSObject
 
-- (id) init {
+- (id) initWithAutotags:(BOOL)autotags {
 	if (self = [super init]) {
 		self.title = NSLocalizedString(@"Select keywords", nil);
 		self.navigationBarStyle = UIBarStyleBlackOpaque;
-
+		
 		self.autoresizesForKeyboard = YES;
-		self.dataSource = [[[TagDataSource alloc] init] autorelease];
-
+		
+		if (autotags) {
+			self.dataSource = [[[TagDataSource alloc] initWithAutotags:YES] autorelease];
+		} else {
+			self.dataSource = [[[TagDataSource alloc] init] autorelease];
+		}
+		
 		[TTStyleSheet setGlobalStyleSheet:[[[KleioCustomStyles alloc] init] autorelease]];
 		[[TTNavigator navigator].URLMap from:@"kleio://addTagToTagSugester" toObject:self selector:@selector(addCellWithObject)];
 		
 	}
 	return self;
+}
+- (id) init {
+	return [self initWithAutotags:YES];
 }
 
 - (void) loadView {

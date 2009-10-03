@@ -29,8 +29,53 @@
 @synthesize transactionsDataCache, headerViewCache, footerViewCache;
 @synthesize delegate;
 
-#pragma mark -
-#pragma mark Init and teardown
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//	Private
+
+-(void) updateData {
+	
+	// Sort descriptors
+	NSSortDescriptor *sortByDay = [[NSSortDescriptor alloc] initWithKey:@"day" ascending:NO];
+	NSSortDescriptor *sortByDate = [[NSSortDescriptor alloc] initWithKey:@"date" ascending:NO];
+	NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortByDay, sortByDate, nil]; 
+	[sortByDate release];
+	[sortByDay release];
+	
+	// Predicate(s)
+	NSPredicate * monthPredicate = [NSPredicate predicateWithFormat:@"yearMonth = %@", yearMonthToDisplay];
+	
+	// Perform loading of data
+	[self loadDataWithSortDescriptors:sortDescriptors predicates:monthPredicate sectionNameKeyPath:@"day" cacheName:@"detailTransactionCache"];
+	
+	[sortDescriptors release]; 
+	
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//	NSObject
+
+- (void) dealloc {
+
+	TT_RELEASE_SAFELY(transactionsDataCache);
+	TT_RELEASE_SAFELY(detailContentTableCell);
+	TT_RELEASE_SAFELY(detailFooterView);
+	TT_RELEASE_SAFELY(yearMonthToDisplay);
+	TT_RELEASE_SAFELY(headerViewCache);
+	TT_RELEASE_SAFELY(detailHeaderView);
+	TT_RELEASE_SAFELY(footerViewCache);
+	
+	self.delegate = nil;
+	
+	[[CacheMasterSingleton sharedCacheMaster] setDetailTableDelegate:nil];
+	
+	[super dealloc];
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//	UIViewController
+
 - (void) viewDidLoad {
 	[super viewDidLoad];
 		
@@ -64,6 +109,7 @@
 	[dateFormatter release];
 		
 }
+
 - (void) viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 		
@@ -80,70 +126,11 @@
 }
 
 
-- (void) dealloc {
-	[transactionsDataCache release];
-	[detailContentTableCell release];
-	[detailFooterView release];
-	[yearMonthToDisplay release];
-	[headerViewCache release];
-	[detailHeaderView release];
-	[footerViewCache release];
-
-	self.delegate = nil;
-
-	[[CacheMasterSingleton sharedCacheMaster] setDetailTableDelegate:nil];
-	
-	[super dealloc];
-}
-
-#pragma mark -
-#pragma mark Populate data
--(void) updateData {
-	
-	// Sort descriptors
-	NSSortDescriptor *sortByDay = [[NSSortDescriptor alloc] initWithKey:@"day" ascending:NO];
-	NSSortDescriptor *sortByDate = [[NSSortDescriptor alloc] initWithKey:@"date" ascending:NO];
-	NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortByDay, sortByDate, nil]; 
-	[sortByDate release];
-	[sortByDay release];
-	
-	// Predicate(s)
-	NSPredicate * monthPredicate = [NSPredicate predicateWithFormat:@"yearMonth = %@", yearMonthToDisplay];
-	
-	// Perform loading of data
-	[self loadDataWithSortDescriptors:sortDescriptors predicates:monthPredicate sectionNameKeyPath:@"day" cacheName:@"detailTransactionCache"];
-	
-	[sortDescriptors release]; 
-
-}
-
-#pragma mark Table view methods
-
-// Content cell
-- (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-		
-	// Access the object from the filtered array
-	NSDictionary * data = [[CacheMasterSingleton sharedCacheMaster] detailCache_dataForSection:indexPath.section];
-	
-	Transaction *trs = (Transaction *)[[data objectForKey:@"transactions"] objectAtIndex:indexPath.row];
-    
-	static NSString *CellIdentifier = @"DetailCell";
-    DetailContentTableCell * cell = (DetailContentTableCell *) [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-	if (cell == nil) {
-		cell = [[[DetailContentTableCell alloc] initWithFrame:CGRectZero reuseIdentifier:CellIdentifier] autorelease];
-	}
-
-	[cell configureCellForTransaction:trs];
-				
-	return cell;
-}
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//	UITableView
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 	return 40;
-}
-// section header view
-- (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-	return [[CacheMasterSingleton sharedCacheMaster] detailCache_headerViewForSection:section];
 }
 - (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
 	/*
@@ -152,19 +139,13 @@
 	 */
 	NSDictionary * data = [[CacheMasterSingleton sharedCacheMaster] detailCache_dataForSection:section];
 	NSInteger count = [[data objectForKey:@"transactions"] count];
-
+	
 	if (count != 0) {
 		return 30;		
 	} else {
 		return 0;
 	}
 	
-}
-// Footer view
-- (UIView *) tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)_section {
-
-	return [[CacheMasterSingleton sharedCacheMaster] detailCache_footerViewForSection:_section];
-
 }
 - (CGFloat) tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
 	/*
@@ -180,16 +161,52 @@
 		return 0;
 	}}
 
-// Chose a row to inspect. Show the detail view
+- (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView {
+	return [[CacheMasterSingleton sharedCacheMaster] detailCache_numberOfSections];
+}
+
+- (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+	return [[CacheMasterSingleton sharedCacheMaster] detailCache_numberOfRowsInSection:section];
+}
+
+// section header view
+- (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+	return [[CacheMasterSingleton sharedCacheMaster] detailCache_headerViewForSection:section];
+}
+// Footer view
+- (UIView *) tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)_section {
+	
+	return [[CacheMasterSingleton sharedCacheMaster] detailCache_footerViewForSection:_section];
+	
+}
+
+- (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+	
+	// Access the object from the filtered array
+	NSDictionary * data = [[CacheMasterSingleton sharedCacheMaster] detailCache_dataForSection:indexPath.section];
+	
+	Transaction *trs = (Transaction *)[[data objectForKey:@"transactions"] objectAtIndex:indexPath.row];
+	
+	static NSString *CellIdentifier = @"DetailCell";
+	DetailContentTableCell * cell = (DetailContentTableCell *) [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+	if (cell == nil) {
+		cell = [[[DetailContentTableCell alloc] initWithFrame:CGRectZero reuseIdentifier:CellIdentifier] autorelease];
+	}
+	
+	[cell configureCellForTransaction:trs];
+	
+	return cell;
+}
+
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
-		
-//	// Create new display that shows the transaction
-//	TransactionDisplay * infoDisplay =
-//		[[TransactionDisplay alloc] initWithNibName:@"TransactionDisplay" 
-//											 bundle:[NSBundle mainBundle]];
-
+	
+	//	// Create new display that shows the transaction
+	//	TransactionDisplay * infoDisplay =
+	//		[[TransactionDisplay alloc] initWithNibName:@"TransactionDisplay" 
+	//											 bundle:[NSBundle mainBundle]];
+	
 	TransactionViewController * infoDisplay = [[TransactionViewController alloc] init];
 	
 	NSDictionary * data = [[CacheMasterSingleton sharedCacheMaster] detailCache_dataForSection:indexPath.section];
@@ -204,18 +221,11 @@
 	
 }
 
-- (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView {
-	return [[CacheMasterSingleton sharedCacheMaster] detailCache_numberOfSections];
-}
-- (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return [[CacheMasterSingleton sharedCacheMaster] detailCache_numberOfRowsInSection:section];
-}
-
 // Override to support editing the table view.
 - (void) tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-
+	
+	if (editingStyle == UITableViewCellEditingStyleDelete) {
+		
 		/*
 		 We are doing a local delete
 		 In which case I don't want to reload the whole table view
@@ -227,10 +237,10 @@
 		
 		NSDictionary * data = [[CacheMasterSingleton sharedCacheMaster] detailCache_dataForSection:indexPath.section];
 		Transaction *trs = (Transaction *)[[data objectForKey:@"transactions"] objectAtIndex:indexPath.row];
-				
+		
 		// Delete the managed object for the given index path
 		[self.managedObjectContext deleteObject:trs];
-
+		
 		// Save changes
 		[[Utilities toolbox] save:self.managedObjectContext];
 		
@@ -238,13 +248,12 @@
 }
 
 
-#pragma mark
-#pragma mark -
-#pragma mark Fetched results controller delegate methods...
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//	CoreData
+
 /**
  Delegate methods of NSFetchedResultsController to respond to additions, removals and so on.
  */
-
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
 	if (localDelete) {
 		[self.tableView beginUpdates];

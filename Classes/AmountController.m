@@ -46,7 +46,8 @@
 		TT_RELEASE_SAFELY(currentTransaction);
 	}
 	
-	currentTransaction = [[NSEntityDescription insertNewObjectForEntityForName:@"Transaction" inManagedObjectContext:self.managedObjectContext] retain];
+	NSManagedObjectContext * context = [[[Utilities toolbox] createObjectContext] retain];
+	currentTransaction = [[NSEntityDescription insertNewObjectForEntityForName:@"Transaction" inManagedObjectContext:context] retain];
 	
 	// If we have a local currency, then use it
 	if (self.localCurrency != nil) {
@@ -57,6 +58,15 @@
 	_amountEditor.currentTransaction = currentTransaction;
 		
 }
+
+-(void)add:(NSString*)what toArray:(NSMutableArray*)array {
+	if (_placemark != nil) {
+		if ([_placemark valueForKey:what] != nil) {
+			[array addObject:[_placemark valueForKey:what]];
+		}
+	}
+}
+
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //	NSObject
@@ -79,6 +89,7 @@
 	TT_RELEASE_SAFELY(_bestLocation);
 	TT_RELEASE_SAFELY(_localCurrency);
 	TT_RELEASE_SAFELY(_amountEditor);
+	TT_RELEASE_SAFELY(_placemark);
 	[super dealloc];
 }
 
@@ -142,10 +153,41 @@
 	currentTransaction.location = self.bestLocation;
 	
 	/*
+	 Adding autotags
+	 */
+	NSMutableArray * autotags = [[NSMutableArray alloc] init];
+	[self add:@"country" toArray:autotags];
+	[self add:@"administrativeArea" toArray:autotags];
+	[self add:@"locality" toArray:autotags];
+	[self add:@"subAdministrativeArea" toArray:autotags];
+	[self add:@"subLocality" toArray:autotags];
+	[self add:@"thoroughfare" toArray:autotags];
+	
+	NSDateFormatter * dateFormatter = [[Utilities toolbox] dateFormatter];
+	NSArray * weekdays = [dateFormatter weekdaySymbols];
+	NSArray * months = [dateFormatter monthSymbols];
+	
+	// Set the month and year for easier searching and displaying and most importantly grouping!
+	NSCalendar * currentCalendar = [NSCalendar currentCalendar];
+	NSDateComponents * components = [currentCalendar components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSWeekdayCalendarUnit) fromDate:currentTransaction.date];
+	
+	NSString * month = [months objectAtIndex:components.month-1];
+	NSString * weekday = [weekdays objectAtIndex:components.weekday-1];
+	NSString * year = [NSString stringWithFormat:@"%i", components.year];
+	
+	[autotags addObject:month];
+	[autotags addObject:weekday];
+	[autotags addObject:year];
+	
+	NSString * newAutoTags = [autotags componentsJoinedByString:@" "];
+	currentTransaction.autotags = [NSString stringWithFormat:@" %@ ", newAutoTags];
+	
+	/*
 	 This method also calls createAndSetupTransaction 
 	 so that it is done after the save has been performed
 	 */
-	[[Utilities toolbox] delayedSave:self.managedObjectContext forDelegate:self];
+	[[Utilities toolbox] delayedSave:currentTransaction];
+	[self createAndSetupTransaction];
 
 }
 
@@ -178,10 +220,12 @@
 -(void)locationError:(NSString *)error {
 	NSLog(@"Got location error: %@", error);
 }
--(void)reverseGeocoder:(MKReverseGeocoder *)geocoder didFindPlacemark:(MKPlacemark *)_placemark {
+-(void)reverseGeocoder:(MKReverseGeocoder *)geocoder didFindPlacemark:(MKPlacemark *)daPlacemark {
 	/*
 	 We have to find the currency corrensponding to the country!
 	 */
+	
+	_placemark = [daPlacemark retain];
 	
 	NSString * countryCode = _placemark.countryCode;
 	NSString * currencyCode = [[[CurrencyManager sharedManager] countryToCurrency] objectForKey:countryCode];
@@ -204,6 +248,7 @@
 		 */
 		currentTransaction.currency = currencyCode;
 		[_amountEditor updateExpenseDisplay];
+		[[CacheMasterSingleton sharedCacheMaster] clearCache];
 	}
 	
 	if (!(currencyCode == nil)) {

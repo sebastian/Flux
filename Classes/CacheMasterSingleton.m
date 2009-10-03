@@ -714,9 +714,20 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 		} else {
 						
 			id <NSFetchedResultsSectionInfo> currenctSection = [sections objectAtIndex:row];
-			
+						
 			NSArray * _transactionsInSection = [currenctSection objects];
 			NSArray * transactionsInSection = [_transactionsInSection filteredArrayUsingPredicate:self.filteringPredicate];
+			
+			NSLog(@"_transactionsInSection");
+			for (Transaction * obj in _transactionsInSection) {
+				NSLog(@"%@", obj);
+			}
+
+			NSLog(@"\n\ntransactionsInSection");
+			for (Transaction *  obj in transactionsInSection) {
+				NSLog(@"%@", obj);
+			}
+			
 			
 			Transaction * aTransaction = (Transaction*)[_transactionsInSection objectAtIndex:0];
 			
@@ -817,6 +828,12 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 	 If there isn't an overview delegate, then we should just return
 	 */
 	if (self.overviewTableDelegate == nil) {
+		/* 
+		 There is no delegate. Hence there is no one
+		 that can handle the change in data.
+		 Hence we have to remove the persistant cache
+		 */
+		[self overviewCache_removePersistentCache];
 		return;
 	}
 	
@@ -827,7 +844,7 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 		[self overviewCache_delete:yearMonth];
 		
 	} else if (transaction.isNew) {
-		
+
 		[self overviewCache_insert:yearMonth];
 		
 	} else {

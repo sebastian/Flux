@@ -9,6 +9,7 @@
 #import "EditDateController.h"
 #import "Utilities.h"
 #import "Transaction.h"
+#import "KleioCustomStyles.h"
 
 @interface DateLabel : TTView {
 	NSString * _dateText;
@@ -33,6 +34,7 @@
 
 - (id) initWithFrame:(CGRect)frame {
 	if (self = [super initWithFrame:frame]) {
+		[TTStyleSheet setGlobalStyleSheet:[[[KleioCustomStyles alloc] init] autorelease]];
 		self.style = TTSTYLEVAR(amountFieldStyle);
 
 		_dateText = nil;
