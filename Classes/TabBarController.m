@@ -13,8 +13,7 @@
 // UIViewController
 
 - (void)viewDidLoad {
-  [self setTabURLs:[NSArray arrayWithObjects:@"kleio://testAddTransaction",
-										//@"kleio://addTransaction",
+  [self setTabURLs:[NSArray arrayWithObjects:@"kleio://addTransaction",
 										@"kleio://listTransactions",
 										nil]];	
 	

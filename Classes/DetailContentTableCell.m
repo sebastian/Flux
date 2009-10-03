@@ -34,7 +34,7 @@
 	
 	maxWidth -= [@"..." sizeWithFont:[[CacheMasterSingleton sharedCacheMaster] detailTableCellFont]].width;
 	
-	NSLog(@"Setuping up the setupWhatWithWidth:%i", maxWidth);
+	TTLOG(@"Setuping up the setupWhatWithWidth:%i", maxWidth);
 	
 	NSMutableString * text = [[[NSMutableString alloc] init] autorelease];
 	

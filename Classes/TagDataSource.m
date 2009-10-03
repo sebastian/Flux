@@ -154,7 +154,6 @@
 
 - (id)init {
 	return [self initWithAutotags:NO];
-//	return [self initWithAutotags:YES];
 }
 
 

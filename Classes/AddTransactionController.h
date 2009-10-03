@@ -19,7 +19,7 @@
 #import "CurrencySelectionDialog.h"
 #import "AmountEditor.h"
 
-@interface AmountController : TTViewController 
+@interface AddTransactionController : TTViewController 
 <TagSelectorDelegate, 
  KleioCoreLocationDelegate, 
  MKReverseGeocoderDelegate> {
@@ -37,6 +37,7 @@
 	CLLocation * _bestLocation;
 	NSString * _localCurrency;
 	
+	BOOL foundLocationTags;
 }
 @property (nonatomic, retain) NSManagedObjectContext * managedObjectContext;
 @property (nonatomic, retain) CLLocation * bestLocation;

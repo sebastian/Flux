@@ -11,18 +11,12 @@
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
-		28216C970DB411BC00E5133A /* ExpenseInputViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28216C960DB411BC00E5133A /* ExpenseInputViewController.m */; };
 		288765080DF74369002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765070DF74369002DB57D /* CoreGraphics.framework */; };
 		960080F5100A98E900740DCB /* TODO.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 960080F4100A98E900740DCB /* TODO.rtf */; };
 		960C07FE1021AFF300B9C2A3 /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 960C07FD1021AFF300B9C2A3 /* Utilities.m */; };
 		9610852F1063BE45009F0A22 /* Three20.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 96BE983E10501BE300507F49 /* Three20.bundle */; };
 		961085321063BE5D009F0A22 /* libThree20.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 96BE983D10501BD400507F49 /* libThree20.a */; };
 		961E4D25104D41BB0081ADE7 /* CacheManagerFilteringTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 961E4D24104D41BB0081ADE7 /* CacheManagerFilteringTest.m */; };
-		9623071310347864003ED654 /* KleioSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 9623070F10347864003ED654 /* KleioSearchBar.m */; };
-		9623071410347864003ED654 /* KleioSearchBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9623071010347864003ED654 /* KleioSearchBar.xib */; };
-		9623071510347864003ED654 /* BubbleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9623071210347864003ED654 /* BubbleView.m */; };
-		9623071810347903003ED654 /* SearchBarTerm.m in Sources */ = {isa = PBXBuildFile; fileRef = 9623071710347903003ED654 /* SearchBarTerm.m */; };
-		9623074310347D7F003ED654 /* SearchBarWord.m in Sources */ = {isa = PBXBuildFile; fileRef = 9623074210347D7F003ED654 /* SearchBarWord.m */; };
 		9628FD9F1077778100990F1D /* Zoom.png in Resources */ = {isa = PBXBuildFile; fileRef = 9628FD7A1077778100990F1D /* Zoom.png */; };
 		9628FDA01077778100990F1D /* OverviewCellBunn.png in Resources */ = {isa = PBXBuildFile; fileRef = 9628FD7B1077778100990F1D /* OverviewCellBunn.png */; };
 		9628FDA11077778100990F1D /* OverviewBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 9628FD7C1077778100990F1D /* OverviewBackground.png */; };
@@ -101,13 +95,10 @@
 		9628FE561077850200990F1D /* KeyboardButtonDeletePassive.png in Resources */ = {isa = PBXBuildFile; fileRef = 9628FE541077850200990F1D /* KeyboardButtonDeletePassive.png */; };
 		9628FE571077850200990F1D /* KeyboardButtonDeleteActive.png in Resources */ = {isa = PBXBuildFile; fileRef = 9628FE531077850200990F1D /* KeyboardButtonDeleteActive.png */; };
 		9628FE581077850200990F1D /* KeyboardButtonDeletePassive.png in Resources */ = {isa = PBXBuildFile; fileRef = 9628FE541077850200990F1D /* KeyboardButtonDeletePassive.png */; };
-		963B020E10185D8C00CD5184 /* ConfirmationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 963B020D10185D8C00CD5184 /* ConfirmationView.m */; };
 		963B021810185DAA00CD5184 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 963B021710185DAA00CD5184 /* QuartzCore.framework */; };
-		963B029A1019E10900CD5184 /* TransactionsNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 963B02991019E10900CD5184 /* TransactionsNavigationController.m */; };
 		963B02BD1019E8D600CD5184 /* DetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 963B02BC1019E8D600CD5184 /* DetailTableViewController.m */; };
 		963B03C81019EF8E00CD5184 /* TransactionTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 963B03C71019EF8E00CD5184 /* TransactionTableViewController.m */; };
 		963BFE88101DCB9000C187E0 /* MapAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 963BFE87101DCB9000C187E0 /* MapAnnotation.m */; };
-		96419CBE101C77530066D6D8 /* TransactionDisplay.m in Sources */ = {isa = PBXBuildFile; fileRef = 96419CBC101C77530066D6D8 /* TransactionDisplay.m */; };
 		96419CBF101C77530066D6D8 /* TransactionDisplay.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96419CBD101C77530066D6D8 /* TransactionDisplay.xib */; };
 		96419D1F101C7E9B0066D6D8 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96419D1E101C7E9B0066D6D8 /* MapKit.framework */; };
 		96426E75104DF133002C218D /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 96426E74104DF133002C218D /* Settings.bundle */; };
@@ -121,19 +112,15 @@
 		965F5DC410594D1600426DF9 /* KleioCustomStyles.m in Sources */ = {isa = PBXBuildFile; fileRef = 965F5DC310594D1600426DF9 /* KleioCustomStyles.m */; };
 		965F5DC510594D1600426DF9 /* KleioCustomStyles.m in Sources */ = {isa = PBXBuildFile; fileRef = 965F5DC310594D1600426DF9 /* KleioCustomStyles.m */; };
 		9664C9C11045603600BE55DD /* CacheMasterDetailTableTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9664C9C01045603600BE55DD /* CacheMasterDetailTableTest.m */; };
-		96676F3C1022F323000C6FF5 /* ControlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96676F3A1022F323000C6FF5 /* ControlViewController.m */; };
-		96676F3D1022F323000C6FF5 /* ControlViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96676F3B1022F323000C6FF5 /* ControlViewController.xib */; };
 		966C2C1C103ECA3900725372 /* ABTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 966C2C1B103ECA3900725372 /* ABTableViewCell.m */; };
 		966C2C68103ECFFF00725372 /* CacheMasterSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 966C2C67103ECFFF00725372 /* CacheMasterSingleton.m */; };
 		967C9E1710678D5400B9F6A2 /* TransactionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 967C9E1610678D5400B9F6A2 /* TransactionViewController.m */; };
 		967C9E1810678D5400B9F6A2 /* TransactionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 967C9E1610678D5400B9F6A2 /* TransactionViewController.m */; };
-		96903C7A1038AA7E009D5D49 /* TagSuggesterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96903C791038AA7E009D5D49 /* TagSuggesterViewController.m */; };
 		96953E3B1073B23300C9EFBE /* EditAmountController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96953E3A1073B23300C9EFBE /* EditAmountController.m */; };
 		96953E3C1073B23300C9EFBE /* EditAmountController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96953E3A1073B23300C9EFBE /* EditAmountController.m */; };
 		96953F071074E55900C9EFBE /* EditDateController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96953F061074E55900C9EFBE /* EditDateController.m */; };
 		96953F081074E55900C9EFBE /* EditDateController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96953F061074E55900C9EFBE /* EditDateController.m */; };
 		96A98D241025BE8700FFA6D0 /* Transactions.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96A98D231025BE8700FFA6D0 /* Transactions.xib */; };
-		96A98E591025D45100FFA6D0 /* TransactionsMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96A98E571025D45100FFA6D0 /* TransactionsMainViewController.m */; };
 		96A98E5A1025D45100FFA6D0 /* TransactionFilterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96A98E581025D45100FFA6D0 /* TransactionFilterViewController.xib */; };
 		96AA7090100656E600206A37 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96AA708F100656E600206A37 /* CoreData.framework */; };
 		96AA70EE10065AB200206A37 /* Finance.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 96AA70ED10065AB200206A37 /* Finance.xcdatamodel */; };
@@ -142,8 +129,8 @@
 		96BBA70210550D7000F5D537 /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96BBA70010550D7000F5D537 /* TabBarController.m */; };
 		96BD3E6C101744DB00926A83 /* CurrencyKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 96BD3E6A101744DB00926A83 /* CurrencyKeyboard.m */; };
 		96BD3E6D101744DB00926A83 /* CurrencyKeyboard.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96BD3E6B101744DB00926A83 /* CurrencyKeyboard.xib */; };
-		96BE96F71050139500507F49 /* AmountController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96BE96F51050139500507F49 /* AmountController.m */; };
-		96BE96F91050139500507F49 /* AmountController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96BE96F51050139500507F49 /* AmountController.m */; };
+		96BE96F71050139500507F49 /* AddTransactionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96BE96F51050139500507F49 /* AddTransactionController.m */; };
+		96BE96F91050139500507F49 /* AddTransactionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96BE96F51050139500507F49 /* AddTransactionController.m */; };
 		96BE983F10501BE300507F49 /* Three20.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 96BE983E10501BE300507F49 /* Three20.bundle */; };
 		96BE988D10501D8900507F49 /* libThree20.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 96BE983D10501BD400507F49 /* libThree20.a */; };
 		96C508FF105175F1009CE76E /* TagSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = 96C508FE105175F1009CE76E /* TagSelector.m */; };
@@ -157,15 +144,11 @@
 		96D28063101F621000B0A026 /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 96D28062101F621000B0A026 /* Entitlements.plist */; };
 		96D7A94410282D28000FCC42 /* MapFullScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D7A94210282D28000FCC42 /* MapFullScreen.m */; };
 		96D7A94510282D28000FCC42 /* MapFullScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96D7A94310282D28000FCC42 /* MapFullScreen.xib */; };
-		96D7A9A810285949000FCC42 /* EditTransaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D7A9A610285949000FCC42 /* EditTransaction.m */; };
-		96D7A9A910285949000FCC42 /* EditTransaction.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96D7A9A710285949000FCC42 /* EditTransaction.xib */; };
 		96E55D8E1014AD8200E63DB8 /* OverviewTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96E55D8D1014AD8200E63DB8 /* OverviewTableCell.xib */; };
 		96E55D921014AF3800E63DB8 /* OverviewTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E55D911014AF3800E63DB8 /* OverviewTableCell.m */; };
-		96F1579510384B4A00ECBF03 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 96F1579310384B4A00ECBF03 /* Localizable.strings */; };
 		96F65EF110417BB200845F0E /* TransactionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 96F65EF010417BB200845F0E /* TransactionTests.m */; };
 		96F65EF610417C5500845F0E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		96F65EF710417C5500845F0E /* FinanceAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* FinanceAppDelegate.m */; };
-		96F65EF810417C5500845F0E /* ExpenseInputViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28216C960DB411BC00E5133A /* ExpenseInputViewController.m */; };
 		96F65EF910417C5500845F0E /* Finance.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 96AA70ED10065AB200206A37 /* Finance.xcdatamodel */; };
 		96F65EFA10417C5500845F0E /* Transaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 96AA710B1006616700206A37 /* Transaction.m */; };
 		96F65EFB10417C5500845F0E /* OverviewTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96F84039100A5A08008862CC /* OverviewTableViewController.m */; };
@@ -173,25 +156,16 @@
 		96F65EFD10417C5500845F0E /* DetailHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96FFFA7B1015ED4600A53779 /* DetailHeaderView.m */; };
 		96F65EFE10417C5500845F0E /* DetailContentTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 96FFFA8D1015EDC600A53779 /* DetailContentTableCell.m */; };
 		96F65EFF10417C5500845F0E /* CurrencyKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 96BD3E6A101744DB00926A83 /* CurrencyKeyboard.m */; };
-		96F65F0010417C5500845F0E /* ConfirmationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 963B020D10185D8C00CD5184 /* ConfirmationView.m */; };
 		96F65F0210417C5500845F0E /* DetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 963B02BC1019E8D600CD5184 /* DetailTableViewController.m */; };
 		96F65F0310417C5500845F0E /* TransactionTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 963B03C71019EF8E00CD5184 /* TransactionTableViewController.m */; };
-		96F65F0510417C5500845F0E /* TransactionDisplay.m in Sources */ = {isa = PBXBuildFile; fileRef = 96419CBC101C77530066D6D8 /* TransactionDisplay.m */; };
 		96F65F0610417C5500845F0E /* LocationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 964F1E6F101CDB75004EA5C3 /* LocationController.m */; };
 		96F65F0710417C5500845F0E /* MapAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 963BFE87101DCB9000C187E0 /* MapAnnotation.m */; };
 		96F65F0810417C5500845F0E /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 960C07FD1021AFF300B9C2A3 /* Utilities.m */; };
-		96F65F0910417C5500845F0E /* ControlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96676F3A1022F323000C6FF5 /* ControlViewController.m */; };
 		96F65F0A10417C5500845F0E /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 96FAE6DA1024C2970060384F /* Location.m */; };
 		96F65F0B10417C5500845F0E /* Tag.m in Sources */ = {isa = PBXBuildFile; fileRef = 96FAE6DF1024C30A0060384F /* Tag.m */; };
 		96F65F0D10417C5500845F0E /* MapFullScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D7A94210282D28000FCC42 /* MapFullScreen.m */; };
-		96F65F0E10417C5500845F0E /* EditTransaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D7A9A610285949000FCC42 /* EditTransaction.m */; };
 		96F65F0F10417C5500845F0E /* CurrencyManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9657530210303B9100F93557 /* CurrencyManager.m */; };
 		96F65F1110417C5500845F0E /* CurrencySelectionDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 9657534410303FCB00F93557 /* CurrencySelectionDialog.m */; };
-		96F65F1210417C5500845F0E /* KleioSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 9623070F10347864003ED654 /* KleioSearchBar.m */; };
-		96F65F1310417C5500845F0E /* BubbleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9623071210347864003ED654 /* BubbleView.m */; };
-		96F65F1410417C5500845F0E /* SearchBarTerm.m in Sources */ = {isa = PBXBuildFile; fileRef = 9623071710347903003ED654 /* SearchBarTerm.m */; };
-		96F65F1510417C5500845F0E /* SearchBarWord.m in Sources */ = {isa = PBXBuildFile; fileRef = 9623074210347D7F003ED654 /* SearchBarWord.m */; };
-		96F65F1610417C5500845F0E /* TagSuggesterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96903C791038AA7E009D5D49 /* TagSuggesterViewController.m */; };
 		96F65F1710417C5500845F0E /* ABTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 966C2C1B103ECA3900725372 /* ABTableViewCell.m */; };
 		96F65F1810417C5500845F0E /* CacheMasterSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 966C2C67103ECFFF00725372 /* CacheMasterSingleton.m */; };
 		96F6600710417D1600845F0E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
@@ -210,8 +184,6 @@
 		96FAE6E01024C30A0060384F /* Tag.m in Sources */ = {isa = PBXBuildFile; fileRef = 96FAE6DF1024C30A0060384F /* Tag.m */; };
 		96FBC2921071206100102CE2 /* AmountEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 96FBC2911071206100102CE2 /* AmountEditor.m */; };
 		96FBC2931071206100102CE2 /* AmountEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 96FBC2911071206100102CE2 /* AmountEditor.m */; };
-		96FFEAB7103879650086BF66 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 96FFEAB6103879650086BF66 /* Localizable.strings */; };
-		96FFEADC10387FBC0086BF66 /* TagSuggesterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96FFEADA10387FBC0086BF66 /* TagSuggesterViewController.xib */; };
 		96FFFA7C1015ED4600A53779 /* DetailHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96FFFA7B1015ED4600A53779 /* DetailHeaderView.m */; };
 		96FFFA8E1015EDC600A53779 /* DetailContentTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 96FFFA8D1015EDC600A53779 /* DetailContentTableCell.m */; };
 		96FFFAE01015F8E200A53779 /* DetailHeaderAndFooter.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96FFFADF1015F8E200A53779 /* DetailHeaderAndFooter.xib */; };
@@ -260,8 +232,6 @@
 		1D3623250D0F684500981E51 /* FinanceAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FinanceAppDelegate.m; sourceTree = "<group>"; };
 		1D6058910D05DD3D006BFB54 /* Finance.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Finance.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		28216C950DB411BC00E5133A /* ExpenseInputViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpenseInputViewController.h; sourceTree = "<group>"; };
-		28216C960DB411BC00E5133A /* ExpenseInputViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpenseInputViewController.m; sourceTree = "<group>"; };
 		288765070DF74369002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		28A0AB4B0D9B1048005BE974 /* Finance_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Finance_Prefix.pch; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -271,15 +241,6 @@
 		960C07FD1021AFF300B9C2A3 /* Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utilities.m; sourceTree = "<group>"; };
 		961E4D24104D41BB0081ADE7 /* CacheManagerFilteringTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacheManagerFilteringTest.m; sourceTree = "<group>"; };
 		96221BAE10442FB0003B2D47 /* Finance-Info copy 3.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Finance-Info copy 3.plist"; sourceTree = "<group>"; };
-		9623070E10347864003ED654 /* KleioSearchBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KleioSearchBar.h; sourceTree = "<group>"; };
-		9623070F10347864003ED654 /* KleioSearchBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KleioSearchBar.m; sourceTree = "<group>"; };
-		9623071010347864003ED654 /* KleioSearchBar.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = KleioSearchBar.xib; sourceTree = "<group>"; };
-		9623071110347864003ED654 /* BubbleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BubbleView.h; sourceTree = "<group>"; };
-		9623071210347864003ED654 /* BubbleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BubbleView.m; sourceTree = "<group>"; };
-		9623071610347903003ED654 /* SearchBarTerm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchBarTerm.h; sourceTree = "<group>"; };
-		9623071710347903003ED654 /* SearchBarTerm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchBarTerm.m; sourceTree = "<group>"; };
-		9623074110347D7F003ED654 /* SearchBarWord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchBarWord.h; sourceTree = "<group>"; };
-		9623074210347D7F003ED654 /* SearchBarWord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchBarWord.m; sourceTree = "<group>"; };
 		9628FD7A1077778100990F1D /* Zoom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Zoom.png; path = Graphics/Zoom.png; sourceTree = "<group>"; };
 		9628FD7B1077778100990F1D /* OverviewCellBunn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = OverviewCellBunn.png; path = Graphics/OverviewCellBunn.png; sourceTree = "<group>"; };
 		9628FD7C1077778100990F1D /* OverviewBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = OverviewBackground.png; path = Graphics/OverviewBackground.png; sourceTree = "<group>"; };
@@ -320,19 +281,13 @@
 		9628FE3810777ED900990F1D /* NewCurrencyKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewCurrencyKeyboard.m; sourceTree = "<group>"; };
 		9628FE531077850200990F1D /* KeyboardButtonDeleteActive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = KeyboardButtonDeleteActive.png; sourceTree = "<group>"; };
 		9628FE541077850200990F1D /* KeyboardButtonDeletePassive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = KeyboardButtonDeletePassive.png; sourceTree = "<group>"; };
-		963B020C10185D8C00CD5184 /* ConfirmationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfirmationView.h; sourceTree = "<group>"; };
-		963B020D10185D8C00CD5184 /* ConfirmationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfirmationView.m; sourceTree = "<group>"; };
 		963B021710185DAA00CD5184 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		963B02981019E10900CD5184 /* TransactionsNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionsNavigationController.h; sourceTree = "<group>"; };
-		963B02991019E10900CD5184 /* TransactionsNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionsNavigationController.m; sourceTree = "<group>"; };
 		963B02BB1019E8D600CD5184 /* DetailTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailTableViewController.h; sourceTree = "<group>"; };
 		963B02BC1019E8D600CD5184 /* DetailTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailTableViewController.m; sourceTree = "<group>"; };
 		963B03C61019EF8E00CD5184 /* TransactionTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionTableViewController.h; sourceTree = "<group>"; };
 		963B03C71019EF8E00CD5184 /* TransactionTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionTableViewController.m; sourceTree = "<group>"; };
 		963BFE86101DCB9000C187E0 /* MapAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapAnnotation.h; sourceTree = "<group>"; };
 		963BFE87101DCB9000C187E0 /* MapAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapAnnotation.m; sourceTree = "<group>"; };
-		96419CBB101C77530066D6D8 /* TransactionDisplay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionDisplay.h; sourceTree = "<group>"; };
-		96419CBC101C77530066D6D8 /* TransactionDisplay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionDisplay.m; sourceTree = "<group>"; };
 		96419CBD101C77530066D6D8 /* TransactionDisplay.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = TransactionDisplay.xib; path = Classes/TransactionDisplay.xib; sourceTree = "<group>"; };
 		96419D1E101C7E9B0066D6D8 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		96426E74104DF133002C218D /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Settings.bundle; path = Classes/Settings.bundle; sourceTree = "<group>"; };
@@ -348,23 +303,17 @@
 		965F5DC210594D1600426DF9 /* KleioCustomStyles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KleioCustomStyles.h; sourceTree = "<group>"; };
 		965F5DC310594D1600426DF9 /* KleioCustomStyles.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KleioCustomStyles.m; sourceTree = "<group>"; };
 		9664C9C01045603600BE55DD /* CacheMasterDetailTableTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacheMasterDetailTableTest.m; sourceTree = "<group>"; };
-		96676F391022F323000C6FF5 /* ControlViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControlViewController.h; sourceTree = "<group>"; };
-		96676F3A1022F323000C6FF5 /* ControlViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ControlViewController.m; sourceTree = "<group>"; };
-		96676F3B1022F323000C6FF5 /* ControlViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ControlViewController.xib; sourceTree = "<group>"; };
 		966C2C1A103ECA3900725372 /* ABTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABTableViewCell.h; sourceTree = "<group>"; };
 		966C2C1B103ECA3900725372 /* ABTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABTableViewCell.m; sourceTree = "<group>"; };
 		966C2C66103ECFFF00725372 /* CacheMasterSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CacheMasterSingleton.h; sourceTree = "<group>"; };
 		966C2C67103ECFFF00725372 /* CacheMasterSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacheMasterSingleton.m; sourceTree = "<group>"; };
 		967C9E1510678D5400B9F6A2 /* TransactionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionViewController.h; sourceTree = "<group>"; };
 		967C9E1610678D5400B9F6A2 /* TransactionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionViewController.m; sourceTree = "<group>"; };
-		96903C791038AA7E009D5D49 /* TagSuggesterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagSuggesterViewController.m; sourceTree = "<group>"; };
 		96953E391073B23300C9EFBE /* EditAmountController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditAmountController.h; sourceTree = "<group>"; };
 		96953E3A1073B23300C9EFBE /* EditAmountController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditAmountController.m; sourceTree = "<group>"; };
 		96953F051074E55900C9EFBE /* EditDateController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditDateController.h; sourceTree = "<group>"; };
 		96953F061074E55900C9EFBE /* EditDateController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditDateController.m; sourceTree = "<group>"; };
 		96A98D231025BE8700FFA6D0 /* Transactions.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Transactions.xib; sourceTree = "<group>"; };
-		96A98E561025D45100FFA6D0 /* TransactionsMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionsMainViewController.h; sourceTree = "<group>"; };
-		96A98E571025D45100FFA6D0 /* TransactionsMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionsMainViewController.m; sourceTree = "<group>"; };
 		96A98E581025D45100FFA6D0 /* TransactionFilterViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = TransactionFilterViewController.xib; path = Classes/TransactionFilterViewController.xib; sourceTree = "<group>"; };
 		96AA708F100656E600206A37 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		96AA70ED10065AB200206A37 /* Finance.xcdatamodel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.xcdatamodel; path = Finance.xcdatamodel; sourceTree = "<group>"; };
@@ -375,8 +324,8 @@
 		96BD3E69101744DB00926A83 /* CurrencyKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrencyKeyboard.h; sourceTree = "<group>"; };
 		96BD3E6A101744DB00926A83 /* CurrencyKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrencyKeyboard.m; sourceTree = "<group>"; };
 		96BD3E6B101744DB00926A83 /* CurrencyKeyboard.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CurrencyKeyboard.xib; sourceTree = "<group>"; };
-		96BE96F41050139500507F49 /* AmountController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AmountController.h; sourceTree = "<group>"; };
-		96BE96F51050139500507F49 /* AmountController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AmountController.m; sourceTree = "<group>"; };
+		96BE96F41050139500507F49 /* AddTransactionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddTransactionController.h; sourceTree = "<group>"; };
+		96BE96F51050139500507F49 /* AddTransactionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddTransactionController.m; sourceTree = "<group>"; };
 		96BE983810501BD400507F49 /* Three20.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Three20.xcodeproj; path = ../../../Resurser/iPhone/three20/src/Three20.xcodeproj; sourceTree = SOURCE_ROOT; };
 		96BE983E10501BE300507F49 /* Three20.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Three20.bundle; path = ../../../Resurser/iPhone/three20/src/Three20.bundle; sourceTree = SOURCE_ROOT; };
 		96C508FD105175F1009CE76E /* TagSelector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagSelector.h; sourceTree = "<group>"; };
@@ -392,15 +341,9 @@
 		96D7A94110282D28000FCC42 /* MapFullScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapFullScreen.h; sourceTree = "<group>"; };
 		96D7A94210282D28000FCC42 /* MapFullScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapFullScreen.m; sourceTree = "<group>"; };
 		96D7A94310282D28000FCC42 /* MapFullScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MapFullScreen.xib; sourceTree = "<group>"; };
-		96D7A9A510285949000FCC42 /* EditTransaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditTransaction.h; sourceTree = "<group>"; };
-		96D7A9A610285949000FCC42 /* EditTransaction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditTransaction.m; sourceTree = "<group>"; };
-		96D7A9A710285949000FCC42 /* EditTransaction.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditTransaction.xib; sourceTree = "<group>"; };
 		96E55D8D1014AD8200E63DB8 /* OverviewTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OverviewTableCell.xib; sourceTree = "<group>"; };
 		96E55D901014AF3800E63DB8 /* OverviewTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OverviewTableCell.h; sourceTree = "<group>"; };
 		96E55D911014AF3800E63DB8 /* OverviewTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OverviewTableCell.m; sourceTree = "<group>"; };
-		96F1579410384B4A00ECBF03 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		96F1579710384E3D00ECBF03 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
-		96F1579810384E4700ECBF03 /* no */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = no; path = no.lproj/Localizable.strings; sourceTree = "<group>"; };
 		96F649CA104164D900845F0E /* UnitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "UnitTests-Info.plist"; sourceTree = "<group>"; };
 		96F64A831041668B00845F0E /* Finance-Info copy.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Finance-Info copy.plist"; sourceTree = "<group>"; };
 		96F65CF71041735400845F0E /* ert-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ert-Info.plist"; sourceTree = "<group>"; };
@@ -419,9 +362,6 @@
 		96FAE6DF1024C30A0060384F /* Tag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Tag.m; path = ../Tag.m; sourceTree = "<group>"; };
 		96FBC2901071206100102CE2 /* AmountEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AmountEditor.h; sourceTree = "<group>"; };
 		96FBC2911071206100102CE2 /* AmountEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AmountEditor.m; sourceTree = "<group>"; };
-		96FFEAB6103879650086BF66 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
-		96FFEAD810387FBC0086BF66 /* TagSuggesterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagSuggesterViewController.h; sourceTree = "<group>"; };
-		96FFEADA10387FBC0086BF66 /* TagSuggesterViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TagSuggesterViewController.xib; sourceTree = "<group>"; };
 		96FFFA7A1015ED4600A53779 /* DetailHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailHeaderView.h; sourceTree = "<group>"; };
 		96FFFA7B1015ED4600A53779 /* DetailHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailHeaderView.m; sourceTree = "<group>"; };
 		96FFFA8C1015EDC600A53779 /* DetailContentTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailContentTableCell.h; sourceTree = "<group>"; };
@@ -520,8 +460,6 @@
 				9628FD791077777000990F1D /* Graphics */,
 				96BE983E10501BE300507F49 /* Three20.bundle */,
 				96426E74104DF133002C218D /* Settings.bundle */,
-				96FFEAB6103879650086BF66 /* Localizable.strings */,
-				96F1579310384B4A00ECBF03 /* Localizable.strings */,
 				96885BB51004ED9E003090D8 /* NIBs */,
 				8D1107310486CEB800E47090 /* Finance-Info.plist */,
 				96AA70ED10065AB200206A37 /* Finance.xcdatamodel */,
@@ -570,22 +508,6 @@
 				96FBC2911071206100102CE2 /* AmountEditor.m */,
 			);
 			name = Div;
-			sourceTree = "<group>";
-		};
-		9623070D10347864003ED654 /* SearchBar */ = {
-			isa = PBXGroup;
-			children = (
-				9623070E10347864003ED654 /* KleioSearchBar.h */,
-				9623070F10347864003ED654 /* KleioSearchBar.m */,
-				9623071010347864003ED654 /* KleioSearchBar.xib */,
-				9623071110347864003ED654 /* BubbleView.h */,
-				9623071210347864003ED654 /* BubbleView.m */,
-				9623071610347903003ED654 /* SearchBarTerm.h */,
-				9623071710347903003ED654 /* SearchBarTerm.m */,
-				9623074110347D7F003ED654 /* SearchBarWord.h */,
-				9623074210347D7F003ED654 /* SearchBarWord.m */,
-			);
-			name = SearchBar;
 			sourceTree = "<group>";
 		};
 		9628FD791077777000990F1D /* Graphics */ = {
@@ -654,14 +576,9 @@
 		963B020A10185D6E00CD5184 /* Add Expenses */ = {
 			isa = PBXGroup;
 			children = (
-				96BE96F01050136500507F49 /* NewAdder */,
-				96FFEAD710387FA00086BF66 /* Suggestive tags */,
-				96676F381022F311000C6FF5 /* ControlViev */,
+				96BE96F41050139500507F49 /* AddTransactionController.h */,
+				96BE96F51050139500507F49 /* AddTransactionController.m */,
 				96BD3E67101744C600926A83 /* Keyboard */,
-				963B020C10185D8C00CD5184 /* ConfirmationView.h */,
-				963B020D10185D8C00CD5184 /* ConfirmationView.m */,
-				28216C950DB411BC00E5133A /* ExpenseInputViewController.h */,
-				28216C960DB411BC00E5133A /* ExpenseInputViewController.m */,
 			);
 			name = "Add Expenses";
 			sourceTree = "<group>";
@@ -693,8 +610,6 @@
 		96419CC0101C775A0066D6D8 /* TransactionDetail */ = {
 			isa = PBXGroup;
 			children = (
-				96419CBB101C77530066D6D8 /* TransactionDisplay.h */,
-				96419CBC101C77530066D6D8 /* TransactionDisplay.m */,
 				963BFE86101DCB9000C187E0 /* MapAnnotation.h */,
 				963BFE87101DCB9000C187E0 /* MapAnnotation.m */,
 				96D7A94110282D28000FCC42 /* MapFullScreen.h */,
@@ -719,33 +634,12 @@
 			name = CoreLocation;
 			sourceTree = "<group>";
 		};
-		965752CC1030352600F93557 /* Edit transaction */ = {
-			isa = PBXGroup;
-			children = (
-				96D7A9A510285949000FCC42 /* EditTransaction.h */,
-				96D7A9A610285949000FCC42 /* EditTransaction.m */,
-				96D7A9A710285949000FCC42 /* EditTransaction.xib */,
-			);
-			name = "Edit transaction";
-			sourceTree = "<group>";
-		};
 		966200A21026E15600B670D6 /* Tags */ = {
 			isa = PBXGroup;
 			children = (
 				96C508FC105175D8009CE76E /* TagSelector */,
-				9623070D10347864003ED654 /* SearchBar */,
 			);
 			name = Tags;
-			sourceTree = "<group>";
-		};
-		96676F381022F311000C6FF5 /* ControlViev */ = {
-			isa = PBXGroup;
-			children = (
-				96676F391022F323000C6FF5 /* ControlViewController.h */,
-				96676F3A1022F323000C6FF5 /* ControlViewController.m */,
-				96676F3B1022F323000C6FF5 /* ControlViewController.xib */,
-			);
-			name = ControlViev;
 			sourceTree = "<group>";
 		};
 		966C2CF3103EE0D700725372 /* CacheMaster */ = {
@@ -780,15 +674,6 @@
 				9628FE3810777ED900990F1D /* NewCurrencyKeyboard.m */,
 			);
 			name = Keyboard;
-			sourceTree = "<group>";
-		};
-		96BE96F01050136500507F49 /* NewAdder */ = {
-			isa = PBXGroup;
-			children = (
-				96BE96F41050139500507F49 /* AmountController.h */,
-				96BE96F51050139500507F49 /* AmountController.m */,
-			);
-			name = NewAdder;
 			sourceTree = "<group>";
 		};
 		96BE983910501BD400507F49 /* Products */ = {
@@ -856,29 +741,14 @@
 			name = Models;
 			sourceTree = "<group>";
 		};
-		96FFEAD710387FA00086BF66 /* Suggestive tags */ = {
-			isa = PBXGroup;
-			children = (
-				96FFEAD810387FBC0086BF66 /* TagSuggesterViewController.h */,
-				96903C791038AA7E009D5D49 /* TagSuggesterViewController.m */,
-				96FFEADA10387FBC0086BF66 /* TagSuggesterViewController.xib */,
-			);
-			name = "Suggestive tags";
-			sourceTree = "<group>";
-		};
 		96FFFA771015ED0300A53779 /* Transactions tab */ = {
 			isa = PBXGroup;
 			children = (
-				965752CC1030352600F93557 /* Edit transaction */,
 				96419CBA101C770B0066D6D8 /* DetailTable */,
 				96419CB9101C76FE0066D6D8 /* OverviewTable */,
 				963B03C61019EF8E00CD5184 /* TransactionTableViewController.h */,
 				963B03C71019EF8E00CD5184 /* TransactionTableViewController.m */,
 				96419CC0101C775A0066D6D8 /* TransactionDetail */,
-				963B02981019E10900CD5184 /* TransactionsNavigationController.h */,
-				963B02991019E10900CD5184 /* TransactionsNavigationController.m */,
-				96A98E561025D45100FFA6D0 /* TransactionsMainViewController.h */,
-				96A98E571025D45100FFA6D0 /* TransactionsMainViewController.m */,
 			);
 			name = "Transactions tab";
 			sourceTree = "<group>";
@@ -989,15 +859,9 @@
 				96BD3E6D101744DB00926A83 /* CurrencyKeyboard.xib in Resources */,
 				96419CBF101C77530066D6D8 /* TransactionDisplay.xib in Resources */,
 				96D28063101F621000B0A026 /* Entitlements.plist in Resources */,
-				96676F3D1022F323000C6FF5 /* ControlViewController.xib in Resources */,
 				96A98D241025BE8700FFA6D0 /* Transactions.xib in Resources */,
 				96A98E5A1025D45100FFA6D0 /* TransactionFilterViewController.xib in Resources */,
 				96D7A94510282D28000FCC42 /* MapFullScreen.xib in Resources */,
-				96D7A9A910285949000FCC42 /* EditTransaction.xib in Resources */,
-				9623071410347864003ED654 /* KleioSearchBar.xib in Resources */,
-				96F1579510384B4A00ECBF03 /* Localizable.strings in Resources */,
-				96FFEAB7103879650086BF66 /* Localizable.strings in Resources */,
-				96FFEADC10387FBC0086BF66 /* TagSuggesterViewController.xib in Resources */,
 				96426E76104DF133002C218D /* Settings.bundle in Resources */,
 				96BE983F10501BE300507F49 /* Three20.bundle in Resources */,
 				9628FD9F1077778100990F1D /* Zoom.png in Resources */,
@@ -1113,7 +977,6 @@
 			files = (
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				1D3623260D0F684500981E51 /* FinanceAppDelegate.m in Sources */,
-				28216C970DB411BC00E5133A /* ExpenseInputViewController.m in Sources */,
 				96AA70EE10065AB200206A37 /* Finance.xcdatamodel in Sources */,
 				96AA710C1006616700206A37 /* Transaction.m in Sources */,
 				96F8403A100A5A08008862CC /* OverviewTableViewController.m in Sources */,
@@ -1121,30 +984,19 @@
 				96FFFA7C1015ED4600A53779 /* DetailHeaderView.m in Sources */,
 				96FFFA8E1015EDC600A53779 /* DetailContentTableCell.m in Sources */,
 				96BD3E6C101744DB00926A83 /* CurrencyKeyboard.m in Sources */,
-				963B020E10185D8C00CD5184 /* ConfirmationView.m in Sources */,
-				963B029A1019E10900CD5184 /* TransactionsNavigationController.m in Sources */,
 				963B02BD1019E8D600CD5184 /* DetailTableViewController.m in Sources */,
 				963B03C81019EF8E00CD5184 /* TransactionTableViewController.m in Sources */,
-				96419CBE101C77530066D6D8 /* TransactionDisplay.m in Sources */,
 				964F1E70101CDB75004EA5C3 /* LocationController.m in Sources */,
 				963BFE88101DCB9000C187E0 /* MapAnnotation.m in Sources */,
 				960C07FE1021AFF300B9C2A3 /* Utilities.m in Sources */,
-				96676F3C1022F323000C6FF5 /* ControlViewController.m in Sources */,
 				96FAE6DC1024C2970060384F /* Location.m in Sources */,
 				96FAE6E01024C30A0060384F /* Tag.m in Sources */,
-				96A98E591025D45100FFA6D0 /* TransactionsMainViewController.m in Sources */,
 				96D7A94410282D28000FCC42 /* MapFullScreen.m in Sources */,
-				96D7A9A810285949000FCC42 /* EditTransaction.m in Sources */,
 				9657530310303B9100F93557 /* CurrencyManager.m in Sources */,
 				9657534510303FCB00F93557 /* CurrencySelectionDialog.m in Sources */,
-				9623071310347864003ED654 /* KleioSearchBar.m in Sources */,
-				9623071510347864003ED654 /* BubbleView.m in Sources */,
-				9623071810347903003ED654 /* SearchBarTerm.m in Sources */,
-				9623074310347D7F003ED654 /* SearchBarWord.m in Sources */,
-				96903C7A1038AA7E009D5D49 /* TagSuggesterViewController.m in Sources */,
 				966C2C1C103ECA3900725372 /* ABTableViewCell.m in Sources */,
 				966C2C68103ECFFF00725372 /* CacheMasterSingleton.m in Sources */,
-				96BE96F91050139500507F49 /* AmountController.m in Sources */,
+				96BE96F91050139500507F49 /* AddTransactionController.m in Sources */,
 				96C50900105175F1009CE76E /* TagSelector.m in Sources */,
 				96C5093F10517BA3009CE76E /* TagDataSource.m in Sources */,
 				96C50B8D1052C9EF009CE76E /* KleioPickerTextField.m in Sources */,
@@ -1165,7 +1017,6 @@
 			files = (
 				96F65EF610417C5500845F0E /* main.m in Sources */,
 				96F65EF710417C5500845F0E /* FinanceAppDelegate.m in Sources */,
-				96F65EF810417C5500845F0E /* ExpenseInputViewController.m in Sources */,
 				96F65EF910417C5500845F0E /* Finance.xcdatamodel in Sources */,
 				96F65EFA10417C5500845F0E /* Transaction.m in Sources */,
 				96F65EFB10417C5500845F0E /* OverviewTableViewController.m in Sources */,
@@ -1173,25 +1024,16 @@
 				96F65EFD10417C5500845F0E /* DetailHeaderView.m in Sources */,
 				96F65EFE10417C5500845F0E /* DetailContentTableCell.m in Sources */,
 				96F65EFF10417C5500845F0E /* CurrencyKeyboard.m in Sources */,
-				96F65F0010417C5500845F0E /* ConfirmationView.m in Sources */,
 				96F65F0210417C5500845F0E /* DetailTableViewController.m in Sources */,
 				96F65F0310417C5500845F0E /* TransactionTableViewController.m in Sources */,
-				96F65F0510417C5500845F0E /* TransactionDisplay.m in Sources */,
 				96F65F0610417C5500845F0E /* LocationController.m in Sources */,
 				96F65F0710417C5500845F0E /* MapAnnotation.m in Sources */,
 				96F65F0810417C5500845F0E /* Utilities.m in Sources */,
-				96F65F0910417C5500845F0E /* ControlViewController.m in Sources */,
 				96F65F0A10417C5500845F0E /* Location.m in Sources */,
 				96F65F0B10417C5500845F0E /* Tag.m in Sources */,
 				96F65F0D10417C5500845F0E /* MapFullScreen.m in Sources */,
-				96F65F0E10417C5500845F0E /* EditTransaction.m in Sources */,
 				96F65F0F10417C5500845F0E /* CurrencyManager.m in Sources */,
 				96F65F1110417C5500845F0E /* CurrencySelectionDialog.m in Sources */,
-				96F65F1210417C5500845F0E /* KleioSearchBar.m in Sources */,
-				96F65F1310417C5500845F0E /* BubbleView.m in Sources */,
-				96F65F1410417C5500845F0E /* SearchBarTerm.m in Sources */,
-				96F65F1510417C5500845F0E /* SearchBarWord.m in Sources */,
-				96F65F1610417C5500845F0E /* TagSuggesterViewController.m in Sources */,
 				96F65F1710417C5500845F0E /* ABTableViewCell.m in Sources */,
 				96F65F1810417C5500845F0E /* CacheMasterSingleton.m in Sources */,
 				96F65EF110417BB200845F0E /* TransactionTests.m in Sources */,
@@ -1199,7 +1041,7 @@
 				96F663A11041A1BE00845F0E /* TestUtils.m in Sources */,
 				9664C9C11045603600BE55DD /* CacheMasterDetailTableTest.m in Sources */,
 				961E4D25104D41BB0081ADE7 /* CacheManagerFilteringTest.m in Sources */,
-				96BE96F71050139500507F49 /* AmountController.m in Sources */,
+				96BE96F71050139500507F49 /* AddTransactionController.m in Sources */,
 				96C508FF105175F1009CE76E /* TagSelector.m in Sources */,
 				96C5093E10517BA3009CE76E /* TagDataSource.m in Sources */,
 				96C50B8C1052C9EF009CE76E /* KleioPickerTextField.m in Sources */,
@@ -1228,19 +1070,6 @@
 			targetProxy = 96BE985110501C4F00507F49 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		96F1579310384B4A00ECBF03 /* Localizable.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				96F1579410384B4A00ECBF03 /* en */,
-				96F1579710384E3D00ECBF03 /* de */,
-				96F1579810384E4700ECBF03 /* no */,
-			);
-			name = Localizable.strings;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		1D6058940D05DD3E006BFB54 /* Debug */ = {

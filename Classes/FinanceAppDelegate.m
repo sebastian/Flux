@@ -7,12 +7,9 @@
 //
 
 #import "FinanceAppDelegate.h"
-#import "ExpenseInputViewController.h"
-#import "TransactionsNavigationController.h"
 #import "Utilities.h"
-//#import "TransactionsMainViewController.h"
 #import "OverviewTableViewController.h"
-#import "AmountController.h"
+#import "AddTransactionController.h"
 #import "TagSelector.h"
 #import "TabBarController.h"
 
@@ -40,9 +37,8 @@
 	[map from:@"*" toViewController:[TTWebController class]]; // Fall back URL
 	[map from:@"kleio://tagSelector" toModalViewController:[TagSelector class]];
 	[map from:@"kleio://tabBar" toSharedViewController:[TabBarController class]];
-	[map from:@"kleio://addTransaction" toSharedViewController:[ExpenseInputViewController class]];
 	[map from:@"kleio://listTransactions" toSharedViewController:[OverviewTableViewController class]];
-	[map from:@"kleio://testAddTransaction" toSharedViewController:[AmountController class]];
+	[map from:@"kleio://addTransaction" toSharedViewController:[AddTransactionController class]];
 
 	[navigator openURL:@"kleio://tabBar" animated:NO];
 
@@ -57,7 +53,7 @@
 	if (managedObjectContext != nil) {
 		if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
 			// Handle error
-			NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+			TTLOG(@"Unresolved error %@, %@", error, [error userInfo]);
 			exit(-1);  // Fail
 		} 
 	}
@@ -103,8 +99,8 @@
     persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel: [self managedObjectModel]];
     if (![persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeUrl options:nil error:&error]) {
         // Handle error
-		NSLog(@"COULDN'T CREATE A PERSISTANT STORE COORDINATOR! CHAOS");
-		NSLog(@"ERROR: %@", error);
+		TTLOG(@"COULDN'T CREATE A PERSISTANT STORE COORDINATOR! CHAOS");
+		TTLOG(@"ERROR: %@", error);
 	}    
 	
     return persistentStoreCoordinator;

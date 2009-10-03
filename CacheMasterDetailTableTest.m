@@ -46,10 +46,10 @@
 	
 	[[Utilities toolbox] setManagedObjectContext:context];
 	
-	NSLog(@"*********** START OF METHOD ***********");
+	TTLOG(@"*********** START OF METHOD ***********");
 }
 - (void) tearDown {
-	NSLog(@"*********** END OF METHOD ***********");	
+	TTLOG(@"*********** END OF METHOD ***********");	
 	[trs release];
 	[context release];
 	context = nil;

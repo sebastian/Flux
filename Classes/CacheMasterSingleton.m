@@ -183,7 +183,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#define CacheLog(what) NSLog([@"CacheManager (%i): " stringByAppendingString:what], runNum)
+#define CacheLog(what) TTLOG([@"CacheManager (%i): " stringByAppendingString:what], runNum)
 
 @implementation CacheMasterSingleton
 
@@ -430,7 +430,7 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 	
 	if ([self.detailCache_cellCache objectForKey:section] == nil) {
 	
-		NSLog(@"Generating data for row_section %i", _section, section);
+		TTLOG(@"Generating data for row_section %i", _section, section);
 		
 		// General data
 		NSArray * _transactions = [[[self.detailTableDelegate.resultsController sections] objectAtIndex:_section] objects];
@@ -698,7 +698,7 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 	
 	if ([self.overviewCache_cellCache objectForKey:yearMonth] == nil) {
 		
-		NSLog(@"Generating data for yearMonth %@, row %i", yearMonth, row);
+		TTLOG(@"Generating data for yearMonth %@, row %i", yearMonth, row);
 		
 		// Get info to put into cell:
 		if (self.overviewTableDelegate == nil) {return nil;}
@@ -718,14 +718,14 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 			NSArray * _transactionsInSection = [currenctSection objects];
 			NSArray * transactionsInSection = [_transactionsInSection filteredArrayUsingPredicate:self.filteringPredicate];
 			
-			NSLog(@"_transactionsInSection");
+			TTLOG(@"_transactionsInSection");
 			for (Transaction * obj in _transactionsInSection) {
-				NSLog(@"%@", obj);
+				TTLOG(@"%@", obj);
 			}
 
-			NSLog(@"\n\ntransactionsInSection");
+			TTLOG(@"\n\ntransactionsInSection");
 			for (Transaction *  obj in transactionsInSection) {
-				NSLog(@"%@", obj);
+				TTLOG(@"%@", obj);
 			}
 			
 			
@@ -754,11 +754,11 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 			}
 			if (dateFromObject == nil) {
 				// None of the transactions had a date, so we have to fake it...
-				NSLog(@"ERROR: None of the transactions had a date! We had to fake one");
+				TTLOG(@"ERROR: None of the transactions had a date! We had to fake one");
 				dateFromObject = [NSDate date];
 			}
 			if (n!=0) {
-				NSLog(@"Had to try %i times to get a date...",n);
+				TTLOG(@"Had to try %i times to get a date...",n);
 			}
 			
 			NSNumber * numAmount = [NSNumber numberWithDouble:amount];
@@ -816,7 +816,7 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 	[[NSFileManager defaultManager] removeItemAtPath:[self overviewCache_cachePath] error:&error];
 	
 	if (error != nil) {
-		NSLog(@"There was an error removing the cache: %@", error);
+		TTLOG(@"There was an error removing the cache: %@", error);
 	}
 }
 - (NSInteger) overviewCache_numberOfRows {

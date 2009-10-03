@@ -30,7 +30,7 @@
 @implementation CacheManagerOverviewTableTests
 
 - (void)setUp {
-	NSLog(@"\n\n*********** SETUP ***********");
+	TTLOG(@"\n\n*********** SETUP ***********");
 	
 	context = [TestUtils managedObjectContext];
 	controller = [[OverviewTableViewController alloc] initWithStyle:UITableViewStylePlain andContext:context];
@@ -49,7 +49,7 @@
 	[controller release];
 	[trs release];
 	
-	NSLog(@"*********** TEAR DOWN *********** \n\n");
+	TTLOG(@"*********** TEAR DOWN *********** \n\n");
 }
 - (Transaction*)getTransaction {
 	Transaction * _trs = [NSEntityDescription

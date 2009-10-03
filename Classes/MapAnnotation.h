@@ -5,8 +5,7 @@
 //  Created by Sebastian Probst Eide on 27.07.09.
 //  Copyright 2009 Kle.io. All rights reserved.
 //
-
-#import <Foundation/Foundation.h>
+#import <Three20/Three20.h>
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
 

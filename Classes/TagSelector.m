@@ -16,7 +16,7 @@
 #import "CacheMasterSingleton.h"
 
 #define LOGRECT(rect) \
-NSLog(@"%s x=%f, y=%f, w=%f, h=%f", #rect, rect.origin.x, rect.origin.y, \
+TTLOG(@"%s x=%f, y=%f, w=%f, h=%f", #rect, rect.origin.x, rect.origin.y, \
 rect.size.width, rect.size.height)
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -394,13 +394,13 @@ rect.size.width, rect.size.height)
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //	TTPickerTextFieldDelegate
 - (void)textField:(TTPickerTextField*)textField didAddCellAtIndex:(NSInteger)index {
-	NSLog(@"didAddCellAtIndex:");
+	TTLOG(@"didAddCellAtIndex:");
 }
 - (void)textField:(TTPickerTextField*)textField didRemoveCellAtIndex:(NSInteger)index {
-	NSLog(@"didRemoveCellAtIndex:");
+	TTLOG(@"didRemoveCellAtIndex:");
 }
 - (void)textFieldDidResize:(TTPickerTextField*)textField {
-	NSLog(@"didResize");
+	TTLOG(@"didResize");
 	[self layout];
 }
 
@@ -408,7 +408,7 @@ rect.size.width, rect.size.height)
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //	TTSearchTextFieldDelegate
 - (void)textField:(TTSearchTextField*)textField didSelectObject:(id)object {
-	NSLog(@"Did selectObject:");
+	TTLOG(@"Did selectObject:");
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -436,13 +436,13 @@ rect.size.width, rect.size.height)
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //	Keyboard action...
 - (void)keyboardDidAppear:(BOOL)animated withBounds:(CGRect)bounds {
-	NSLog(@"Keyboard did appear");
+	TTLOG(@"Keyboard did appear");
 	keybordVisible = YES;
 	[self layout];
 }
 
 - (void)keyboardDidDisappear:(BOOL)animated withBounds:(CGRect)bounds {
-	NSLog(@"Keyboard did dissapear");
+	TTLOG(@"Keyboard did dissapear");
 	keybordVisible = NO;
 	[self layout];
 }

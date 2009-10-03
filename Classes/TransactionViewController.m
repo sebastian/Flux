@@ -241,9 +241,9 @@
 - (void) dealloc {
 	_delegate = nil;
 	
-	NSLog(@"Fresh subviews:");
+	TTLOG(@"Fresh subviews:");
 	for (UIView* subview in self.subviews) {
-		NSLog(@"Subview: %@", subview);
+		TTLOG(@"Subview: %@", subview);
 	}
 	
 	[super dealloc];
@@ -869,7 +869,7 @@
 	// Releases the view if it doesn't have a superview.
   [super didReceiveMemoryWarning];
 	
-	NSLog(@"Did receive memory warning in @%", self);
+	TTLOG(@"Did receive memory warning in @%", self);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

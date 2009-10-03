@@ -7,7 +7,7 @@
 //
 
 #import <Three20/Three20.h>
-#import "AmountController.h"
+#import "AddTransactionController.h"
 #import "TagSelector.h"
 #import "Utilities.h"
 #import "KleioCustomStyles.h"
@@ -15,8 +15,9 @@
 #import "Tag.h"
 #import "CacheMasterSingleton.h"
 
+#define MIN_DISTANCE 200
 
-@implementation AmountController
+@implementation AddTransactionController
 
 @synthesize managedObjectContext = _managedObjectContext, 
 	bestLocation = _bestLocation, localCurrency = _localCurrency;
@@ -79,6 +80,8 @@
 			[self.tabBarItem setImage:[UIImage imageNamed:@"Add.png"]];
 			
 			[TTStyleSheet setGlobalStyleSheet:[[[KleioCustomStyles alloc] init] autorelease]];
+			
+			foundLocationTags = NO;
     }
     return self;
 }
@@ -117,11 +120,13 @@
 
 	[self.view addSubview:_amountEditor.view];
 	
+	self.tabBarItem.title = NSLocalizedString(@"New", nil);
+	
 }
 	
 - (void) viewDidUnload {
 	[super viewDidUnload];
-	NSLog(@"Location manager stopped");
+	TTLOG(@"Location manager stopped");
 	[[LocationController sharedInstance].locationManager stopUpdatingLocation];
 }
 
@@ -198,27 +203,39 @@
 	/*
 	 Only use locations that are less than five minutes old
 	 */
+	NSLog(@"Received new location update: %@", location);
 	if (abs([location.timestamp timeIntervalSinceNow]) > 3 * 60) { return; }
 	
 	if (self.bestLocation == nil) {
 		self.bestLocation = location;
-		
-		// We have to geocode as well!
-		[[Utilities toolbox] reverseGeoCode:location.coordinate forDelegate:self];
-		
-		[self performSelectorInBackground:@selector(findLocationTags) withObject:nil];
-		
+				
 	} else {
 		if (location.timestamp > self.bestLocation.timestamp) {
 			self.bestLocation = location;
-			
-			// And we should do a reverse geocoding as well!
-			
+						
 		}
 	}
+	
+	// And we should do a reverse geocoding as well!
+	if ((foundLocationTags == NO) && (location.horizontalAccuracy < 100.f) && (location.horizontalAccuracy > 0.f)) {
+		
+		NSLog(@"It is good enough for geocoding");
+				
+		foundLocationTags = YES;
+		
+		// We don't need more location updates
+		[[LocationController sharedInstance].locationManager stopUpdatingLocation];
+				
+		// We have to geocode as well!
+		[[Utilities toolbox] reverseGeoCode:location.coordinate forDelegate:self];
+				
+		[self performSelectorInBackground:@selector(findLocationTags) withObject:nil];
+				
+	}
+	
 }
 -(void)locationError:(NSString *)error {
-	NSLog(@"Got location error: %@", error);
+	TTLOG(@"Got location error: %@", error);
 }
 -(void)reverseGeocoder:(MKReverseGeocoder *)geocoder didFindPlacemark:(MKPlacemark *)daPlacemark {
 	/*
@@ -261,7 +278,7 @@
 		}
 		
 	} else {
-		NSLog(@"Couldn't find a currency for %@", countryCode);
+		TTLOG(@"Couldn't find a currency for %@", countryCode);
 	}
 	
 }
@@ -316,7 +333,7 @@
 			distance = [self.bestLocation getDistanceFrom:location.location];
 		}
 		@catch (NSException * e) {
-			NSLog(@"Got strange error when trying to check distance of tag! %@", e);
+			TTLOG(@"Got strange error when trying to check distance of tag! %@", e);
 			distance = 3000; // Some strange error... just set it to something we won't use...
 		}
 		/* If the tag is closer than 50 meters then use it */
@@ -330,12 +347,8 @@
 		}
 		
 	}
-	
-	NSArray * suggestedTags;
-	
+		
 	if ([tagsToSuggest count] > 0) {
-		// save them so we have them for the answer
-		suggestedTags = [tagsToSuggest copy];
 		
 		NSMutableArray * tagNames = [[NSMutableArray alloc] init];
 		for (Tag * tag in tagsToSuggest) {
@@ -359,7 +372,7 @@
 //	MISC
 // FIXME: Before release this should be improved
 - (void)didReceiveMemoryWarning {
-	NSLog(@"didReceiveMemoryWarning: %@", self);
+	TTLOG(@"didReceiveMemoryWarning: %@", self);
 	
 	[[CacheMasterSingleton sharedCacheMaster] clearCache];	
 	

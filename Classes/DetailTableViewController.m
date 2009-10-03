@@ -9,9 +9,7 @@
 #import <CoreData/CoreData.h>
 #import "DetailTableViewController.h"
 #import "Transaction.h"
-#import "TransactionDisplay.h"
 #import "Utilities.h"
-#import "KleioSearchBar.h"
 #import "CurrencyManager.h"
 #import "CacheMasterSingleton.h"
 #import "TransactionViewController.h"
@@ -100,11 +98,11 @@
 		self.title = [NSString stringWithFormat:@"%@ %@", [monthName capitalizedString], year];
 	}
 	@catch (NSException * e) {
-		NSLog(@"Error setting the title of the detail view table view...");
+		TTLOG(@"Error setting the title of the detail view table view...");
 		self.title = NSLocalizedString(@"ERROR", @"Some error...");
 	}
 	
-	self.tabBarItem.title = NSLocalizedString(@"Transactions",@"Tab bar title");	
+	self.tabBarItem.title = NSLocalizedString(@"List", nil);	
 
 	[dateFormatter release];
 		
@@ -170,18 +168,16 @@
 }
 
 // section header view
-- (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+- (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {	
 	return [[CacheMasterSingleton sharedCacheMaster] detailCache_headerViewForSection:section];
 }
 // Footer view
 - (UIView *) tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)_section {
-	
-	return [[CacheMasterSingleton sharedCacheMaster] detailCache_footerViewForSection:_section];
-	
+	return [[CacheMasterSingleton sharedCacheMaster] detailCache_footerViewForSection:_section];	
 }
 
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	
+		
 	// Access the object from the filtered array
 	NSDictionary * data = [[CacheMasterSingleton sharedCacheMaster] detailCache_dataForSection:indexPath.section];
 	

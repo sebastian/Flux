@@ -35,7 +35,6 @@
  to avoid having to wait for either to be loaded
  */
 - (void)objectContextUpdated:(NSNotification *)notification {
-	NSLog(@"Change notification: %@", notification);
 	[self.managedObjectContext mergeChangesFromContextDidSaveNotification:notification];	
 }
 
@@ -109,7 +108,7 @@
 	[super viewDidLoad];
 	
 	self.title = NSLocalizedString(@"Overview", @"Overview table transaction view");
-	self.tabBarItem.title = NSLocalizedString(@"Transactions",@"Tab bar title");
+	self.tabBarItem.title = NSLocalizedString(@"List", nil);
 	
 	UIImageView * headerView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"CellOverviewHeader.png"]];
 	self.tableView.tableHeaderView = headerView;
@@ -152,10 +151,40 @@
  Each section is made into one row in the table view
  */
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+	/*
+	 If there are no rows, then we add a row that sais that there is no content available.
+	 Otherwise we return the actual amount of rows
+	 */
+	if ([[CacheMasterSingleton sharedCacheMaster] overviewCache_numberOfRows] == 0) {return 1;}
 	return [[CacheMasterSingleton sharedCacheMaster] overviewCache_numberOfRows];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+	/*
+	 If there are no rows, then we just return a dummy row that isn't cached
+	 that tells the user that there aren't actually any data available at all.
+	 Otherwise we return a real row
+	 */
+	if ([[CacheMasterSingleton sharedCacheMaster] overviewCache_numberOfRows] == 0) {
+		UITableViewCell * cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, 320, 80)];
+		cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"CellBackground.png"]];
+		[cell setUserInteractionEnabled:NO];
+		
+		// Create a text label
+		UILabel * label = [[UILabel alloc] init];
+		label.backgroundColor = [UIColor clearColor];
+		label.textColor = [UIColor grayColor];
+		label.font = [UIFont systemFontOfSize:18.f];
+		label.text = NSLocalizedString(@"No transactions added", nil);
+		[label sizeToFit];
+		label.top = cell.height - label.height;
+		label.left = (cell.width - label.width) / 2;
+		[cell addSubview:label];
+		[label release];
+		
+		return [cell autorelease];
+	}
+	
 	
 	NSDictionary * dict = [[CacheMasterSingleton sharedCacheMaster] overviewCache_forRow:indexPath.row];
 	

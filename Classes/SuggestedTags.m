@@ -76,7 +76,7 @@
 
 - (void)didReceiveMemoryWarning {
   [super didReceiveMemoryWarning];
-	NSLog(@"Received memory warning in %@", self);
+	TTLOG(@"Received memory warning in %@", self);
 }
 
 - (void)dealloc {

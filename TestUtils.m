@@ -31,8 +31,8 @@ static int numOfRunning = 0;
     coordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];
     if (![coordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeUrl options:nil error:&error]) {
         // Handle error
-		NSLog(@"COULDN'T CREATE A PERSISTANT STORE COORDINATOR! CHAOS");
-		NSLog(@"ERROR: %@", error);
+		TTLOG(@"COULDN'T CREATE A PERSISTANT STORE COORDINATOR! CHAOS");
+		TTLOG(@"ERROR: %@", error);
 	}    
 	
 	
@@ -49,7 +49,7 @@ static int numOfRunning = 0;
 	NSError * error = nil;
 	NSString * path = @"/Users/seb/TestData.sqlite";
 	if (![[NSFileManager defaultManager] removeItemAtPath:path error:&error]) {
-		NSLog(@"ERROR: %@", error);
+		TTLOG(@"ERROR: %@", error);
 	}
 }
 

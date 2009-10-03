@@ -10,7 +10,7 @@
 #import "Tag.h"
 #import "Location.h"
 #import "FinanceAppDelegate.h"
-#import "AmountController.h"
+#import "AddTransactionController.h"
 
 @interface Utilities (PrivateMethods)
 - (void)doSave:(NSManagedObjectContext*)context;
@@ -45,8 +45,8 @@ static Utilities *sharedUtilitiesToolbox = nil;
 		dKroner = [(NSNumber*)[transactions valueForKeyPath:@"@sum.kronerInBaseCurrency"] doubleValue];
 	}
 	@catch (NSException * e) {
-		NSLog(@"Error summing kroner for transactions");
-		NSLog(@"Error: %@", e);
+		TTLOG(@"Error summing kroner for transactions");
+		TTLOG(@"Error: %@", e);
 		dKroner = 0.0;
 	}
 	
@@ -181,7 +181,7 @@ static Utilities *sharedUtilitiesToolbox = nil;
 	
 	if (localTags == nil) 
 	{ 
-		NSLog(@"There was an error (that's what she said...): %@", error);
+		TTLOG(@"There was an error (that's what she said...): %@", error);
 		return nil;
 	}
 	// Get a tag object and add it to the cache
@@ -280,40 +280,40 @@ static Utilities *sharedUtilitiesToolbox = nil;
 }
 -(NSArray*)topTagsIncludingAutotags:(BOOL)autotags {
 
-	NSEntityDescription *entity = [NSEntityDescription entityForName:@"Tag" 
-																						inManagedObjectContext:self.managedObjectContext]; 
-	
-	NSPredicate * autotagPredicate;
-	if (autotags) {
-		autotagPredicate = [NSPredicate predicateWithValue:YES];
-	} else {
-		autotagPredicate = [NSPredicate predicateWithFormat:@"autotag = NO"];
-	}
-
-//	NSPredicate * onlyPopularTags = [NSPredicate predicateWithFormat:@"location.@count > @avg.(location.@count)"];
-	NSPredicate * andPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:[NSArray arrayWithObjects:autotagPredicate, nil]];
-	
-	//- (id)initWithKey:(NSString *)key ascending:(BOOL)ascending;
-//	NSSortDescriptor * sort = [[NSSortDescriptor alloc] initWithKey:@"location.@count" ascending:NO];
-	
-//	NSArray * sortDescriptors = [NSArray arrayWithObject:sort];
-//	[sort release];
-	
-	// Create and setup the request
 	NSFetchRequest *request = [[NSFetchRequest alloc] init]; 
+
+	NSEntityDescription *entity = [NSEntityDescription entityForName:@"Location" 
+																						inManagedObjectContext:self.managedObjectContext]; 
 	[request setEntity:entity];
-//	[request setSortDescriptors:sortDescriptors];
-	[request setPredicate:andPredicate];
-	[request setFetchLimit:10];
+
+	
+	NSSortDescriptor * sortByDate = [[NSSortDescriptor alloc] initWithKey:@"date" ascending:NO];
+	[request setSortDescriptors:[NSArray arrayWithObject:sortByDate]];
+	TT_RELEASE_SAFELY(sortByDate);
+	
+	[request setFetchLimit:20];
 	
 	NSError *error; 
 	
-	NSArray *tags = [self.managedObjectContext executeFetchRequest:request error:&error]; 
-	[request release];
+	NSArray * allLocations = [self.managedObjectContext executeFetchRequest:request error:&error]; 
+	TT_RELEASE_SAFELY(request);
 	
 	NSMutableArray * tagNames = [[NSMutableArray alloc] init];
-	for (Tag * tag in tags) {
-		[tagNames addObject:tag.name];
+	for (Location * location in allLocations) {
+		if (![tagNames containsObject:location.tag.name]) {
+			
+			BOOL add = NO;
+			
+			if (autotags) {
+				add = YES;
+			} else {
+				add = location.tag.autotag ? NO : YES;
+			}
+			
+			if (add) {[tagNames addObject:location.tag.name];}
+
+		}
+		
 	}
 	
 	return [tagNames autorelease];
@@ -352,7 +352,7 @@ static Utilities *sharedUtilitiesToolbox = nil;
 		
 	} 
 	
-	NSLog(@"Creating a new geocoder");
+	TTLOG(@"Creating a new geocoder");
 	
 	// Create a new geocoder for the given coordinate
 	self.geoCoder = [[MKReverseGeocoder alloc] initWithCoordinate:coordinate];	
@@ -390,7 +390,7 @@ static Utilities *sharedUtilitiesToolbox = nil;
 		if ([context hasChanges]) {
 			if (![context save:&error]) {
 				// Handle error
-				NSLog(@"Unresolved error: %@, %@", error, [error userInfo]);
+				TTLOG(@"Unresolved error: %@, %@", error, [error userInfo]);
 				exit(-1);  // Fail
 			} 
 		} 
@@ -404,12 +404,12 @@ static Utilities *sharedUtilitiesToolbox = nil;
 }
 - (void)doSave:(NSManagedObjectContext*)context {
 	NSError *error;
-    if (context != nil) {
+	if (context != nil) {
 		if ([context hasChanges]) {
 
 			if (![context save:&error]) {
 				// Handle error
-				NSLog(@"Unresolved error: %@, %@", error, [error userInfo]);
+				TTLOG(@"Unresolved error: %@, %@", error, [error userInfo]);
 				exit(-1);  // Fail
 			
 			} else {
@@ -420,7 +420,7 @@ static Utilities *sharedUtilitiesToolbox = nil;
 		} else {
 			saving = NO;
 		}
-    }	
+	}	
 }
 - (NSManagedObjectContext*) createObjectContext {
 
@@ -428,7 +428,7 @@ static Utilities *sharedUtilitiesToolbox = nil;
 	NSManagedObjectContext *newContext = [[NSManagedObjectContext alloc] init];
 	[newContext setPersistentStoreCoordinator: [appDelegate persistentStoreCoordinator]];
 	if (!newContext) { 
-		NSLog(@"Couldn't create a managedObjectContext in the Utilities helper function");
+		TTLOG(@"Couldn't create a managedObjectContext in the Utilities helper function");
 	}
 
 	return [newContext autorelease];

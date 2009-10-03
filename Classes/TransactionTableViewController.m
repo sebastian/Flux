@@ -8,7 +8,6 @@
 
 #import "TransactionTableViewController.h"
 #import "Utilities.h"
-#import "KleioSearchBar.h"
 #import "DetailTableViewController.h"
 #import "OverviewTableViewController.h"
 #import "CacheMasterSingleton.h"
@@ -39,7 +38,6 @@
 
 	if (self = [super initWithStyle:style]) {
 		
-		//self.managedObjectContext = context;
 		self.filteringPredicate = [NSPredicate predicateWithValue:YES];
 		
 		self.worthUpdating = YES;
@@ -67,14 +65,14 @@
 	
 	self = [self initWithStyle:UITableViewStylePlain];
 	[self.tabBarItem setImage:[UIImage imageNamed:@"Transactions.png"]];
-	self.tabBarItem.title = NSLocalizedString(@"Transactions",@"Tab bar title");
+	self.tabBarItem.title = NSLocalizedString(@"List", nil);
 	
 	return self;
 	
 }
 
 - (void)dealloc {
-	NSLog(@"Deallocing %@", self);
+	TTLOG(@"Deallocing %@", self);
 	
 	// Release all resources
 	self.managedObjectContext = nil;
@@ -100,9 +98,9 @@
 }
 
 - (void)didReceiveMemoryWarning {
-	NSLog(@"didReceiveMemoryWarning: %@", self);
+	TTLOG(@"didReceiveMemoryWarning: %@", self);
 	
-	NSLog(@"Clearing cache in %@ to help", self);
+	TTLOG(@"Clearing cache in %@ to help", self);
 	[self clearCacheIfAvailable];
 	[[CacheMasterSingleton sharedCacheMaster] clearCache];
 	
@@ -115,7 +113,7 @@
 
 - (NSFetchedResultsController*)resultsController {
 	if (resultsController == nil) {
-		NSLog(@"Creating and loading data for the resultsController in %@", self);
+		TTLOG(@"Creating and loading data for the resultsController in %@", self);
 		[self updateData];
 	}
 	return resultsController;
@@ -125,11 +123,11 @@
 	
 	// Only load data once...
 	if (resultsController != nil) {
-		NSLog(@"Trying to reload data...");
-		NSLog(@"\tNot allowed! Returning");
+		TTLOG(@"Trying to reload data...");
+		TTLOG(@"\tNot allowed! Returning");
 		return;
 		
-	} else {NSLog(@"Loading data for %@", self);}
+	} else {TTLOG(@"Loading data for %@", self);}
 
 	NSEntityDescription *entity = [NSEntityDescription entityForName:@"Transaction" inManagedObjectContext:managedObjectContext]; 
 
@@ -157,8 +155,8 @@
 	
 	// Get results
 	if (![resultsController performFetch:&error]) { 
-		NSLog(@"Error when performing fetch in %@", self);
-		NSLog(@"ERROR: %@", error);
+		TTLOG(@"Error when performing fetch in %@", self);
+		TTLOG(@"ERROR: %@", error);
 	}
 
 	// DONE
@@ -186,14 +184,14 @@
 //	To be implemented by children
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    NSLog(@"Method called that should be implemented by child!");
+    TTLOG(@"Method called that should be implemented by child!");
 	return 0;
 }
 - (void)updateData {
-	NSLog(@"Method called that should be implemented by child!");
+	TTLOG(@"Method called that should be implemented by child!");
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	NSLog(@"Method called that should be implemented by child!");
+	TTLOG(@"Method called that should be implemented by child!");
 	return nil;
 }
 

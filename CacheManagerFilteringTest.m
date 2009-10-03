@@ -94,10 +94,10 @@
 	[[Utilities toolbox] save:context];
 	[[CacheMasterSingleton sharedCacheMaster] setFilteringPredicate:[NSPredicate predicateWithValue:YES]];
 	
-	NSLog(@"*********** START OF METHOD ***********");
+	TTLOG(@"*********** START OF METHOD ***********");
 }
 - (void) tearDown {
-	NSLog(@"*********** END OF METHOD ***********");	
+	TTLOG(@"*********** END OF METHOD ***********");	
 	[controller release];
 	controller = nil;
 	STAssertNil([[CacheMasterSingleton sharedCacheMaster] detailTableDelegate], @"Detail delegate should be nil after the controller has been released");
