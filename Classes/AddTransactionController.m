@@ -375,15 +375,7 @@
 	TTLOG(@"didReceiveMemoryWarning: %@", self);
 	
 	[[CacheMasterSingleton sharedCacheMaster] clearCache];	
-	
-	// TODO: REMOVE this box! Fix memory problems instead!
-	UIAlertView * alert = [[UIAlertView alloc] init];
-	alert.message = NSLocalizedString(@"Your phone is critically low on memory! This application might soon crash. You should try restarting your phone.", @"Low memory alert message");
-	[alert addButtonWithTitle:NSLocalizedString(@"OK", @"memory alert OK button")];
-	alert.title = NSLocalizedString(@"Memory warning", @"Memory warning alert header");
-	[alert show];
-	[alert release];
-	
+		
 	[super didReceiveMemoryWarning];
 }
 

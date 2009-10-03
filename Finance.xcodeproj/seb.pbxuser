@@ -1510,9 +1510,9 @@
 	};
 	964F1E6F101CDB75004EA5C3 /* LocationController.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1311, 2716}}";
-			sepNavSelRange = "{5494, 0}";
-			sepNavVisRange = "{4890, 876}";
+			sepNavIntBoundsRect = "{{0, 0}, {1209, 2058}}";
+			sepNavSelRange = "{3168, 0}";
+			sepNavVisRange = "{0, 2484}";
 			sepNavWindowFrame = "{{61, 353}, {1145, 778}}";
 		};
 	};
@@ -1600,6 +1600,27 @@
 		vrLen = 571;
 		vrLoc = 0;
 	};
+	965730E61077BCB300CD6BBC /* no */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1209, 1204}}";
+			sepNavSelRange = "{4004, 0}";
+			sepNavVisRange = "{1681, 2323}";
+		};
+	};
+	965730E71077BCB300CD6BBC /* Localizable.strings */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1209, 661}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 2980}";
+		};
+	};
+	965730ED1077BCB300CD6BBC /* de */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1209, 1232}}";
+			sepNavSelRange = "{3916, 0}";
+			sepNavVisRange = "{1661, 2255}";
+		};
+	};
 	9657530110303B9100F93557 /* CurrencyManager.h */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1026, 1022}}";
@@ -1626,9 +1647,9 @@
 	9657534410303FCB00F93557 /* CurrencySelectionDialog.m */ = {
 		uiCtxt = {
 			sepNavFolds = "{\n    c =     (\n                {\n            r = \"{1775, 54}\";\n            s = 0;\n        },\n                {\n            r = \"{2936, 15}\";\n            s = 0;\n        },\n                {\n            r = \"{3045, 40}\";\n            s = 0;\n        },\n                {\n            r = \"{3193, 419}\";\n            s = 0;\n        }\n    );\n    r = \"{0, 4040}\";\n    s = 0;\n}";
-			sepNavIntBoundsRect = "{{0, 0}, {1303, 1246}}";
-			sepNavSelRange = "{3438, 0}";
-			sepNavVisRange = "{689, 2827}";
+			sepNavIntBoundsRect = "{{0, 0}, {1209, 1246}}";
+			sepNavSelRange = "{2304, 0}";
+			sepNavVisRange = "{1756, 1753}";
 			sepNavWindowFrame = "{{185, 21}, {1362, 1157}}";
 		};
 	};
@@ -2315,7 +2336,7 @@
 		fRef = 964F1E6F101CDB75004EA5C3 /* LocationController.m */;
 		name = "LocationController.m: 184";
 		rLen = 0;
-		rLoc = 7764;
+		rLoc = 5555;
 		rType = 0;
 		vrLen = 1714;
 		vrLoc = 6313;
@@ -2854,10 +2875,10 @@
 	};
 	96BE96F51050139500507F49 /* AddTransactionController.m */ = {
 		uiCtxt = {
-			sepNavFolds = "{\n    c =     (\n                {\n            r = \"{927, 135}\";\n            s = 0;\n        }\n    );\n    r = \"{0, 12922}\";\n    s = 0;\n}";
-			sepNavIntBoundsRect = "{{0, 0}, {1209, 5362}}";
-			sepNavSelRange = "{421, 0}";
-			sepNavVisRange = "{3, 1457}";
+			sepNavFolds = "{\n    c =     (\n                {\n            r = \"{927, 135}\";\n            s = 0;\n        }\n    );\n    r = \"{0, 12433}\";\n    s = 0;\n}";
+			sepNavIntBoundsRect = "{{0, 0}, {1209, 5264}}";
+			sepNavSelRange = "{12255, 0}";
+			sepNavVisRange = "{11125, 1174}";
 			sepNavWindowFrame = "{{197, 162}, {1334, 1016}}";
 		};
 	};
@@ -3991,9 +4012,9 @@
 		fRef = 96F1579810384E4700ECBF03 /* no */;
 		name = "Localizable.strings: 143";
 		rLen = 0;
-		rLoc = 4852;
+		rLoc = 4004;
 		rType = 0;
-		vrLen = 2364;
+		vrLen = 1516;
 		vrLoc = 2488;
 	};
 	96FFEAC9103879A90086BF66 /* PBXTextBookmark */ = {
@@ -4001,9 +4022,9 @@
 		fRef = 96F1579710384E3D00ECBF03 /* de */;
 		name = "Localizable.strings: 145";
 		rLen = 0;
-		rLoc = 4861;
+		rLoc = 3916;
 		rType = 0;
-		vrLen = 2384;
+		vrLen = 1439;
 		vrLoc = 2477;
 	};
 	96FFFA7A1015ED4600A53779 /* DetailHeaderView.h */ = {

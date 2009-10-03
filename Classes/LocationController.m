@@ -72,53 +72,14 @@ static LocationController *sharedCLDelegate = nil;
 	didUpdateToLocation:(CLLocation *)newLocation
 		   fromLocation:(CLLocation *)oldLocation
 {
-//	NSMutableString *update = [[[NSMutableString alloc] init] autorelease];
 
-
-	// I don't need the timestamps
-	// Timestamp
-//	NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init]  autorelease];
-//	[dateFormatter setDateStyle:NSDateFormatterMediumStyle];
-//	[dateFormatter setTimeStyle:NSDateFormatterMediumStyle];
-//	[update appendFormat:@"%@\n\n", [dateFormatter stringFromDate:newLocation.timestamp]];
-	
 	// Horizontal coordinates
 	if (signbit(newLocation.horizontalAccuracy)) {
 		[delegate locationError:@"Couldn't find the location"];
 	} else {
 		[delegate locationUpdate:newLocation];
-//		// CoreLocation returns positive for North & East, negative for South & West
-//		[update appendFormat:LocStr(@"LatLongFormat"), // This format takes 4 args: 2 pairs of the form coordinate + compass direction
-//			fabs(newLocation.coordinate.latitude), signbit(newLocation.coordinate.latitude) ? LocStr(@"South") : LocStr(@"North"),
-//			fabs(newLocation.coordinate.longitude),	signbit(newLocation.coordinate.longitude) ? LocStr(@"West") : LocStr(@"East")];
-//		[update appendString:@"\n"];
-//		[update appendFormat:LocStr(@"MeterAccuracyFormat"), newLocation.horizontalAccuracy];
 	}
 
-	
-	// Calculate disatance moved and time elapsed, but only if we have an "old" location
-	//
-	// NOTE: Timestamps are based on when queries start, not when they return. CoreLocation will query your
-	// location based on several methods. Sometimes, queries can come back in a different order from which
-	// they were placed, which means the timestamp on the "old" location can sometimes be newer than on the
-	// "new" location. For the example, we will clamp the timeElapsed to zero to avoid showing negative times
-	// in the UI.
-	//
-//	if (oldLocation != nil) {
-//		CLLocationDistance distanceMoved = [newLocation getDistanceFrom:oldLocation];
-//		NSTimeInterval timeElapsed = [newLocation.timestamp timeIntervalSinceDate:oldLocation.timestamp];
-//		
-//		[update appendFormat:LocStr(@"LocationChangedFormat"), distanceMoved];
-//		if (signbit(timeElapsed)) {
-//			[update appendString:LocStr(@"FromPreviousMeasurement")];
-//		} else {
-//			[update appendFormat:LocStr(@"TimeElapsedFormat"), timeElapsed];
-//		}
-//		[update appendString:@"\n\n"];
-//	}
-//	
-//	// Send the update to our delegate
-//	[self.delegate newLocationUpdate:update];
 }
 
 
@@ -141,7 +102,7 @@ static LocationController *sharedCLDelegate = nil;
 			// can reset this for all apps by going to Settings > General > Reset > Reset Location Warnings.
 			//
 			case kCLErrorDenied:
-				[errorString appendFormat:@"%@\n", NSLocalizedString(@"LocationDenied", nil)];
+				[errorString appendFormat:@"%@\n", @"LocationDenied"];
 				break;
 
 			// This error code is usually returned whenever the device has no data or WiFi connectivity,
@@ -150,13 +111,13 @@ static LocationController *sharedCLDelegate = nil;
 			// CoreLocation will keep trying, so you can keep waiting, or prompt the user.
 			//
 			case kCLErrorLocationUnknown:
-				[errorString appendFormat:@"%@\n", NSLocalizedString(@"LocationUnknown", nil)];
+				[errorString appendFormat:@"%@\n", @"LocationUnknown"];
 				break;
 
 			// We shouldn't ever get an unknown error code, but just in case...
 			//
 			default:
-				[errorString appendFormat:@"%@ %d\n", NSLocalizedString(@"GenericLocationError", nil), [error code]];
+				[errorString appendFormat:@"%@ %d\n", @"GenericLocationError", [error code]];
 				break;
 		}
 	} else {
