@@ -238,7 +238,15 @@
 		[self.managedObjectContext deleteObject:trs];
 		
 		// Save changes
-		[[Utilities toolbox] save:self.managedObjectContext];
+		
+		NSLog(@"Number of sections: %i (before save)", [[CacheMasterSingleton sharedCacheMaster] detailCache_numberOfSections]);
+		
+		@try {
+			[[Utilities toolbox] save:self.managedObjectContext];
+		}	@catch (NSException * e) {
+			NSLog(@"Some mysterious error: %@", e);
+			[tableView reloadData];
+		}
 		
 	}   
 }
@@ -252,6 +260,7 @@
  */
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
 	if (localDelete) {
+		NSLog(@"Number of sections: %i (before edit)", [[CacheMasterSingleton sharedCacheMaster] detailCache_numberOfSections]);
 		[self.tableView beginUpdates];
 	}
 }
@@ -278,6 +287,7 @@
 }
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
 	if (localDelete) {
+		NSLog(@"Number of sections: %i (before end edit)", [[CacheMasterSingleton sharedCacheMaster] detailCache_numberOfSections]);
 		[self.tableView endUpdates];
 		[self performSelector:@selector(updateIfWorthIt) withObject:nil afterDelay:0.3];
 

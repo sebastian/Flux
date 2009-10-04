@@ -76,7 +76,7 @@
 		
 			[[Utilities toolbox] setBarColours:self];
 			
-			self.title = @"Add transaction";
+			self.title = NSLocalizedString(@"Add transaction",nil);
 			[self.tabBarItem setImage:[UIImage imageNamed:@"Add.png"]];
 			
 			[TTStyleSheet setGlobalStyleSheet:[[[KleioCustomStyles alloc] init] autorelease]];
@@ -108,7 +108,7 @@
 	[[LocationController sharedInstance].locationManager startUpdatingLocation];
 		
 	// Setup next button
-	TTButton * nextButton = [TTButton buttonWithStyle:@"greenForwardButton:" title:@"Next"];
+	TTButton * nextButton = [TTButton buttonWithStyle:@"greenForwardButton:" title:NSLocalizedString(@"Next",nil)];
 	nextButton.font = [UIFont boldSystemFontOfSize:16.f];
 	[nextButton sizeToFit];
 	[nextButton addTarget:self action:@selector(nextButtonAction) forControlEvents:UIControlEventTouchUpInside];

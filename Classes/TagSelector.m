@@ -218,7 +218,7 @@ rect.size.width, rect.size.height)
 	
 	UILabel* label = [[[UILabel alloc] init] autorelease];
 	// TODO: replace with "keyword"/"tag" icon
-	label.text = NSLocalizedString(@"Keywords:",nil); 
+	label.text = [NSLocalizedString(@"Keywords",nil) stringByAppendingString:@":"]; 
 	label.font = TTSTYLEVAR(messageFont);
 	label.textColor = TTSTYLEVAR(messageFieldTextColor);
 	[label sizeToFit];

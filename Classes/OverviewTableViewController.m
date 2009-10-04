@@ -119,12 +119,7 @@
 	[footerView release];
 	
 	self.tableView.opaque = NO;
-	
-	// Only show last three months of data?
-	// We don't know yet, depends on how many months there are...
-	//onlyLast3Months = YES; 	
-	onlyLast3Months = NO;
-	
+		
 }
 
 - (void)viewWillAppear:(BOOL)animated {

@@ -387,14 +387,16 @@ static Utilities *sharedUtilitiesToolbox = nil;
 - (void)save:(NSManagedObjectContext*)context {
 	NSError *error;
     if (context != nil) {
-		if ([context hasChanges]) {
-			if (![context save:&error]) {
-				// Handle error
-				TTLOG(@"Unresolved error: %@, %@", error, [error userInfo]);
-				exit(-1);  // Fail
+			if ([context hasChanges]) {
+
+				if (![context save:&error]) {
+					// Handle error
+					TTLOG(@"Unresolved error: %@, %@", error, [error userInfo]);
+					exit(-1);  // Fail
+				} 
+				
 			} 
-		} 
-    }	
+		}	
 	
 }
 - (void)doSaveStart:(NSManagedObjectContext*)context {

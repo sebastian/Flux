@@ -49,7 +49,7 @@
 	
 	// Set it to be black and all, matching the rest of the app
 	
-	self.title = NSLocalizedString(@"Currencies",nil);
+	self.title = NSLocalizedString(@"Currencies", nil);
 	//Create sorted list of currencies:
 	self.sortedCurrencies = [NSMutableArray array];
 	NSArray *availableCurrencies = [[CurrencyManager sharedManager] availableCurrencies];
@@ -57,6 +57,7 @@
 		NSDictionary *currencyInfo = [NSDictionary dictionaryWithObjectsAndKeys:currencyCode, @"currencyCode", NSLocalizedString(currencyCode,nil), @"localizedName", nil];
 		[self.sortedCurrencies addObject:currencyInfo];
 	}
+
 	NSSortDescriptor *sorter = [[[NSSortDescriptor alloc] initWithKey:@"localizedName" ascending:YES] autorelease];
 	[self.sortedCurrencies sortUsingDescriptors:[NSArray arrayWithObject:sorter]];
 	
@@ -76,16 +77,16 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath 
 {    
-    static NSString *CellIdentifier = @"Cell";
+  static NSString *CellIdentifier = @"Cell";
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:CellIdentifier] autorelease];
-    }
+  UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+  if (cell == nil) {
+		cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:CellIdentifier] autorelease];
+	}
 	
 	cell.textLabel.text = [[self.sortedCurrencies objectAtIndex:[indexPath row]] objectForKey:@"localizedName"];
 	
-    return cell;
+	return cell;
 }
 
 - (void)dismiss

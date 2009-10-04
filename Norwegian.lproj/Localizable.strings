@@ -1,0 +1,137 @@
+/* No comment provided by engineer. */
+"Add transaction" = "Tilføy transaksjon";
+
+/* No comment provided by engineer. */
+"Amount" = "Beløp";
+
+/* No comment provided by engineer. */
+"Back" = "Tilbake";
+
+/* No comment provided by engineer. */
+"Cancel" = "Avbryt";
+
+/* No comment provided by engineer. */
+"Clear filter" = "Tøm filter";
+
+/* No comment provided by engineer. */
+"Click to add a description" = "Klikk for å legge til en beskrivelse";
+
+/* No comment provided by engineer. */
+"Currencies" = "Valutaer";
+
+/* No comment provided by engineer. */
+"Description" = "Beskrivelse";
+
+/* No comment provided by engineer. */
+"Done" = "Ferdig";
+
+/* No comment provided by engineer. */
+"Edit" = "Endre";
+
+/* Some error... */
+"ERROR" = "FEIL";
+
+/* No comment provided by engineer. */
+"Error" = "Feil";
+
+/* No comment provided by engineer. */
+"Expense" = "Utgift";
+
+/* No comment provided by engineer. */
+"Filter" = "Filtrer";
+
+/* No comment provided by engineer. */
+"Income" = "Inntekt";
+
+/* No comment provided by engineer. */
+"Keywords" = "Nøkkelord";
+
+/* No comment provided by engineer. */
+"List" = "Liste";
+
+/* No comment provided by engineer. */
+"Location not found" = "Kunne ikke fastslå sted";
+
+/* No comment provided by engineer. */
+"Looking up address" = "Leter etter adresse";
+
+/* No comment provided by engineer. */
+"New" = "Ny";
+
+/* No comment provided by engineer. */
+"Next" = "Videre";
+
+/* No comment provided by engineer. */
+"No previous keywords found" = "Ingen tidligere brukte nøkkelord funnet";
+
+/* No comment provided by engineer. */
+"No transactions added" = "Ingen transaksjoner har blitt lagt til";
+
+/* Overview table transaction view */
+"Overview" = "Oversikt";
+
+/* No comment provided by engineer. */
+"Save" = "Lagre";
+
+/* No comment provided by engineer. */
+"Searching..." = "Leter...";
+
+/* No comment provided by engineer. */
+"Select keywords" = "Velg nøkkelord";
+
+/* No comment provided by engineer. */
+"Show on map" = "Vis på kart";
+
+/* No comment provided by engineer. */
+"When" = "Når";
+
+/* No comment provided by engineer. */
+"Where" = "Hvor";
+
+"USD" = "USD - Amerikanske dollar";
+"AUD" = "AUD - Australske dollar";
+"BHD" = "BHD - Bahraini dinar";
+"THB" = "THB - Thai baht";
+"BND" = "BND - Brunei dollar";
+"CLP" = "CLP - Chilenske peso";
+"DKK" = "DKK - Danske kroner";
+"HUF" = "HUF - Ungarsk forint";
+"HKD" = "HKD - Hong Kong dollar";
+"ISK" = "ISK - Islandske kroner";
+"CAD" = "CAD - Kanadiske dollar";
+"QAR" = "QAR - Qatari rial";
+"KWD" = "KWD - Kuwaiti dollar";
+"MYR" = "MYR - Malaysian ringgit";
+"MTL" = "MTL - Maltese lire";
+"MUR" = "MUR - Mauritius rupee";
+"MXN" = "MXN - Mexikanske pesos";
+"NPR" = "NPR - Nepalske rupee";
+"TWD" = "TWD - Taiwan dollar";
+"NZD" = "NZD - Newzealandsk dollar";
+"NOK" = "NOK - Norske kroner";
+"PKR" = "PKR - Pakistanske rupee";
+"GBP" = "GBP - Britiske pund";
+"ZAR" = "ZAR - Sør-Afrikanske rand";
+"BRL" = "BRL - Brasilianske real";
+"CNY" = "CNY - Yuan renminbi";
+"OMR" = "OMR - Omani rial";
+"IDR" = "IDR - Indonesiske rupiah";
+"RUB" = "RUB - Russiske rubles";
+"SAR" = "SAR - Saudi riyal";
+"ILS" = "ILS - Ny israelsk shekel";
+"SEK" = "SEK - Svenske kroner";
+"CHF" = "CHF - Sveitsisk franc";
+"SGD" = "SGD - Singaporsk dollar";
+"SKK" = "SKK - Slovensk koruna";
+"LKR" = "LKR - Sri Lanka rupee";
+"KRW" = "KRW - Koreansk won";
+"KZT" = "KZT - Kazakhstansk tenge";
+"CZK" = "CZK - Tsjekkisk koruna ";
+"AED" = "AED - Arab Emirates dirham";
+"JPY" = "JPY - Japanske yen";
+"CYP" = "CYP - Kypriotiske pund";
+"INR" = "INR - Indiske rupee";
+"EUR" = "EUR - Euro";
+"LVL" = "LVL - Latviske lats";
+"LTL" = "LTL - Lituenske litas";
+"EEK" = "EEK - Estonske kroon";

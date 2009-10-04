@@ -1,0 +1,137 @@
+/* No comment provided by engineer. */
+"Add transaction" = "Neue Transaktion";
+
+/* No comment provided by engineer. */
+"Amount" = "Betrag";
+
+/* No comment provided by engineer. */
+"Back" = "Zurück";
+
+/* No comment provided by engineer. */
+"Cancel" = "Abbrechen";
+
+/* No comment provided by engineer. */
+"Clear filter" = "Fliter löschen";
+
+/* No comment provided by engineer. */
+"Click to add a description" = "Hier klicken, um Beschreibung hinzuzufügen";
+
+/* No comment provided by engineer. */
+"Currencies" = "Währungen";
+
+/* No comment provided by engineer. */
+"Description" = "Beschreibung";
+
+/* No comment provided by engineer. */
+"Done" = "Fertig";
+
+/* No comment provided by engineer. */
+"Edit" = "Bearbeiten";
+
+/* Some error... */
+"ERROR" = "FEHLER";
+
+/* No comment provided by engineer. */
+"Error" = "Fehler";
+
+/* No comment provided by engineer. */
+"Expense" = "Ausgabe";
+
+/* No comment provided by engineer. */
+"Filter" = "Filter";
+
+/* No comment provided by engineer. */
+"Income" = "Einnahme";
+
+/* No comment provided by engineer. */
+"Keywords" = "Stichwort";
+
+/* No comment provided by engineer. */
+"List" = "Liste";
+
+/* No comment provided by engineer. */
+"Location not found" = "Position konnte nicht bestimmt werden";
+
+/* No comment provided by engineer. */
+"Looking up address" = "Bestimme Adresse";
+
+/* No comment provided by engineer. */
+"New" = "Neu";
+
+/* No comment provided by engineer. */
+"Next" = "Weiter";
+
+/* No comment provided by engineer. */
+"No previous keywords found" = "Keine bisherigen Stichwörter gefunden";
+
+/* No comment provided by engineer. */
+"No transactions added" = "Keine Transaktionen gefunden";
+
+/* Overview table transaction view */
+"Overview" = "Übersicht";
+
+/* No comment provided by engineer. */
+"Save" = "Speichern";
+
+/* No comment provided by engineer. */
+"Searching..." = "Suche...";
+
+/* No comment provided by engineer. */
+"Select keywords" = "Stichwörter auswählen";
+
+/* No comment provided by engineer. */
+"Show on map" = "Auf der Karte zeigen";
+
+/* No comment provided by engineer. */
+"When" = "Zeitpunkt";
+
+/* No comment provided by engineer. */
+"Where" = "Ort";
+
+"USD" = "USD - US Dollar";
+"AUD" = "AUD - Australian Dollar";
+"BHD" = "BHD - Bahraini Dinar";
+"THB" = "THB - Thai Baht";
+"BND" = "BND - Brunei Dollar";
+"CLP" = "CLP - Chilean Peso";
+"DKK" = "DKK - Danish Krone";
+"HUF" = "HUF - Hungarian Forint";
+"HKD" = "HKD - Hong Kong Dollar";
+"ISK" = "ISK - Iceland Krona";
+"CAD" = "CAD - Canadian Dollar";
+"QAR" = "QAR - Qatari Rial";
+"KWD" = "KWD - Kuwaiti Dollar";
+"MYR" = "MYR - Malaysian Ringgit";
+"MTL" = "MTL - Maltese Lira";
+"MUR" = "MUR - Mauritius Rupee";
+"MXN" = "MXN - Mexican Nuevo Peso";
+"NPR" = "NPR - Nepalese Rupee";
+"TWD" = "TWD - Taiwan Dollar";
+"NZD" = "NZD - New Zealand Dollar";
+"NOK" = "NOK - Norwegian Krone";
+"PKR" = "PKR - Pakistan Rupee";
+"GBP" = "GBP - Pound Sterling";
+"ZAR" = "ZAR - South African Rand";
+"BRL" = "BRL - Brazilian Real";
+"CNY" = "CNY - Yuan Renminbi";
+"OMR" = "OMR - Omani Rial";
+"IDR" = "IDR - Indonesian Rupiah";
+"RUB" = "RUB - Russian Rubles";
+"SAR" = "SAR - Saudi Riyal";
+"ILS" = "ILS - Israeli New Shekel";
+"SEK" = "SEK - Swedish Krona";
+"CHF" = "CHF - Swiss Franc";
+"SGD" = "SGD - Singapore Dollar";
+"SKK" = "SKK - Slovak Koruna";
+"LKR" = "LKR - Sri Lanka Rupee";
+"KRW" = "KRW - Korean Won";
+"KZT" = "KZT - Kazakhstan Tenge";
+"CZK" = "CZK - Czech Koruna";
+"AED" = "AED - Arab Emirates Dirham";
+"JPY" = "JPY - Japanese Yen";
+"CYP" = "CYP - Cyprus Pound";
+"INR" = "INR - Indian Rupee";
+"EUR" = "EUR - Euro";
+"LVL" = "LVL - Latvian Lats";
+"LTL" = "LTL - Lithuanian Litas";
+"EEK" = "EEK - Estonian Kroon";
