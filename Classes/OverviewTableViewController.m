@@ -14,7 +14,7 @@
 #import "Transaction.h"
 #import "Utilities.h"
 #import "CurrencyManager.h"
-#import "FinanceAppDelegate.h"
+#import "FluxAppDelegate.h"
 #import "CacheMasterSingleton.h"
 
 

@@ -7,7 +7,7 @@
 //
 
 #import "CacheMasterSingleton.h"
-#import "FinanceAppDelegate.h"
+#import "FluxAppDelegate.h"
 #import "Transaction.h"
 #import "Utilities.h"
 

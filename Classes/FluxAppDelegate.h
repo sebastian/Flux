@@ -1,5 +1,5 @@
 //
-//  FinanceAppDelegate.h
+//  FluxAppDelegate.h
 //  Finance
 //
 //  Created by Sebastian Probst Eide on 08.07.09.
@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
 
-@interface FinanceAppDelegate : NSObject <UIApplicationDelegate, UITabBarControllerDelegate> {
+@interface FluxAppDelegate : NSObject <UIApplicationDelegate, UITabBarControllerDelegate> {
 
 	UIWindow *window;
 	UITabBarController *tabBarController;

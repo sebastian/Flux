@@ -1,19 +1,19 @@
 //
-//  FinanceAppDelegate.m
+//  FluxAppDelegate.m
 //  Finance
 //
 //  Created by Sebastian Probst Eide on 08.07.09.
 //  Copyright Kle.io 2009. All rights reserved.
 //
 
-#import "FinanceAppDelegate.h"
+#import "FluxAppDelegate.h"
 #import "Utilities.h"
 #import "OverviewTableViewController.h"
 #import "AddTransactionController.h"
 #import "TagSelector.h"
 #import "TabBarController.h"
 
-@implementation FinanceAppDelegate
+@implementation FluxAppDelegate
 
 @synthesize window;
 @synthesize tabBarController;

@@ -9,7 +9,7 @@
 #import "Utilities.h"
 #import "Tag.h"
 #import "Location.h"
-#import "FinanceAppDelegate.h"
+#import "FluxAppDelegate.h"
 #import "AddTransactionController.h"
 
 @interface Utilities (PrivateMethods)
@@ -423,7 +423,7 @@ static Utilities *sharedUtilitiesToolbox = nil;
 }
 - (NSManagedObjectContext*) createObjectContext {
 
-	FinanceAppDelegate * appDelegate = (FinanceAppDelegate*)[[UIApplication sharedApplication] delegate];
+	FluxAppDelegate * appDelegate = (FluxAppDelegate*)[[UIApplication sharedApplication] delegate];
 	NSManagedObjectContext *newContext = [[NSManagedObjectContext alloc] init];
 	[newContext setPersistentStoreCoordinator: [appDelegate persistentStoreCoordinator]];
 	if (!newContext) { 
