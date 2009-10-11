@@ -22,12 +22,14 @@
 - (id) initWithTransaction:(Transaction*)trs {
 	if (self = [super init]) {
 		_currentTransaction = [trs retain];
+		_previousAmount = [_currentTransaction.kroner retain];
 		_delegate = nil;
 	}
 	return self;
 }
 
 - (void) dealloc {
+	TT_RELEASE_SAFELY(_previousAmount);
 	TT_RELEASE_SAFELY(_currentTransaction);
 	TT_RELEASE_SAFELY(_amountEditor);
 	[super dealloc];
@@ -70,6 +72,7 @@
 }
 
 - (void) cancel {
+	_currentTransaction.kroner = _previousAmount;
 	[self dismiss];
 }
 

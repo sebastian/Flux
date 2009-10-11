@@ -17,6 +17,7 @@
 	Transaction * _currentTransaction;
 	DateLabel * _dateLabel;
 	UIDatePicker * _datePicker;
+	NSDate * _previousDate;
 	
 	id <EditDateControllerDelegate> _delegate;
 }

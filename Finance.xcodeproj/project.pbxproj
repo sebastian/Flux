@@ -304,12 +304,15 @@
 		965F5DC210594D1600426DF9 /* KleioCustomStyles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KleioCustomStyles.h; sourceTree = "<group>"; };
 		965F5DC310594D1600426DF9 /* KleioCustomStyles.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KleioCustomStyles.m; sourceTree = "<group>"; };
 		9664C9C01045603600BE55DD /* CacheMasterDetailTableTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacheMasterDetailTableTest.m; sourceTree = "<group>"; };
+		96690EF4107969A90026443D /* Greek */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Greek; path = Greek.lproj/Localizable.strings; sourceTree = "<group>"; };
 		966C2C1A103ECA3900725372 /* ABTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABTableViewCell.h; sourceTree = "<group>"; };
 		966C2C1B103ECA3900725372 /* ABTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABTableViewCell.m; sourceTree = "<group>"; };
 		966C2C66103ECFFF00725372 /* CacheMasterSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CacheMasterSingleton.h; sourceTree = "<group>"; };
 		966C2C67103ECFFF00725372 /* CacheMasterSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacheMasterSingleton.m; sourceTree = "<group>"; };
 		967C9E1510678D5400B9F6A2 /* TransactionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionViewController.h; sourceTree = "<group>"; };
 		967C9E1610678D5400B9F6A2 /* TransactionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionViewController.m; sourceTree = "<group>"; };
+		96910F50107D320400A1A347 /* zh_CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh_CN; path = zh_CN.lproj/Localizable.strings; sourceTree = "<group>"; };
+		96910F53107D32DF00A1A347 /* Chinese */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Chinese; path = Chinese.lproj/Localizable.strings; sourceTree = "<group>"; };
 		96953E391073B23300C9EFBE /* EditAmountController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditAmountController.h; sourceTree = "<group>"; };
 		96953E3A1073B23300C9EFBE /* EditAmountController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditAmountController.m; sourceTree = "<group>"; };
 		96953F051074E55900C9EFBE /* EditDateController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditDateController.h; sourceTree = "<group>"; };
@@ -344,8 +347,8 @@
 		96D9A0D410789160003DB1F3 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Localizable.strings; sourceTree = "<group>"; };
 		96D9A0DA107891E8003DB1F3 /* Norwegian */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Norwegian; path = Norwegian.lproj/Localizable.strings; sourceTree = "<group>"; };
 		96D9A0DB107891ED003DB1F3 /* German */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = German; path = German.lproj/Localizable.strings; sourceTree = "<group>"; };
-		96D9A12E1078B226003DB1F3 /* Chinese */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Chinese; path = Chinese.lproj/Localizable.strings; sourceTree = "<group>"; };
 		96D9A12F1078B3DC003DB1F3 /* lang */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = lang; path = lang.lproj/Localizable.strings; sourceTree = "<group>"; };
+		96DD43031079444000889582 /* Russian */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Russian; path = Russian.lproj/Localizable.strings; sourceTree = "<group>"; };
 		96E55D8D1014AD8200E63DB8 /* OverviewTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OverviewTableCell.xib; sourceTree = "<group>"; };
 		96E55D901014AF3800E63DB8 /* OverviewTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OverviewTableCell.h; sourceTree = "<group>"; };
 		96E55D911014AF3800E63DB8 /* OverviewTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OverviewTableCell.m; sourceTree = "<group>"; };
@@ -823,6 +826,9 @@
 				gk,
 				Chinese,
 				lang,
+				Russian,
+				Greek,
+				zh_CN,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* Finance */;
 			projectDirPath = "";
@@ -1084,8 +1090,11 @@
 				96D9A0D410789160003DB1F3 /* English */,
 				96D9A0DA107891E8003DB1F3 /* Norwegian */,
 				96D9A0DB107891ED003DB1F3 /* German */,
-				96D9A12E1078B226003DB1F3 /* Chinese */,
 				96D9A12F1078B3DC003DB1F3 /* lang */,
+				96DD43031079444000889582 /* Russian */,
+				96690EF4107969A90026443D /* Greek */,
+				96910F50107D320400A1A347 /* zh_CN */,
+				96910F53107D32DF00A1A347 /* Chinese */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";

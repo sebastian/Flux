@@ -17,6 +17,7 @@
 	Transaction * _currentTransaction;
 	AmountEditor * _amountEditor;
 	id <EditAmountControllerDelegate> _delegate;
+	NSNumber * _previousAmount;
 }
 @property (nonatomic, retain) Transaction * currentTransaction;
 @property (nonatomic, assign) id <EditAmountControllerDelegate> delegate;

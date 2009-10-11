@@ -297,18 +297,17 @@ static Utilities *sharedUtilitiesToolbox = nil;
 	
 	NSArray * allLocations = [self.managedObjectContext executeFetchRequest:request error:&error]; 
 	TT_RELEASE_SAFELY(request);
+	NSLog(@"Found %i locations...", [allLocations count]);
 	
 	NSMutableArray * tagNames = [[NSMutableArray alloc] init];
+
 	for (Location * location in allLocations) {
+		NSLog(@"Location.tag.name: %@", location.tag.name);
 		if (![tagNames containsObject:location.tag.name]) {
 			
-			BOOL add = NO;
+			BOOL add = YES;
 			
-			if (autotags) {
-				add = YES;
-			} else {
-				add = location.tag.autotag ? NO : YES;
-			}
+			if (!autotags && [location.tag.autotag boolValue]) {add = NO;}
 			
 			if (add) {[tagNames addObject:location.tag.name];}
 

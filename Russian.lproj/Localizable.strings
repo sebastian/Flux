@@ -1,92 +1,93 @@
 /* No comment provided by engineer. */
-"Add transaction" = "输入交易";
+//"Add transaction" = "Добавить транзакцию";
+"Add transaction" = "Доб. транзакцию";
 
 /* No comment provided by engineer. */
-"Amount" = "金额";
+"Amount" = "Сумма";
 
 /* No comment provided by engineer. */
-"Back" = "返回";
+"Back" = "Назад";
 
 /* No comment provided by engineer. */
-"Cancel" = "取消";
+"Cancel" = "Отмена";
 
 /* No comment provided by engineer. */
-"Clear filter" = "清除过滤";
+"Clear filter" = "Очистить фильтр";
 
 /* No comment provided by engineer. */
-"Click to add a description" = "点击加入描述";
+"Click to add a description" = "Щёлкните для добавки описания";
 
 /* No comment provided by engineer. */
-"Currencies" = "货币";
+"Currencies" = "Валюты";
 
 /* No comment provided by engineer. */
-"Description" = "描述";
+"Description" = "Описание";
 
 /* No comment provided by engineer. */
-"Done" = "完成";
+"Done" = "Готово";
 
 /* No comment provided by engineer. */
-"Edit" = "修改";
+"Edit" = "Исправить";
 
 /* Some error... */
-"ERROR" = "故障";
+"ERROR" = "ОШИБКА";
 
 /* No comment provided by engineer. */
-"Error" = "故障";
+"Error" = "Ошибка";
 
 /* No comment provided by engineer. */
-"Expense" = "费用";
+"Expense" = "Затраты";
 
 /* No comment provided by engineer. */
-"Filter" = "过滤";
+"Filter" = "Фильтр";
 
 /* No comment provided by engineer. */
-"Income" = "收入";
+"Income" = "Доход";
 
 /* No comment provided by engineer. */
-"Keywords" = "关键字";
+"Keywords" = "Ключевые слова";
 
 /* No comment provided by engineer. */
-"List" = "目录";
+"List" = "Лист";
 
 /* No comment provided by engineer. */
-"Location not found" = "位置未寻获";
+"Location not found" = "Локация не найдена";
 
 /* No comment provided by engineer. */
-"Looking up address" = "正在搜索地址";
+"Looking up address" = "Поиск аддреса";
 
 /* No comment provided by engineer. */
-"New" = "新建";
+"New" = "Новый";
 
 /* No comment provided by engineer. */
-"Next" = "下一步";
+"Next" = "Следующий";
 
 /* No comment provided by engineer. */
-"No previous keywords found" = "历史关键字未寻获";
+"No previous keywords found" = "Никаких предыдущих ключевых слов не найдено";
 
 /* No comment provided by engineer. */
-"No transactions added" = "无输入交易";
+"No transactions added" = "Транзакции не добавлены";
 
 /* Overview table transaction view */
-"Overview" = "概观";
+"Overview" = "Обзор";
 
 /* No comment provided by engineer. */
-"Save" = "保存";
+"Save" = "Сохранить";
 
 /* No comment provided by engineer. */
-"Searching..." = "搜索中...";
+"Searching..." = "Поиск...";
 
 /* No comment provided by engineer. */
-"Select keywords" = "选择关键字";
+"Select keywords" = "Выбрать клювые слова";
 
 /* No comment provided by engineer. */
-"Show on map" = "在地图上显示";
+"Show on map" = "Показать на карте";
 
 /* No comment provided by engineer. */
-"When" = "何时";
+"When" = "Время";
 
 /* No comment provided by engineer. */
-"Where" = "何处";
+"Where" = "Место";
 
 "USD" = "USD - US Dollar";
 "AUD" = "AUD - Australian Dollar";

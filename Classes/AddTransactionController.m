@@ -15,8 +15,6 @@
 #import "Tag.h"
 #import "CacheMasterSingleton.h"
 
-#define MIN_DISTANCE 200
-
 @implementation AddTransactionController
 
 @synthesize managedObjectContext = _managedObjectContext, 
@@ -88,11 +86,19 @@
 
 - (void) dealloc {
 	TT_RELEASE_SAFELY(_managedObjectContext);
-	TT_RELEASE_SAFELY(currentTransaction);
 	TT_RELEASE_SAFELY(_bestLocation);
 	TT_RELEASE_SAFELY(_localCurrency);
 	TT_RELEASE_SAFELY(_amountEditor);
 	TT_RELEASE_SAFELY(_placemark);
+	
+	/*
+	 This gets a bit messy.
+	 Because the managedObjectContext are managed separatly,
+	 we have to dispose of them here and there...
+	 */
+	[currentTransaction.managedObjectContext release];
+	TT_RELEASE_SAFELY(currentTransaction);	
+	
 	[super dealloc];
 }
 
@@ -217,7 +223,7 @@
 	}
 	
 	// And we should do a reverse geocoding as well!
-	if ((foundLocationTags == NO) && (location.horizontalAccuracy < 100.f) && (location.horizontalAccuracy > 0.f)) {
+	if ((foundLocationTags == NO) && (location.horizontalAccuracy < 1500.f) && (location.horizontalAccuracy > 0.f)) {
 		
 		NSLog(@"It is good enough for geocoding");
 				
@@ -304,12 +310,12 @@
 	 within a range... To speed up the lookup.
 	 */
 	
-	double diff = 0.0005;
+	double diff = 0.01;
 	double plusLatDelta = self.bestLocation.coordinate.latitude + diff;
 	double minusLatDelta = self.bestLocation.coordinate.latitude - diff;
 	
 	/* the longitutes are dependent on location, so I make the delta bigger to make sure I get something! */
-	double lngDiff = 0.005;
+	double lngDiff = 0.5;
 	double plusLngDelta = self.bestLocation.coordinate.longitude + lngDiff;
 	double minusLngDelta = self.bestLocation.coordinate.longitude - lngDiff;
 	
@@ -337,7 +343,7 @@
 			distance = 3000; // Some strange error... just set it to something we won't use...
 		}
 		/* If the tag is closer than 50 meters then use it */
-		if (distance < 150.f) {
+		if (distance < 1000.f) {
 			/*
 			 This is a tag we can use! Add it unless, it has already been added
 			 */

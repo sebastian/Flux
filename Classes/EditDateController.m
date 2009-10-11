@@ -117,6 +117,7 @@
 	if (self = [super init]) {
 		_currentTransaction = [trs retain];
 		_delegate = nil;
+		_previousDate = [_currentTransaction.date retain];
 	}
 	return self;
 }
@@ -174,6 +175,7 @@
 }
 
 - (void) cancel {
+	_currentTransaction.date = _previousDate;
 	[self dismiss];
 }
 

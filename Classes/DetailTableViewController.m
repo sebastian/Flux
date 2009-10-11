@@ -245,7 +245,9 @@
 			[[Utilities toolbox] save:self.managedObjectContext];
 		}	@catch (NSException * e) {
 			NSLog(@"Some mysterious error: %@", e);
-			[tableView reloadData];
+			[self.tableView reloadData];
+			//[[self tableView] reloadData];
+			//[tableView reloadData];
 		}
 		
 	}   

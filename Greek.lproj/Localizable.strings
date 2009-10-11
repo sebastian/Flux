@@ -1,0 +1,138 @@
+/* No comment provided by engineer. */
+"Amount" = "Ποσό";
+
+/* No comment provided by engineer. */
+"Back" = "Πίσω";
+
+/* No comment provided by engineer. */
+"Cancel" = "Άκυρο";
+
+/* No comment provided by engineer. */
+"Clear filter" = "Καθαρισμός φίλτρου";
+
+/* No comment provided by engineer. */
+"Click to add a description" = "Πατήστε εδώ για προσθήκη περιγραφής";
+
+/* No comment provided by engineer. */
+"Currencies" = "Νομίσματα";
+
+/* No comment provided by engineer. */
+"Description" = "Περιγραφή";
+
+/* No comment provided by engineer. */
+"Done" = "Εντάξει";
+
+/* No comment provided by engineer. */
+"Edit" = "Επεξεργασία";
+
+/* Some error... */
+"ERROR" = "ΣΦΑΛΜΑ";
+
+/* No comment provided by engineer. */
+"Error" = "Σφάλμα";
+
+/* No comment provided by engineer. */
+"Expense" = "Έξοδα";
+
+/* No comment provided by engineer. */
+"Filter" = "Φίλτρο";
+
+/* No comment provided by engineer. */
+"Income" = "Έσοδα";
+
+/* No comment provided by engineer. */
+"Keywords" = "Λέξεις-κλειδιά";
+
+/* No comment provided by engineer. */
+"Add transaction" = "Προσθήκη συναλ/γής";
+
+/* No comment provided by engineer. */
+"List" = "Λίστα";
+
+/* No comment provided by engineer. */
+"Location not found" = "Δεν βρέθηκε η τοποθεσία";
+
+/* No comment provided by engineer. */
+"Looking up address" = "Αναζήτηση διεύθυνσης";
+
+/* No comment provided by engineer. */
+"New" = "Νέα";
+
+/* No comment provided by engineer. */
+"Next" = "Επόμενο";
+
+/* No comment provided by engineer. */
+"No previous keywords found" = "Δε βρέθηκαν προηγούμενες λέξεις-κλειδιά";
+
+/* No comment provided by engineer. */
+"No transactions added" = "Δεν προστέθηκαν συναλλαγές";
+
+/* Overview table transaction view */
+"Overview" = "Περίληψη";
+
+/* No comment provided by engineer. */
+"Save" = "Αποθήκευση";
+
+/* No comment provided by engineer. */
+"Searching..." = "Αναζήτηση...";
+
+/* No comment provided by engineer. */
+//"Select keywords" = "Επιλογή λέξεων-κλειδιά";
+"Select keywords" = "Επιλογή";
+
+/* No comment provided by engineer. */
+"Show on map" = "Εμφάνιση στο χάρτη";
+
+/* No comment provided by engineer. */
+"When" = "Πότε";
+
+/* No comment provided by engineer. */
+"Where" = "Πού";
+
+"USD" = "USD - Δολλάριο ΗΠΑ";
+"AUD" = "AUD - Δολλάριο Αυστραλίας";
+"BHD" = "BHD - Δηνάριο Μπαχρέιν";
+"THB" = "THB - Μπαχτ Ταϊλάνδης";
+"BND" = "BND - Δολλάριο Μπρουνέι";
+"CLP" = "CLP - Πέσο Χιλής";
+"DKK" = "DKK - Κορώνα Δανίας";
+"HUF" = "HUF - Φόριντ Ουγγαρίας";
+"HKD" = "HKD - Δολλάριο Χονγκ Κονγκ";
+"ISK" = "ISK - Κορώνα Ισλανδίας";
+"CAD" = "CAD - Δολλάριο Καναδά";
+"QAR" = "QAR - Ριάλ Κατάρ";
+"KWD" = "KWD - Δολλάριο Κουβέιτ";
+"MYR" = "MYR - Ρινγκίτ Μαλαισίας";
+"MTL" = "MTL - Λίρα Μάλτας";
+"MUR" = "MUR - Ρουπία Μαυρίκιου";
+"MXN" = "MXN - Νέο Πέσο Μεξικού";
+"NPR" = "NPR - Ρουπία Νεπάλ";
+"TWD" = "TWD - Δολλάριο Ταϊβάν";
+"NZD" = "NZD - Δολλάριο Ν. Ζηλανδίας";
+"NOK" = "NOK - Κορώνα Νορβηγίας";
+"PKR" = "PKR - Ρουπία Πακιστάν";
+"GBP" = "GBP - Λίρα Αγγλίας";
+"ZAR" = "ZAR - Ραντ Νότ. Αφρικής";
+"BRL" = "BRL - Ριάλ Βραζιλίας";
+"CNY" = "CNY - Ρενμινμπί Γιουάν";
+"OMR" = "OMR - Ριάλ Ομάν";
+"IDR" = "IDR - Ρουπία Ινδονησίας";
+"RUB" = "RUB - Ρούβλι Ρωσίας";
+"SAR" = "SAR - Ριάλ Σαουδικής Αραβίας";
+"ILS" = "ILS - Νέο Σέκελ Ισραήλ";
+"SEK" = "SEK - Κορώνα Σουηδίας";
+"CHF" = "CHF - Ελβετικό Φράγκο";
+"SGD" = "SGD - Δολλάριο Σινγκαπούρης";
+"SKK" = "SKK - Κορώνα Σλοβακίας";
+"LKR" = "LKR - Ρουπία Σρι Λάνκα";
+"KRW" = "KRW - Γουόν Κορέας";
+"KZT" = "KZT - Τένγκε Καζακστάν";
+"CZK" = "CZK - Κορώνα Τσεχίας";
+"AED" = "AED - Ντιρχάμ Ην. Αραβ. Εμιράτων";
+"JPY" = "JPY - Γιεν Ιαπωνίας";
+"CYP" = "CYP - Λίρα Κύπρου";
+"INR" = "INR - Ρουπία Ινδίας";
+"EUR" = "EUR - Ευρώ";
+"LVL" = "LVL - Λατ Λετονίας";
+"LTL" = "LTL - Λίτα Λιθουανίας";
+"EEK" = "EEK - Κορώνα Εσθονίας";
