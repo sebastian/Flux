@@ -347,7 +347,6 @@
 		96D9A0D410789160003DB1F3 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Localizable.strings; sourceTree = "<group>"; };
 		96D9A0DA107891E8003DB1F3 /* Norwegian */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Norwegian; path = Norwegian.lproj/Localizable.strings; sourceTree = "<group>"; };
 		96D9A0DB107891ED003DB1F3 /* German */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = German; path = German.lproj/Localizable.strings; sourceTree = "<group>"; };
-		96D9A12F1078B3DC003DB1F3 /* lang */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = lang; path = lang.lproj/Localizable.strings; sourceTree = "<group>"; };
 		96DD43031079444000889582 /* Russian */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Russian; path = Russian.lproj/Localizable.strings; sourceTree = "<group>"; };
 		96E55D8D1014AD8200E63DB8 /* OverviewTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OverviewTableCell.xib; sourceTree = "<group>"; };
 		96E55D901014AF3800E63DB8 /* OverviewTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OverviewTableCell.h; sourceTree = "<group>"; };
@@ -1093,7 +1092,6 @@
 				96D9A0D410789160003DB1F3 /* English */,
 				96D9A0DA107891E8003DB1F3 /* Norwegian */,
 				96D9A0DB107891ED003DB1F3 /* German */,
-				96D9A12F1078B3DC003DB1F3 /* lang */,
 				96DD43031079444000889582 /* Russian */,
 				96690EF4107969A90026443D /* Greek */,
 				96910F50107D320400A1A347 /* zh_CN */,
