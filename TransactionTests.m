@@ -96,4 +96,24 @@
 
 }
 
+
+#pragma mark
+#pragma mark -
+#pragma mark Rounding error when typing in numbers
+- (void) testSetKroner {
+	[trs addNumber:5];
+	[trs addNumber:8];
+	trs.currency = @"USD";
+	
+	NSString * amount = [trs absAmountInLocalCurrency];
+	STAssertTrue([amount isEqualToString:@"$0.58"] || [amount isEqualToString:@"$0,58"], @"Should display the amount right");
+	
+	[trs eraseOneNum]; [trs eraseOneNum];
+	[trs addNumber:2];[trs addNumber:5];[trs addNumber:5];
+	amount = [trs absAmountInLocalCurrency];
+	STAssertTrue([amount isEqualToString:@"$2.55"] || [amount isEqualToString:@"$2,55"], @"Should display the amount right");
+	
+}
+
+
 @end

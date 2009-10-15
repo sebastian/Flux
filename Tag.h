@@ -27,5 +27,7 @@
 - (void)addLocation:(NSSet *)value;
 - (void)removeLocation:(NSSet *)value;
 
+- (NSComparisonResult)compareAmountOfLocations:(id)otherTag;
+
 @end
 

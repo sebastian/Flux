@@ -12,16 +12,6 @@
 #import "OverviewTableViewController.h"
 #import "CacheMasterSingleton.h"
 
-@interface TransactionTableViewController (PrivateMethods)
-- (void)clearCacheIfAvailable;
-- (void)clearCacheIfAvailableForIndexPath:(NSIndexPath*)indexPath;
-- (void)toggleSearch;
-- (void)updatePredicate:(NSNotification*)notification;
-- (void)staleCache:(NSNotification*)notification;
-@end
-
-
-
 @implementation TransactionTableViewController
 
 @synthesize resultsController;
@@ -101,7 +91,6 @@
 	TTLOG(@"didReceiveMemoryWarning: %@", self);
 	
 	TTLOG(@"Clearing cache in %@ to help", self);
-	[self clearCacheIfAvailable];
 	[[CacheMasterSingleton sharedCacheMaster] clearCache];
 	
 	[super didReceiveMemoryWarning];

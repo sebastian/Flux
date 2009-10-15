@@ -42,6 +42,10 @@
 	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF IN %@", self.items];
 	for (NSString * tag in topTags) {
 		if (![predicate evaluateWithObject:tag]) {
+			// We only want max 15 items in total
+			if ([self.items count] == 15) {break;}
+	
+			// We don't have 15 tags yet, add to the list!
 			[self.items addObject:tag];
 		}
 	}

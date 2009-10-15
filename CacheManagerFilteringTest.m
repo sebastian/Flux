@@ -15,13 +15,11 @@
 #import "DetailTableViewController.h"
 #import "Utilities.h"
 #import "Transaction.h"
-#import "KleioSearchBar.h"
 
 @interface CacheManagerFilteringTest : SenTestCase {
 	DetailTableViewController * controller;
 	OverviewTableViewController * overviewController;
 	NSManagedObjectContext * context;
-	KleioSearchBar * searchBar;
 }
 - (Transaction*)getTransaction;
 - (void) populateCacheOverview;

@@ -14,7 +14,6 @@
 #import "Transaction.h"
 #import "DetailTableViewController.h"
 #import "OverviewTableViewController.h"
-#import "TransactionsNavigationController.h"
 
 #import "Utilities.h"
 #import "TestUtils.h"
@@ -23,8 +22,6 @@
 @interface CacheManagerDetailTableTests : SenTestCase {
 	Transaction * trs;
 	DetailTableViewController * controller;
-	
-	TransactionsNavigationController * transNavController;
 	
 	NSManagedObjectContext * context;
 }
@@ -76,7 +73,6 @@
 
 #pragma mark Set delegate
 -(void) testSetDelegateAndYearMonth {
-	[transNavController popViewControllerAnimated:NO];
 	[controller release];
 	controller = nil;
 	STAssertNil([[CacheMasterSingleton sharedCacheMaster] detailTableDelegate], @"Should be nil after controller release");

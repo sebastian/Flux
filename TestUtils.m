@@ -6,6 +6,7 @@
 //  Copyright 2009 Kle.io. All rights reserved.
 //
 
+#import <Three20/Three20.h>
 #import "TestUtils.h"
 #import "CacheMasterSingleton.h"
 

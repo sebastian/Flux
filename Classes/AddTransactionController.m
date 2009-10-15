@@ -66,7 +66,6 @@
 	}
 }
 
-
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //	NSObject
 - (id)init {
@@ -209,7 +208,6 @@
 	/*
 	 Only use locations that are less than five minutes old
 	 */
-	NSLog(@"Received new location update: %@", location);
 	if (abs([location.timestamp timeIntervalSinceNow]) > 3 * 60) { return; }
 	
 	if (self.bestLocation == nil) {
@@ -224,9 +222,7 @@
 	
 	// And we should do a reverse geocoding as well!
 	if ((foundLocationTags == NO) && (location.horizontalAccuracy < 1500.f) && (location.horizontalAccuracy > 0.f)) {
-		
-		NSLog(@"It is good enough for geocoding");
-				
+						
 		foundLocationTags = YES;
 		
 		// We don't need more location updates
@@ -356,8 +352,14 @@
 		
 	if ([tagsToSuggest count] > 0) {
 		
+
+		/* We want to sort the list by popularity */
+		[tagsToSuggest sortUsingSelector:@selector(compareAmountOfLocations:)];
+		
+		// We only want the N most recent geo tags
 		NSMutableArray * tagNames = [[NSMutableArray alloc] init];
 		for (Tag * tag in tagsToSuggest) {
+			if ([tagNames count] == 5) {break;}
 			[tagNames addObject:tag.name];
 		}
 		

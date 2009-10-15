@@ -16,4 +16,10 @@
 @dynamic location;
 @dynamic autotag;
 
+- (NSComparisonResult)compareAmountOfLocations:(id)otherTag {
+	if ([[self location] count] < [[otherTag location] count]) {return NSOrderedDescending;}
+	if ([[self location] count] > [[otherTag location] count]) {return NSOrderedAscending;}
+	return NSOrderedSame;
+}
+
 @end
