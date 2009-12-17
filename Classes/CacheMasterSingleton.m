@@ -425,7 +425,7 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 	}
 	return detailCache_cellCache;
 }
-- (void) setDetailTableDelegate:(DetailTableViewController*)delegate {
+- (void) setDetailTableDelegate:(DetailTableModel*)delegate {
 	/* 
 	 If the delegate changes, then the cache automatically becomes stale
 	 */

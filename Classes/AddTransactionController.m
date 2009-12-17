@@ -62,14 +62,6 @@
 //	NSObject
 - (id)init {
     if (self = [super init]) {
-		
-			[[Utilities toolbox] setBarColours:self];
-			
-			self.title = NSLocalizedString(@"Add transaction",nil);
-			[self.tabBarItem setImage:[UIImage imageNamed:@"Add.png"]];
-			
-			[TTStyleSheet setGlobalStyleSheet:[[[KleioCustomStyles alloc] init] autorelease]];
-			
 			foundLocationTags = NO;
     }
     return self;
@@ -90,11 +82,13 @@
 
 - (void) loadView {
 	[super loadView];
+			
+	[[Utilities toolbox] setBarColours:self];
 	
-	// Get the location
-	[LocationController sharedInstance].delegate = self;
-	[LocationController sharedInstance].locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-	[[LocationController sharedInstance].locationManager startUpdatingLocation];
+	self.title = NSLocalizedString(@"Add transaction",nil);
+	[self.tabBarItem setImage:[UIImage imageNamed:@"Add.png"]];
+	
+	[TTStyleSheet setGlobalStyleSheet:[[[KleioCustomStyles alloc] init] autorelease]];
 		
 	// Setup next button
 	TTButton * nextButton = [TTButton buttonWithStyle:@"greenForwardButton:" title:NSLocalizedString(@"Next",nil)];
@@ -112,7 +106,17 @@
 	self.tabBarItem.title = NSLocalizedString(@"New", nil);
 	
 }
+
+- (void) viewDidAppear:(BOOL)animated {
+	[super viewDidAppear:animated];
 	
+	// Get the location
+	[LocationController sharedInstance].delegate = self;
+	[LocationController sharedInstance].locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+	[[LocationController sharedInstance].locationManager startUpdatingLocation];
+		
+}
+
 - (void) viewDidUnload {
 	[super viewDidUnload];
 	TTLOG(@"Location manager stopped");

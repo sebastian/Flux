@@ -26,16 +26,6 @@
 
 static Utilities *sharedUtilitiesToolbox = nil;
 
-- (id) init {
-	self = [super init];
-	if (self != nil) {
-		[self setSavignIsFalse];
-	}
-	return self;
-}
-- (void)setSavignIsFalse {
-	saving = NO;
-}
 
 -(double)sumAmountForTransactionArray:(NSArray*)transactions {
 
@@ -421,23 +411,6 @@ static Utilities *sharedUtilitiesToolbox = nil;
 
 	return [newContext autorelease];
 	
-}
-- (void)performDelayedSave:(Transaction*)trs {
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	
-	sleep(0.5);
-	NSManagedObjectContext * context = trs.managedObjectContext;
-	[self save:context];
-
-	[trs release];
-	[context release];
-			
-	[pool release];
-}
-- (void)delayedSave:(Transaction*)transaction {
-	[transaction retain];
-	[self performSelectorInBackground:@selector(performDelayedSave:) withObject:transaction];
-
 }
 
 #pragma mark

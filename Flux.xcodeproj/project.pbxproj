@@ -194,10 +194,6 @@
 		96F84082100A66E8008862CC /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96F84081100A66E8008862CC /* CoreData.framework */; };
 		96FA794A10DA0DF6002AC795 /* TransactionTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96FA794910DA0DF6002AC795 /* TransactionTableView.m */; };
 		96FA794B10DA0DF6002AC795 /* TransactionTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96FA794910DA0DF6002AC795 /* TransactionTableView.m */; };
-		96FA7ABB10DA2328002AC795 /* NewDetailTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 96FA7ABA10DA2328002AC795 /* NewDetailTableCell.m */; };
-		96FA7ABC10DA2328002AC795 /* NewDetailTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 96FA7ABA10DA2328002AC795 /* NewDetailTableCell.m */; };
-		96FA7C8C10DA3D2C002AC795 /* EditController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96FA7C8B10DA3D2C002AC795 /* EditController.m */; };
-		96FA7C8D10DA3D2C002AC795 /* EditController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96FA7C8B10DA3D2C002AC795 /* EditController.m */; };
 		96FAE6DC1024C2970060384F /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 96FAE6DA1024C2970060384F /* Location.m */; };
 		96FAE6E01024C30A0060384F /* Tag.m in Sources */ = {isa = PBXBuildFile; fileRef = 96FAE6DF1024C30A0060384F /* Tag.m */; };
 		96FBC2921071206100102CE2 /* AmountEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 96FBC2911071206100102CE2 /* AmountEditor.m */; };
@@ -389,10 +385,6 @@
 		96F84081100A66E8008862CC /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		96FA794810DA0DF6002AC795 /* TransactionTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionTableView.h; sourceTree = "<group>"; };
 		96FA794910DA0DF6002AC795 /* TransactionTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionTableView.m; sourceTree = "<group>"; };
-		96FA7AB910DA2328002AC795 /* NewDetailTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewDetailTableCell.h; sourceTree = "<group>"; };
-		96FA7ABA10DA2328002AC795 /* NewDetailTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewDetailTableCell.m; sourceTree = "<group>"; };
-		96FA7C8A10DA3D2C002AC795 /* EditController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditController.h; sourceTree = "<group>"; };
-		96FA7C8B10DA3D2C002AC795 /* EditController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditController.m; sourceTree = "<group>"; };
 		96FAE6D91024C2970060384F /* Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Location.h; path = ../Location.h; sourceTree = "<group>"; };
 		96FAE6DA1024C2970060384F /* Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Location.m; path = ../Location.m; sourceTree = "<group>"; };
 		96FAE6DE1024C30A0060384F /* Tag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Tag.h; path = ../Tag.h; sourceTree = "<group>"; };
@@ -645,8 +637,6 @@
 				96B6D80D10D8DF01001722B1 /* NewDetailTableViewController.m */,
 				96B6D81010D8DF72001722B1 /* DetailTableDataSource.h */,
 				96B6D81110D8DF72001722B1 /* DetailTableDataSource.m */,
-				96FA7AB910DA2328002AC795 /* NewDetailTableCell.h */,
-				96FA7ABA10DA2328002AC795 /* NewDetailTableCell.m */,
 			);
 			name = DetailTable;
 			sourceTree = "<group>";
@@ -665,8 +655,6 @@
 				96953E3A1073B23300C9EFBE /* EditAmountController.m */,
 				96953F051074E55900C9EFBE /* EditDateController.h */,
 				96953F061074E55900C9EFBE /* EditDateController.m */,
-				96FA7C8A10DA3D2C002AC795 /* EditController.h */,
-				96FA7C8B10DA3D2C002AC795 /* EditController.m */,
 			);
 			name = TransactionDetail;
 			sourceTree = "<group>";
@@ -1076,8 +1064,6 @@
 				96B6D81210D8DF72001722B1 /* DetailTableDataSource.m in Sources */,
 				96B6D88910D92D58001722B1 /* TransactionModel.m in Sources */,
 				96FA794A10DA0DF6002AC795 /* TransactionTableView.m in Sources */,
-				96FA7ABB10DA2328002AC795 /* NewDetailTableCell.m in Sources */,
-				96FA7C8C10DA3D2C002AC795 /* EditController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1129,8 +1115,6 @@
 				96B6D81310D8DF72001722B1 /* DetailTableDataSource.m in Sources */,
 				96B6D88A10D92D58001722B1 /* TransactionModel.m in Sources */,
 				96FA794B10DA0DF6002AC795 /* TransactionTableView.m in Sources */,
-				96FA7ABC10DA2328002AC795 /* NewDetailTableCell.m in Sources */,
-				96FA7C8D10DA3D2C002AC795 /* EditController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

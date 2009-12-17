@@ -27,7 +27,6 @@
 	NSArray * suggestedTagsForCurrentLocation;
 	
 	BOOL searchIsVisible;
-	BOOL saving;
 	BOOL reloadingTableAllowed;
 	
 	id tempVariable;
@@ -52,6 +51,7 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //	Miscelaneous
 - (void) setBarColours:(TTViewController*)sender;
+- (void) setBarColours:(TTViewController*)sender colour:(UIColor*)colour;
 - (NSString *)applicationDocumentsDirectory;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -73,9 +73,6 @@
 @property (nonatomic, retain) NSManagedObjectContext * managedObjectContext;
 @property (nonatomic, retain) NSManagedObjectContext * addTransactionManagedObjectContext;
 - (void)save:(NSManagedObjectContext*)context;
-- (void)privateSave;
-- (void)setSavignIsFalse;
-- (void)delayedSave:(Transaction*)transaction;
 
 /*
  * Handles the creation of new manage object contexts that can be used
