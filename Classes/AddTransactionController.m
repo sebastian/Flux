@@ -14,10 +14,11 @@
 #import "Location.h"
 #import "Tag.h"
 #import "CacheMasterSingleton.h"
+#import "FluxAppDelegate.h"
 
 @implementation AddTransactionController
 
-@synthesize	bestLocation = _bestLocation, localCurrency = _localCurrency;
+@synthesize	bestLocation = _bestLocation, localCurrency = _localCurrency, nextActionIndicatorView = _nextActionIndicatorView;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //	Private methods
@@ -63,6 +64,7 @@
 - (id)init {
     if (self = [super init]) {
 			foundLocationTags = NO;
+			[self.tabBarItem setImage:[UIImage imageNamed:@"Add.png"]];
     }
     return self;
 }
@@ -73,6 +75,7 @@
 	TT_RELEASE_SAFELY(_amountEditor);
 	TT_RELEASE_SAFELY(_placemark);
 	TT_RELEASE_SAFELY(currentTransaction);	
+	TT_RELEASE_SAFELY(_nextActionIndicatorView);
 	
 	[super dealloc];
 }
@@ -82,12 +85,7 @@
 
 - (void) loadView {
 	[super loadView];
-			
-	[[Utilities toolbox] setBarColours:self];
-	
-	self.title = NSLocalizedString(@"Add transaction",nil);
-	[self.tabBarItem setImage:[UIImage imageNamed:@"Add.png"]];
-	
+				
 	[TTStyleSheet setGlobalStyleSheet:[[[KleioCustomStyles alloc] init] autorelease]];
 		
 	// Setup next button
@@ -99,11 +97,14 @@
 		
 	_amountEditor = [[AmountEditor alloc] init];
 	_amountEditor.delegate = self;
+	
 	[self createAndSetupTransaction];
-
+	
 	[self.view addSubview:_amountEditor.view];
 	
 	self.tabBarItem.title = NSLocalizedString(@"New", nil);
+	
+	self.title = NSLocalizedString(@"Add transaction",nil);
 	
 }
 
@@ -114,7 +115,6 @@
 	[LocationController sharedInstance].delegate = self;
 	[LocationController sharedInstance].locationManager.desiredAccuracy = kCLLocationAccuracyBest;
 	[[LocationController sharedInstance].locationManager startUpdatingLocation];
-		
 }
 
 - (void) viewDidUnload {

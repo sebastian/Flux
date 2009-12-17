@@ -37,9 +37,12 @@
 	NSString * _localCurrency;
 	
 	BOOL foundLocationTags;
+	 
+	TTView *_nextActionIndicatorView;
 }
 @property (nonatomic, retain) CLLocation * bestLocation;
 @property (nonatomic, retain) NSString * localCurrency;
+@property (nonatomic, retain) TTView * nextActionIndicatorView;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //	Change of state

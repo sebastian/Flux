@@ -13,7 +13,7 @@
 
 @protocol EditAmountControllerDelegate;
 
-@interface EditAmountController : UIViewController {
+@interface EditAmountController : TTViewController {
 	Transaction * _currentTransaction;
 	AmountEditor * _amountEditor;
 	id <EditAmountControllerDelegate> _delegate;

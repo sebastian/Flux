@@ -53,7 +53,7 @@ typedef enum {
 @protocol AmountEditorDelegate;
 
 @interface AmountEditor : UIViewController <CurrencyKeyboardDelegate, ExpenseToggleDelegate, CurrencySelectionDialogDelegate, AmountLabelDelegate> {
-	UIViewController * _delegate;
+	TTViewController * _delegate;
 	
 	Transaction * _currentTransaction;
 
@@ -64,7 +64,7 @@ typedef enum {
 
 }
 @property (nonatomic, retain) Transaction * currentTransaction;
-@property (nonatomic, assign) UIViewController * delegate;
+@property (nonatomic, assign) TTViewController * delegate;
 
 - (void) updateExpenseDisplay;
 

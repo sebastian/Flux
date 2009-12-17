@@ -32,6 +32,15 @@
 	UIColor* tintColor = KLEIO_GREEN_COLOR;
   return [TTSTYLESHEET toolbarButtonForState:state shape:shape tintColor:tintColor font:nil];
 }
+- (TTStyle*)greenMonsterWhatToDoIndicator {
+
+	UIColor* tintColor = KLEIO_GREEN_COLOR;
+	
+	return [TTSolidFillStyle styleWithColor:[UIColor clearColor] next:
+					[TTShapeStyle styleWithShape:[TTRoundedRightArrowShape shapeWithRadius:4.5] next:
+					[TTReflectiveFillStyle styleWithColor:tintColor next:nil]]];
+
+}
 
 
 - (TTStyle*)grayToolbarButton:(UIControlState)state {

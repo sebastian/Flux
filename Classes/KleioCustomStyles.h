@@ -16,6 +16,7 @@
 - (TTStyle*)greenForwardButton:(UIControlState)state;
 - (TTStyle*)grayToolbarButton:(UIControlState)state;
 - (TTStyle*)blueToolbarButton:(UIControlState)state;
+- (TTStyle*)greenMonsterWhatToDoIndicator;
 
 // Add amount controller
 - (TTStyle*) expenseInputField;

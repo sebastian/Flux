@@ -190,6 +190,8 @@
 		96F6600E10417D1600845F0E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 964F1E84101CDE31004EA5C3 /* CoreLocation.framework */; };
 		96F660871041854F00845F0E /* CacheManagerOverviewTableTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 96F660861041854F00845F0E /* CacheManagerOverviewTableTests.m */; };
 		96F663A11041A1BE00845F0E /* TestUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 96F663A01041A1BE00845F0E /* TestUtils.m */; };
+		96F7285E10DA90B0004CDF0C /* NextIndicator in Resources */ = {isa = PBXBuildFile; fileRef = 96F7285D10DA90B0004CDF0C /* NextIndicator */; };
+		96F7285F10DA90B0004CDF0C /* NextIndicator in Resources */ = {isa = PBXBuildFile; fileRef = 96F7285D10DA90B0004CDF0C /* NextIndicator */; };
 		96F8403A100A5A08008862CC /* OverviewTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96F84039100A5A08008862CC /* OverviewTableViewController.m */; };
 		96F84082100A66E8008862CC /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96F84081100A66E8008862CC /* CoreData.framework */; };
 		96FA794A10DA0DF6002AC795 /* TransactionTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96FA794910DA0DF6002AC795 /* TransactionTableView.m */; };
@@ -380,6 +382,7 @@
 		96F660861041854F00845F0E /* CacheManagerOverviewTableTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacheManagerOverviewTableTests.m; sourceTree = "<group>"; };
 		96F6639F1041A1BE00845F0E /* TestUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestUtils.h; sourceTree = "<group>"; };
 		96F663A01041A1BE00845F0E /* TestUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestUtils.m; sourceTree = "<group>"; };
+		96F7285D10DA90B0004CDF0C /* NextIndicator */ = {isa = PBXFileReference; lastKnownFileType = file; name = NextIndicator; path = Graphics/NextIndicator; sourceTree = "<group>"; };
 		96F84038100A5A08008862CC /* OverviewTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OverviewTableViewController.h; sourceTree = "<group>"; };
 		96F84039100A5A08008862CC /* OverviewTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OverviewTableViewController.m; sourceTree = "<group>"; };
 		96F84081100A66E8008862CC /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -539,6 +542,7 @@
 		9628FD791077777000990F1D /* Graphics */ = {
 			isa = PBXGroup;
 			children = (
+				96F7285D10DA90B0004CDF0C /* NextIndicator */,
 				9628FE521077850200990F1D /* Keyboard */,
 				9628FE171077790500990F1D /* CellSeparator.png */,
 				9628FD7A1077778100990F1D /* Zoom.png */,
@@ -951,6 +955,7 @@
 				9628FE551077850200990F1D /* KeyboardButtonDeleteActive.png in Resources */,
 				9628FE561077850200990F1D /* KeyboardButtonDeletePassive.png in Resources */,
 				96D9A0D8107891E1003DB1F3 /* Localizable.strings in Resources */,
+				96F7285E10DA90B0004CDF0C /* NextIndicator in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -999,6 +1004,7 @@
 				9628FE571077850200990F1D /* KeyboardButtonDeleteActive.png in Resources */,
 				9628FE581077850200990F1D /* KeyboardButtonDeletePassive.png in Resources */,
 				96D9A0D9107891E1003DB1F3 /* Localizable.strings in Resources */,
+				96F7285F10DA90B0004CDF0C /* NextIndicator in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

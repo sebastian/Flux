@@ -73,8 +73,9 @@ static Utilities *sharedUtilitiesToolbox = nil;
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //	Miscelaneous
 - (void) setBarColours:(TTViewController*)sender colour:(UIColor*)colour{
-	sender.navigationBarStyle = UIBarStyleBlackOpaque;
+	sender.navigationBarStyle = UIBarStyleDefault;
 	sender.navigationBarTintColor = colour;
+	sender.navigationController.navigationBar.tintColor = colour;
 	sender.statusBarStyle = UIStatusBarStyleBlackOpaque;
 }
 - (void) setBarColours:(TTViewController*)sender {

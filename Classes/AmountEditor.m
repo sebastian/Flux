@@ -1,6 +1,7 @@
 #import "AmountEditor.h"
 #import "KleioCustomStyles.h"
 #import "Transaction.h"
+#import "Utilities.h"
 
 @implementation ExpenseToggle
 
@@ -149,8 +150,17 @@
 	// Show delete button if there is a value
 	if ([_currentTransaction needsDeleteButton]) {
 		[_keyboard enableClearButton];
+		
+		// It can be deleted, hence it can also be added
+		// show that by highlighting the add bar
+		[[Utilities toolbox] setBarColours:_delegate colour:RGBCOLOR(51,153,51)];
+		
 	} else {
 		[_keyboard disableClearButton];
+		
+		// It can be deleted, hence it can also be added
+		// show that by highlighting the add bar
+		[[Utilities toolbox] setBarColours:_delegate];
 	}
 	
 	// Check if it can be added to?
@@ -285,7 +295,9 @@
 }
 - (void) doubleZeroButtonPressed {
 	[_currentTransaction addNumber:0];
-	[_currentTransaction addNumber:0];
+	if ([_currentTransaction canBeAddedTo]) {
+		[_currentTransaction addNumber:0];
+	}
 	[self updateExpenseDisplay];
 }
 - (CGFloat) viewHeight {
