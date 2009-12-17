@@ -303,6 +303,34 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 		// Nothing to do...
 	}
 }
+- (void)objectContextUpdated:(NSNotification *)notification {
+	// Merge changes
+	[[[Utilities toolbox] managedObjectContext] mergeChangesFromContextDidSaveNotification:notification];	
+	
+	// Tell delegates to update
+	if (self.detailTableDelegate != nil) {
+		@try {[self.detailTableDelegate updateIfWorthIt];}
+		@catch (NSException * e) {
+			/*
+			 There is no detailTableViewController.
+			 It must have been dealloced... it should have deregistered,
+			 but something must have gone wrong.
+			 */
+		}
+	}	
+
+	if (self.overviewTableDelegate != nil) {
+		@try {[self.overviewTableDelegate updateIfWorthIt];}
+		@catch (NSException * e) {
+			/*
+			 There is no detailTableViewController.
+			 It must have been dealloced... it should have deregistered,
+			 but something must have gone wrong.
+			 */
+		}
+	}
+	
+}
 
 #pragma mark
 #pragma mark -
@@ -398,12 +426,12 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 	return detailCache_cellCache;
 }
 - (void) setDetailTableDelegate:(DetailTableViewController*)delegate {
-	detailTableDelegate = delegate;
 	/* 
-	 When the delegate clears it responsibility, 
-	 then the cache is automatically stale, ie we can get rid of the dictionary!
+	 If the delegate changes, then the cache automatically becomes stale
 	 */
-	if (delegate == nil) {[self detailCache_clearCache];}
+	if ((delegate == nil) || (detailTableDelegate != delegate)) {[self detailCache_clearCache];}
+	
+	detailTableDelegate = delegate;
 }
 - (void) detailCache_tellDelegateThatItsWorthUpdating {
 	if (self.detailTableDelegate != nil) {
@@ -432,6 +460,18 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 	
 		TTLOG(@"Generating data for row_section %i", _section, section);
 		
+		/*
+		 Check if there are any transactions left
+		 If not, then we throw an exception
+		 */
+		if ([[self.detailTableDelegate.resultsController sections] count] == 0) {
+			[NSException raise:@"No data" format:@"Tried to access non existant section"];
+		} else {
+			if ([[self.detailTableDelegate.resultsController sections] count] < _section) {
+				[NSException raise:@"No data" format:@"No transaction objects for given section"];	
+			}
+		}
+
 		// General data
 		NSArray * _transactions = [[[self.detailTableDelegate.resultsController sections] objectAtIndex:_section] objects];
 		NSArray * transactions = [_transactions filteredArrayUsingPredicate:self.filteringPredicate];
@@ -482,7 +522,7 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 	
 	NSString * yearMonth = transaction.yearMonth;
 	NSString * oldYearMonth = transaction.oldYearMonth;
-	NSString * yearMonthToDisplay = self.detailTableDelegate.yearMonthToDisplay;
+	NSString * yearMonthToDisplay = self.detailTableDelegate.yearMonth;
 	
 	BOOL worthUpdating = NO;
 	
@@ -499,7 +539,10 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 	/*
 	 If there are no elements in the section, then we don't want to display it
 	 */
-	NSDictionary * data = [self detailCache_dataForSection:_section];
+	NSDictionary * data;
+	@try {data = [self detailCache_dataForSection:_section];}
+	@catch (NSException * e) {return nil;}
+	
 	NSInteger count = [[data objectForKey:@"transactions"] count];
 	if (count == 0) {return nil;}
 	
@@ -527,7 +570,12 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 	/*
 	 If there are no elements in the section, then we don't want to display it
 	 */
-	NSDictionary * data = [self detailCache_dataForSection:_section];
+	NSDictionary * data;
+	@try {
+		data = [self detailCache_dataForSection:_section];
+	}
+	@catch (NSException * e) {return nil;}
+	
 	NSInteger count = [[data objectForKey:@"transactions"] count];
 	if (count == 0) {
 		return nil;

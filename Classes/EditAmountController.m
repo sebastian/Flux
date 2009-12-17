@@ -62,7 +62,7 @@
 //	BarButtonItemButton actions
 
 - (void) dismiss {
-	[self.navigationController popViewControllerAnimated:YES];
+	[self removeFromSupercontrollerAnimated:YES];
 }
 
 - (void) save {

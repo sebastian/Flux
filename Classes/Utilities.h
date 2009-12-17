@@ -18,6 +18,7 @@
 	NSMutableDictionary * tagExistance;
 	NSMutableDictionary * tagCache;
 	NSManagedObjectContext * managedObjectContext;
+	NSManagedObjectContext * _addTransactionManagedObjectContext;
 	
 	MKReverseGeocoder * geoCoder;
 	
@@ -30,9 +31,10 @@
 	BOOL reloadingTableAllowed;
 	
 	id tempVariable;
+	Transaction * _tempTransaction;
 }
 
-
+@property (nonatomic, retain) Transaction * tempTransaction;
 @property (nonatomic, retain) id tempVariable;
 @property (nonatomic, retain) NSDateFormatter * dateFormatter;
 @property (nonatomic, retain) MKReverseGeocoder * geoCoder;
@@ -69,6 +71,7 @@
 //	CoreData
 // CoreData
 @property (nonatomic, retain) NSManagedObjectContext * managedObjectContext;
+@property (nonatomic, retain) NSManagedObjectContext * addTransactionManagedObjectContext;
 - (void)save:(NSManagedObjectContext*)context;
 - (void)privateSave;
 - (void)setSavignIsFalse;

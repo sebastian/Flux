@@ -11,19 +11,18 @@
 #import "Location.h"
 #import "FluxAppDelegate.h"
 #import "AddTransactionController.h"
-
-@interface Utilities (PrivateMethods)
-- (void)doSave:(NSManagedObjectContext*)context;
-- (void)doSaveStart:(NSManagedObjectContext*)context;
-@end
-
-
+#import "CacheMasterSingleton.h"
 
 @implementation Utilities
 
 @synthesize dateFormatter;
 @synthesize geoCoder;
 @synthesize tempVariable;
+@synthesize tempTransaction = _tempTransaction;
+
+- (Transaction*)tempTransaction {
+	return [_tempTransaction autorelease];
+}
 
 static Utilities *sharedUtilitiesToolbox = nil;
 
@@ -83,10 +82,13 @@ static Utilities *sharedUtilitiesToolbox = nil;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //	Miscelaneous
-- (void) setBarColours:(TTViewController*)sender {
-	sender.navigationBarStyle = UIBarStyleBlack;
-	sender.navigationBarTintColor = [UIColor blackColor];
+- (void) setBarColours:(TTViewController*)sender colour:(UIColor*)colour{
+	sender.navigationBarStyle = UIBarStyleBlackOpaque;
+	sender.navigationBarTintColor = colour;
 	sender.statusBarStyle = UIStatusBarStyleBlackOpaque;
+}
+- (void) setBarColours:(TTViewController*)sender {
+	[self setBarColours:sender colour:[UIColor blackColor]];
 }
 
 - (NSString *)applicationDocumentsDirectory {
@@ -128,13 +130,13 @@ static Utilities *sharedUtilitiesToolbox = nil;
 	
 	// Create an object to hold the location
 	Location * newLocation = [NSEntityDescription insertNewObjectForEntityForName:@"Location" 
-																												 inManagedObjectContext:self.managedObjectContext];
+																												 inManagedObjectContext:self.addTransactionManagedObjectContext];
 	newLocation.location = loc;
 	
 	if (currentTag == nil) {
 		
 		Tag * newTag = [NSEntityDescription insertNewObjectForEntityForName:@"Tag" 
-																								 inManagedObjectContext:self.managedObjectContext];
+																								 inManagedObjectContext:self.addTransactionManagedObjectContext];
 		
 		newTag.autotag = [NSNumber numberWithBool:autotag];
 		newTag.name = tag;
@@ -151,7 +153,10 @@ static Utilities *sharedUtilitiesToolbox = nil;
 	}
 	
 	// Save the changes we have made
-	[self save:self.managedObjectContext];
+
+	// TODO: Is this OK?
+	// Disable while I try using the shared Managed Object context
+	//[self save:self.addTransactionManagedObjectContext];
 	
 }
 -(Tag*)tagObjectforTag:(NSString*)tag {
@@ -164,7 +169,7 @@ static Utilities *sharedUtilitiesToolbox = nil;
 	if ([tagCache objectForKey:tag] != nil) {return [tagCache objectForKey:tag];}
 	
 	NSEntityDescription *entity = [NSEntityDescription entityForName:@"Tag" 
-																						inManagedObjectContext:self.managedObjectContext]; 
+																						inManagedObjectContext:self.addTransactionManagedObjectContext]; 
 	
 	// Create a predicate
 	NSPredicate * predicate = [NSPredicate predicateWithFormat:@"name = %@", tag];
@@ -176,7 +181,7 @@ static Utilities *sharedUtilitiesToolbox = nil;
 	
 	NSError *error; 
 	
-	NSArray *localTags = [self.managedObjectContext executeFetchRequest:request error:&error]; 
+	NSArray *localTags = [self.addTransactionManagedObjectContext executeFetchRequest:request error:&error]; 
 	[request release];
 	
 	if (localTags == nil) 
@@ -204,7 +209,7 @@ static Utilities *sharedUtilitiesToolbox = nil;
 	[fetchRequest setPredicate:tagPredicate];
 	[fetchRequest setFetchLimit:2];
 	
-	NSArray * fetchedTags = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+	NSArray * fetchedTags = [self.addTransactionManagedObjectContext executeFetchRequest:fetchRequest error:&error];
 	[fetchRequest release];
 	
 	/*
@@ -251,7 +256,7 @@ static Utilities *sharedUtilitiesToolbox = nil;
 -(NSArray*)allTagNamesIncludingAutotags:(BOOL)autotags {
 	
 	NSEntityDescription *entity = [NSEntityDescription entityForName:@"Tag" 
-																						inManagedObjectContext:self.managedObjectContext]; 
+																						inManagedObjectContext:self.addTransactionManagedObjectContext]; 
 	
 	NSPredicate * autotagPredicate;
 	if (autotags) {
@@ -267,7 +272,7 @@ static Utilities *sharedUtilitiesToolbox = nil;
 	
 	NSError *error; 
 	
-	NSArray *tags = [self.managedObjectContext executeFetchRequest:request error:&error]; 
+	NSArray *tags = [self.addTransactionManagedObjectContext executeFetchRequest:request error:&error]; 
 	[request release];
 	
 	NSMutableArray * tagNames = [[NSMutableArray alloc] init];
@@ -283,7 +288,7 @@ static Utilities *sharedUtilitiesToolbox = nil;
 	NSFetchRequest *request = [[NSFetchRequest alloc] init]; 
 
 	NSEntityDescription *entity = [NSEntityDescription entityForName:@"Location" 
-																						inManagedObjectContext:self.managedObjectContext]; 
+																						inManagedObjectContext:self.addTransactionManagedObjectContext]; 
 	[request setEntity:entity];
 
 	
@@ -295,7 +300,7 @@ static Utilities *sharedUtilitiesToolbox = nil;
 	
 	NSError *error; 
 	
-	NSArray * allLocations = [self.managedObjectContext executeFetchRequest:request error:&error]; 
+	NSArray * allLocations = [self.addTransactionManagedObjectContext executeFetchRequest:request error:&error]; 
 	TT_RELEASE_SAFELY(request);
 	
 	NSMutableArray * tagNames = [[NSMutableArray alloc] init];
@@ -367,58 +372,42 @@ static Utilities *sharedUtilitiesToolbox = nil;
 #pragma mark CoreData methods
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //	CoreData
-@synthesize managedObjectContext;
+@synthesize managedObjectContext, addTransactionManagedObjectContext = _addTransactionManagedObjectContext;
 - (NSManagedObjectContext*)managedObjectContext {
 	if (managedObjectContext == nil) {
 		managedObjectContext = [[self createObjectContext] retain];
+		
+		[[NSNotificationCenter defaultCenter]
+		 addObserver:[CacheMasterSingleton sharedCacheMaster]
+		 selector:@selector(objectContextUpdated:)
+		 name:NSManagedObjectContextDidSaveNotification
+		 object:nil];
+		
 	}
 	return managedObjectContext;
 }
-- (void)privateSave {
-	if (saving == NO) {
-		saving = YES;
-		[self performSelectorInBackground:@selector(doSaveStart:) withObject:self.managedObjectContext];
+- (NSManagedObjectContext*)addTransactionManagedObjectContext {
+	if (_addTransactionManagedObjectContext == nil) {
+		_addTransactionManagedObjectContext = [[self createObjectContext] retain];
 	}
-	//[self save:self.managedObjectContext];
+	return _addTransactionManagedObjectContext;
 }
 - (void)save:(NSManagedObjectContext*)context {
-	NSError *error;
-    if (context != nil) {
-			if ([context hasChanges]) {
-
-				if (![context save:&error]) {
-					// Handle error
-					TTLOG(@"Unresolved error: %@, %@", error, [error userInfo]);
-					exit(-1);  // Fail
-				} 
-				
-			} 
-		}	
-	
-}
-- (void)doSaveStart:(NSManagedObjectContext*)context {
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	[self doSave:context];
-	[pool release];
-}
-- (void)doSave:(NSManagedObjectContext*)context {
-	NSError *error;
+		
 	if (context != nil) {
-		if ([context hasChanges]) {
+		NSLog(@"Context isn't nil: %@", context);
 
+		if ([context hasChanges]) {
+			NSLog(@"Has changes %@", context);
+	
+			NSError *error;
 			if (![context save:&error]) {
 				// Handle error
-				TTLOG(@"Unresolved error: %@, %@", error, [error userInfo]);
+				NSLog(@"Unresolved error: %@, %@", error, [error userInfo]);
 				exit(-1);  // Fail
+			} 
 			
-			} else {
-				// Trying to perform another save in 2 seconds time
-				sleep(2);
-				[self doSave:context];
-			}
-		} else {
-			saving = NO;
-		}
+		} 
 	}	
 }
 - (NSManagedObjectContext*) createObjectContext {
@@ -433,7 +422,6 @@ static Utilities *sharedUtilitiesToolbox = nil;
 	return [newContext autorelease];
 	
 }
-
 - (void)performDelayedSave:(Transaction*)trs {
 	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
 	
@@ -489,11 +477,14 @@ static Utilities *sharedUtilitiesToolbox = nil;
 }
 
 - (void)dealloc {
-	[geoCoder release];
-	[dateFormatter release];
-	[managedObjectContext release];
-	[tagExistance release];
-	[tagCache release];
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	
+	TT_RELEASE_SAFELY(geoCoder);
+	TT_RELEASE_SAFELY(dateFormatter);
+	TT_RELEASE_SAFELY(managedObjectContext);
+	TT_RELEASE_SAFELY(_addTransactionManagedObjectContext);
+	TT_RELEASE_SAFELY(tagExistance);
+	TT_RELEASE_SAFELY(tagCache);
 	
 	[super dealloc];
 }

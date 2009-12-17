@@ -12,6 +12,9 @@
 #import "AddTransactionController.h"
 #import "TagSelector.h"
 #import "TabBarController.h"
+#import "NewOverviewTableViewController.h"
+#import "NewDetailTableViewController.h"
+#import "TransactionViewController.h"
 
 @implementation FluxAppDelegate
 
@@ -39,7 +42,10 @@
 	[map from:@"kleio://tabBar" toSharedViewController:[TabBarController class]];
 	[map from:@"kleio://listTransactions" toSharedViewController:[OverviewTableViewController class]];
 	[map from:@"kleio://addTransaction" toSharedViewController:[AddTransactionController class]];
-
+	[map from:@"kleio://newTransactionList" toSharedViewController:[NewOverviewTableViewController class]];
+	[map from:@"kleio://showMonth/(initWithMonth:)" toViewController:[NewDetailTableViewController class]];
+	[map from:@"kleio://showTransaction" toViewController:[TransactionViewController class]];
+	
 	[navigator openURL:@"kleio://tabBar" animated:NO];
 
 }

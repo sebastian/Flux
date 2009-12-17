@@ -17,7 +17,6 @@
 
 #define STANDARD_TEXT_FONT [UIFont systemFontOfSize:16.f]
 
-
 @interface TTButton (KleioAddition)
 @property (nonatomic, retain) NSString * text;
 @end
@@ -837,7 +836,10 @@
 - (void) loadView {
 	[super loadView];
 	
-	[[Utilities toolbox] setBarColours:self];
+	self.currentTransaction = [[Utilities toolbox] tempTransaction];
+	
+	[[Utilities toolbox] setBarColours:self colour:RGBCOLOR(50,50,50)];
+	//[[Utilities toolbox] setBarColours:self];
 	//TTToolbarNavigationFrame()
 	UIScrollView* scrollView = [[[UIScrollView alloc] initWithFrame:TTToolbarNavigationFrame()] autorelease];
 	scrollView.autoresizesSubviews = YES;
@@ -845,7 +847,7 @@
   scrollView.canCancelContentTouches = NO;
   scrollView.delaysContentTouches = YES;
   self.view = scrollView;
-			
+	
 	// Add the amount
 	[self addTheAmountToView:scrollView];
 		

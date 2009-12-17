@@ -29,7 +29,6 @@
 	CurrencyKeyboard * keyboard;
 	
 	// CoreData stuff
-	NSManagedObjectContext *_managedObjectContext;
 	Transaction * currentTransaction;
 	
 	AmountEditor * _amountEditor;
@@ -39,7 +38,6 @@
 	
 	BOOL foundLocationTags;
 }
-@property (nonatomic, retain) NSManagedObjectContext * managedObjectContext;
 @property (nonatomic, retain) CLLocation * bestLocation;
 @property (nonatomic, retain) NSString * localCurrency;
 

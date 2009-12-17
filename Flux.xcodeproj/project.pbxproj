@@ -103,6 +103,10 @@
 		96419D1F101C7E9B0066D6D8 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96419D1E101C7E9B0066D6D8 /* MapKit.framework */; };
 		96426E75104DF133002C218D /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 96426E74104DF133002C218D /* Settings.bundle */; };
 		96426E76104DF133002C218D /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 96426E74104DF133002C218D /* Settings.bundle */; };
+		964C2DF310D7F632006EDCD3 /* NewOverviewTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 964C2DF210D7F632006EDCD3 /* NewOverviewTableViewController.m */; };
+		964C2DF410D7F632006EDCD3 /* NewOverviewTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 964C2DF210D7F632006EDCD3 /* NewOverviewTableViewController.m */; };
+		964C2DF710D7F666006EDCD3 /* OverviewTableDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 964C2DF610D7F666006EDCD3 /* OverviewTableDataSource.m */; };
+		964C2DF810D7F666006EDCD3 /* OverviewTableDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 964C2DF610D7F666006EDCD3 /* OverviewTableDataSource.m */; };
 		964F1E70101CDB75004EA5C3 /* LocationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 964F1E6F101CDB75004EA5C3 /* LocationController.m */; };
 		964F1E85101CDE31004EA5C3 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 964F1E84101CDE31004EA5C3 /* CoreLocation.framework */; };
 		9653EA691010F26700B714BB /* ExpenseEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9653EA681010F26700B714BB /* ExpenseEditor.xib */; };
@@ -125,6 +129,12 @@
 		96AA7090100656E600206A37 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96AA708F100656E600206A37 /* CoreData.framework */; };
 		96AA70EE10065AB200206A37 /* Flux.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 96AA70ED10065AB200206A37 /* Flux.xcdatamodel */; };
 		96AA710C1006616700206A37 /* Transaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 96AA710B1006616700206A37 /* Transaction.m */; };
+		96B6D80E10D8DF01001722B1 /* NewDetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B6D80D10D8DF01001722B1 /* NewDetailTableViewController.m */; };
+		96B6D80F10D8DF01001722B1 /* NewDetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B6D80D10D8DF01001722B1 /* NewDetailTableViewController.m */; };
+		96B6D81210D8DF72001722B1 /* DetailTableDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B6D81110D8DF72001722B1 /* DetailTableDataSource.m */; };
+		96B6D81310D8DF72001722B1 /* DetailTableDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B6D81110D8DF72001722B1 /* DetailTableDataSource.m */; };
+		96B6D88910D92D58001722B1 /* TransactionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B6D88810D92D58001722B1 /* TransactionModel.m */; };
+		96B6D88A10D92D58001722B1 /* TransactionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B6D88810D92D58001722B1 /* TransactionModel.m */; };
 		96BBA70110550D7000F5D537 /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96BBA70010550D7000F5D537 /* TabBarController.m */; };
 		96BBA70210550D7000F5D537 /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96BBA70010550D7000F5D537 /* TabBarController.m */; };
 		96BD3E6C101744DB00926A83 /* CurrencyKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 96BD3E6A101744DB00926A83 /* CurrencyKeyboard.m */; };
@@ -182,6 +192,12 @@
 		96F663A11041A1BE00845F0E /* TestUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 96F663A01041A1BE00845F0E /* TestUtils.m */; };
 		96F8403A100A5A08008862CC /* OverviewTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96F84039100A5A08008862CC /* OverviewTableViewController.m */; };
 		96F84082100A66E8008862CC /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96F84081100A66E8008862CC /* CoreData.framework */; };
+		96FA794A10DA0DF6002AC795 /* TransactionTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96FA794910DA0DF6002AC795 /* TransactionTableView.m */; };
+		96FA794B10DA0DF6002AC795 /* TransactionTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96FA794910DA0DF6002AC795 /* TransactionTableView.m */; };
+		96FA7ABB10DA2328002AC795 /* NewDetailTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 96FA7ABA10DA2328002AC795 /* NewDetailTableCell.m */; };
+		96FA7ABC10DA2328002AC795 /* NewDetailTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 96FA7ABA10DA2328002AC795 /* NewDetailTableCell.m */; };
+		96FA7C8C10DA3D2C002AC795 /* EditController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96FA7C8B10DA3D2C002AC795 /* EditController.m */; };
+		96FA7C8D10DA3D2C002AC795 /* EditController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96FA7C8B10DA3D2C002AC795 /* EditController.m */; };
 		96FAE6DC1024C2970060384F /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 96FAE6DA1024C2970060384F /* Location.m */; };
 		96FAE6E01024C30A0060384F /* Tag.m in Sources */ = {isa = PBXBuildFile; fileRef = 96FAE6DF1024C30A0060384F /* Tag.m */; };
 		96FBC2921071206100102CE2 /* AmountEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 96FBC2911071206100102CE2 /* AmountEditor.m */; };
@@ -292,6 +308,10 @@
 		96419CBD101C77530066D6D8 /* TransactionDisplay.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = TransactionDisplay.xib; path = Classes/TransactionDisplay.xib; sourceTree = "<group>"; };
 		96419D1E101C7E9B0066D6D8 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		96426E74104DF133002C218D /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Settings.bundle; path = Classes/Settings.bundle; sourceTree = "<group>"; };
+		964C2DF110D7F632006EDCD3 /* NewOverviewTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewOverviewTableViewController.h; sourceTree = "<group>"; };
+		964C2DF210D7F632006EDCD3 /* NewOverviewTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewOverviewTableViewController.m; sourceTree = "<group>"; };
+		964C2DF510D7F666006EDCD3 /* OverviewTableDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OverviewTableDataSource.h; sourceTree = "<group>"; };
+		964C2DF610D7F666006EDCD3 /* OverviewTableDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OverviewTableDataSource.m; sourceTree = "<group>"; };
 		964F1E6E101CDB75004EA5C3 /* LocationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationController.h; sourceTree = "<group>"; };
 		964F1E6F101CDB75004EA5C3 /* LocationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationController.m; sourceTree = "<group>"; };
 		964F1E84101CDE31004EA5C3 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -323,6 +343,12 @@
 		96AA70ED10065AB200206A37 /* Flux.xcdatamodel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.xcdatamodel; path = Flux.xcdatamodel; sourceTree = "<group>"; };
 		96AA710A1006616700206A37 /* Transaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Transaction.h; path = ../Transaction.h; sourceTree = "<group>"; };
 		96AA710B1006616700206A37 /* Transaction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Transaction.m; path = ../Transaction.m; sourceTree = "<group>"; };
+		96B6D80C10D8DF01001722B1 /* NewDetailTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewDetailTableViewController.h; sourceTree = "<group>"; };
+		96B6D80D10D8DF01001722B1 /* NewDetailTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewDetailTableViewController.m; sourceTree = "<group>"; };
+		96B6D81010D8DF72001722B1 /* DetailTableDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailTableDataSource.h; sourceTree = "<group>"; };
+		96B6D81110D8DF72001722B1 /* DetailTableDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailTableDataSource.m; sourceTree = "<group>"; };
+		96B6D88710D92D58001722B1 /* TransactionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionModel.h; sourceTree = "<group>"; };
+		96B6D88810D92D58001722B1 /* TransactionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionModel.m; sourceTree = "<group>"; };
 		96BBA6FF10550D7000F5D537 /* TabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabBarController.h; sourceTree = "<group>"; };
 		96BBA70010550D7000F5D537 /* TabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabBarController.m; sourceTree = "<group>"; };
 		96BD3E69101744DB00926A83 /* CurrencyKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrencyKeyboard.h; sourceTree = "<group>"; };
@@ -361,6 +387,12 @@
 		96F84038100A5A08008862CC /* OverviewTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OverviewTableViewController.h; sourceTree = "<group>"; };
 		96F84039100A5A08008862CC /* OverviewTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OverviewTableViewController.m; sourceTree = "<group>"; };
 		96F84081100A66E8008862CC /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		96FA794810DA0DF6002AC795 /* TransactionTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionTableView.h; sourceTree = "<group>"; };
+		96FA794910DA0DF6002AC795 /* TransactionTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionTableView.m; sourceTree = "<group>"; };
+		96FA7AB910DA2328002AC795 /* NewDetailTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewDetailTableCell.h; sourceTree = "<group>"; };
+		96FA7ABA10DA2328002AC795 /* NewDetailTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewDetailTableCell.m; sourceTree = "<group>"; };
+		96FA7C8A10DA3D2C002AC795 /* EditController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditController.h; sourceTree = "<group>"; };
+		96FA7C8B10DA3D2C002AC795 /* EditController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditController.m; sourceTree = "<group>"; };
 		96FAE6D91024C2970060384F /* Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Location.h; path = ../Location.h; sourceTree = "<group>"; };
 		96FAE6DA1024C2970060384F /* Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Location.m; path = ../Location.m; sourceTree = "<group>"; };
 		96FAE6DE1024C30A0060384F /* Tag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Tag.h; path = ../Tag.h; sourceTree = "<group>"; };
@@ -592,6 +624,10 @@
 				96F84039100A5A08008862CC /* OverviewTableViewController.m */,
 				96E55D901014AF3800E63DB8 /* OverviewTableCell.h */,
 				96E55D911014AF3800E63DB8 /* OverviewTableCell.m */,
+				964C2DF110D7F632006EDCD3 /* NewOverviewTableViewController.h */,
+				964C2DF210D7F632006EDCD3 /* NewOverviewTableViewController.m */,
+				964C2DF510D7F666006EDCD3 /* OverviewTableDataSource.h */,
+				964C2DF610D7F666006EDCD3 /* OverviewTableDataSource.m */,
 			);
 			name = OverviewTable;
 			sourceTree = "<group>";
@@ -605,6 +641,12 @@
 				96FFFA7B1015ED4600A53779 /* DetailHeaderView.m */,
 				96FFFA8C1015EDC600A53779 /* DetailContentTableCell.h */,
 				96FFFA8D1015EDC600A53779 /* DetailContentTableCell.m */,
+				96B6D80C10D8DF01001722B1 /* NewDetailTableViewController.h */,
+				96B6D80D10D8DF01001722B1 /* NewDetailTableViewController.m */,
+				96B6D81010D8DF72001722B1 /* DetailTableDataSource.h */,
+				96B6D81110D8DF72001722B1 /* DetailTableDataSource.m */,
+				96FA7AB910DA2328002AC795 /* NewDetailTableCell.h */,
+				96FA7ABA10DA2328002AC795 /* NewDetailTableCell.m */,
 			);
 			name = DetailTable;
 			sourceTree = "<group>";
@@ -623,6 +665,8 @@
 				96953E3A1073B23300C9EFBE /* EditAmountController.m */,
 				96953F051074E55900C9EFBE /* EditDateController.h */,
 				96953F061074E55900C9EFBE /* EditDateController.m */,
+				96FA7C8A10DA3D2C002AC795 /* EditController.h */,
+				96FA7C8B10DA3D2C002AC795 /* EditController.m */,
 			);
 			name = TransactionDetail;
 			sourceTree = "<group>";
@@ -751,6 +795,10 @@
 				963B03C61019EF8E00CD5184 /* TransactionTableViewController.h */,
 				963B03C71019EF8E00CD5184 /* TransactionTableViewController.m */,
 				96419CC0101C775A0066D6D8 /* TransactionDetail */,
+				96B6D88710D92D58001722B1 /* TransactionModel.h */,
+				96B6D88810D92D58001722B1 /* TransactionModel.m */,
+				96FA794810DA0DF6002AC795 /* TransactionTableView.h */,
+				96FA794910DA0DF6002AC795 /* TransactionTableView.m */,
 			);
 			name = "Transactions tab";
 			sourceTree = "<group>";
@@ -1022,6 +1070,14 @@
 				96953E3B1073B23300C9EFBE /* EditAmountController.m in Sources */,
 				96953F071074E55900C9EFBE /* EditDateController.m in Sources */,
 				9628FE3910777ED900990F1D /* NewCurrencyKeyboard.m in Sources */,
+				964C2DF310D7F632006EDCD3 /* NewOverviewTableViewController.m in Sources */,
+				964C2DF710D7F666006EDCD3 /* OverviewTableDataSource.m in Sources */,
+				96B6D80E10D8DF01001722B1 /* NewDetailTableViewController.m in Sources */,
+				96B6D81210D8DF72001722B1 /* DetailTableDataSource.m in Sources */,
+				96B6D88910D92D58001722B1 /* TransactionModel.m in Sources */,
+				96FA794A10DA0DF6002AC795 /* TransactionTableView.m in Sources */,
+				96FA7ABB10DA2328002AC795 /* NewDetailTableCell.m in Sources */,
+				96FA7C8C10DA3D2C002AC795 /* EditController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1067,6 +1123,14 @@
 				96953E3C1073B23300C9EFBE /* EditAmountController.m in Sources */,
 				96953F081074E55900C9EFBE /* EditDateController.m in Sources */,
 				9628FE3A10777ED900990F1D /* NewCurrencyKeyboard.m in Sources */,
+				964C2DF410D7F632006EDCD3 /* NewOverviewTableViewController.m in Sources */,
+				964C2DF810D7F666006EDCD3 /* OverviewTableDataSource.m in Sources */,
+				96B6D80F10D8DF01001722B1 /* NewDetailTableViewController.m in Sources */,
+				96B6D81310D8DF72001722B1 /* DetailTableDataSource.m in Sources */,
+				96B6D88A10D92D58001722B1 /* TransactionModel.m in Sources */,
+				96FA794B10DA0DF6002AC795 /* TransactionTableView.m in Sources */,
+				96FA7ABC10DA2328002AC795 /* NewDetailTableCell.m in Sources */,
+				96FA7C8D10DA3D2C002AC795 /* EditController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1107,7 +1171,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Kleio";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Sebastian Probst Eide (9NVYP52RY9)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;

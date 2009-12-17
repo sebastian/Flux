@@ -17,15 +17,7 @@
 
 @implementation AddTransactionController
 
-@synthesize managedObjectContext = _managedObjectContext, 
-	bestLocation = _bestLocation, localCurrency = _localCurrency;
-
-- (NSManagedObjectContext*)managedObjectContext {
-	if (_managedObjectContext == nil) {
-		_managedObjectContext = [[[Utilities toolbox] createObjectContext] retain];
-	}
-	return _managedObjectContext;
-}
+@synthesize	bestLocation = _bestLocation, localCurrency = _localCurrency;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //	Private methods
@@ -45,7 +37,7 @@
 		TT_RELEASE_SAFELY(currentTransaction);
 	}
 	
-	NSManagedObjectContext * context = [[[Utilities toolbox] createObjectContext] retain];
+	NSManagedObjectContext * context = [[Utilities toolbox] addTransactionManagedObjectContext];
 	currentTransaction = [[NSEntityDescription insertNewObjectForEntityForName:@"Transaction" inManagedObjectContext:context] retain];
 	
 	// If we have a local currency, then use it
@@ -84,18 +76,10 @@
 }
 
 - (void) dealloc {
-	TT_RELEASE_SAFELY(_managedObjectContext);
 	TT_RELEASE_SAFELY(_bestLocation);
 	TT_RELEASE_SAFELY(_localCurrency);
 	TT_RELEASE_SAFELY(_amountEditor);
 	TT_RELEASE_SAFELY(_placemark);
-	
-	/*
-	 This gets a bit messy.
-	 Because the managedObjectContext are managed separatly,
-	 we have to dispose of them here and there...
-	 */
-	[currentTransaction.managedObjectContext release];
 	TT_RELEASE_SAFELY(currentTransaction);	
 	
 	[super dealloc];
@@ -196,7 +180,8 @@
 	 This method also calls createAndSetupTransaction 
 	 so that it is done after the save has been performed
 	 */
-	[[Utilities toolbox] delayedSave:currentTransaction];
+	[[Utilities toolbox] save:[currentTransaction managedObjectContext]];
+	//[[Utilities toolbox] delayedSave:currentTransaction];
 	[self createAndSetupTransaction];
 
 }
@@ -295,7 +280,8 @@
 	
 	// Get all the transactions
 	NSFetchRequest * fetchRequest = [[NSFetchRequest alloc] init];
-	NSEntityDescription * entity = [NSEntityDescription entityForName:@"Location" inManagedObjectContext:self.managedObjectContext];
+	NSEntityDescription * entity = [NSEntityDescription entityForName:@"Location" 
+																						 inManagedObjectContext:[[Utilities toolbox] addTransactionManagedObjectContext]];
 	[fetchRequest setEntity:entity];
 	
 	// TODO: limit tag lookup
@@ -324,7 +310,7 @@
 	[fetchRequest setPredicate:locationPredicate];
 	
 	
-	NSArray * fetchedLocations = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+	NSArray * fetchedLocations = [[[Utilities toolbox] addTransactionManagedObjectContext] executeFetchRequest:fetchRequest error:&error];
 	[fetchRequest release];
 	
 	NSMutableArray * tagsToSuggest = [[NSMutableArray alloc] init];

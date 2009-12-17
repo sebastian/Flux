@@ -35,11 +35,11 @@
 		/*
 		 Set the cache delegate
 		 */
-		if ([self class] == [OverviewTableViewController class]) {
-			[[CacheMasterSingleton sharedCacheMaster] setOverviewTableDelegate:(OverviewTableViewController*)self];
-		} else if ([self class] == [DetailTableViewController class]) {
-			[[CacheMasterSingleton sharedCacheMaster] setDetailTableDelegate:(DetailTableViewController*)self];
-		}
+//		if ([self class] == [OverviewTableViewController class]) {
+//			[[CacheMasterSingleton sharedCacheMaster] setOverviewTableDelegate:(OverviewTableViewController*)self];
+//		} else if ([self class] == [DetailTableViewController class]) {
+//			[[CacheMasterSingleton sharedCacheMaster] setDetailTableDelegate:(DetailTableViewController*)self];
+//		}
 				
 	}	
 	return self;
@@ -94,7 +94,7 @@
 	[[CacheMasterSingleton sharedCacheMaster] clearCache];
 	
 	[super didReceiveMemoryWarning];
-}
+}	
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

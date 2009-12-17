@@ -120,7 +120,7 @@
 }
 - (TTStyle*)newTagList {
 	return [TTShapeStyle styleWithShape:[TTRoundedRectangleShape shapeWithRadius:-1] next:
-					[TTSolidFillStyle styleWithColor:[UIColor blackColor] next:nil]];
+					[TTSolidFillStyle styleWithColor:[UIColor blackColor] next:nil]];				
 }
 
 - (TTStyle*)embossedButton:(UIControlState)state {

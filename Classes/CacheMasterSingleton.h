@@ -6,9 +6,9 @@
 //  Copyright 2009 Kle.io. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
+#import <Three20/Three20.h>
 #import <CoreData/CoreData.h>
+#import "TransactionModel.h"
 
 @class Transaction;
 @class DetailTableViewController;
@@ -28,7 +28,6 @@
 	UIImage * detailTableCellSeparator;	
 	NSMutableDictionary * detailTableCellData;
 	
-	
 	// Detail header view - resource
 	UIFont * detailHeaderViewFont;
 	UIColor * detailHeaderViewGrayColor;
@@ -36,14 +35,14 @@
 	UIImage * detailHeaderViewBackgroundImage;
 	
 	// DetailTable cache
-	DetailTableViewController * detailTableDelegate;
+	DetailTableModel * detailTableDelegate;
 	NSMutableDictionary * detailCache_cellCache;
 	NSMutableDictionary * detailCache_headerViewCache;
 	
 	// OverviewTable cache
 	NSMutableArray * overviewCache_months;
 	NSMutableDictionary * overviewCache_cellCache;
-	OverviewTableViewController * overviewTableDelegate;
+	TransactionModel * overviewTableDelegate;
 		
 	// Filtering
 	NSArray * tagWords;
@@ -68,7 +67,7 @@
 - (UIBarButtonItem*)filterButton;
 
 #pragma mark DetailTable cache
-@property (nonatomic, assign) DetailTableViewController * detailTableDelegate;
+@property (nonatomic, assign) DetailTableModel * detailTableDelegate;
 @property (nonatomic, retain) NSMutableDictionary * detailCache_cellCache;
 @property (nonatomic, retain) NSMutableDictionary * detailCache_headerViewCache;
 - (void) detailCache_clearCache;
@@ -103,7 +102,7 @@
 - (UIImage*)detailTableCellSeparator;
 
 #pragma mark OverviewTable Cache
-@property (nonatomic, assign) OverviewTableViewController * overviewTableDelegate;
+@property (nonatomic, assign) TransactionModel * overviewTableDelegate;
 @property (nonatomic, retain) NSMutableArray * overviewCache_months;
 @property (nonatomic, retain) NSMutableDictionary * overviewCache_cellCache;
 - (NSString*)overviewCache_cachePath;
