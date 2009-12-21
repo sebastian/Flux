@@ -11,12 +11,22 @@
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
 
+// For KleioCoreLocationDelegate
+#import "LocationController.h"
+
+@protocol UtilityLocationProtocol 
+- (void) baseCurrencyUpdatedTo:(NSString*)currency;
+- (void) setPlacemark:(MKPlacemark*)placemark;
+@end
+
 @class Transaction;
 @class Tag;
 
-@interface Utilities : NSObject {
+@interface Utilities : NSObject <KleioCoreLocationDelegate, MKReverseGeocoderDelegate> {
 	NSMutableDictionary * tagExistance;
 	NSMutableDictionary * tagCache;
+	
+	NSManagedObjectContext * _tagManagedObjectContext;
 	NSManagedObjectContext * managedObjectContext;
 	NSManagedObjectContext * _addTransactionManagedObjectContext;
 	
@@ -31,6 +41,12 @@
 	
 	id tempVariable;
 	Transaction * _tempTransaction;
+	
+	// Core Location
+	CLLocation * _bestLocation;
+	BOOL foundLocationTags;
+	BOOL _didGeoCoding;
+	id<UtilityLocationProtocol> _locationDelegate;
 }
 
 @property (nonatomic, retain) Transaction * tempTransaction;
@@ -72,6 +88,7 @@
 // CoreData
 @property (nonatomic, retain) NSManagedObjectContext * managedObjectContext;
 @property (nonatomic, retain) NSManagedObjectContext * addTransactionManagedObjectContext;
+@property (nonatomic, retain) NSManagedObjectContext * tagManagedObjectContext;
 - (void)save:(NSManagedObjectContext*)context;
 
 /*
@@ -83,11 +100,13 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //	GeoCoding
+@property (nonatomic, retain) CLLocation * bestLocation;
+@property (nonatomic, assign) id<UtilityLocationProtocol> locationDelegate;
 - (void)reverseGeoCode:(CLLocationCoordinate2D)coordinate forDelegate:(id<MKReverseGeocoderDelegate>)delegate;
+-(void) startGeocoding;
 
 -(void) setReloadingTableAllowed;
 -(void) setReloadingTableNotAllowed;
 -(BOOL) isReloadingTableAllowed;
-
 
 @end

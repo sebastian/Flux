@@ -25,7 +25,6 @@ typedef enum {
 	TagSelectorMode _mode;
 	
 	id<TagSelectorDelegate> _delegate;
-	id<TTTableViewDataSource> _dataSource;
 	
 	KleioPickerTextField * _pickerTextField;
 	SuggestedTags * otherTags;
@@ -37,11 +36,12 @@ typedef enum {
 	NSArray * _preexistingTags;
 	
 	BOOL keybordVisible;
+	
+	BOOL _autotags;
 }
 
 @property (nonatomic, retain) KleioPickerTextField * pickerTextField;
 @property (nonatomic, assign) id<TagSelectorDelegate> delegate;
-@property (nonatomic, retain) id<TTTableViewDataSource> dataSource;
 @property (nonatomic, assign) TagSelectorMode mode;
 @property (nonatomic, retain) NSArray * tags;
 

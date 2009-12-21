@@ -98,7 +98,7 @@
 		self.title = [NSString stringWithFormat:@"%@ %@", [monthName capitalizedString], year];
 	}
 	@catch (NSException * e) {
-		TTLOG(@"Error setting the title of the detail view table view...");
+		NSLog(@"Error setting the title of the detail view table view...");
 		self.title = NSLocalizedString(@"ERROR", @"Some error...");
 	}
 	
@@ -246,8 +246,6 @@
 		}	@catch (NSException * e) {
 			NSLog(@"Some mysterious error: %@", e);
 			[self.tableView reloadData];
-			//[[self tableView] reloadData];
-			//[tableView reloadData];
 		}
 		
 	}   

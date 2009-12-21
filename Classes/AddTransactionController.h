@@ -9,38 +9,31 @@
 #import <Three20/Three20.h>
 #import <CoreData/CoreData.h>
 #import <MapKit/MapKit.h>
-#import "CurrencyKeyboard.h"
-#import "Transaction.h"
 #import <QuartzCore/QuartzCore.h>
 #import <CoreGraphics/CoreGraphics.h>
+#import "Utilities.h"
+
+// For TagSelectorDelegateProtocol
 #import "TagSelector.h"
-#import "CurrencyManager.h"
-#import "LocationController.h"
-#import "CurrencySelectionDialog.h"
-#import "AmountEditor.h"
 
-@interface AddTransactionController : TTViewController 
-<TagSelectorDelegate, 
- KleioCoreLocationDelegate, 
- MKReverseGeocoderDelegate> {
+@class AmountEditor, Transaction, CurrencyKeyboard;
 
-	MKPlacemark * _placemark;
-	 
+@interface AddTransactionController : TTViewController <TagSelectorDelegate, UtilityLocationProtocol> {
+
 	CurrencyKeyboard * keyboard;
+	
+	MKPlacemark * _placemark;
 	
 	// CoreData stuff
 	Transaction * currentTransaction;
 	
 	AmountEditor * _amountEditor;
 	 	
-	CLLocation * _bestLocation;
 	NSString * _localCurrency;
-	
-	BOOL foundLocationTags;
-	 
+			 
 	TTView *_nextActionIndicatorView;
 }
-@property (nonatomic, retain) CLLocation * bestLocation;
+
 @property (nonatomic, retain) NSString * localCurrency;
 @property (nonatomic, retain) TTView * nextActionIndicatorView;
 
@@ -57,4 +50,8 @@
 - (void)tagSelectorFinishedWithTagWords:(NSArray*)tagsWords;
 - (void) save;
 
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// UtilityLocationProtocol
+- (void) baseCurrencyUpdatedTo:(NSString*)currency;
+- (void) setPlacemark:(MKPlacemark*)placemark;
 @end

@@ -27,22 +27,16 @@
 	UIColor* tintColor = KLEIO_GRAY_COLOR;
   return [TTSTYLESHEET toolbarButtonForState:state shape:shape tintColor:tintColor font:nil];
 }
+- (TTStyle*)greenForwardButtonHighlighted:(UIControlState)state {
+  TTShape* shape = [TTRoundedRightArrowShape shapeWithRadius:4.5];
+	UIColor* tintColor = RGBCOLOR(153,255,153);
+  return [TTSTYLESHEET toolbarButtonForState:state shape:shape tintColor:tintColor font:nil];
+}
 - (TTStyle*)greenForwardButton:(UIControlState)state {
   TTShape* shape = [TTRoundedRightArrowShape shapeWithRadius:4.5];
 	UIColor* tintColor = KLEIO_GREEN_COLOR;
   return [TTSTYLESHEET toolbarButtonForState:state shape:shape tintColor:tintColor font:nil];
 }
-- (TTStyle*)greenMonsterWhatToDoIndicator {
-
-	UIColor* tintColor = KLEIO_GREEN_COLOR;
-	
-	return [TTSolidFillStyle styleWithColor:[UIColor clearColor] next:
-					[TTShapeStyle styleWithShape:[TTRoundedRightArrowShape shapeWithRadius:4.5] next:
-					[TTReflectiveFillStyle styleWithColor:tintColor next:nil]]];
-
-}
-
-
 - (TTStyle*)grayToolbarButton:(UIControlState)state {
   return [self toolbarButtonForState:state
 															 shape:[TTRoundedRectangleShape shapeWithRadius:4.5]
@@ -69,6 +63,16 @@
 					[TTFourBorderStyle styleWithTop:RGBACOLOR(255,255,255,0.2) width:1 next:
 					 [TTReflectiveFillStyle styleWithColor:RGBACOLOR(0, 0, 0, 1) next:nil]]];
 }
+
+- (TTStyle*) amountFieldStyleGreen {
+	return [TTSolidFillStyle styleWithColor:RGBACOLOR(53,153,53,0.4) next:
+					[TTFourBorderStyle styleWithTop:RGBACOLOR(255,255,255,0.2) width:1 next:
+					 [TTReflectiveFillStyle styleWithColor:RGBACOLOR(0, 0, 0, 1) next:
+						[TTLinearGradientFillStyle styleWithColor1:RGBACOLOR(53,153,53,0.7) color2:[UIColor blackColor] next:nil]]]];
+
+					 
+}
+
 
 // Filter buttons
 - (TTStyle*)filteringButtonActive:(UIControlState)state {

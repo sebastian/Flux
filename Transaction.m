@@ -53,7 +53,11 @@
 	self.date = [NSDate date];
 	
 	// Set the currency
-	self.currency = [[CurrencyManager sharedManager] baseCurrency];
+	self.currency = [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentLocalCurrency"];
+	if (self.currency == nil) {
+		// This only happens the very first time the app is run :) Or until the current local currency is set
+		self.currency = [[CurrencyManager sharedManager] baseCurrency];
+	}
 	
 	// Set them to empty strings
 	self.transactionDescription = @"";
@@ -69,8 +73,8 @@
 
     // From the auto generated coreData method
 	[self willChangeValueForKey:@"date"];
-    [self setPrimitiveDate:value];
-    [self didChangeValueForKey:@"date"];
+	[self setPrimitiveDate:value];
+  [self didChangeValueForKey:@"date"];
 	
 	// Set the month and year for easier searching and displaying and most importantly grouping!
 	NSCalendar * currentCalendar = [NSCalendar currentCalendar];

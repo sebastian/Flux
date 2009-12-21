@@ -59,7 +59,7 @@
 	if (managedObjectContext != nil) {
 		if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
 			// Handle error
-			TTLOG(@"Unresolved error %@, %@", error, [error userInfo]);
+			NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
 			exit(-1);  // Fail
 		} 
 	}
@@ -105,8 +105,8 @@
     persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel: [self managedObjectModel]];
     if (![persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeUrl options:nil error:&error]) {
         // Handle error
-		TTLOG(@"COULDN'T CREATE A PERSISTANT STORE COORDINATOR! CHAOS");
-		TTLOG(@"ERROR: %@", error);
+		NSLog(@"COULDN'T CREATE A PERSISTANT STORE COORDINATOR! CHAOS");
+		NSLog(@"ERROR: %@", error);
 	}    
 	
     return persistentStoreCoordinator;

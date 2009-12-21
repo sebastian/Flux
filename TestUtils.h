@@ -6,13 +6,12 @@
 //  Copyright 2009 Kle.io. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <Three20/Three20.h>
 #import <CoreData/CoreData.h>
 
 #import <SenTestingKit/SenTestingKit.h>
 #define HC_SHORTHAND
 #import <OCHamcrest/OCHamcrest.h>
-
 
 @interface TestUtils : NSObject {	
 }
@@ -20,4 +19,5 @@
 + (NSManagedObjectContext *) managedObjectContext;
 + (NSString*)filePath;
 + (void) clearData;
++ (void) waitForLoad:(TTModel*)controller;
 @end

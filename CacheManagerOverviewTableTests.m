@@ -12,17 +12,20 @@
 
 #import "CacheMasterSingleton.h"
 #import "Transaction.h"
-#import "OverviewTableViewController.h"
+#import "TransactionModel.h"
+#import "NewOverviewTableViewController.h"
 
 #import "Utilities.h"
 #import "TestUtils.h"
 
 
+
 @interface CacheManagerOverviewTableTests : SenTestCase {
 	Transaction * trs;
-	OverviewTableViewController * controller;
+	OverviewTableModel * controller;
 	
 	NSManagedObjectContext * context;
+	NSManagedObjectContext * otherContext;
 }
 - (Transaction*)getTransaction;
 @end
@@ -30,59 +33,97 @@
 @implementation CacheManagerOverviewTableTests
 
 - (void)setUp {
-	TTLOG(@"\n\n*********** SETUP ***********");
+	NSLog(@"\n\n*********** SETUP ***********");
 	
-	context = [TestUtils managedObjectContext];
-	controller = [[OverviewTableViewController alloc] initWithStyle:UITableViewStylePlain andContext:context];
-	[[CacheMasterSingleton sharedCacheMaster] setOverviewTableDelegate:controller];
+	// Have to ensure that it has registered for callbacks
+	[[CacheMasterSingleton sharedCacheMaster] registerForManagedObjectContextNotifications];
+	context = [[TestUtils managedObjectContext] retain];
+	otherContext = [[TestUtils managedObjectContext] retain];
+	
+	[[Utilities toolbox] setManagedObjectContext:otherContext];
+	
+	[[CacheMasterSingleton sharedCacheMaster] registerForManagedObjectContextNotifications];
 	
 	trs	 = [self getTransaction];
 	
-	[[Utilities toolbox] setManagedObjectContext:context];
+	controller = [[OverviewTableModel alloc] init] ;
+	[controller loadData];
 	
 }
 - (void) tearDown {
-	[[CacheMasterSingleton sharedCacheMaster] setOverviewTableDelegate:nil];
+
 	[[CacheMasterSingleton sharedCacheMaster] clearCache];
 	[TestUtils clearData];
+	[[Utilities toolbox] setManagedObjectContext:nil];
+	[otherContext release];
 	context = nil;
 	[controller release];
 	[trs release];
+
+	[[CacheMasterSingleton sharedCacheMaster] setOverviewTableDelegate:nil];
+	[[CacheMasterSingleton sharedCacheMaster] setDetailTableDelegate:nil];
 	
-	TTLOG(@"*********** TEAR DOWN *********** \n\n");
+	[[CacheMasterSingleton sharedCacheMaster] deregisterForManagedObjectContextNotifications];
+	
+	[[Utilities toolbox] setManagedObjectContext:nil];
+	[[Utilities toolbox] setAddTransactionManagedObjectContext:nil];
+	
+	NSLog(@"*********** TEAR DOWN *********** \n\n");
 }
-- (Transaction*)getTransaction {
+- (Transaction*)getTransactionFromContext:(NSManagedObjectContext*)theContext {
 	Transaction * _trs = [NSEntityDescription
-			insertNewObjectForEntityForName:@"Transaction"
-			inManagedObjectContext:context]; 
+												insertNewObjectForEntityForName:@"Transaction"
+												inManagedObjectContext:theContext]; 
 	
 	STAssertNotNil(_trs, @"Should have a transaction");
 	
 	return _trs;
 }
+- (Transaction*)getTransaction {
+	return [self getTransactionFromContext:context];;
+}
+
 
 #pragma mark Set delegate
 -(void) testSetDelegate {
-	id newController = [[OverviewTableViewController alloc] initWithStyle:UITableViewStylePlain andContext:context];
+	id newController = [[OverviewTableModel alloc] init];
 	STAssertNotNil([[CacheMasterSingleton sharedCacheMaster] overviewTableDelegate], @"The overview table view controller should set itself as a delegate");
-	STAssertEqualObjects([CacheMasterSingleton sharedCacheMaster].overviewTableDelegate, newController, @"Should have set itself as delegate");
+	STAssertEquals([[CacheMasterSingleton sharedCacheMaster] overviewTableDelegate], newController, @"Should have set itself as delegate");
 	[newController release];
 	STAssertNil([[CacheMasterSingleton sharedCacheMaster] overviewTableDelegate], @"The overview table view controller should set to nil on dealloc");
 }
 
-#pragma mark Adding Transactions
--(void) testWorthUpdatingAdd {
-		
-	STAssertEquals(controller.worthUpdating, YES, @"Should be worth updating by default");
-	controller.worthUpdating = NO;
-	
-	trs.kroner = [NSNumber numberWithInt:140];
 
-	[[Utilities toolbox] save:context];
+#pragma mark Adding Transactions
+-(void) testUpdatedCacheAdd {
 	
-	STAssertEquals(controller.worthUpdating, YES, @"Should be worth updating after save");
-		
+	[trs release];
+	trs = [self getTransactionFromContext:otherContext];
+	
+	trs.kroner = [NSNumber numberWithInt:1400];
+	[[Utilities toolbox] save:otherContext];
+	
+	NSDictionary * dict = [[CacheMasterSingleton sharedCacheMaster] overviewCache_forRow:0];
+	int amount = [[dict valueForKey:@"rawAmount"] intValue];
+	
+	// FIXME: test
+	//STAssertEquals(amount, -14, @"Amount should be right");
+	
+	Transaction * t2 = [self getTransactionFromContext:otherContext];
+	t2.kroner = [NSNumber numberWithInt:2000];
+	t2.expense = [NSNumber numberWithBool:NO];
+	
+	NSLog(@"****** I AM HERE *********");
+	[[Utilities toolbox] save:otherContext];
+	
+	dict = [[CacheMasterSingleton sharedCacheMaster] overviewCache_forRow:0];
+	amount = [[dict valueForKey:@"rawAmount"] intValue];
+
+	// FIXME: test
+	//STAssertEquals(amount, 6, @"Amount should be right");
+	
 }
+
 -(void) testNumberOfMonthsAdd {
 	
 	NSDate * date1 =[NSDate dateWithTimeIntervalSince1970:0]; // 1 January 1970
@@ -95,6 +136,9 @@
 
 	STAssertNotNil([CacheMasterSingleton sharedCacheMaster].overviewCache_months, @"Should have populated the months array");
 	NSInteger numOfMonths = [[CacheMasterSingleton sharedCacheMaster].overviewCache_months count];
+	for (int n = 0; n<numOfMonths;n++) {
+		NSLog(@"Has month: %@", [[CacheMasterSingleton sharedCacheMaster].overviewCache_months objectAtIndex:n]);
+	}
 	STAssertEquals(numOfMonths, 1, @"Should have 1 month entry");
 	STAssertEqualObjects([[CacheMasterSingleton sharedCacheMaster].overviewCache_months objectAtIndex:0], @"197001", @"Should have an entry for Jan 1970");
 	
@@ -160,26 +204,34 @@
 
 #pragma mark Deleting transactions
 -(void) testWorthUpdatingDelete {
+	[trs release];
+	trs = [self getTransactionFromContext:otherContext];
+	
 	trs.kroner = [NSNumber numberWithInt:140];
-	[[Utilities toolbox] save:context];
-	controller.worthUpdating = NO;
-	[context deleteObject:trs];
-	[[Utilities toolbox] save:context];
-	STAssertEquals(controller.worthUpdating, YES, @"Should be worth updating after delete");
-	
+	[[Utilities toolbox] save:otherContext];
+	STAssertEquals([[CacheMasterSingleton sharedCacheMaster] overviewCache_numberOfRows], 1, @"Should only have a row for the one object that has been added");
+		
+	[otherContext deleteObject:trs];
+	NSLog(@"********** I AM HERE ***********");
+	[[Utilities toolbox] save:otherContext];
+	STAssertEquals([[CacheMasterSingleton sharedCacheMaster] overviewCache_numberOfRows], 0, @"Should not have rows for non existant objects");
+
 }
+
 -(void) testNumberOfMonthsDelete {
-	
+		
 	NSDate * date1 =[NSDate dateWithTimeIntervalSince1970:0]; // 1 January 1970
 	NSDate * date2 =[NSDate dateWithTimeIntervalSince1970:(31 * 24 * 60 * 60)]; // 1 February 1970
 	NSDate * date3 =[NSDate dateWithTimeIntervalSince1970:(2 * 31 * 24 * 60 * 60)]; // 1 March 1970
 	NSDate * date4 =[NSDate dateWithTimeIntervalSince1970:-(2 * 31 * 24 * 60 * 60)]; // 1 Octobe 1969
 	
-	Transaction * t2 = [self getTransaction];
-	Transaction * t3 = [self getTransaction];
-	Transaction * t4 = [self getTransaction];
-	Transaction * t5 = [self getTransaction];
-	Transaction * t6 = [self getTransaction];
+	[trs release];
+	trs = [self getTransactionFromContext:otherContext];
+	Transaction * t2 = [self getTransactionFromContext:otherContext];
+	Transaction * t3 = [self getTransactionFromContext:otherContext];
+	Transaction * t4 = [self getTransactionFromContext:otherContext];
+	Transaction * t5 = [self getTransactionFromContext:otherContext];
+	Transaction * t6 = [self getTransactionFromContext:otherContext];
 	
 	trs.date = date1;
 	t2.date = date1;
@@ -188,7 +240,7 @@
 	t5.date = date3;
 	t6.date = date4;
 	
-	[[Utilities toolbox] save:context];
+	[[Utilities toolbox] save:otherContext];
 	
 	NSInteger numOfMonths = [[CacheMasterSingleton sharedCacheMaster].overviewCache_months count];
 	STAssertEquals(numOfMonths, 4, @"Should have the right amount of month entries");
@@ -197,8 +249,10 @@
 	STAssertEqualObjects([[CacheMasterSingleton sharedCacheMaster].overviewCache_months objectAtIndex:2], @"197001", @"Should have the correnct month name");
 	STAssertEqualObjects([[CacheMasterSingleton sharedCacheMaster].overviewCache_months objectAtIndex:3], @"196910", @"Should have the correnct month name");
 	
-	[context deleteObject:trs];
-	[[Utilities toolbox] save:context];
+	NSLog(@"Deleting one transaction from month 197001. Should be 1 left");
+	[otherContext deleteObject:trs];
+	NSLog(@"Saving deletion...");
+	[[Utilities toolbox] save:otherContext];
 
 	numOfMonths = [[CacheMasterSingleton sharedCacheMaster].overviewCache_months count];
 	STAssertEquals(numOfMonths, 4, @"Should have the right amount of month entries");
@@ -207,52 +261,38 @@
 	STAssertEqualObjects([[CacheMasterSingleton sharedCacheMaster].overviewCache_months objectAtIndex:2], @"197001", @"Should have the correnct month name");
 	STAssertEqualObjects([[CacheMasterSingleton sharedCacheMaster].overviewCache_months objectAtIndex:3], @"196910", @"Should have the correnct month name");
 
-	[context deleteObject:t2];
-	[[Utilities toolbox] save:context];
+	NSLog(@"Deleting the last object from month 197001. Should be 0 left");
+	[otherContext deleteObject:t2];
+	NSLog(@"Saving deletion...");
+	[[Utilities toolbox] save:otherContext];
 	numOfMonths = [[CacheMasterSingleton sharedCacheMaster].overviewCache_months count];
 	STAssertEquals(numOfMonths, 3, @"Should have the right amount of month entries");	
 	STAssertEqualObjects([[CacheMasterSingleton sharedCacheMaster].overviewCache_months objectAtIndex:0], @"197003", @"Should have the correnct month name");
 	STAssertEqualObjects([[CacheMasterSingleton sharedCacheMaster].overviewCache_months objectAtIndex:1], @"197002", @"Should have the correnct month name");
 	STAssertEqualObjects([[CacheMasterSingleton sharedCacheMaster].overviewCache_months objectAtIndex:2], @"196910", @"Should have the correnct month name");
 
-	[context deleteObject:t5];
-	[[Utilities toolbox] save:context];
+	[otherContext deleteObject:t5];
+	[[Utilities toolbox] save:otherContext];
 	numOfMonths = [[CacheMasterSingleton sharedCacheMaster].overviewCache_months count];
 	STAssertEquals(numOfMonths, 2, @"Should have the right amount of month entries");	
 	STAssertEqualObjects([[CacheMasterSingleton sharedCacheMaster].overviewCache_months objectAtIndex:0], @"197002", @"Should have the correnct month name");
 	STAssertEqualObjects([[CacheMasterSingleton sharedCacheMaster].overviewCache_months objectAtIndex:1], @"196910", @"Should have the correnct month name");
 	
 
-	[context deleteObject:t6];
-	[[Utilities toolbox] save:context];
+	[otherContext deleteObject:t6];
+	[[Utilities toolbox] save:otherContext];
 	numOfMonths = [[CacheMasterSingleton sharedCacheMaster].overviewCache_months count];
 	STAssertEquals(numOfMonths, 1, @"Should have the right amount of month entries");	
 	STAssertEqualObjects([[CacheMasterSingleton sharedCacheMaster].overviewCache_months objectAtIndex:0], @"197002", @"Should have the correnct month name");
 	
-	[context deleteObject:t3];
-	[context deleteObject:t4];
-	[[Utilities toolbox] save:context];
+	[otherContext deleteObject:t3];
+	[otherContext deleteObject:t4];
+	[[Utilities toolbox] save:otherContext];
 	numOfMonths = [[CacheMasterSingleton sharedCacheMaster].overviewCache_months count];
 	STAssertEquals(numOfMonths, 0, @"Should have the right amount of month entries");	
 	
 }
 
-#pragma mark Updating transactions
--(void) testWorthUpdatingUpdate {
-	trs.kroner = [NSNumber numberWithInt:140];
-	[[Utilities toolbox] save:context];
-	controller.worthUpdating = NO;
-
-	trs.kroner = [NSNumber numberWithInt:240];
-	[[Utilities toolbox] save:context];
-	STAssertEquals(controller.worthUpdating, YES, @"Should be worth updating after update");
-	controller.worthUpdating = NO;
-	
-	trs.kroner = [NSNumber numberWithInt:240];
-	[[Utilities toolbox] save:context];
-	STAssertEquals(controller.worthUpdating, NO, @"Should not be worth updating if the value hasn't changed");
-
-}
 -(void) testNumberOfMonthsMove {
 	
 	NSDate * date1 =[NSDate dateWithTimeIntervalSince1970:0]; // 1 January 1970
@@ -260,11 +300,13 @@
 	NSDate * date3 =[NSDate dateWithTimeIntervalSince1970:(2 * 31 * 24 * 60 * 60)]; // 1 March 1970
 	NSDate * date4 =[NSDate dateWithTimeIntervalSince1970:-(2 * 31 * 24 * 60 * 60)]; // 1 October 1969
 	
-	Transaction * t2 = [self getTransaction];
-	Transaction * t3 = [self getTransaction];
-	Transaction * t4 = [self getTransaction];
-	Transaction * t5 = [self getTransaction];
-	Transaction * t6 = [self getTransaction];
+	[trs release];
+	trs = [self getTransactionFromContext:otherContext];
+	Transaction * t2 = [self getTransactionFromContext:otherContext];
+	Transaction * t3 = [self getTransactionFromContext:otherContext];
+	Transaction * t4 = [self getTransactionFromContext:otherContext];
+	Transaction * t5 = [self getTransactionFromContext:otherContext];
+	Transaction * t6 = [self getTransactionFromContext:otherContext];
 	
 	trs.date = date2;
 	t2.date = date2;
@@ -273,7 +315,7 @@
 	t5.date = date2;
 	t6.date = date2;
 	
-	[[Utilities toolbox] save:context];
+	[[Utilities toolbox] save:otherContext];
 	
 	NSInteger numOfMonths = [[CacheMasterSingleton sharedCacheMaster].overviewCache_months count];
 	STAssertEquals(numOfMonths, 1, @"Should have the right amount of month entries");
@@ -281,14 +323,14 @@
 	
 	// Moving it way back in time
 	trs.date = date4;
-	[[Utilities toolbox] save:context];
+	[[Utilities toolbox] save:otherContext];
 	numOfMonths = [[CacheMasterSingleton sharedCacheMaster].overviewCache_months count];
 	STAssertEquals(numOfMonths, 2, @"Should have the right amount of month entries");
 	STAssertEqualObjects([[CacheMasterSingleton sharedCacheMaster].overviewCache_months objectAtIndex:0], @"197002", @"Should have the correnct month name");
 	STAssertEqualObjects([[CacheMasterSingleton sharedCacheMaster].overviewCache_months objectAtIndex:1], @"196910", @"Should have the correnct month name");
 	
 	t2.date = date1;
-	[[Utilities toolbox] save:context];
+	[[Utilities toolbox] save:otherContext];
 	numOfMonths = [[CacheMasterSingleton sharedCacheMaster].overviewCache_months count];
 	STAssertEquals(numOfMonths, 3, @"Should have the right amount of month entries");
 	STAssertEqualObjects([[CacheMasterSingleton sharedCacheMaster].overviewCache_months objectAtIndex:0], @"197002", @"Should have the correnct month name");
@@ -296,14 +338,14 @@
 	STAssertEqualObjects([[CacheMasterSingleton sharedCacheMaster].overviewCache_months objectAtIndex:2], @"196910", @"Should have the correnct month name");
 	
 	t2.date = date4;
-	[[Utilities toolbox] save:context];
+	[[Utilities toolbox] save:otherContext];
 	numOfMonths = [[CacheMasterSingleton sharedCacheMaster].overviewCache_months count];
 	STAssertEquals(numOfMonths, 2, @"Should have the right amount of month entries");
 	STAssertEqualObjects([[CacheMasterSingleton sharedCacheMaster].overviewCache_months objectAtIndex:0], @"197002", @"Should have the correnct month name");
 	STAssertEqualObjects([[CacheMasterSingleton sharedCacheMaster].overviewCache_months objectAtIndex:1], @"196910", @"Should have the correnct month name");
 
 	t3.date = date3;
-	[[Utilities toolbox] save:context];
+	[[Utilities toolbox] save:otherContext];
 	numOfMonths = [[CacheMasterSingleton sharedCacheMaster].overviewCache_months count];
 	STAssertEquals(numOfMonths, 3, @"Should have the right amount of month entries");
 	STAssertEqualObjects([[CacheMasterSingleton sharedCacheMaster].overviewCache_months objectAtIndex:0], @"197003", @"Should have the correnct month name");
@@ -313,7 +355,7 @@
 	t4.date = date1;
 	t5.date = date4;
 	t6.date = date3;
-	[[Utilities toolbox] save:context];
+	[[Utilities toolbox] save:otherContext];
 	numOfMonths = [[CacheMasterSingleton sharedCacheMaster].overviewCache_months count];
 	STAssertEquals(numOfMonths, 3, @"Should have the right amount of month entries");
 	STAssertEqualObjects([[CacheMasterSingleton sharedCacheMaster].overviewCache_months objectAtIndex:0], @"197003", @"Should have the correnct month name");
@@ -326,28 +368,11 @@
 	t4.date = date4;
 	t5.date = date4;
 	t6.date = date4;
-	[[Utilities toolbox] save:context];
+	[[Utilities toolbox] save:otherContext];
 	numOfMonths = [[CacheMasterSingleton sharedCacheMaster].overviewCache_months count];
 	STAssertEquals(numOfMonths, 1, @"Should have the right amount of month entries");
 	STAssertEqualObjects([[CacheMasterSingleton sharedCacheMaster].overviewCache_months objectAtIndex:0], @"196910", @"Should have the correnct month name");
 	
 }
 
--(void) testLoadOldElements {
-	trs.kroner = [NSNumber numberWithInt:120];
-	[[Utilities toolbox] save:context];
-	
-	[controller release];
-	[[CacheMasterSingleton sharedCacheMaster] clearCache];
-	
-	context = [TestUtils managedObjectContext];
-	controller = [[OverviewTableViewController alloc] initWithStyle:UITableViewStylePlain andContext:context];
-	[[CacheMasterSingleton sharedCacheMaster] setOverviewTableDelegate:controller];
-
-	[CacheMasterSingleton sharedCacheMaster].overviewCache_months = nil;
-	[CacheMasterSingleton sharedCacheMaster].overviewCache_cellCache = nil;
-	
-	NSInteger numOfMonths = [[CacheMasterSingleton sharedCacheMaster].overviewCache_months count];
-	STAssertEquals(numOfMonths, 1, @"Should have the month previously added");
-}
 @end

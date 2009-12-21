@@ -7,7 +7,6 @@
 //
 
 #import "SuggestedTags.h"
-#import <Three20/Three20.h>
 #import "Utilities.h"
 
 @implementation SuggestedTags
@@ -80,7 +79,7 @@
 
 - (void)didReceiveMemoryWarning {
   [super didReceiveMemoryWarning];
-	TTLOG(@"Received memory warning in %@", self);
+	NSLog(@"Received memory warning in %@", self);
 }
 
 - (void)dealloc {

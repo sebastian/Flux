@@ -8,17 +8,29 @@
 
 #import <Three20/Three20.h>
 #import "AddTransactionController.h"
-#import "TagSelector.h"
-#import "Utilities.h"
 #import "KleioCustomStyles.h"
+#import "AmountEditor.h"
+
+// Tags
+#import "TagSelector.h"
+
+// Models
+#import "Transaction.h"
 #import "Location.h"
 #import "Tag.h"
+
+// Currency
+#import "CurrencyManager.h"
+#import "CurrencyKeyboard.h"
+#import "CurrencySelectionDialog.h"
+
+// Singleton helpers
 #import "CacheMasterSingleton.h"
-#import "FluxAppDelegate.h"
+// Utilities had to be included in header
 
 @implementation AddTransactionController
 
-@synthesize	bestLocation = _bestLocation, localCurrency = _localCurrency, nextActionIndicatorView = _nextActionIndicatorView;
+@synthesize	localCurrency = _localCurrency, nextActionIndicatorView = _nextActionIndicatorView;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //	Private methods
@@ -51,7 +63,7 @@
 		
 }
 
--(void)add:(NSString*)what toArray:(NSMutableArray*)array {
+-(void) add:(NSString*)what toArray:(NSMutableArray*)array {
 	if (_placemark != nil) {
 		if ([_placemark valueForKey:what] != nil) {
 			[array addObject:[_placemark valueForKey:what]];
@@ -61,16 +73,14 @@
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //	NSObject
-- (id)init {
+- (id) init {
     if (self = [super init]) {
-			foundLocationTags = NO;
 			[self.tabBarItem setImage:[UIImage imageNamed:@"Add.png"]];
     }
     return self;
 }
 
 - (void) dealloc {
-	TT_RELEASE_SAFELY(_bestLocation);
 	TT_RELEASE_SAFELY(_localCurrency);
 	TT_RELEASE_SAFELY(_amountEditor);
 	TT_RELEASE_SAFELY(_placemark);
@@ -93,6 +103,7 @@
 	nextButton.font = [UIFont boldSystemFontOfSize:16.f];
 	[nextButton sizeToFit];
 	[nextButton addTarget:self action:@selector(nextButtonAction) forControlEvents:UIControlEventTouchUpInside];
+	[self performSelectorInBackground:@selector(highlightedNextButton:) withObject:nextButton];
 	self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithCustomView:nextButton] autorelease];
 		
 	_amountEditor = [[AmountEditor alloc] init];
@@ -106,20 +117,58 @@
 	
 	self.title = NSLocalizedString(@"Add transaction",nil);
 	
+	// Get the location
+	[[Utilities toolbox] startGeocoding];
+	[[Utilities toolbox] setLocationDelegate:self];
+
 }
 
-- (void) viewDidAppear:(BOOL)animated {
-	[super viewDidAppear:animated];
+- (void) highlightedNextButtonStage2:(TTButton*)nextButton {
+	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+
+	sleep(2);
+		
+	[UIView beginAnimations:nil context:NULL];
+	[UIView setAnimationBeginsFromCurrentState:YES];
+	[UIView setAnimationDuration:1];
 	
-	// Get the location
-	[LocationController sharedInstance].delegate = self;
-	[LocationController sharedInstance].locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-	[[LocationController sharedInstance].locationManager startUpdatingLocation];
+	[nextButton setStylesWithSelector:@"greenForwardButton:"];
+	NSLog(@"normal");
+	
+	[UIView commitAnimations];	
+	
+	[self performSelectorInBackground:@selector(highlightedNextButton:) withObject:nextButton];		
+	
+	[pool release];
+}
+- (void) highlightedNextButton:(TTButton*)nextButton {
+	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+	
+	if (YES) {
+		
+		while (![currentTransaction needsDeleteButton]) {sleep(0.5);}
+			
+		sleep(2);
+		
+		[UIView beginAnimations:nil context:NULL];
+		[UIView setAnimationBeginsFromCurrentState:YES];
+		[UIView setAnimationDuration:1];
+		
+		[nextButton setStylesWithSelector:@"greenForwardButtonHighlighted:"];
+		NSLog(@"highlighted");
+		
+		[UIView commitAnimations];		
+		
+		[self performSelectorInBackground:@selector(highlightedNextButtonStage2:) withObject:nextButton];
+		
+	}
+	
+	[pool release];
 }
 
 - (void) viewDidUnload {
 	[super viewDidUnload];
-	TTLOG(@"Location manager stopped");
+	NSLog(@"Location manager stopped");
 	[[LocationController sharedInstance].locationManager stopUpdatingLocation];
 }
 
@@ -146,9 +195,11 @@
 }
 
 - (void) save {
-	TTLOG(@"Save...");
+	NSLog(@"Save...");
 	
-	currentTransaction.location = self.bestLocation;
+	if ([[Utilities toolbox] bestLocation].horizontalAccuracy < 500.f) {
+		currentTransaction.location = [[Utilities toolbox] bestLocation];
+	}
 	
 	/*
 	 Adding autotags
@@ -157,9 +208,11 @@
 	[self add:@"country" toArray:autotags];
 	[self add:@"administrativeArea" toArray:autotags];
 	[self add:@"locality" toArray:autotags];
-	[self add:@"subAdministrativeArea" toArray:autotags];
-	[self add:@"subLocality" toArray:autotags];
-	[self add:@"thoroughfare" toArray:autotags];
+	if ([[Utilities toolbox] bestLocation].horizontalAccuracy < 1500.f) {
+		[self add:@"subAdministrativeArea" toArray:autotags];
+		[self add:@"subLocality" toArray:autotags];
+		[self add:@"thoroughfare" toArray:autotags];		
+	}
 	
 	NSDateFormatter * dateFormatter = [[Utilities toolbox] dateFormatter];
 	NSArray * weekdays = [dateFormatter weekdaySymbols];
@@ -180,197 +233,32 @@
 	NSString * newAutoTags = [autotags componentsJoinedByString:@" "];
 	currentTransaction.autotags = [NSString stringWithFormat:@" %@ ", newAutoTags];
 	
-	/*
-	 This method also calls createAndSetupTransaction 
-	 so that it is done after the save has been performed
-	 */
 	[[Utilities toolbox] save:[currentTransaction managedObjectContext]];
-	//[[Utilities toolbox] delayedSave:currentTransaction];
 	[self createAndSetupTransaction];
 
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//	Location Manager delegate methods
-#pragma mark CoreLocation - LocationController delegate methods
--(void)locationUpdate:(CLLocation *)location {
-	/*
-	 Only use locations that are less than five minutes old
-	 */
-	if (abs([location.timestamp timeIntervalSinceNow]) > 3 * 60) { return; }
-	
-	if (self.bestLocation == nil) {
-		self.bestLocation = location;
-				
-	} else {
-		if (location.timestamp > self.bestLocation.timestamp) {
-			self.bestLocation = location;
-						
-		}
-	}
-	
-	// And we should do a reverse geocoding as well!
-	if ((foundLocationTags == NO) && (location.horizontalAccuracy < 1500.f) && (location.horizontalAccuracy > 0.f)) {
-						
-		foundLocationTags = YES;
-		
-		// We don't need more location updates
-		[[LocationController sharedInstance].locationManager stopUpdatingLocation];
-				
-		// We have to geocode as well!
-		[[Utilities toolbox] reverseGeoCode:location.coordinate forDelegate:self];
-				
-		[self performSelectorInBackground:@selector(findLocationTags) withObject:nil];
-				
-	}
-	
-}
--(void)locationError:(NSString *)error {
-	TTLOG(@"Got location error: %@", error);
-}
--(void)reverseGeocoder:(MKReverseGeocoder *)geocoder didFindPlacemark:(MKPlacemark *)daPlacemark {
-	/*
-	 We have to find the currency corrensponding to the country!
-	 */
-	
-	_placemark = [daPlacemark retain];
-	
-	NSString * countryCode = _placemark.countryCode;
-	NSString * currencyCode = [[[CurrencyManager sharedManager] countryToCurrency] objectForKey:countryCode];
-	
-	/*
-	 If this is the first time this app has been run
-	 Then this is the first place where we have gotten the users geolocation.
-	 We should set the base currency to match that location
-	 */
-	if ([[NSUserDefaults standardUserDefaults] objectForKey:@"KleioFinanceFirstRunBaseCurrency"] == nil) {
-		[[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES]
-																							forKey:@"KleioFinanceFirstRunBaseCurrency"];
-		
-		[[CurrencyManager sharedManager] setBaseCurrency:currencyCode];
-		
-		/*
-		 This is probably (hopefully) the first time the app runs.
-		 We now have to set the transactions currency to the same currency as well,
-		 and update the display!
-		 */
-		currentTransaction.currency = currencyCode;
-		[_amountEditor updateExpenseDisplay];
-		[[CacheMasterSingleton sharedCacheMaster] clearCache];
-	}
-	
-	if (!(currencyCode == nil)) {
-		
-		// Only if the user wants it!
-		if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"KleioTransactionsUseLocalCurrency"] boolValue] == YES) {
-			currentTransaction.currency = currencyCode;
-			self.localCurrency = currencyCode;
-			[_amountEditor updateExpenseDisplay];
-		}
-		
-	} else {
-		TTLOG(@"Couldn't find a currency for %@", countryCode);
-	}
-	
-}
--(void)reverseGeocoder:(MKReverseGeocoder *)geocoder didFailWithError:(NSError *)error {
-	// Nothing much to do...
-}
--(void)findLocationTags {
-	
-	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-	
-	NSError *error;
-	
-	// Get all the transactions
-	NSFetchRequest * fetchRequest = [[NSFetchRequest alloc] init];
-	NSEntityDescription * entity = [NSEntityDescription entityForName:@"Location" 
-																						 inManagedObjectContext:[[Utilities toolbox] addTransactionManagedObjectContext]];
-	[fetchRequest setEntity:entity];
-	
-	// TODO: limit tag lookup
-	/*
-	 Should look for tags with location that are within a certain latitudal range.
-	 1 degree in latitude is approx 111 km
-	 Hence I should store lat in the location class and then I can look for
-	 within a range... To speed up the lookup.
-	 */
-	
-	double diff = 0.01;
-	double plusLatDelta = self.bestLocation.coordinate.latitude + diff;
-	double minusLatDelta = self.bestLocation.coordinate.latitude - diff;
-	
-	/* the longitutes are dependent on location, so I make the delta bigger to make sure I get something! */
-	double lngDiff = 0.5;
-	double plusLngDelta = self.bestLocation.coordinate.longitude + lngDiff;
-	double minusLngDelta = self.bestLocation.coordinate.longitude - lngDiff;
-	
-	NSPredicate * deltaLatPredicate = [NSPredicate predicateWithFormat:@"latitude BETWEEN {%f, %f}", minusLatDelta, plusLatDelta];
-	NSPredicate * deltaLngPredicate = [NSPredicate predicateWithFormat:@"longitude BETWEEN {%f, %f}", minusLngDelta, plusLngDelta];
-	NSPredicate * notAutotags = [NSPredicate predicateWithFormat:@"tag.autotag = NO"];
-	NSPredicate * locationPredicate = 
-	[NSCompoundPredicate andPredicateWithSubpredicates:[NSArray arrayWithObjects:deltaLatPredicate, deltaLngPredicate, notAutotags, nil]];
-	
-	[fetchRequest setPredicate:locationPredicate];
-	
-	
-	NSArray * fetchedLocations = [[[Utilities toolbox] addTransactionManagedObjectContext] executeFetchRequest:fetchRequest error:&error];
-	[fetchRequest release];
-	
-	NSMutableArray * tagsToSuggest = [[NSMutableArray alloc] init];
-	
-	for (Location * location in fetchedLocations) {
-		CLLocationDistance distance;
-		@try {
-			distance = [self.bestLocation getDistanceFrom:location.location];
-		}
-		@catch (NSException * e) {
-			TTLOG(@"Got strange error when trying to check distance of tag! %@", e);
-			distance = 3000; // Some strange error... just set it to something we won't use...
-		}
-		/* If the tag is closer than 50 meters then use it */
-		if (distance < 1000.f) {
-			/*
-			 This is a tag we can use! Add it unless, it has already been added
-			 */
-			if (![tagsToSuggest containsObject:location.tag]) {
-				[tagsToSuggest addObject:location.tag];
-			}
-		}
-		
-	}
-		
-	if ([tagsToSuggest count] > 0) {
-		
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// UtilityLocationProtocol
+- (void) baseCurrencyUpdatedTo:(NSString*)currency {
 
-		/* We want to sort the list by popularity */
-		[tagsToSuggest sortUsingSelector:@selector(compareAmountOfLocations:)];
-		
-		// We only want the N most recent geo tags
-		NSMutableArray * tagNames = [[NSMutableArray alloc] init];
-		for (Tag * tag in tagsToSuggest) {
-			if ([tagNames count] == 5) {break;}
-			[tagNames addObject:tag.name];
-		}
-		
-		[Utilities toolbox].suggestedTagsForCurrentLocation = tagNames;
-		
-		TTLOG(@"Added suggested tags...");
-		
-		TT_RELEASE_SAFELY(tagNames);
+	// Only if the user wants it!
+	if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"KleioTransactionsUseLocalCurrency"] boolValue] == YES) {
+		currentTransaction.currency = currency;
+		self.localCurrency = currency;
+		[_amountEditor updateExpenseDisplay];
 	}
 	
-	[tagsToSuggest release];
-	
-	[pool release];
-	
+}
+- (void) setPlacemark:(MKPlacemark*)placemark {
+	_placemark = [placemark retain];
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //	MISC
 // FIXME: Before release this should be improved
 - (void)didReceiveMemoryWarning {
-	TTLOG(@"didReceiveMemoryWarning: %@", self);
+	NSLog(@"didReceiveMemoryWarning: %@", self);
 	
 	[[CacheMasterSingleton sharedCacheMaster] clearCache];	
 		

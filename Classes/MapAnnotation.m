@@ -20,7 +20,7 @@
 		coordinate=tr.location.coordinate;
 		self.currentTransaction = tr;
 		
-		TTLOG(@"%f,%f",coordinate.latitude,coordinate.longitude);
+		NSLog(@"%f,%f",coordinate.latitude,coordinate.longitude);
 	}
 	return self;
 }
@@ -41,7 +41,7 @@
 
 
 -(void)dealloc {
-	TTLOG(@"Deallocing annotation");
+	NSLog(@"Deallocing annotation");
 	[currentTransaction dealloc];
 	
 	[super dealloc];

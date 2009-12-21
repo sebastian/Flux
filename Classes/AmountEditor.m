@@ -37,7 +37,7 @@
 - (void) valueChanged:(UISegmentedControl*)sender {
 	
 	if ([self.delegate respondsToSelector:@selector(expenseToggleChangedToValue:)]) {
-		TTLOG(@"Informing delegate about change of value for expense/income");
+		NSLog(@"Informing delegate about change of value for expense/income");
 		if ([sender selectedSegmentIndex] == 0) {
 			[self.delegate expenseToggleChangedToValue:KleioExpenseIncomeToggleSelectedExpense];
 		} else {
@@ -153,14 +153,22 @@
 		
 		// It can be deleted, hence it can also be added
 		// show that by highlighting the add bar
-		[[Utilities toolbox] setBarColours:_delegate colour:RGBCOLOR(51,153,51)];
+		if (!_previouslyValid) {
+			[[Utilities toolbox] setBarColours:_delegate colour:RGBCOLOR(51,153,51)];
+			_amount.style = TTSTYLEVAR(amountFieldStyleGreen);
+			_previouslyValid = YES;
+		}
 		
 	} else {
 		[_keyboard disableClearButton];
 		
 		// It can be deleted, hence it can also be added
 		// show that by highlighting the add bar
-		[[Utilities toolbox] setBarColours:_delegate];
+		if (_previouslyValid) {
+			[[Utilities toolbox] setBarColours:_delegate];
+			_amount.style = TTSTYLEVAR(amountFieldStyle);
+			_previouslyValid = NO;
+		}
 	}
 	
 	// Check if it can be added to?
@@ -201,6 +209,14 @@
 	[trs retain];
 	[_currentTransaction release];
 	_currentTransaction = trs;
+	
+	// Have to use oppositve logical values for _previouslyValid
+	// because then it gets set once.
+	if ([_currentTransaction needsDeleteButton]) {
+		_previouslyValid = NO;
+	} else {
+		_previouslyValid = YES;
+	}
 	
 	[self updateExpenseDisplay];
 }

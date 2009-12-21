@@ -16,6 +16,8 @@
 		960C07FE1021AFF300B9C2A3 /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 960C07FD1021AFF300B9C2A3 /* Utilities.m */; };
 		9610852F1063BE45009F0A22 /* Three20.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 96BE983E10501BE300507F49 /* Three20.bundle */; };
 		961085321063BE5D009F0A22 /* libThree20.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 96BE983D10501BD400507F49 /* libThree20.a */; };
+		9613974510DBE29E00282040 /* Flux.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9613974410DBE29E00282040 /* Flux.xcdatamodeld */; };
+		9613974610DBE29E00282040 /* Flux.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9613974410DBE29E00282040 /* Flux.xcdatamodeld */; };
 		961E4D25104D41BB0081ADE7 /* CacheManagerFilteringTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 961E4D24104D41BB0081ADE7 /* CacheManagerFilteringTest.m */; };
 		9628FD9F1077778100990F1D /* Zoom.png in Resources */ = {isa = PBXBuildFile; fileRef = 9628FD7A1077778100990F1D /* Zoom.png */; };
 		9628FDA01077778100990F1D /* OverviewCellBunn.png in Resources */ = {isa = PBXBuildFile; fileRef = 9628FD7B1077778100990F1D /* OverviewCellBunn.png */; };
@@ -127,7 +129,6 @@
 		96A98D241025BE8700FFA6D0 /* Transactions.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96A98D231025BE8700FFA6D0 /* Transactions.xib */; };
 		96A98E5A1025D45100FFA6D0 /* TransactionFilterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96A98E581025D45100FFA6D0 /* TransactionFilterViewController.xib */; };
 		96AA7090100656E600206A37 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96AA708F100656E600206A37 /* CoreData.framework */; };
-		96AA70EE10065AB200206A37 /* Flux.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 96AA70ED10065AB200206A37 /* Flux.xcdatamodel */; };
 		96AA710C1006616700206A37 /* Transaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 96AA710B1006616700206A37 /* Transaction.m */; };
 		96B6D80E10D8DF01001722B1 /* NewDetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B6D80D10D8DF01001722B1 /* NewDetailTableViewController.m */; };
 		96B6D80F10D8DF01001722B1 /* NewDetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B6D80D10D8DF01001722B1 /* NewDetailTableViewController.m */; };
@@ -161,7 +162,6 @@
 		96F65EF110417BB200845F0E /* TransactionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 96F65EF010417BB200845F0E /* TransactionTests.m */; };
 		96F65EF610417C5500845F0E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		96F65EF710417C5500845F0E /* FluxAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* FluxAppDelegate.m */; };
-		96F65EF910417C5500845F0E /* Flux.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 96AA70ED10065AB200206A37 /* Flux.xcdatamodel */; };
 		96F65EFA10417C5500845F0E /* Transaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 96AA710B1006616700206A37 /* Transaction.m */; };
 		96F65EFB10417C5500845F0E /* OverviewTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96F84039100A5A08008862CC /* OverviewTableViewController.m */; };
 		96F65EFC10417C5500845F0E /* OverviewTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E55D911014AF3800E63DB8 /* OverviewTableCell.m */; };
@@ -255,6 +255,7 @@
 		960080F4100A98E900740DCB /* TODO.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = TODO.rtf; sourceTree = "<group>"; };
 		960C07FC1021AFF300B9C2A3 /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
 		960C07FD1021AFF300B9C2A3 /* Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utilities.m; sourceTree = "<group>"; };
+		9613974710DBE29E00282040 /* Flux 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Flux 2.xcdatamodel"; sourceTree = "<group>"; };
 		961E4D24104D41BB0081ADE7 /* CacheManagerFilteringTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacheManagerFilteringTest.m; sourceTree = "<group>"; };
 		9628FD7A1077778100990F1D /* Zoom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Zoom.png; path = Graphics/Zoom.png; sourceTree = "<group>"; };
 		9628FD7B1077778100990F1D /* OverviewCellBunn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = OverviewCellBunn.png; path = Graphics/OverviewCellBunn.png; sourceTree = "<group>"; };
@@ -494,7 +495,7 @@
 				96426E74104DF133002C218D /* Settings.bundle */,
 				96885BB51004ED9E003090D8 /* NIBs */,
 				8D1107310486CEB800E47090 /* Flux-Info.plist */,
-				96AA70ED10065AB200206A37 /* Flux.xcdatamodel */,
+				9613974410DBE29E00282040 /* Flux.xcdatamodeld */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1033,7 +1034,7 @@
 			files = (
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				1D3623260D0F684500981E51 /* FluxAppDelegate.m in Sources */,
-				96AA70EE10065AB200206A37 /* Flux.xcdatamodel in Sources */,
+				9613974510DBE29E00282040 /* Flux.xcdatamodeld in Sources */,
 				96AA710C1006616700206A37 /* Transaction.m in Sources */,
 				96F8403A100A5A08008862CC /* OverviewTableViewController.m in Sources */,
 				96E55D921014AF3800E63DB8 /* OverviewTableCell.m in Sources */,
@@ -1079,7 +1080,7 @@
 			files = (
 				96F65EF610417C5500845F0E /* main.m in Sources */,
 				96F65EF710417C5500845F0E /* FluxAppDelegate.m in Sources */,
-				96F65EF910417C5500845F0E /* Flux.xcdatamodel in Sources */,
+				9613974610DBE29E00282040 /* Flux.xcdatamodeld in Sources */,
 				96F65EFA10417C5500845F0E /* Transaction.m in Sources */,
 				96F65EFB10417C5500845F0E /* OverviewTableViewController.m in Sources */,
 				96F65EFC10417C5500845F0E /* OverviewTableCell.m in Sources */,
@@ -1525,6 +1526,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		9613974410DBE29E00282040 /* Flux.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				96AA70ED10065AB200206A37 /* Flux.xcdatamodel */,
+				9613974710DBE29E00282040 /* Flux 2.xcdatamodel */,
+			);
+			currentVersion = 96AA70ED10065AB200206A37 /* Flux.xcdatamodel */;
+			path = Flux.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 29B97313FDCFA39411CA2CEA /* Project object */;
 }

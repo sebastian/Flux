@@ -40,7 +40,11 @@
 - (id) initWithAutotags:(BOOL)autotags {
   if (self = [super init]) {
     _delegates = nil;
-
+		
+		_isLoaded = NO;
+		_loadingData = NO;
+		_outdated = YES;
+		
 		if (autotags) {
 			_allTags = [[[Utilities toolbox] allTagNamesIncludingAutotags:YES] retain];
 		} else {
@@ -57,7 +61,6 @@
 }
 
 - (void)dealloc {
-  TT_RELEASE_SAFELY(_delegates);
   TT_RELEASE_SAFELY(_allTags);
   TT_RELEASE_SAFELY(_tags);
   [super dealloc];
@@ -66,27 +69,20 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // TTModel
 
-- (NSMutableArray*)delegates {
-  if (!_delegates) {
-    _delegates = TTCreateNonRetainingArray();
-  }
-  return _delegates;
-}
-
 - (BOOL)isLoadingMore {
   return NO;
 }
 
 - (BOOL)isOutdated {
-  return NO;
+  return _outdated;
 }
 
 - (BOOL)isLoaded {
-  return !!_tags;
+  return _isLoaded;
 }
 
 - (BOOL)isLoading {
-  return loadingData;
+  return _loadingData;
 }
 
 - (BOOL)isEmpty {
@@ -94,15 +90,16 @@
 }
 
 - (void)load:(TTURLRequestCachePolicy)cachePolicy more:(BOOL)more {
+	[self didFinishLoad];
 }
 
 - (void)invalidate:(BOOL)erase {
 }
 
 - (void)cancel {
-  if (loadingData) {
-    loadingData = NO;
-    [_delegates perform:@selector(modelDidCancelLoad:) withObject:self];
+  if (_loadingData) {
+    _loadingData = NO;
+		[self didCancelLoad];
   }
 }
 
@@ -155,7 +152,6 @@
 - (id)init {
 	return [self initWithAutotags:NO];
 }
-
 
 - (void)dealloc {
   TT_RELEASE_SAFELY(_tagBook);

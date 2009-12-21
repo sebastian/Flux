@@ -2,11 +2,14 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-@interface TagBook : NSObject <TTModel> {
-  NSMutableArray* _delegates;
+@interface TagBook : TTModel {
+
   NSMutableArray* _tags;
   NSArray* _allTags;
-	BOOL loadingData;
+
+	BOOL _loadingData;
+	BOOL _isLoaded;
+	BOOL _outdated;
 }
 
 @property(nonatomic,retain) NSArray* tags;

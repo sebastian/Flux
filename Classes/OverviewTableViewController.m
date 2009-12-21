@@ -74,7 +74,7 @@
 	if (self = [super init]) {
 		self.managedObjectContext = [[Utilities toolbox] createObjectContext];
 		
-		TTLOG(@"Registering for managedObjectContext changes in %@", self);
+		NSLog(@"Registering for managedObjectContext changes in %@", self);
 		[[NSNotificationCenter defaultCenter]
 		 addObserver:self
 		 selector:@selector(objectContextUpdated:)

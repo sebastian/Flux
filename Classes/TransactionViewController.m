@@ -240,9 +240,9 @@
 - (void) dealloc {
 	_delegate = nil;
 	
-	TTLOG(@"Fresh subviews:");
+	NSLog(@"Fresh subviews:");
 	for (UIView* subview in self.subviews) {
-		TTLOG(@"Subview: %@", subview);
+		NSLog(@"Subview: %@", subview);
 	}
 	
 	[super dealloc];
@@ -837,6 +837,7 @@
 	[super loadView];
 	
 	self.currentTransaction = [[Utilities toolbox] tempTransaction];
+	[[Utilities toolbox] setTempTransaction:nil];
 	
 	[[Utilities toolbox] setBarColours:self colour:RGBCOLOR(50,50,50)];
 	//[[Utilities toolbox] setBarColours:self];
@@ -871,7 +872,7 @@
 	// Releases the view if it doesn't have a superview.
   [super didReceiveMemoryWarning];
 	
-	TTLOG(@"Did receive memory warning in @%", self);
+	NSLog(@"Did receive memory warning in @%", self);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

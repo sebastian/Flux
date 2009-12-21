@@ -62,7 +62,7 @@
 }
 
 - (void)dealloc {
-	TTLOG(@"Deallocing %@", self);
+	NSLog(@"Deallocing %@", self);
 	
 	// Release all resources
 	self.managedObjectContext = nil;
@@ -88,9 +88,9 @@
 }
 
 - (void)didReceiveMemoryWarning {
-	TTLOG(@"didReceiveMemoryWarning: %@", self);
+	NSLog(@"didReceiveMemoryWarning: %@", self);
 	
-	TTLOG(@"Clearing cache in %@ to help", self);
+	NSLog(@"Clearing cache in %@ to help", self);
 	[[CacheMasterSingleton sharedCacheMaster] clearCache];
 	
 	[super didReceiveMemoryWarning];
@@ -102,7 +102,7 @@
 
 - (NSFetchedResultsController*)resultsController {
 	if (resultsController == nil) {
-		TTLOG(@"Creating and loading data for the resultsController in %@", self);
+		NSLog(@"Creating and loading data for the resultsController in %@", self);
 		[self updateData];
 	}
 	return resultsController;
@@ -112,11 +112,11 @@
 	
 	// Only load data once...
 	if (resultsController != nil) {
-		TTLOG(@"Trying to reload data...");
-		TTLOG(@"\tNot allowed! Returning");
+		NSLog(@"Trying to reload data...");
+		NSLog(@"\tNot allowed! Returning");
 		return;
 		
-	} else {TTLOG(@"Loading data for %@", self);}
+	} else {NSLog(@"Loading data for %@", self);}
 
 	NSEntityDescription *entity = [NSEntityDescription entityForName:@"Transaction" inManagedObjectContext:managedObjectContext]; 
 
@@ -144,8 +144,8 @@
 	
 	// Get results
 	if (![resultsController performFetch:&error]) { 
-		TTLOG(@"Error when performing fetch in %@", self);
-		TTLOG(@"ERROR: %@", error);
+		NSLog(@"Error when performing fetch in %@", self);
+		NSLog(@"ERROR: %@", error);
 	}
 
 	// DONE
@@ -153,7 +153,7 @@
 
 - (void) updateIfWorthIt {
 	if (self.worthUpdating) {
-		TTLOG(@"Reloading tableview data, because it is worth it :) (%@)", self);
+		NSLog(@"Reloading tableview data, because it is worth it :) (%@)", self);
 		[self.tableView reloadData];
 		self.worthUpdating = NO;
 		
@@ -164,7 +164,7 @@
 		self.navigationItem.rightBarButtonItem = [[CacheMasterSingleton sharedCacheMaster] filterButton];
 		
 	} else {
-		TTLOG(@"Not worth the hassle reloading table view data. (%@)", self);
+		NSLog(@"Not worth the hassle reloading table view data. (%@)", self);
 	}
 }
 
@@ -173,14 +173,14 @@
 //	To be implemented by children
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    TTLOG(@"Method called that should be implemented by child!");
+    NSLog(@"Method called that should be implemented by child!");
 	return 0;
 }
 - (void)updateData {
-	TTLOG(@"Method called that should be implemented by child!");
+	NSLog(@"Method called that should be implemented by child!");
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	TTLOG(@"Method called that should be implemented by child!");
+	NSLog(@"Method called that should be implemented by child!");
 	return nil;
 }
 

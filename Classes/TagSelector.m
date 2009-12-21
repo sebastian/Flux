@@ -16,7 +16,7 @@
 #import "CacheMasterSingleton.h"
 
 #define LOGRECT(rect) \
-TTLOG(@"%s x=%f, y=%f, w=%f, h=%f", #rect, rect.origin.x, rect.origin.y, \
+NSLog(@"%s x=%f, y=%f, w=%f, h=%f", #rect, rect.origin.x, rect.origin.y, \
 rect.size.width, rect.size.height)
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -44,7 +44,6 @@ rect.size.width, rect.size.height)
 @implementation TagSelector
 
 @synthesize delegate = _delegate;
-@synthesize dataSource = _dataSource;
 @synthesize pickerTextField = _pickerTextField;
 @synthesize mode = _mode;
 @synthesize tags = _preexistingTags;
@@ -210,11 +209,16 @@ rect.size.width, rect.size.height)
 	}
 	
 	_pickerTextField = [[[KleioPickerTextField alloc] initWithFrame:CGRectMake(0, 0, 320, 45)] autorelease];
-	_pickerTextField.dataSource = self.dataSource;
 	_pickerTextField.delegate = self;
 	_pickerTextField.autocorrectionType = UITextAutocorrectionTypeNo;
 	_pickerTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
 	_pickerTextField.backgroundColor = [UIColor whiteColor];
+	
+	if (_autotags) {
+		_pickerTextField.dataSource = [[[TagDataSource alloc] initWithAutotags:YES] autorelease];
+	} else {
+		_pickerTextField.dataSource = [[[TagDataSource alloc] init] autorelease];
+	}
 	
 	UILabel* label = [[[UILabel alloc] init] autorelease];
 	// TODO: replace with "keyword"/"tag" icon
@@ -327,16 +331,9 @@ rect.size.width, rect.size.height)
 
 - (id) initWithAutotags:(BOOL)autotags {
 	if (self = [super init]) {
-		self.title = NSLocalizedString(@"Select keywords", nil);
-		self.navigationBarStyle = UIBarStyleBlackOpaque;
-		
 		self.autoresizesForKeyboard = YES;
 		
-		if (autotags) {
-			self.dataSource = [[[TagDataSource alloc] initWithAutotags:YES] autorelease];
-		} else {
-			self.dataSource = [[[TagDataSource alloc] init] autorelease];
-		}
+		_autotags = autotags;
 		
 		[TTStyleSheet setGlobalStyleSheet:[[[KleioCustomStyles alloc] init] autorelease]];
 		[[TTNavigator navigator].URLMap from:@"kleio://addTagToTagSugester" toObject:self selector:@selector(addCellWithObject)];
@@ -350,6 +347,9 @@ rect.size.width, rect.size.height)
 
 - (void) loadView {
 	[super loadView];
+	
+	self.title = NSLocalizedString(@"Select keywords", nil);
+	self.navigationBarStyle = UIBarStyleBlackOpaque;
 	
 	KleioPickerTextField * picker = [self createPicker];
 	[self.view addSubview:picker];
@@ -385,22 +385,22 @@ rect.size.width, rect.size.height)
 - (void) dealloc {
 	[[TTNavigator navigator].URLMap removeURL:@"kleio://addTagToTagSugester"];
 	TT_RELEASE_SAFELY(otherTags);
-	TT_RELEASE_SAFELY(_dataSource);
 	TT_RELEASE_SAFELY(separator);
 	[super dealloc];
 }
 
 
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //	TTPickerTextFieldDelegate
 - (void)textField:(TTPickerTextField*)textField didAddCellAtIndex:(NSInteger)index {
-	TTLOG(@"didAddCellAtIndex:");
+	NSLog(@"didAddCellAtIndex:");
 }
 - (void)textField:(TTPickerTextField*)textField didRemoveCellAtIndex:(NSInteger)index {
-	TTLOG(@"didRemoveCellAtIndex:");
+	NSLog(@"didRemoveCellAtIndex:");
 }
 - (void)textFieldDidResize:(TTPickerTextField*)textField {
-	TTLOG(@"didResize");
+	NSLog(@"didResize");
 	[self layout];
 }
 
@@ -408,7 +408,7 @@ rect.size.width, rect.size.height)
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //	TTSearchTextFieldDelegate
 - (void)textField:(TTSearchTextField*)textField didSelectObject:(id)object {
-	TTLOG(@"Did selectObject:");
+	NSLog(@"Did selectObject:");
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -436,13 +436,13 @@ rect.size.width, rect.size.height)
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //	Keyboard action...
 - (void)keyboardDidAppear:(BOOL)animated withBounds:(CGRect)bounds {
-	TTLOG(@"Keyboard did appear");
+	NSLog(@"Keyboard did appear");
 	keybordVisible = YES;
 	[self layout];
 }
 
 - (void)keyboardDidDisappear:(BOOL)animated withBounds:(CGRect)bounds {
-	TTLOG(@"Keyboard did dissapear");
+	NSLog(@"Keyboard did dissapear");
 	keybordVisible = NO;
 	[self layout];
 }

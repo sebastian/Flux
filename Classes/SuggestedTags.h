@@ -6,10 +6,9 @@
 //  Copyright 2009 Kle.io. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <Three20/Three20.h>
 
-
-@interface SuggestedTags : UITableViewController <UITableViewDelegate, UITableViewDataSource> {
+@interface SuggestedTags : TTTableViewController <UITableViewDelegate, UITableViewDataSource> {
 	NSMutableArray * _items;
 }
 @property (nonatomic, retain) NSMutableArray * items;

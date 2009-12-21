@@ -76,7 +76,7 @@
 }
 
 - (void)didReceiveMemoryWarning {
-	TTLOG(@"didReceiveMemoryWarning: %@", self);
+	NSLog(@"didReceiveMemoryWarning: %@", self);
     [super didReceiveMemoryWarning];
 }
 

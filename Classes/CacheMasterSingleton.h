@@ -27,6 +27,7 @@
 	UIImage * detailTableCellSelectedBackgroundImage;
 	UIImage * detailTableCellSeparator;	
 	NSMutableDictionary * detailTableCellData;
+	bool _shouldDeleteDetailCache;
 	
 	// Detail header view - resource
 	UIFont * detailHeaderViewFont;
@@ -43,12 +44,14 @@
 	NSMutableArray * overviewCache_months;
 	NSMutableDictionary * overviewCache_cellCache;
 	TransactionModel * overviewTableDelegate;
-		
+	bool _shouldDeleteOverviewCache;
+	
 	// Filtering
 	NSArray * tagWords;
 	UIBarButtonItem * filterButton;
 		
 	int runNum;
+
 }
 
 #pragma mark General methods
@@ -60,6 +63,9 @@
 - (void) updatedTransaction:(Transaction*)transaction;
 - (void) tellDelegatesItsWorthReloading;
 - (void) reloadDelegateData;
+- (void) forceCleanAndReload;
+- (void)registerForManagedObjectContextNotifications;
+- (void)deregisterForManagedObjectContextNotifications;
 
 #pragma mark Filtering
 @property (nonatomic, retain) NSArray * tagWords;

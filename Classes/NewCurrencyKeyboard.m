@@ -80,7 +80,7 @@
 //	Button actions
 
 - (void) buttonPushed:(TTButton*)sender {
-	TTLOG(@"Button pushed: %@", sender);
+	NSLog(@"Button pushed: %@", sender);
 }
 
 

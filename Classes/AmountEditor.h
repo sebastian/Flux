@@ -34,7 +34,7 @@ typedef enum {
 
 @interface AmountLabel : TTView
 {
-	NSString * _amount;
+	NSString * _amount;	
 	id <CurrencySelectionDialogDelegate, AmountLabelDelegate> _delegate;
 }
 @property (nonatomic, retain) NSString * amount;
@@ -62,6 +62,8 @@ typedef enum {
 	AmountLabel * _amount;
 	ExpenseToggle * _expenseIncomeControl;
 
+	bool _previouslyValid;
+	
 }
 @property (nonatomic, retain) Transaction * currentTransaction;
 @property (nonatomic, assign) TTViewController * delegate;

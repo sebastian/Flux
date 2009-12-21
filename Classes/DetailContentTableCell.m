@@ -34,12 +34,12 @@
 	
 	maxWidth -= [@"..." sizeWithFont:[[CacheMasterSingleton sharedCacheMaster] detailTableCellFont]].width;
 	
-	TTLOG(@"Setuping up the setupWhatWithWidth:%i", maxWidth);
+	NSLog(@"Setuping up the setupWhatWithWidth:%i", maxWidth);
 	
 	NSMutableString * text = [[[NSMutableString alloc] init] autorelease];
 	
 	for (NSString * tag in self.tags) {
-
+		
 		width += [[tag stringByAppendingString:@"   "] sizeWithFont:[[CacheMasterSingleton sharedCacheMaster] detailTableCellFont]].width + 6;
 		if (width > maxWidth) {
 			[text appendFormat:@"<span class=\"tagBox\">...</span>"];		
@@ -59,6 +59,7 @@
 	[what sizeToFit];
 	
 	[[[CacheMasterSingleton sharedCacheMaster] detailTableCellData] setObject:what forKey:[trs description]];
+	
 }
 
 - (void) calculatePositionsForTransaction:(Transaction*)trs {
@@ -127,7 +128,7 @@
 //	UITableViewCell
 
 - (void)drawContentView:(CGRect)r {
-			
+	
 	if (self.highlighted) {
 		[[[CacheMasterSingleton sharedCacheMaster] detailTableCellSelectedBackgroundImage] drawAtPoint:topCorner];
 	} else {

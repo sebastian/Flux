@@ -12,6 +12,8 @@
 #import "FluxAppDelegate.h"
 #import "AddTransactionController.h"
 #import "CacheMasterSingleton.h"
+#import "LocationController.h"
+#import "CurrencyManager.h"
 
 @implementation Utilities
 
@@ -19,10 +21,6 @@
 @synthesize geoCoder;
 @synthesize tempVariable;
 @synthesize tempTransaction = _tempTransaction;
-
-- (Transaction*)tempTransaction {
-	return [_tempTransaction autorelease];
-}
 
 static Utilities *sharedUtilitiesToolbox = nil;
 
@@ -34,8 +32,8 @@ static Utilities *sharedUtilitiesToolbox = nil;
 		dKroner = [(NSNumber*)[transactions valueForKeyPath:@"@sum.kronerInBaseCurrency"] doubleValue];
 	}
 	@catch (NSException * e) {
-		TTLOG(@"Error summing kroner for transactions");
-		TTLOG(@"Error: %@", e);
+		NSLog(@"Error summing kroner for transactions");
+		NSLog(@"Error: %@", e);
 		dKroner = 0.0;
 	}
 	
@@ -121,13 +119,13 @@ static Utilities *sharedUtilitiesToolbox = nil;
 	
 	// Create an object to hold the location
 	Location * newLocation = [NSEntityDescription insertNewObjectForEntityForName:@"Location" 
-																												 inManagedObjectContext:self.addTransactionManagedObjectContext];
+																												 inManagedObjectContext:self.tagManagedObjectContext];
 	newLocation.location = loc;
 	
 	if (currentTag == nil) {
 		
 		Tag * newTag = [NSEntityDescription insertNewObjectForEntityForName:@"Tag" 
-																								 inManagedObjectContext:self.addTransactionManagedObjectContext];
+																								 inManagedObjectContext:self.tagManagedObjectContext];
 		
 		newTag.autotag = [NSNumber numberWithBool:autotag];
 		newTag.name = tag;
@@ -144,10 +142,7 @@ static Utilities *sharedUtilitiesToolbox = nil;
 	}
 	
 	// Save the changes we have made
-
-	// TODO: Is this OK?
-	// Disable while I try using the shared Managed Object context
-	//[self save:self.addTransactionManagedObjectContext];
+	[self save:self.tagManagedObjectContext];
 	
 }
 -(Tag*)tagObjectforTag:(NSString*)tag {
@@ -160,7 +155,7 @@ static Utilities *sharedUtilitiesToolbox = nil;
 	if ([tagCache objectForKey:tag] != nil) {return [tagCache objectForKey:tag];}
 	
 	NSEntityDescription *entity = [NSEntityDescription entityForName:@"Tag" 
-																						inManagedObjectContext:self.addTransactionManagedObjectContext]; 
+																						inManagedObjectContext:self.tagManagedObjectContext]; 
 	
 	// Create a predicate
 	NSPredicate * predicate = [NSPredicate predicateWithFormat:@"name = %@", tag];
@@ -172,12 +167,12 @@ static Utilities *sharedUtilitiesToolbox = nil;
 	
 	NSError *error; 
 	
-	NSArray *localTags = [self.addTransactionManagedObjectContext executeFetchRequest:request error:&error]; 
+	NSArray *localTags = [self.tagManagedObjectContext executeFetchRequest:request error:&error]; 
 	[request release];
 	
 	if (localTags == nil) 
 	{ 
-		TTLOG(@"There was an error (that's what she said...): %@", error);
+		NSLog(@"There was an error (that's what she said...): %@", error);
 		return nil;
 	}
 	// Get a tag object and add it to the cache
@@ -193,14 +188,14 @@ static Utilities *sharedUtilitiesToolbox = nil;
 	
 	// Get all the transactions
 	NSFetchRequest * fetchRequest = [[NSFetchRequest alloc] init];
-	NSEntityDescription * entity = [NSEntityDescription entityForName:@"Tag" inManagedObjectContext:[[Utilities toolbox] managedObjectContext]];
+	NSEntityDescription * entity = [NSEntityDescription entityForName:@"Tag" inManagedObjectContext:self.tagManagedObjectContext];
 	[fetchRequest setEntity:entity];
 	
 	NSPredicate * tagPredicate = [NSPredicate predicateWithFormat:@"autotag == NO AND name BEGINSWITH %@", start];
 	[fetchRequest setPredicate:tagPredicate];
 	[fetchRequest setFetchLimit:2];
 	
-	NSArray * fetchedTags = [self.addTransactionManagedObjectContext executeFetchRequest:fetchRequest error:&error];
+	NSArray * fetchedTags = [self.tagManagedObjectContext executeFetchRequest:fetchRequest error:&error];
 	[fetchRequest release];
 	
 	/*
@@ -247,7 +242,7 @@ static Utilities *sharedUtilitiesToolbox = nil;
 -(NSArray*)allTagNamesIncludingAutotags:(BOOL)autotags {
 	
 	NSEntityDescription *entity = [NSEntityDescription entityForName:@"Tag" 
-																						inManagedObjectContext:self.addTransactionManagedObjectContext]; 
+																						inManagedObjectContext:self.tagManagedObjectContext]; 
 	
 	NSPredicate * autotagPredicate;
 	if (autotags) {
@@ -263,7 +258,7 @@ static Utilities *sharedUtilitiesToolbox = nil;
 	
 	NSError *error; 
 	
-	NSArray *tags = [self.addTransactionManagedObjectContext executeFetchRequest:request error:&error]; 
+	NSArray *tags = [self.tagManagedObjectContext executeFetchRequest:request error:&error]; 
 	[request release];
 	
 	NSMutableArray * tagNames = [[NSMutableArray alloc] init];
@@ -279,7 +274,7 @@ static Utilities *sharedUtilitiesToolbox = nil;
 	NSFetchRequest *request = [[NSFetchRequest alloc] init]; 
 
 	NSEntityDescription *entity = [NSEntityDescription entityForName:@"Location" 
-																						inManagedObjectContext:self.addTransactionManagedObjectContext]; 
+																						inManagedObjectContext:self.tagManagedObjectContext]; 
 	[request setEntity:entity];
 
 	
@@ -291,7 +286,7 @@ static Utilities *sharedUtilitiesToolbox = nil;
 	
 	NSError *error; 
 	
-	NSArray * allLocations = [self.addTransactionManagedObjectContext executeFetchRequest:request error:&error]; 
+	NSArray * allLocations = [self.tagManagedObjectContext executeFetchRequest:request error:&error]; 
 	TT_RELEASE_SAFELY(request);
 	
 	NSMutableArray * tagNames = [[NSMutableArray alloc] init];
@@ -320,9 +315,14 @@ static Utilities *sharedUtilitiesToolbox = nil;
 	[dateFormatter release];
 }
 
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// GeoCoding
 #pragma mark
 #pragma mark -
 #pragma mark GeoCoding
+@synthesize bestLocation = _bestLocation, locationDelegate = _locationDelegate;
+
 - (void)reverseGeoCode:(CLLocationCoordinate2D)coordinate forDelegate:(id<MKReverseGeocoderDelegate>)delegate {
 
 	if (self.geoCoder != nil) {
@@ -345,7 +345,7 @@ static Utilities *sharedUtilitiesToolbox = nil;
 		
 	} 
 	
-	TTLOG(@"Creating a new geocoder");
+	NSLog(@"Creating a new geocoder");
 	
 	// Create a new geocoder for the given coordinate
 	self.geoCoder = [[MKReverseGeocoder alloc] initWithCoordinate:coordinate];	
@@ -356,24 +356,215 @@ static Utilities *sharedUtilitiesToolbox = nil;
 	// And off we go :)
 	[self.geoCoder start];
 }
+- (void) startGeocoding {
 
+	_didGeoCoding = NO;
+	foundLocationTags = NO;
+	
+	[LocationController sharedInstance].delegate = self;
+	[LocationController sharedInstance].locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+	[[LocationController sharedInstance].locationManager startUpdatingLocation];	
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//	GeoCoding - Location Manager delegate methods
+#pragma mark CoreLocation - LocationController delegate methods
+-(void)locationUpdate:(CLLocation *)location {
+	// We have to reverse geo code in order to get a location we can use for the currency
+
+	if (!_didGeoCoding) {
+		_didGeoCoding = YES;
+		[self reverseGeoCode:location.coordinate forDelegate:self];
+	}
+	
+	/*
+	 Only use locations that are less than five minutes old
+	 */
+	if (abs([location.timestamp timeIntervalSinceNow]) > 3 * 60) { return; }
+	
+	if (self.bestLocation == nil) {
+		self.bestLocation = location;
+		
+	} else {
+		if (location.timestamp > self.bestLocation.timestamp) {
+			self.bestLocation = location;
+			
+		}
+	}
+	
+	// And we should do a reverse geocoding as well!
+	if ((foundLocationTags == NO) && (location.horizontalAccuracy < 1500.f) && (location.horizontalAccuracy > 0.f)) {
+		
+		// We don't need more location updates
+		[[LocationController sharedInstance].locationManager stopUpdatingLocation];
+				
+		[self findLocationTags];
+		
+	}
+	
+}
+-(void)locationError:(NSString *)error {
+	NSLog(@"Got location error: %@", error);
+	if ([[NSUserDefaults standardUserDefaults] objectForKey:@"KleioFinanceFirstRunBaseCurrency"] == nil) {
+		NSLog(@"We should do something here... Like ask the user to set his or her currency!");
+	}
+}
+-(void)reverseGeocoder:(MKReverseGeocoder *)geocoder didFindPlacemark:(MKPlacemark *)daPlacemark {
+	/*
+	 We have to find the currency corrensponding to the country!
+	 */
+	
+	@try {[_locationDelegate setPlacemark:daPlacemark];}
+	@catch (NSException * e) {}
+	
+	NSString * countryCode = daPlacemark.countryCode;
+	NSString * currencyCode = [[[CurrencyManager sharedManager] countryToCurrency] objectForKey:countryCode];
+	
+	if (!(currencyCode == nil)) {
+		
+		// We run off the previous local currency, to speed things up.
+		// If it has changed, then we update it
+		if ([[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentLocalCurrency"] != currencyCode) {
+			
+			// If the local currency has changed, and has changed back to the base
+			// currency, then the user is back home :)
+			if (([[CurrencyManager sharedManager] baseCurrency] == currencyCode) && 
+					([[NSUserDefaults standardUserDefaults] objectForKey:@"KleioFinanceFirstRunBaseCurrency"] == nil)) {
+
+				// Welcome home princess / tiger (depending on gender)
+				// I could greet the user here, but maybe only americans would actually appreciate that...
+				
+			}
+			
+			[[NSUserDefaults standardUserDefaults] setObject:currencyCode
+																								forKey:@"CurrentLocalCurrency"];
+			
+			@try {[_locationDelegate baseCurrencyUpdatedTo:currencyCode];}
+			@catch (NSException * e) {}
+			
+		}
+		
+	} else {
+		NSLog(@"Couldn't find a currency for %@", countryCode);
+	}
+	
+	
+	/*
+	 If this is the first time this app has been run
+	 Then this is the first place where we have gotten the users geolocation.
+	 We should set the base currency to match that location
+	 */
+	if ([[NSUserDefaults standardUserDefaults] objectForKey:@"KleioFinanceFirstRunBaseCurrency"] == nil) {
+		[[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES]
+																							forKey:@"KleioFinanceFirstRunBaseCurrency"];
+		
+		[[CurrencyManager sharedManager] setBaseCurrency:currencyCode];
+		
+	}
+		
+}
+-(void)reverseGeocoder:(MKReverseGeocoder *)geocoder didFailWithError:(NSError *)error {
+	// Nothing much to do...
+	NSLog(@"ERROR... We couldn't fint the location! Unless the base currency has been set we should tell the user!");
+}
+-(void)findLocationTags {
+	
+	NSError *error;
+	
+	// Get all the transactions
+	NSFetchRequest * fetchRequest = [[NSFetchRequest alloc] init];
+	NSEntityDescription * entity = [NSEntityDescription entityForName:@"Location" 
+																						 inManagedObjectContext:[[Utilities toolbox] addTransactionManagedObjectContext]];
+	[fetchRequest setEntity:entity];
+	
+	// TODO: limit tag lookup
+	/*
+	 Should look for tags with location that are within a certain latitudal range.
+	 1 degree in latitude is approx 111 km
+	 Hence I should store lat in the location class and then I can look for
+	 within a range... To speed up the lookup.
+	 */
+	
+	double diff = 0.01;
+	double plusLatDelta = self.bestLocation.coordinate.latitude + diff;
+	double minusLatDelta = self.bestLocation.coordinate.latitude - diff;
+	
+	/* the longitutes are dependent on location, so I make the delta bigger to make sure I get something! */
+	double lngDiff = 0.5;
+	double plusLngDelta = self.bestLocation.coordinate.longitude + lngDiff;
+	double minusLngDelta = self.bestLocation.coordinate.longitude - lngDiff;
+	
+	NSPredicate * deltaLatPredicate = [NSPredicate predicateWithFormat:@"latitude BETWEEN {%f, %f}", minusLatDelta, plusLatDelta];
+	NSPredicate * deltaLngPredicate = [NSPredicate predicateWithFormat:@"longitude BETWEEN {%f, %f}", minusLngDelta, plusLngDelta];
+	NSPredicate * notAutotags = [NSPredicate predicateWithFormat:@"tag.autotag = NO"];
+	NSPredicate * locationPredicate = 
+	[NSCompoundPredicate andPredicateWithSubpredicates:[NSArray arrayWithObjects:deltaLatPredicate, deltaLngPredicate, notAutotags, nil]];
+	
+	[fetchRequest setPredicate:locationPredicate];
+	
+	
+	NSArray * fetchedLocations = [[[Utilities toolbox] addTransactionManagedObjectContext] executeFetchRequest:fetchRequest error:&error];
+	[fetchRequest release];
+	
+	NSMutableArray * tagsToSuggest = [[NSMutableArray alloc] init];
+	
+	for (Location * location in fetchedLocations) {
+		CLLocationDistance distance;
+		@try {
+			distance = [self.bestLocation getDistanceFrom:location.location];
+		}
+		@catch (NSException * e) {
+			NSLog(@"Got strange error when trying to check distance of tag! %@", e);
+			distance = 3000; // Some strange error... just set it to something we won't use...
+		}
+		/* If the tag is closer than 50 meters then use it */
+		if (distance < 1000.f) {
+			/*
+			 This is a tag we can use! Add it unless, it has already been added
+			 */
+			if (![tagsToSuggest containsObject:location.tag]) {
+				[tagsToSuggest addObject:location.tag];
+			}
+		}
+		
+	}
+	
+	if ([tagsToSuggest count] > 0) {
+		
+		
+		/* We want to sort the list by popularity */
+		[tagsToSuggest sortUsingSelector:@selector(compareAmountOfLocations:)];
+		
+		// We only want the N most recent geo tags
+		NSMutableArray * tagNames = [[NSMutableArray alloc] init];
+		for (Tag * tag in tagsToSuggest) {
+			if ([tagNames count] == 5) {break;}
+			[tagNames addObject:tag.name];
+		}
+		
+		[Utilities toolbox].suggestedTagsForCurrentLocation = tagNames;
+		
+		NSLog(@"Added suggested tags...");
+		
+		TT_RELEASE_SAFELY(tagNames);
+	}
+	
+	[tagsToSuggest release];
+	
+	foundLocationTags = YES;
+		
+}
 
 #pragma mark
 #pragma mark -
 #pragma mark CoreData methods
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //	CoreData
-@synthesize managedObjectContext, addTransactionManagedObjectContext = _addTransactionManagedObjectContext;
+@synthesize managedObjectContext, addTransactionManagedObjectContext = _addTransactionManagedObjectContext, tagManagedObjectContext = _tagManagedObjectContext;
 - (NSManagedObjectContext*)managedObjectContext {
 	if (managedObjectContext == nil) {
 		managedObjectContext = [[self createObjectContext] retain];
-		
-		[[NSNotificationCenter defaultCenter]
-		 addObserver:[CacheMasterSingleton sharedCacheMaster]
-		 selector:@selector(objectContextUpdated:)
-		 name:NSManagedObjectContextDidSaveNotification
-		 object:nil];
-		
+		[[CacheMasterSingleton sharedCacheMaster] registerForManagedObjectContextNotifications];
 	}
 	return managedObjectContext;
 }
@@ -383,13 +574,17 @@ static Utilities *sharedUtilitiesToolbox = nil;
 	}
 	return _addTransactionManagedObjectContext;
 }
+- (NSManagedObjectContext*)tagManagedObjectContext {
+	if (_tagManagedObjectContext == nil) {
+		_tagManagedObjectContext = [[self createObjectContext] retain];
+	}
+	return _tagManagedObjectContext;
+}
 - (void)save:(NSManagedObjectContext*)context {
 		
 	if (context != nil) {
-		NSLog(@"Context isn't nil: %@", context);
 
 		if ([context hasChanges]) {
-			NSLog(@"Has changes %@", context);
 	
 			NSError *error;
 			if (![context save:&error]) {
@@ -407,7 +602,7 @@ static Utilities *sharedUtilitiesToolbox = nil;
 	NSManagedObjectContext *newContext = [[NSManagedObjectContext alloc] init];
 	[newContext setPersistentStoreCoordinator: [appDelegate persistentStoreCoordinator]];
 	if (!newContext) { 
-		TTLOG(@"Couldn't create a managedObjectContext in the Utilities helper function");
+		NSLog(@"Couldn't create a managedObjectContext in the Utilities helper function");
 	}
 
 	return [newContext autorelease];

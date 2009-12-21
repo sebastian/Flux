@@ -183,7 +183,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#define CacheLog(what) TTLOG([@"CacheManager (%i): " stringByAppendingString:what], runNum)
+#define CacheLog(what) NSLog([@"CacheManager (%i): " stringByAppendingString:what], runNum)
 
 @implementation CacheMasterSingleton
 
@@ -197,6 +197,8 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 - (id) init {
 	if (self = [super init]) {
 		[TTStyleSheet setGlobalStyleSheet:[[[KleioCustomStyles alloc] init] autorelease]];
+		_shouldDeleteOverviewCache = NO;
+		_shouldDeleteDetailCache = NO;
 	}
 	return self;
 }
@@ -277,59 +279,53 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 	
 }
 - (void) updatedTransaction:(Transaction*)transaction {
-
-	[self overviewCacheUpdatedTransaction:transaction];
-	
+		
+	NSLog(@"Doing detail cache update");
 	if (self.detailTableDelegate != nil) {
 		[self detailCacheUpdatedTransaction:transaction];
 	}
+	
+	NSLog(@"Doing overview cache update");
+	[self overviewCacheUpdatedTransaction:transaction];
+
 }
 - (void) tellDelegatesItsWorthReloading {
 	[self overviewCache_tellDelegateThatItsWorthUpdating];
 	[self detailCache_tellDelegateThatItsWorthUpdating];
 }
 - (void) reloadDelegateData {
-	@try {
-		[self.overviewTableDelegate updateIfWorthIt];
-	} 
-	@catch (NSException * e) {
-		// Nothing to do...
-	}
 	
-	@try {
-		[self.detailTableDelegate updateIfWorthIt];
-	}
-	@catch (NSException * e) {
-		// Nothing to do...
-	}
+	@try {[self.overviewTableDelegate updateIfWorthIt];} 
+	@catch (NSException * e) {/* Nothing to do... */}
+	
+	@try {[self.detailTableDelegate updateIfWorthIt];}
+	@catch (NSException * e) {/* Nothing to do... */}
+	
 }
-- (void)objectContextUpdated:(NSNotification *)notification {
+- (void)objectContextUpdated:(NSNotification *)notification {	
+	NSLog(@"Merge notification: %@", notification);
 	// Merge changes
-	[[[Utilities toolbox] managedObjectContext] mergeChangesFromContextDidSaveNotification:notification];	
-	
-	// Tell delegates to update
-	if (self.detailTableDelegate != nil) {
-		@try {[self.detailTableDelegate updateIfWorthIt];}
-		@catch (NSException * e) {
-			/*
-			 There is no detailTableViewController.
-			 It must have been dealloced... it should have deregistered,
-			 but something must have gone wrong.
-			 */
-		}
-	}	
-
-	if (self.overviewTableDelegate != nil) {
-		@try {[self.overviewTableDelegate updateIfWorthIt];}
-		@catch (NSException * e) {
-			/*
-			 There is no detailTableViewController.
-			 It must have been dealloced... it should have deregistered,
-			 but something must have gone wrong.
-			 */
-		}
-	}
-	
+	[[[Utilities toolbox] managedObjectContext] mergeChangesFromContextDidSaveNotification:notification];		
+}
+- (void)forceCleanAndReload {
+	NSLog(@"*******************************************\n");
+	NSLog(@"ERROR ERROR ERROR!\n");
+	NSLog(@"Was forced to do a force clean and reload of data! Caching mechanism is gone wrong!\n");
+	NSLog(@"*******************************************\n");
+	[self overviewCache_removePersistentCache];
+	[self clearCache];
+	[self tellDelegatesItsWorthReloading];
+	[self reloadDelegateData];
+}
+- (void)registerForManagedObjectContextNotifications {
+	[[NSNotificationCenter defaultCenter]
+	 addObserver:self
+	 selector:@selector(objectContextUpdated:)
+	 name:NSManagedObjectContextDidSaveNotification
+	 object:nil];
+}
+- (void)deregisterForManagedObjectContextNotifications {
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark
@@ -409,6 +405,7 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 @synthesize detailCache_cellCache;
 @synthesize detailCache_headerViewCache;
 - (void) detailCache_clearCache {
+	NSLog(@"Clearing detail cache");
 	self.detailCache_cellCache = nil;
 	self.detailCache_headerViewCache = nil;
 	self.detailTableCellData = nil;
@@ -429,8 +426,8 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 	/* 
 	 If the delegate changes, then the cache automatically becomes stale
 	 */
-	if ((delegate == nil) || (detailTableDelegate != delegate)) {[self detailCache_clearCache];}
-	
+	NSLog(@"Updating detailTableDelegate to %@", delegate);
+	[self detailCache_clearCache];
 	detailTableDelegate = delegate;
 }
 - (void) detailCache_tellDelegateThatItsWorthUpdating {
@@ -444,6 +441,7 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 			 It must have been dealloced... it should have deregistered,
 			 but something must have gone wrong.
 			 */
+			NSLog(@"Caught an error... but didn't do anything about it... CacheMaster");
 		}
 	}	
 }
@@ -458,7 +456,7 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 	
 	if ([self.detailCache_cellCache objectForKey:section] == nil) {
 	
-		TTLOG(@"Generating data for row_section %i", _section, section);
+		NSLog(@"Generating data for row_section %i", _section, section);
 		
 		/*
 		 Check if there are any transactions left
@@ -508,17 +506,35 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 	 Optimize: Has to recalculate the amount of rows
 	 each time it is refreshed while filtering!
 	 */
+	
+	NSLog(@"Finding the number of rows in section %i", section);
+	NSLog(@"There are a total of %i sections", [[self.detailTableDelegate.resultsController sections] count]);
+	
+	NSArray * transactions;
 	NSInteger count;
+	
 	if ([self.filteringPredicate isEqual:self.truePredicate]){
-		count = [[[[self.detailTableDelegate.resultsController sections] objectAtIndex:section] objects] count];
+		NSLog(@"Not filtering... counting objects in resultsController");
+		transactions = [[[self.detailTableDelegate.resultsController sections] objectAtIndex:section] objects];
+
 	} else {
 		NSArray * _transactions = [[[self.detailTableDelegate.resultsController sections] objectAtIndex:section] objects];
-		NSArray * transactions = [_transactions filteredArrayUsingPredicate:self.filteringPredicate];
-		count = [transactions count];
+		transactions = [_transactions filteredArrayUsingPredicate:self.filteringPredicate];
 	}
+	
+	count=0;
+	
+	// FIXME: Highly inefficient
+	for (int n = 0; n < [transactions count]; n++) {
+		if (![[transactions objectAtIndex:n] isDeleted]) {count++;}
+	}
+	
+	NSLog(@"Found %i rows", count);
 	return count;
 }
 - (void) detailCacheUpdatedTransaction:(Transaction*)transaction {
+	
+	NSLog(@"Updating detail cache");
 	
 	NSString * yearMonth = transaction.yearMonth;
 	NSString * oldYearMonth = transaction.oldYearMonth;
@@ -531,17 +547,22 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 		worthUpdating = YES;
 	}
 	
-	if (worthUpdating) {[self detailCache_tellDelegateThatItsWorthUpdating];}
+	if (worthUpdating) {
+		NSLog(@"Telling delegate that it is worth updating");
+		[self detailCache_tellDelegateThatItsWorthUpdating];
+	} else {
+		NSLog(@"DO NOT tell delegate that it is worth updating");
+	}
 	
 }
 - (UIView*) detailCache_headerViewForSection:(NSInteger)_section {
 	
+	NSLog(@"Loading headerview for section %i", _section);
+	
 	/*
 	 If there are no elements in the section, then we don't want to display it
 	 */
-	NSDictionary * data;
-	@try {data = [self detailCache_dataForSection:_section];}
-	@catch (NSException * e) {return nil;}
+	NSDictionary * data = [self detailCache_dataForSection:_section];
 	
 	NSInteger count = [[data objectForKey:@"transactions"] count];
 	if (count == 0) {return nil;}
@@ -549,6 +570,8 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 	NSString * section = [NSString stringWithFormat:@"%i", _section];
 	
 	if ([self.detailCache_headerViewCache objectForKey:section] == nil) {
+		
+		NSLog(@"Have to create a new header view. Cache was empty");
 		
 		//[[NSBundle mainBundle] loadNibNamed:@"DetailHeaderAndFooter" owner:self options:nil]; 
 		DetailHeaderView * headerView = [[DetailHeaderView alloc] initWithFrame:CGRectMake(0, 0, 320, 30)];
@@ -571,10 +594,9 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 	 If there are no elements in the section, then we don't want to display it
 	 */
 	NSDictionary * data;
-	@try {
-		data = [self detailCache_dataForSection:_section];
-	}
+	@try {data = [self detailCache_dataForSection:_section];}
 	@catch (NSException * e) {return nil;}
+
 	
 	NSInteger count = [[data objectForKey:@"transactions"] count];
 	if (count == 0) {
@@ -744,14 +766,26 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 	
 	NSString * yearMonth = [self.overviewCache_months objectAtIndex:row];
 	
+	NSLog(@"Getting overviewCache for yearMonth %@", yearMonth);
+	
 	if ([self.overviewCache_cellCache objectForKey:yearMonth] == nil) {
 		
-		TTLOG(@"Generating data for yearMonth %@, row %i", yearMonth, row);
+		NSLog(@"Generating data for yearMonth %@, row %i", yearMonth, row);
 		
 		// Get info to put into cell:
 		if (self.overviewTableDelegate == nil) {return nil;}
 		
 		NSArray * sections = [self.overviewTableDelegate.resultsController sections];
+		
+		NSLog(@"\ncurrently %i sections:\n", [sections count]);
+		for (int n = 0; n < [sections count]; n++) {
+			NSLog(@"\tsection %i has %i transactions\n", n, [[[sections objectAtIndex:n] objects] count]);
+			for (int m = 0; m < [[sections objectAtIndex:n] numberOfObjects]; m++) {
+				Transaction * trs = [[[sections objectAtIndex:n] objects] objectAtIndex:m];
+				NSLog(@"\t\t Amount: %@, Expense: %@, Deleted: %i", [trs kroner], [trs expense], [trs isDeleted]);
+			}
+		}
+		NSLog(@"\n");
 		
 		if ([sections count] <= row) {
 			/* 
@@ -760,22 +794,11 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 			 */
 			
 		} else {
-						
+				
 			id <NSFetchedResultsSectionInfo> currenctSection = [sections objectAtIndex:row];
 						
 			NSArray * _transactionsInSection = [currenctSection objects];
 			NSArray * transactionsInSection = [_transactionsInSection filteredArrayUsingPredicate:self.filteringPredicate];
-			
-			TTLOG(@"_transactionsInSection");
-			for (Transaction * obj in _transactionsInSection) {
-				TTLOG(@"%@", obj);
-			}
-
-			TTLOG(@"\n\ntransactionsInSection");
-			for (Transaction *  obj in transactionsInSection) {
-				TTLOG(@"%@", obj);
-			}
-			
 			
 			Transaction * aTransaction = (Transaction*)[_transactionsInSection objectAtIndex:0];
 			
@@ -802,16 +825,18 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 			}
 			if (dateFromObject == nil) {
 				// None of the transactions had a date, so we have to fake it...
-				TTLOG(@"ERROR: None of the transactions had a date! We had to fake one");
+				NSLog(@"ERROR: None of the transactions had a date! We had to fake one");
 				dateFromObject = [NSDate date];
 			}
 			if (n!=0) {
-				TTLOG(@"Had to try %i times to get a date...",n);
+				NSLog(@"Had to try %i times to get a date...",n);
 			}
 			
 			NSNumber * numAmount = [NSNumber numberWithDouble:amount];
 			
 			NSString * calculatedAmount = [[CurrencyManager sharedManager] baseCurrencyDescriptionForAmount:numAmount withFraction:YES];
+			
+			NSLog(@"Got raw and calculated amount to be: %@ and %@", numAmount, calculatedAmount);
 			
 			
 			NSString * realYearMonth = aTransaction.yearMonth;
@@ -864,7 +889,7 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 	[[NSFileManager defaultManager] removeItemAtPath:[self overviewCache_cachePath] error:&error];
 	
 	if (error != nil) {
-		TTLOG(@"There was an error removing the cache: %@", error);
+		NSLog(@"There was an error removing the cache: %@", error);
 	}
 }
 - (NSInteger) overviewCache_numberOfRows {
@@ -890,7 +915,7 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 	if ([transaction isDeleted]) {
 		
 		[self overviewCache_delete:yearMonth];
-		
+	
 	} else if (transaction.isNew) {
 
 		[self overviewCache_insert:yearMonth];
@@ -969,6 +994,33 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 	 regenerate the cache to see if there is still any elements present
 	 and if there is not, then we remove it completely from the list
 	 */
+	
+	/*
+	 Are we deleting the last element of a section?
+	 */
+//	NSLog(@"Removing overviewCache for yearMonth: %@", yearMonth);
+//	[self overviewCache_removeCacheForYearMonth:yearMonth];
+//	
+//	NSInteger row = [self.overviewCache_months indexOfObject:yearMonth];
+//	NSDictionary * cache = [self overviewCache_forRow:row];
+//	NSInteger numberOfObjects = [(NSNumber*)[cache objectForKey:@"totNumObjects"] intValue];
+//	NSLog(@"Checking how many transactions there are in the month %@: %i", yearMonth, numberOfObjects);
+//	if (numberOfObjects <= 1) {
+//		
+//		NSLog(@"Deleting the last element of a section");
+//		// We have to remove the element from the overview list
+//		[self.overviewCache_months removeObjectAtIndex:row];
+//		
+//	}
+//	
+//	// The cache should be removed in any case
+//	NSLog(@"Removing overviewCache for yearMonth a second time: %@", yearMonth);
+//	[self overviewCache_removeCacheForYearMonth:yearMonth];
+//	
+//	// Tell delegate to reload table
+//	[self overviewCache_tellDelegateThatItsWorthUpdating];
+	
+
 	[self overviewCache_removeCacheForYearMonth:yearMonth];
 	if ([self.overviewCache_months containsObject:yearMonth]) {
 		
@@ -1011,6 +1063,7 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 			 Do nothing...
 			 It must have been dealloced somewhere/somewhen... what ever.
 			 */
+			NSLog(@"Caught an error... but didn't do anything about it... CacheMaster");
 		}
 
 	}
@@ -1019,14 +1072,13 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 	[self.overviewCache_cellCache removeObjectForKey:yearMonth];
 }
 
-
 #pragma mark
 #pragma mark -
 #pragma mark Singleton methods
 + (CacheMasterSingleton*)sharedCacheMaster; {
     @synchronized(self) {
         if (sharedCacheMaster == nil) {
-            [[self alloc] init]; // assignment not done here
+					[[self alloc] init]; // assignment not done here
         }
     }
     return sharedCacheMaster;

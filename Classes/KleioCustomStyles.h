@@ -14,13 +14,15 @@
 - (TTStyle*)blackBackwardButton:(UIControlState)state;
 - (TTStyle*)blackForwardButton:(UIControlState)state;
 - (TTStyle*)greenForwardButton:(UIControlState)state;
+- (TTStyle*)greenForwardButtonHighlighted:(UIControlState)state;
 - (TTStyle*)grayToolbarButton:(UIControlState)state;
 - (TTStyle*)blueToolbarButton:(UIControlState)state;
-- (TTStyle*)greenMonsterWhatToDoIndicator;
+
 
 // Add amount controller
 - (TTStyle*) expenseInputField;
 - (TTStyle*) amountFieldStyle;
+- (TTStyle*) amountFieldStyleGreen;
 
 // Filter buttons
 - (TTStyle*)filteringButtonActive:(UIControlState)state;

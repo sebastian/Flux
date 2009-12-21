@@ -11,14 +11,14 @@
 
 #import "CacheMasterSingleton.h"
 #import "TestUtils.h"
-#import "OverviewTableViewController.h"
-#import "DetailTableViewController.h"
+#import "TransactionModel.h"
 #import "Utilities.h"
 #import "Transaction.h"
 
+
 @interface CacheManagerFilteringTest : SenTestCase {
-	DetailTableViewController * controller;
-	OverviewTableViewController * overviewController;
+	DetailTableModel * controller;
+	OverviewTableModel * overviewController;
 	NSManagedObjectContext * context;
 }
 - (Transaction*)getTransaction;
@@ -29,18 +29,21 @@
 @implementation CacheManagerFilteringTest
 - (void)setUp {
 	
-	NSManagedObjectContext* uContext = [TestUtils managedObjectContext];
-	[[Utilities toolbox] setManagedObjectContext:uContext];	
+	// Have to ensure that it has registered for callbacks
+	[[CacheMasterSingleton sharedCacheMaster] registerForManagedObjectContextNotifications];
 	
 	context = [[TestUtils managedObjectContext] retain];
+	[[Utilities toolbox] setManagedObjectContext:context];	
+	[[Utilities toolbox] setAddTransactionManagedObjectContext:context];
 	
-	controller = [[DetailTableViewController alloc] initWithStyle:UITableViewStylePlain andContext:context];
-	overviewController = [[OverviewTableViewController alloc] initWithStyle:UITableViewStylePlain andContext:context];
-
+	controller = [[DetailTableModel alloc] initWithYearMonth:@"197001"];
+	[controller loadData];
+	overviewController = [[OverviewTableModel alloc] init];
+	[overviewController loadData];
+	
 	STAssertEqualObjects([[CacheMasterSingleton sharedCacheMaster] overviewTableDelegate], overviewController, @"Should have set right delegate");
 	STAssertEqualObjects([[CacheMasterSingleton sharedCacheMaster] detailTableDelegate], controller, @"Should have set right delegate");
 	
-	controller.yearMonthToDisplay = @"197001";
 	NSDate * date1 =[NSDate dateWithTimeIntervalSince1970:0]; // 1 January 1970
 	NSDate * date2 =[NSDate dateWithTimeIntervalSince1970:(32 * 24 * 60 * 60)]; // 1 January 1970
 	
@@ -92,10 +95,12 @@
 	[[Utilities toolbox] save:context];
 	[[CacheMasterSingleton sharedCacheMaster] setFilteringPredicate:[NSPredicate predicateWithValue:YES]];
 	
-	TTLOG(@"*********** START OF METHOD ***********");
+	NSLog(@"*********** START OF METHOD ***********");
 }
+
+
 - (void) tearDown {
-	TTLOG(@"*********** END OF METHOD ***********");	
+	NSLog(@"*********** END OF METHOD ***********");	
 	[controller release];
 	controller = nil;
 	STAssertNil([[CacheMasterSingleton sharedCacheMaster] detailTableDelegate], @"Detail delegate should be nil after the controller has been released");
@@ -107,6 +112,7 @@
 	[[CacheMasterSingleton sharedCacheMaster] clearCache];
 	[[Utilities toolbox] clearCache];
 	[[Utilities toolbox] setManagedObjectContext:nil];	
+	[[Utilities toolbox] setAddTransactionManagedObjectContext:nil];
 	
 	[context release];
 	context = nil;
@@ -114,6 +120,8 @@
 	[TestUtils clearData];
 	
 }
+
+
 - (Transaction*)getTransaction {
 	Transaction * _trs = [NSEntityDescription
 						  insertNewObjectForEntityForName:@"Transaction"
@@ -136,6 +144,8 @@
 		[[CacheMasterSingleton sharedCacheMaster] detailCache_dataForSection:n];
 	}
 }
+
+ 
 /*
  TAGS:
  hallo 
@@ -145,6 +155,8 @@
  something
  else
 */ 
+
+
 - (void) testPropagationOfPredicates {
 	NSPredicate * newPredicate = [NSPredicate predicateWithFormat:@"tags contains[cd] \" hallo \""];
 	[[CacheMasterSingleton sharedCacheMaster] setFilteringPredicate:newPredicate];
@@ -225,7 +237,8 @@
 	
 	newPredicate = [NSPredicate predicateWithFormat:@"tags contains[cd] \" hallo \""];
 	[[CacheMasterSingleton sharedCacheMaster] setFilteringPredicate:newPredicate];
-		
+	[controller loadData];
+	
 	dict = [[CacheMasterSingleton sharedCacheMaster] detailCache_cellCache];
 	numOfTransactions = (NSInteger)[[[dict objectForKey:[NSNumber numberWithInt:0]] objectForKey:@"transactions"] count];
 	STAssertEquals(numOfTransactions, 4, @"Should less objects (only with tag hallo)");
@@ -234,6 +247,7 @@
 	
 	newPredicate = [NSPredicate predicateWithFormat:@"tags contains[cd] \" hallo \" AND tags contains[cd] \" test \""];
 	[[CacheMasterSingleton sharedCacheMaster] setFilteringPredicate:newPredicate];
+	[controller loadData];
 	
 	dict = [[CacheMasterSingleton sharedCacheMaster] detailCache_cellCache];
 	numOfTransactions = (NSInteger)[[[dict objectForKey:[NSNumber numberWithInt:0]] objectForKey:@"transactions"] count];
@@ -243,6 +257,7 @@
 
 	newPredicate = [NSPredicate predicateWithFormat:@"tags contains[cd] \" hallo \" AND tags contains[cd] \" test \" AND tags contains[cd] \" sugar \""];
 	[[CacheMasterSingleton sharedCacheMaster] setFilteringPredicate:newPredicate];
+	[controller loadData];
 	
 	dict = [[CacheMasterSingleton sharedCacheMaster] detailCache_cellCache];
 	numOfTransactions = (NSInteger)[[[dict objectForKey:[NSNumber numberWithInt:0]] objectForKey:@"transactions"] count];
