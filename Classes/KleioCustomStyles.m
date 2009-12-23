@@ -116,14 +116,7 @@
 							[TTTextStyle styleWithFont:[[CacheMasterSingleton sharedCacheMaster] detailTableCellFont] color:[UIColor whiteColor] next:nil]]]]]];
 	
 }
-//- (TTStyle*)tagList {
-//	return [TTInsetStyle styleWithInset:UIEdgeInsetsMake(1, -4, 1, -4) next:
-//					[TTShapeStyle styleWithShape:[TTRoundedRectangleShape shapeWithRadius:-1] next:
-//					 [TTSolidFillStyle styleWithColor: RGBACOLOR(255, 255, 255, 0.7) next:
-//						[TTSolidBorderStyle styleWithColor:RGBACOLOR(150, 150, 150, 0.5) width:1 next:
-//						 [TTInsetStyle styleWithInset:UIEdgeInsetsMake(100, 150, 100, 150) next:
-//							[TTTextStyle styleWithFont:[UIFont systemFontOfSize:16.f] color:[UIColor blackColor] next:nil]]]]]];
-//}
+
 
 - (TTStyle*)tagList {
 	return [TTBoxStyle styleWithMargin:UIEdgeInsetsMake(0, 0, 0, 5) padding:UIEdgeInsetsMake(1, 5, 1, 5) next:
@@ -216,6 +209,23 @@
 						//[TTSolidFillStyle styleWithColor:RGBACOLOR(255, 255, 255, 1) next:
 						 [TTInsetStyle styleWithInset:UIEdgeInsetsMake(5, 10, 5, 10) next:nil]]]]];
 }
+
+// Currency tag
+- (TTStyle*)currencyTag {
+	return 
+	[TTBoxStyle styleWithMargin:UIEdgeInsetsMake(10, 10, 5, 20) next:
+	 [TTShapeStyle styleWithShape:[TTRoundedRectangleShape shapeWithTopLeft:-1 topRight:-1 bottomRight:-1 bottomLeft:-1] next:
+		[TTInsetStyle styleWithInset:UIEdgeInsetsMake(-4, -6, -4, -6) next:
+		 [TTSolidFillStyle styleWithColor:RGBACOLOR(20,20,20,0.05) next:
+			[TTSolidBorderStyle styleWithColor:RGBACOLOR(0,0,0,0.1) width:1.f next:
+			 [TTTextStyle styleWithFont:[UIFont systemFontOfSize:16.f] color:[UIColor blackColor] next:nil]]]]]];
+}
+- (TTStyle*)currencyText {
+	return [TTBoxStyle styleWithMargin:UIEdgeInsetsMake(10, 10, 10, 10) next:
+					[TTBoxStyle styleWithPadding:UIEdgeInsetsMake(20, 10, 10, 10) next:
+					 [TTTextStyle styleWithFont:[UIFont boldSystemFontOfSize:18.f] next:nil]]];
+}
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //	Keyboard buttons

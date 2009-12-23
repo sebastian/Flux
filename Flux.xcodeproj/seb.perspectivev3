@@ -202,24 +202,24 @@
 			<key>Content</key>
 			<dict>
 				<key>PBXProjectModuleGUID</key>
-				<string>9629A17110E219E500860D7A</string>
+				<string>9629A26710E2266C00860D7A</string>
 				<key>PBXProjectModuleLabel</key>
-				<string>SuggestedTags.m</string>
+				<string>KleioCustomStyles.m</string>
 				<key>PBXSplitModuleInNavigatorKey</key>
 				<dict>
 					<key>Split0</key>
 					<dict>
 						<key>PBXProjectModuleGUID</key>
-						<string>9629A17210E219E500860D7A</string>
+						<string>9629A26810E2266C00860D7A</string>
 						<key>PBXProjectModuleLabel</key>
-						<string>SuggestedTags.m</string>
+						<string>KleioCustomStyles.m</string>
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>9629A1C210E21E2C00860D7A</string>
+						<string>9629A2B010E2284F00860D7A</string>
 						<key>history</key>
 						<array>
-							<string>9629A17B10E21B1A00860D7A</string>
+							<string>9629A26310E2265300860D7A</string>
 						</array>
 					</dict>
 					<key>SplitCount</key>
@@ -231,11 +231,11 @@
 			<key>Geometry</key>
 			<dict>
 				<key>Frame</key>
-				<string>{{0, 20}, {1535, 970}}</string>
+				<string>{{0, 20}, {1194, 945}}</string>
 				<key>PBXModuleWindowStatusBarHidden2</key>
 				<false/>
 				<key>RubberWindowFrame</key>
-				<string>210 167 1535 1011 0 0 1920 1178 </string>
+				<string>361 192 1194 986 0 0 1920 1178 </string>
 			</dict>
 		</dict>
 	</array>
@@ -309,9 +309,11 @@
 							<array>
 								<string>29B97314FDCFA39411CA2CEA</string>
 								<string>080E96DDFE201D6D7F000001</string>
-								<string>966200A21026E15600B670D6</string>
-								<string>96C508FC105175D8009CE76E</string>
 								<string>960C07FF1021AFF900B9C2A3</string>
+								<string>966C2CF3103EE0D700725372</string>
+								<string>96FFFA771015ED0300A53779</string>
+								<string>29B97317FDCFA39411CA2CEA</string>
+								<string>96D9A0D7107891E1003DB1F3</string>
 								<string>19C28FACFE9D520D11CA2CBB</string>
 								<string>1C37FBAC04509CD000000102</string>
 								<string>1C37FAAC04509CD000000102</string>
@@ -320,15 +322,14 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>12</integer>
-									<integer>4</integer>
-									<integer>3</integer>
+									<integer>22</integer>
+									<integer>5</integer>
 									<integer>2</integer>
 									<integer>0</integer>
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 0}, {258, 939}}</string>
+							<string>{{0, 22}, {258, 939}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -363,7 +364,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>96885B8A1004EB08003090D8</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>SuggestedTags.m</string>
+								<string>CurrencySelectionDialog.m</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -371,11 +372,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>96885B8B1004EB08003090D8</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>SuggestedTags.m</string>
+										<string>CurrencySelectionDialog.m</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>9629A1C110E21E2C00860D7A</string>
+										<string>9629A2AF10E2284F00860D7A</string>
 										<key>history</key>
 										<array>
 											<string>9614B65D100E4BDF0051A466</string>
@@ -415,7 +416,6 @@
 											<string>96B35AD31061224000F1C592</string>
 											<string>962767FE106298B1003B6F60</string>
 											<string>962768B01062A46A003B6F60</string>
-											<string>9610845D1063B870009F0A22</string>
 											<string>961085AC1063EAF4009F0A22</string>
 											<string>961085AD1063EAF4009F0A22</string>
 											<string>961085CC1063EC89009F0A22</string>
@@ -483,14 +483,7 @@
 											<string>965731041077C01C00CD6BBC</string>
 											<string>96D9A0A510788EB9003DB1F3</string>
 											<string>96D9A0AB10788EB9003DB1F3</string>
-											<string>96D9A0DE107894A8003DB1F3</string>
 											<string>96CA515010793F4200393E08</string>
-											<string>96690FE21079F48F0026443D</string>
-											<string>96690FE71079F48F0026443D</string>
-											<string>96022AA9107B4F1A00B968BB</string>
-											<string>96910F58107D32F000A1A347</string>
-											<string>96910F5A107D32F000A1A347</string>
-											<string>964259C9108231AE00386891</string>
 											<string>96425A6710824A6600386891</string>
 											<string>96425A6810824A6600386891</string>
 											<string>96F6A32B10824F29001C0510</string>
@@ -525,7 +518,6 @@
 											<string>96F7282310DA8B4A004CDF0C</string>
 											<string>96F7284F10DA8E1F004CDF0C</string>
 											<string>96F7289210DA9321004CDF0C</string>
-											<string>96AC7A4F10DBBEFE008C776D</string>
 											<string>96AC7A8810DBC38B008C776D</string>
 											<string>96AC7A9F10DBC5F4008C776D</string>
 											<string>96AC7AA510DBC5F4008C776D</string>
@@ -554,8 +546,6 @@
 											<string>96304A1A10DD422B000AE868</string>
 											<string>96304A5910DD46C1000AE868</string>
 											<string>96304A5A10DD46C1000AE868</string>
-											<string>96304A6B10DD46F9000AE868</string>
-											<string>96304A8610DD47AE000AE868</string>
 											<string>96C4EAFB10DF5BC6005E9E06</string>
 											<string>96C4EAFC10DF5BC6005E9E06</string>
 											<string>96C4EAFE10DF5BC6005E9E06</string>
@@ -568,12 +558,10 @@
 											<string>96C4ECB010DFDAB2005E9E06</string>
 											<string>96C4ECB110DFDAB2005E9E06</string>
 											<string>96C4ECB210DFDAB2005E9E06</string>
-											<string>96C4ECB610DFDAB2005E9E06</string>
 											<string>96C4ED4E10DFEF8E005E9E06</string>
 											<string>96C4ED8910DFF31F005E9E06</string>
 											<string>96C4ED8A10DFF31F005E9E06</string>
 											<string>96299EF510E0A48000860D7A</string>
-											<string>96299EF710E0A48000860D7A</string>
 											<string>96299FD810E0C9C000860D7A</string>
 											<string>9629A04A10E205BA00860D7A</string>
 											<string>9629A06010E2060300860D7A</string>
@@ -587,7 +575,20 @@
 											<string>9629A1A610E21C5600860D7A</string>
 											<string>9629A1AD10E21CE200860D7A</string>
 											<string>9629A1BF10E21E2C00860D7A</string>
-											<string>9629A1C010E21E2C00860D7A</string>
+											<string>9629A1D810E2221000860D7A</string>
+											<string>9629A1D910E2221000860D7A</string>
+											<string>9629A1E510E2223D00860D7A</string>
+											<string>9629A1F510E222FF00860D7A</string>
+											<string>9629A1F610E222FF00860D7A</string>
+											<string>9629A1F710E222FF00860D7A</string>
+											<string>9629A1F810E222FF00860D7A</string>
+											<string>9629A1F910E222FF00860D7A</string>
+											<string>9629A1FA10E222FF00860D7A</string>
+											<string>9629A20810E2238F00860D7A</string>
+											<string>9629A20910E2238F00860D7A</string>
+											<string>9629A22310E224C600860D7A</string>
+											<string>9629A25D10E2261B00860D7A</string>
+											<string>9629A2A410E227F100860D7A</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -904,8 +905,8 @@
 	<array>
 		<string>96299F1610E0A4AB00860D7A</string>
 		<string>96299F1810E0A4AB00860D7A</string>
-		<string>9629A17110E219E500860D7A</string>
 		<string>/Users/seb/Programmering/Kleio/Flux/iPhone/Flux.xcodeproj</string>
+		<string>9629A26710E2266C00860D7A</string>
 	</array>
 	<key>WindowString</key>
 	<string>246 178 1415 998 0 0 1920 1178 </string>

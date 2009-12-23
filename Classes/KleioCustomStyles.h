@@ -28,6 +28,10 @@
 - (TTStyle*)filteringButtonActive:(UIControlState)state;
 - (TTStyle*)filteringButtonPassive:(UIControlState)state;
 	
+// Currency tag
+- (TTStyle*)currencyTag;
+- (TTStyle*)currencyText;
+
 // TransactionViewer
 - (TTStyle*)tagList;
 - (TTStyle*)newTagList;

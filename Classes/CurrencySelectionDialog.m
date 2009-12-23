@@ -30,22 +30,23 @@
 
 #import "CurrencySelectionDialog.h"
 #import "CurrencyManager.h"
+#import "KleioCustomStyles.h"
 
 @implementation CurrencySelectionDialog
 
 @synthesize sortedCurrencies;
 @synthesize delegate;
 
-- (void)dealloc 
-{
+- (void)dealloc {
 	self.sortedCurrencies = nil;
 	
     [super dealloc];
 }
 
-- (void)viewDidLoad 
-{
+- (void)viewDidLoad {
 	[super viewDidLoad];
+	
+	[TTStyleSheet setGlobalStyleSheet:[[[KleioCustomStyles alloc] init] autorelease]];
 	
 	// Set it to be black and all, matching the rest of the app
 	
@@ -54,8 +55,15 @@
 	self.sortedCurrencies = [NSMutableArray array];
 	NSArray *availableCurrencies = [[CurrencyManager sharedManager] availableCurrencies];
 	for (NSString *currencyCode in availableCurrencies) {
-		NSDictionary *currencyInfo = [NSDictionary dictionaryWithObjectsAndKeys:currencyCode, @"currencyCode", NSLocalizedString(currencyCode,nil), @"localizedName", nil];
+
+		NSString * localizedName = NSLocalizedString(currencyCode,nil);
+		NSString * showText = [NSString stringWithFormat:@"<span class=\"currencyText\"><span class=\"currencyTag\">%@</span>%@</span>", currencyCode, localizedName];
+		TTTableStyledTextItem * item = [TTTableStyledTextItem itemWithText:[TTStyledText textFromXHTML:showText]];
+		item.padding = UIEdgeInsetsMake(12, 0, 0, 0);
+		
+		NSDictionary *currencyInfo = [NSDictionary dictionaryWithObjectsAndKeys:currencyCode, @"currencyCode", item, @"displayItem", nil];
 		[self.sortedCurrencies addObject:currencyInfo];
+		
 	}
 
 	NSSortDescriptor *sorter = [[[NSSortDescriptor alloc] initWithKey:@"localizedName" ascending:YES] autorelease];
@@ -65,37 +73,35 @@
 	[self.navigationItem setRightBarButtonItem:doneButtonItem];
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView 
-{
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section 
-{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	return [self.sortedCurrencies count];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath 
+- (id)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath 
 {    
   static NSString *CellIdentifier = @"Cell";
     
-  UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+  TTStyledTextTableItemCell *cell = (TTStyledTextTableItemCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
   if (cell == nil) {
-		cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:CellIdentifier] autorelease];
+		cell = [[[TTStyledTextTableItemCell alloc] initWithFrame:CGRectZero reuseIdentifier:CellIdentifier] autorelease];
 	}
 	
-	cell.textLabel.text = [[self.sortedCurrencies objectAtIndex:[indexPath row]] objectForKey:@"localizedName"];
+	cell.object = [[self.sortedCurrencies objectAtIndex:[indexPath row]] objectForKey:@"displayItem"];
+	
+	//cell.textLabel.text = [[self.sortedCurrencies objectAtIndex:[indexPath row]] objectForKey:@"localizedName"];
 	
 	return cell;
 }
 
-- (void)dismiss
-{
+- (void)dismiss {
 	[self dismissModalViewControllerAnimated:YES];
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath 
-{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	int row = [indexPath row];
 	NSDictionary *selectedCurrency = [sortedCurrencies objectAtIndex:row];
 	NSString *selectedCurrencyCode = [selectedCurrency objectForKey:@"currencyCode"];
