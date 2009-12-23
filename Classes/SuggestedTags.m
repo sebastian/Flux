@@ -16,14 +16,15 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //	Private
 
-- (void) addTag {
+- (void) addTag:(NSString*)tagName {
 
-	NSString * tagName = [[Utilities toolbox] tempVariable];
 	// Insert it into the items array
-	[_items insertObject:tagName atIndex:0];
-	
-	NSIndexPath * ipath = [NSIndexPath indexPathForRow:0 inSection:0];
-	[self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:ipath] withRowAnimation:UITableViewRowAnimationTop];
+	if (![_items containsObject:tagName]) {
+		[_items insertObject:tagName atIndex:0];
+		
+		NSIndexPath * ipath = [NSIndexPath indexPathForRow:0 inSection:0];
+		[self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:ipath] withRowAnimation:UITableViewRowAnimationTop];		
+	}
 }
 
 - (void) addSuggestedTags {
@@ -37,42 +38,50 @@
 - (void) addTopTags {
 	NSArray * topTags = [[Utilities toolbox] topTagsIncludingAutotags:NO];
 
-	// Make sure we don't get duplicate tag entries
-	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF IN %@", self.items];
-	for (NSString * tag in topTags) {
-		if (![predicate evaluateWithObject:tag]) {
-			// We only want max 15 items in total
-			if ([self.items count] == 15) {break;}
+	NSLog(@"We have %i tags", [topTags count]);
+	int n = 0;
 	
-			// We don't have 15 tags yet, add to the list!
-			[self.items addObject:tag];
-		}
+	for (NSString *tagName in [topTags reverseObjectEnumerator]) {
+		NSLog(@"%i: %@", n++, tagName);
+		if (![self.items containsObject:tagName]) {
+			[self.items addObject:tagName];
+		}		
 	}
+	
+}
 
+- (void) loadData {
+	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+	
+	// Load in the suggested tags
+	[self addSuggestedTags];
+	
+	// Add top tags
+	[self addTopTags];
+	
+	loading = NO;
+	
+	[self.tableView reloadData];
+	
+	[pool release];
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //	NSObject
 
-- (id) init {
-	return [self initWithStyle:UITableViewStylePlain];
-}
-
 - (id)initWithStyle:(UITableViewStyle)style {
     if (self = [super initWithStyle:style]) {
 	
+			loading = YES;
+			
 			[self.tableView setDelegate:self];
 			[self.tableView setDataSource:self];
 					
-			[[TTNavigator navigator].URLMap from:@"kleio://addTagToTagTable" toObject:self selector:@selector(addTag)];
+			[[TTNavigator navigator].URLMap from:@"kleio://addTagToTagTable/(addTag:)" toObject:self];
 			
-			self.items = [[NSMutableArray alloc] init];
+			_items = [[NSMutableArray alloc] init];
 			
-			// Load in the suggested tags
-			[self addSuggestedTags];
-			
-			// Add top tags
-			[self addTopTags];
+			[self performSelectorInBackground:@selector(loadData) withObject:nil];
     }
     return self;
 }
@@ -83,7 +92,7 @@
 }
 
 - (void)dealloc {
-	[[TTNavigator navigator].URLMap removeURL:@"kleio://addTagToTagTable"];
+	[[TTNavigator navigator].URLMap removeURL:@"kleio://addTagToTagTable/(addTag:)"];
 	
 	TT_RELEASE_SAFELY(_items);
 	[super dealloc];
@@ -98,21 +107,41 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return [_items count];
+	if (loading) {
+		return 1;
+	} else {
+		return [_items count];
+	}	
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    static NSString *CellIdentifier = @"SuggestTagCell";
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
-    }
-    
-		cell.textLabel.text = [_items objectAtIndex:indexPath.row];
+- (id)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	
-    return cell;
+	static NSString *CellIdentifier = @"SuggestTagCell";
+	
+	if (loading) {
+		
+		TTTableActivityItem * loadingItem = [TTTableActivityItem itemWithText:TTLocalizedString(@"Loading...", @"")];
+		TTTableActivityItemCell * cell = [[TTTableActivityItemCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+		cell.object = loadingItem;
+		return cell;
+		
+	} else {
+		
+		NSString * title = [_items objectAtIndex:indexPath.row];
+		
+		TTTableStyledTextItem * item = [TTTableStyledTextItem itemWithText:title 
+																																	 URL:[@"kleio://addTagToTagTable/" stringByAppendingString:title]];
+														
+		TTTableTextItemCell *cell = (TTTableTextItemCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+		if (cell == nil) {
+			cell = [[[TTTableTextItemCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+		}
+		
+		cell.object = item;
+		return cell;
+		
+	}
+	
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -125,9 +154,11 @@
 	
 	[tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
 	
-	// Add the name to the tag field
-	NSString * urlString = @"kleio://addTagToTagSugester";
-	[[TTNavigator navigator] openURL:urlString animated:NO];
+	[[@"kleio://addTagToTagSugester/" stringByAppendingString:tagName] openURL];
+
+//	// Add the name to the tag field
+//	NSString * urlString = @"kleio://addTagToTagSugester";
+//	[[TTNavigator navigator] openURL:urlString animated:NO];
 	
 }
 

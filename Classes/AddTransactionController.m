@@ -103,7 +103,7 @@
 	nextButton.font = [UIFont boldSystemFontOfSize:16.f];
 	[nextButton sizeToFit];
 	[nextButton addTarget:self action:@selector(nextButtonAction) forControlEvents:UIControlEventTouchUpInside];
-	[self performSelectorInBackground:@selector(highlightedNextButton:) withObject:nextButton];
+	//[self performSelectorInBackground:@selector(highlightedNextButton:) withObject:nextButton];
 	self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithCustomView:nextButton] autorelease];
 		
 	_amountEditor = [[AmountEditor alloc] init];

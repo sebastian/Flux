@@ -282,7 +282,8 @@ static Utilities *sharedUtilitiesToolbox = nil;
 	[request setSortDescriptors:[NSArray arrayWithObject:sortByDate]];
 	TT_RELEASE_SAFELY(sortByDate);
 	
-	[request setFetchLimit:20];
+	[request setFetchLimit:100];
+	[request setRelationshipKeyPathsForPrefetching:[NSArray arrayWithObject:@"tag"]];
 	
 	NSError *error; 
 	
@@ -291,21 +292,28 @@ static Utilities *sharedUtilitiesToolbox = nil;
 	
 	NSMutableArray * tagNames = [[NSMutableArray alloc] init];
 
+	NSMutableDictionary * tagDict = [[NSMutableDictionary alloc] init];
+	
 	for (Location * location in allLocations) {
-		if (![tagNames containsObject:location.tag.name]) {
-			
-			BOOL add = YES;
-			
-			if (!autotags && [location.tag.autotag boolValue]) {add = NO;}
-			
-			if (add) {[tagNames addObject:location.tag.name];}
 
+		if (autotags || ![location.tag.autotag boolValue]) {
+			
+			NSString * tagName = location.tag.name;
+			NSNumber * valForKey = [tagDict valueForKey:tagName];
+			if (valForKey != nil) {
+				valForKey = [NSNumber numberWithInt:[valForKey intValue] + 1];
+				NSLog(@"%@: %@", tagName, valForKey);
+			} else {
+				NSLog(@"%@: 1", tagName);
+				valForKey = [NSNumber numberWithInt:1];
+			}
+			
+			[tagDict setValue:valForKey forKey:tagName];
 		}
-		
+																
 	}
 	
-	return [tagNames autorelease];
-	
+	return [tagDict keysSortedByValueUsingSelector:@selector(compare:)];
 	
 }
 
@@ -543,8 +551,6 @@ static Utilities *sharedUtilitiesToolbox = nil;
 		}
 		
 		[Utilities toolbox].suggestedTagsForCurrentLocation = tagNames;
-		
-		NSLog(@"Added suggested tags...");
 		
 		TT_RELEASE_SAFELY(tagNames);
 	}

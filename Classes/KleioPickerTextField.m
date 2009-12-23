@@ -32,9 +32,7 @@
 	[self removeSelectedCell];
 	
 	if (![cellTitle isEqualToString:@""] && !(cellTitle == nil)) {
-		[[Utilities toolbox] setTempVariable:cellTitle];
-		NSString * urlString = @"kleio://addTagToTagTable";
-		[[TTNavigator navigator] openURL:urlString animated:NO];
+		[[@"kleio://addTagToTagTable/" stringByAppendingString:cellTitle] openURL];
 	}
 	
 }

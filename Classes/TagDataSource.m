@@ -13,7 +13,18 @@
 
 @implementation TagBook
 
-@synthesize tags = _tags;
+@synthesize tags = _tags, allTags = _allTags;
+
+- (NSArray*) allTags {
+	if (_allTags == nil) {
+		if (_autotags) {
+			_allTags = [[[Utilities toolbox] allTagNamesIncludingAutotags:YES] retain];
+		} else {
+			_allTags = [[[Utilities toolbox] allTagNames] retain];	
+		}
+	}
+	return _allTags;
+}
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // private
@@ -23,7 +34,7 @@
   
   if (text.length) {
     text = [text lowercaseString];
-    for (NSString * tag in _allTags) {
+    for (NSString * tag in self.allTags) {
       if ([[tag lowercaseString] rangeOfString:text].location == 0) {
         [_tags addObject:tag];
       }
@@ -44,13 +55,8 @@
 		_isLoaded = NO;
 		_loadingData = NO;
 		_outdated = YES;
-		
-		if (autotags) {
-			_allTags = [[[Utilities toolbox] allTagNamesIncludingAutotags:YES] retain];
-		} else {
-			_allTags = [[[Utilities toolbox] allTagNames] retain];	
-		}
-		
+		_autotags = autotags;
+				
     _tags = nil;
   }
   return self;	

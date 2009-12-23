@@ -233,9 +233,9 @@ rect.size.width, rect.size.height)
   return _pickerTextField;
 }
 
-- (void) addCellWithObject {
+- (void) addCellWithObject:(NSString*)tag {
 	[self makeCurrentTextIntoTag];
-	[_pickerTextField addCellWithObject:[[Utilities toolbox] tempVariable]];
+	[_pickerTextField addCellWithObject:tag];
 }
 
 - (void) addTagTableView {
@@ -246,7 +246,7 @@ rect.size.width, rect.size.height)
 	suggestedTagsView.autoresizesSubviews = YES;
 	
 	otherTags = [[SuggestedTags alloc] init];
-	UITableView * sugTags = otherTags.tableView;
+	TTTableView * sugTags = otherTags.tableView;
 	sugTags.height = suggestedTagsView.height;
 	sugTags.top = 0;
 	sugTags.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
@@ -336,7 +336,7 @@ rect.size.width, rect.size.height)
 		_autotags = autotags;
 		
 		[TTStyleSheet setGlobalStyleSheet:[[[KleioCustomStyles alloc] init] autorelease]];
-		[[TTNavigator navigator].URLMap from:@"kleio://addTagToTagSugester" toObject:self selector:@selector(addCellWithObject)];
+		[[TTNavigator navigator].URLMap from:@"kleio://addTagToTagSugester/(addCellWithObject:)" toObject:self];
 		
 	}
 	return self;
