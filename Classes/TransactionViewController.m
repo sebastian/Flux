@@ -801,6 +801,38 @@
 	
 }
 
+// Delete button
+
+- (void) addDeleteButton {
+	TTButton * deleteButton = [TTButton buttonWithStyle:@"deleteButton:" title:NSLocalizedString(@"Delete transaction", @"")];
+	[deleteButton sizeToFit];
+	deleteButton.height += 2;	
+	[deleteButton addTarget:self action:@selector(deleteTransaction) forControlEvents:UIControlEventTouchUpInside];
+	
+	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:deleteButton];
+}
+
+- (void) deleteTransaction {
+	NSLog(@"Deleting transaction");
+		
+	UIActionSheet * deleteSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Delete transaction" otherButtonTitles:nil];
+	[deleteSheet showInView:self.tabBarController.view];
+	
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+	
+	// That is the index of the delete button
+	if (buttonIndex == 0) {
+		[_currentTransaction.managedObjectContext deleteObject:_currentTransaction];
+		[[Utilities toolbox] save:_currentTransaction.managedObjectContext];
+		
+		// Go up one level
+		[self removeFromSupercontrollerAnimated:YES];
+	}
+}
+
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //	NSObject
@@ -863,6 +895,9 @@
 
 	// Add location
 	[self addLocationToView:scrollView];
+	
+	// Add delete button
+	[self addDeleteButton];
 	
 	// Lay out the elements
 	[self layout];

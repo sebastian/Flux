@@ -956,12 +956,14 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 			 in the overview cache data has been changed
 			 */
 			if (([transaction.changes objectForKey:@"expense"] != nil) ||
-				([transaction.changes objectForKey:@"kroner"] != nil)) {
+					([transaction.changes objectForKey:@"kroner"] != nil) ||
+					([transaction.changes objectForKey:@"currency"])) {
 				
 				/* 
 				 It has a change to either:
 				 expense: bool
 				 kroner: NSNumber
+				 currency: NSString
 				 */
 				[self overviewCache_removeCacheForYearMonth:yearMonth];
 				[self overviewCache_tellDelegateThatItsWorthUpdating];

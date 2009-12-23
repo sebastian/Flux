@@ -16,7 +16,7 @@
 @class KleioTagCluster;
 @class ItemView;
 
-@interface TransactionViewController : TTViewController <TagSelectorDelegate, TTPostControllerDelegate, MKReverseGeocoderDelegate, EditAmountControllerDelegate, EditDateControllerDelegate > {
+@interface TransactionViewController : TTViewController <TagSelectorDelegate, TTPostControllerDelegate, MKReverseGeocoderDelegate, EditAmountControllerDelegate, EditDateControllerDelegate, UIActionSheetDelegate > {
 	Transaction * _currentTransaction;
 
 	ItemView * _tags;

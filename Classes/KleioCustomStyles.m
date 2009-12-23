@@ -226,6 +226,14 @@
 					 [TTTextStyle styleWithFont:[UIFont boldSystemFontOfSize:18.f] next:nil]]];
 }
 
+// Delete button
+- (TTStyle*)deleteButton:(UIControlState)state {
+	return [self toolbarButtonForState:state
+															 shape:[TTRoundedRectangleShape shapeWithRadius:4.5]
+													 tintColor:[UIColor redColor]
+																font:nil];	
+}
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //	Keyboard buttons
@@ -258,6 +266,5 @@
     return nil;
   }
 }
-
 
 @end

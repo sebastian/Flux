@@ -48,7 +48,6 @@
 		self.annotation = [[MapAnnotation alloc] initWithTransaction:trs];
 			
 		MKCoordinateSpan span;
-//		span.latitudeDelta = 0.0015;
 		span.latitudeDelta = [self latitudeRangeForLocation:trs.location];
 		span.longitudeDelta = [self longitudeRangeForLocation:trs.location];
 			
@@ -64,6 +63,7 @@
 -(void)viewDidLoad {
 	[super viewDidLoad];
 	[map addAnnotation:annotation];
+	map.showsUserLocation = YES;
 	
 	/*
 	 Zoom out a bit so that we can get a better view
@@ -73,6 +73,8 @@
 	region.span = span;
 	
 	[map setRegion:region];
+	
+	[map selectAnnotation:annotation animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

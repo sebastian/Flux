@@ -42,5 +42,8 @@
 - (TTStyle*)editTransactionDetailButton:(UIControlState)state;
 - (TTStyle*)descriptionField;
 - (TTStyle*)contentBox;
+
+// Delete button
+- (TTStyle*)deleteButton:(UIControlState)state;
 @end
 
