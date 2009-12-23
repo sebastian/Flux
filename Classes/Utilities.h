@@ -35,6 +35,7 @@
 	NSDateFormatter * dateFormatter;
 	
 	NSArray * suggestedTagsForCurrentLocation;
+	NSArray * _topTags;
 	
 	BOOL searchIsVisible;
 	BOOL reloadingTableAllowed;

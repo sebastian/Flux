@@ -216,10 +216,10 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>9629A17310E219E500860D7A</string>
+						<string>9629A1C210E21E2C00860D7A</string>
 						<key>history</key>
 						<array>
-							<string>9629A16810E219A800860D7A</string>
+							<string>9629A17B10E21B1A00860D7A</string>
 						</array>
 					</dict>
 					<key>SplitCount</key>
@@ -236,46 +236,6 @@
 				<false/>
 				<key>RubberWindowFrame</key>
 				<string>210 167 1535 1011 0 0 1920 1178 </string>
-			</dict>
-		</dict>
-		<dict>
-			<key>Content</key>
-			<dict>
-				<key>PBXProjectModuleGUID</key>
-				<string>9629A12110E2156C00860D7A</string>
-				<key>PBXProjectModuleLabel</key>
-				<string>Utilities.m</string>
-				<key>PBXSplitModuleInNavigatorKey</key>
-				<dict>
-					<key>Split0</key>
-					<dict>
-						<key>PBXProjectModuleGUID</key>
-						<string>9629A12210E2156C00860D7A</string>
-						<key>PBXProjectModuleLabel</key>
-						<string>Utilities.m</string>
-						<key>_historyCapacity</key>
-						<integer>0</integer>
-						<key>bookmark</key>
-						<string>9629A17410E219E500860D7A</string>
-						<key>history</key>
-						<array>
-							<string>9629A10F10E2146400860D7A</string>
-						</array>
-					</dict>
-					<key>SplitCount</key>
-					<string>1</string>
-				</dict>
-				<key>StatusBarVisibility</key>
-				<true/>
-			</dict>
-			<key>Geometry</key>
-			<dict>
-				<key>Frame</key>
-				<string>{{0, 20}, {1305, 901}}</string>
-				<key>PBXModuleWindowStatusBarHidden2</key>
-				<false/>
-				<key>RubberWindowFrame</key>
-				<string>314 208 1305 942 0 0 1920 1178 </string>
 			</dict>
 		</dict>
 	</array>
@@ -312,8 +272,6 @@
 			<key>Layout</key>
 			<array>
 				<dict>
-					<key>BecomeActive</key>
-					<true/>
 					<key>ContentConfiguration</key>
 					<dict>
 						<key>PBXBottomSmartGroupGIDs</key>
@@ -362,7 +320,7 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>10</integer>
+									<integer>12</integer>
 									<integer>4</integer>
 									<integer>3</integer>
 									<integer>2</integer>
@@ -398,12 +356,14 @@
 					<key>Dock</key>
 					<array>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
 								<string>96885B8A1004EB08003090D8</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>KleioPickerTextField.m</string>
+								<string>SuggestedTags.m</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -411,11 +371,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>96885B8B1004EB08003090D8</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>KleioPickerTextField.m</string>
+										<string>SuggestedTags.m</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>9629A17010E219E500860D7A</string>
+										<string>9629A1C110E21E2C00860D7A</string>
 										<key>history</key>
 										<array>
 											<string>9614B65D100E4BDF0051A466</string>
@@ -618,13 +578,16 @@
 											<string>9629A04A10E205BA00860D7A</string>
 											<string>9629A06010E2060300860D7A</string>
 											<string>9629A0BD10E2103400860D7A</string>
-											<string>9629A0BF10E2103400860D7A</string>
 											<string>9629A10B10E213BB00860D7A</string>
-											<string>9629A11210E2149200860D7A</string>
-											<string>9629A16C10E219E500860D7A</string>
 											<string>9629A16D10E219E500860D7A</string>
-											<string>9629A16E10E219E500860D7A</string>
-											<string>9629A16F10E219E500860D7A</string>
+											<string>9629A18D10E21BCE00860D7A</string>
+											<string>9629A18E10E21BCE00860D7A</string>
+											<string>9629A1A010E21C5600860D7A</string>
+											<string>9629A1A210E21C5600860D7A</string>
+											<string>9629A1A610E21C5600860D7A</string>
+											<string>9629A1AD10E21CE200860D7A</string>
+											<string>9629A1BF10E21E2C00860D7A</string>
+											<string>9629A1C010E21E2C00860D7A</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -939,10 +902,8 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>9629A17510E219E500860D7A</string>
 		<string>96299F1610E0A4AB00860D7A</string>
 		<string>96299F1810E0A4AB00860D7A</string>
-		<string>9629A12110E2156C00860D7A</string>
 		<string>9629A17110E219E500860D7A</string>
 		<string>/Users/seb/Programmering/Kleio/Flux/iPhone/Flux.xcodeproj</string>
 	</array>

@@ -33,16 +33,13 @@
 	for (NSString * tag in suggestedTags) {
 		[self.items addObject:tag];
 	}
+	
 }
 
 - (void) addTopTags {
 	NSArray * topTags = [[Utilities toolbox] topTagsIncludingAutotags:NO];
-
-	NSLog(@"We have %i tags", [topTags count]);
-	int n = 0;
 	
 	for (NSString *tagName in [topTags reverseObjectEnumerator]) {
-		NSLog(@"%i: %@", n++, tagName);
 		if (![self.items containsObject:tagName]) {
 			[self.items addObject:tagName];
 		}		
@@ -155,10 +152,6 @@
 	[tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
 	
 	[[@"kleio://addTagToTagSugester/" stringByAppendingString:tagName] openURL];
-
-//	// Add the name to the tag field
-//	NSString * urlString = @"kleio://addTagToTagSugester";
-//	[[TTNavigator navigator] openURL:urlString animated:NO];
 	
 }
 

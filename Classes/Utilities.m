@@ -271,56 +271,61 @@ static Utilities *sharedUtilitiesToolbox = nil;
 }
 -(NSArray*)topTagsIncludingAutotags:(BOOL)autotags {
 
-	NSFetchRequest *request = [[NSFetchRequest alloc] init]; 
-
-	NSEntityDescription *entity = [NSEntityDescription entityForName:@"Location" 
-																						inManagedObjectContext:self.tagManagedObjectContext]; 
-	[request setEntity:entity];
-
-	
-	NSSortDescriptor * sortByDate = [[NSSortDescriptor alloc] initWithKey:@"date" ascending:NO];
-	[request setSortDescriptors:[NSArray arrayWithObject:sortByDate]];
-	TT_RELEASE_SAFELY(sortByDate);
-	
-	[request setFetchLimit:100];
-	[request setRelationshipKeyPathsForPrefetching:[NSArray arrayWithObject:@"tag"]];
-	
-	NSError *error; 
-	
-	NSArray * allLocations = [self.tagManagedObjectContext executeFetchRequest:request error:&error]; 
-	TT_RELEASE_SAFELY(request);
-	
-	NSMutableArray * tagNames = [[NSMutableArray alloc] init];
-
-	NSMutableDictionary * tagDict = [[NSMutableDictionary alloc] init];
-	
-	for (Location * location in allLocations) {
-
-		if (autotags || ![location.tag.autotag boolValue]) {
+	if (!_topTags) {
+		
+		NSFetchRequest *request = [[NSFetchRequest alloc] init]; 
+		
+		NSEntityDescription *entity = [NSEntityDescription entityForName:@"Location" 
+																							inManagedObjectContext:self.tagManagedObjectContext]; 
+		[request setEntity:entity];
+		
+		
+		NSSortDescriptor * sortByDate = [[NSSortDescriptor alloc] initWithKey:@"date" ascending:NO];
+		[request setSortDescriptors:[NSArray arrayWithObject:sortByDate]];
+		TT_RELEASE_SAFELY(sortByDate);
+		
+		[request setFetchLimit:150];
+		[request setRelationshipKeyPathsForPrefetching:[NSArray arrayWithObject:@"tag"]];
+		
+		NSError *error; 
+		
+		NSArray * allLocations = [self.tagManagedObjectContext executeFetchRequest:request error:&error]; 
+		TT_RELEASE_SAFELY(request);
+		
+		NSMutableArray * tagNames = [[NSMutableArray alloc] init];
+		
+		NSMutableDictionary * tagDict = [[NSMutableDictionary alloc] init];
+		
+		for (Location * location in allLocations) {
 			
-			NSString * tagName = location.tag.name;
-			NSNumber * valForKey = [tagDict valueForKey:tagName];
-			if (valForKey != nil) {
-				valForKey = [NSNumber numberWithInt:[valForKey intValue] + 1];
-				NSLog(@"%@: %@", tagName, valForKey);
-			} else {
-				NSLog(@"%@: 1", tagName);
-				valForKey = [NSNumber numberWithInt:1];
+			if (autotags || ![location.tag.autotag boolValue]) {
+				
+				NSString * tagName = location.tag.name;
+				NSNumber * valForKey = [tagDict valueForKey:tagName];
+				if (valForKey != nil) {
+					valForKey = [NSNumber numberWithInt:[valForKey intValue] + 1];
+				} else {
+					valForKey = [NSNumber numberWithInt:1];
+				}
+				
+				[tagDict setValue:valForKey forKey:tagName];
 			}
 			
-			[tagDict setValue:valForKey forKey:tagName];
 		}
-																
-	}
-	
-	return [tagDict keysSortedByValueUsingSelector:@selector(compare:)];
+		
+		_topTags = [[tagDict keysSortedByValueUsingSelector:@selector(compare:)] retain];
+		
+	} 
+		
+	return _topTags;
 	
 }
 
 -(void)clearCache {
-	[tagExistance removeAllObjects];
-	[tagCache removeAllObjects];
-	[dateFormatter release];
+	TT_RELEASE_SAFELY(tagExistance);
+	TT_RELEASE_SAFELY(tagCache);
+	TT_RELEASE_SAFELY(dateFormatter);
+	TT_RELEASE_SAFELY(_topTags);
 }
 
 
