@@ -30,4 +30,6 @@
 
 @property (nonatomic, retain) Transaction * currentTransaction;
 
+- (id) initWithSection:(NSString*)_section andRow:(NSString*)_row;
+
 @end

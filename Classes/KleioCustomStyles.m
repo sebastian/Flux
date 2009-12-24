@@ -13,6 +13,9 @@
 #define KLEIO_GREEN_COLOR RGBCOLOR(0,153,0)
 #define KLEIO_RED_COLOR RGBACOLOR(100, 0, 0, 1)
 #define KLEIO_TRANSACTION_ADD_SCREEN_BACKGROUND RGBACOLOR(0, 0, 0, 1)
+#define FONT_SIZE 12.f
+#define CLEAR_COLOR [UIColor clearColor]
+#define BLACK_COLOR [UIColor blackColor]
 
 @implementation KleioCustomStyles
 
@@ -232,6 +235,83 @@
 															 shape:[TTRoundedRectangleShape shapeWithRadius:4.5]
 													 tintColor:[UIColor redColor]
 																font:nil];	
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// DetailTableCell
+- (CGFloat) dcFontSize {
+	return 16.f;
+}
+- (UIColor*)dcTextColour {
+	return [UIColor blackColor];
+}
+- (UIColor*)dcHighlightedTextColour {
+	return [UIColor blackColor];
+}
+- (UIColor*)dcBackgroundColour {
+	return [UIColor whiteColor];
+}
+- (TTStyle*)dcCellBackground {
+	return 
+	[TTSolidFillStyle styleWithColor:[UIColor whiteColor] next:
+	 [TTImageStyle styleWithImage:[[CacheMasterSingleton sharedCacheMaster] detailTableCellBackgroundImage] 
+									 defaultImage:[[CacheMasterSingleton sharedCacheMaster] detailTableCellBackgroundImage] 
+										contentMode:UIViewContentModeScaleToFill 
+													 size:CGSizeMake(320, 500) 
+													 next:
+		[TTLinearGradientFillStyle styleWithColor1:[UIColor clearColor] color2:RGBACOLOR(153,153,114,0.1) next:nil]]];
+}
+- (UIFont*)dcFont {
+	return [UIFont systemFontOfSize:[self dcFontSize]];
+}
+- (TTStyle*)dcText {
+	return [TTTextStyle styleWithFont:[self dcFont] color:[UIColor blackColor] next:nil];
+}
+- (TTStyle*)dcTextWhite {
+	return [TTTextStyle styleWithFont:[self dcFont] color:[UIColor whiteColor] next:nil];
+}
+
+- (TTStyle*)dcTime {
+	return [self dcText];
+}
+- (TTStyle*)dcAmount {
+	return 
+	[TTBoxStyle styleWithMargin:UIEdgeInsetsMake(10, 10, 10, 10) padding:UIEdgeInsetsMake(10, 10, 10, 10) minSize:CGSizeMake(200, 100) position:TTPositionFloatRight next:
+	 [TTSolidFillStyle styleWithColor:[UIColor greenColor] next:
+	 [TTTextStyle styleWithFont:[self dcFont] 
+												color:[self dcTextColour]
+							minimumFontSize:[self dcFontSize]
+									shadowColor:[self dcTextColour]
+								 shadowOffset:CGSizeMake(0, 0) 
+								textAlignment:UITextAlignmentRight 
+						verticalAlignment:UIControlContentVerticalAlignmentFill
+								lineBreakMode:UILineBreakModeTailTruncation
+								numberOfLines:0
+												 next:nil]]];
+}
+- (TTStyle*)dcDescription {
+	return [self dcText];
+}
+
+- (TTStyle*)dcTag {
+	return [TTShapeStyle styleWithShape:[TTRoundedRectangleShape shapeWithRadius:-1] next:
+					[TTSolidFillStyle styleWithColor: RGBACOLOR(255, 255, 255, 0.7) next:
+					 [TTSolidBorderStyle styleWithColor:RGBACOLOR(150, 150, 150, 0.5) width:1 next:nil]]];
+	
+}
+- (TTStyle*)dcFilteredTag {
+	return [TTShapeStyle styleWithShape:[TTRoundedRectangleShape shapeWithRadius:-1] next:
+					[TTSolidFillStyle styleWithColor: KLEIO_GREEN_COLOR next:
+					 [TTSolidBorderStyle styleWithColor:KLEIO_GREEN_COLOR width:1 next:nil]]];	
+}
+- (TTStyle*)dcTagProcessingChange {
+	return [TTShapeStyle styleWithShape:[TTRoundedRectangleShape shapeWithRadius:-1] next:
+					[TTSolidFillStyle styleWithColor: RGBACOLOR(0,153,0, 0.3) next:
+					 [TTSolidBorderStyle styleWithColor:KLEIO_GREEN_COLOR width:1 next:nil]]];
+	
+}
+- (TTStyle*)dcTags {
+	return [TTBoxStyle styleWithMargin:UIEdgeInsetsMake(10, 10, 10, 10) padding:UIEdgeInsetsMake(10, 10, 10, 10) next:nil];
 }
 
 

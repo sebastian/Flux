@@ -86,6 +86,7 @@ rect.size.width, rect.size.height)
 	
 }
 
+// When clicking done while filtering
 - (void) done {
 
 	// Update the cache master
@@ -95,6 +96,7 @@ rect.size.width, rect.size.height)
 	[self dismissModalViewControllerAnimated:YES];	
 }
 
+// When chosing to clear the filter while in filter mode
 - (void) clearTagsAndExit {
 	
 	// Remove all tags

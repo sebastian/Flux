@@ -71,6 +71,7 @@
 @property (nonatomic, retain) NSArray * tagWords;
 @property (nonatomic, retain) UIBarButtonItem * filterButton;
 - (UIBarButtonItem*)filterButton;
+- (void) toggleTagWord:(NSString*)tagWord;
 
 #pragma mark DetailTable cache
 @property (nonatomic, assign) DetailTableModel * detailTableDelegate;

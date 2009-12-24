@@ -837,14 +837,38 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //	NSObject
 
-- (id) init {
+- (id) initWithSection:(NSString*)_section andRow:(NSString*)_row {
+	
 	if (self = [super init]) {
-		
-		[[TTNavigator navigator].URLMap from:@"tt://post"
-												toViewController:self selector:@selector(post:)];
 
+		NSLog(@"Got called with section: %@, row: %@", _section, _row);
+		
+		// Load transaction
+		NSInteger rowNumber = [_row intValue];
+		NSInteger sectionNumber = [_section intValue];
+				
+		// Access the object from the filtered array
+		NSDictionary * data;
+		@try {
+			data = [[CacheMasterSingleton sharedCacheMaster] detailCache_dataForSection:sectionNumber];
+		}
+		@catch (NSException * e) {
+			// There is no data for this element, return nil
+			NSLog(@"Caught an error... but didn't do anything about it... In cellForRowAtIndexPath");
+			// return nil;
+		}
+		Transaction *trs = (Transaction *)[[data objectForKey:@"transactions"] objectAtIndex:rowNumber];
+		self.currentTransaction = trs;
+
+		
+		// Regiser needed URLs
+		[[TTNavigator navigator].URLMap from:@"tt://post"	toViewController:self selector:@selector(post:)];
+		
+		// Load stylesheet
 		[TTStyleSheet setGlobalStyleSheet:[[[KleioCustomStyles alloc] init] autorelease]];
+		
 	}
+	
 	return self;
 }
 
@@ -868,8 +892,8 @@
 - (void) loadView {
 	[super loadView];
 	
-	self.currentTransaction = [[Utilities toolbox] tempTransaction];
-	[[Utilities toolbox] setTempTransaction:nil];
+//	self.currentTransaction = [[Utilities toolbox] tempTransaction];
+//	[[Utilities toolbox] setTempTransaction:nil];
 	
 	[[Utilities toolbox] setBarColours:self colour:RGBCOLOR(50,50,50)];
 	//[[Utilities toolbox] setBarColours:self];

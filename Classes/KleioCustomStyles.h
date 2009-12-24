@@ -45,5 +45,19 @@
 
 // Delete button
 - (TTStyle*)deleteButton:(UIControlState)state;
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// DetailTableCell
+- (UIColor*)dcTextColour;
+- (UIColor*)dcHighlightedTextColour;
+- (UIColor*)dcBackgroundColour;
+- (TTStyle*)dcCellBackground;
+- (UIFont*)dcFont;
+- (TTStyle*)dcText;
+- (TTStyle*)dcTime;
+- (TTStyle*)dcAmount;
+- (TTStyle*)dcDescription;
+- (TTStyle*)dcTag;
+- (TTStyle*)dcTags;
 @end
 

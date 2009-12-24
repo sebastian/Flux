@@ -15,6 +15,7 @@
 #import "NewOverviewTableViewController.h"
 #import "NewDetailTableViewController.h"
 #import "TransactionViewController.h"
+#import "CacheMasterSingleton.h"
 
 @implementation FluxAppDelegate
 
@@ -44,7 +45,8 @@
 	[map from:@"kleio://addTransaction" toSharedViewController:[AddTransactionController class]];
 	[map from:@"kleio://newTransactionList" toSharedViewController:[NewOverviewTableViewController class]];
 	[map from:@"kleio://showMonth/(initWithMonth:)" toViewController:[NewDetailTableViewController class]];
-	[map from:@"kleio://showTransaction" toViewController:[TransactionViewController class]];
+	[map from:@"kleio://showTransaction/(initWithSection:)/(andRow:)" toViewController:[TransactionViewController class]];
+	[map from:@"kleio://toggleFilterForWord/(toggleTagWord:)" toObject:[CacheMasterSingleton sharedCacheMaster]];
 	
 	[navigator openURL:@"kleio://tabBar" animated:NO];
 

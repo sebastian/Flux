@@ -24,7 +24,7 @@
 	[monthYear release];
 	[amount release];
 	[date release];
-    [super dealloc];
+	[super dealloc];
 }
 
 - (void)drawRect:(CGRect)rect {
@@ -52,7 +52,7 @@
 
 	// Draw amount
 	drawTextRect.origin.x = 170;
-	drawTextRect.size.width = 110;
+	drawTextRect.size.width = 140;
 	[amount drawInRect:drawTextRect 
 			  withFont:[[CacheMasterSingleton sharedCacheMaster] detailHeaderViewFont] 
 		 lineBreakMode:UILineBreakModeTailTruncation 

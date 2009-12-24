@@ -280,12 +280,10 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 }
 - (void) updatedTransaction:(Transaction*)transaction {
 		
-	NSLog(@"Doing detail cache update");
 	if (self.detailTableDelegate != nil) {
 		[self detailCacheUpdatedTransaction:transaction];
 	}
 	
-	NSLog(@"Doing overview cache update");
 	[self overviewCacheUpdatedTransaction:transaction];
 
 }
@@ -303,7 +301,6 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 	
 }
 - (void)objectContextUpdated:(NSNotification *)notification {	
-	NSLog(@"Merge notification: %@", notification);
 	// Merge changes
 	[[[Utilities toolbox] managedObjectContext] mergeChangesFromContextDidSaveNotification:notification];		
 }
@@ -374,6 +371,17 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 	[self setFilteringPredicate:localFilteringPredicate];
 
 }
+- (void) toggleTagWord:(NSString*)tagWord {
+
+	NSMutableArray * tagWords = [[[NSMutableArray alloc] initWithArray:[self tagWords]] autorelease];
+	if ([tagWords containsObject:tagWord]) {
+		[tagWords removeObject:tagWord];
+	} else {
+		[tagWords addObject:tagWord];
+	}
+	[self setTagWords:tagWords];
+	
+}
 - (UIBarButtonItem*)filterButton {
 
 	if (filterButton != nil) {
@@ -405,7 +413,6 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 @synthesize detailCache_cellCache;
 @synthesize detailCache_headerViewCache;
 - (void) detailCache_clearCache {
-	NSLog(@"Clearing detail cache");
 	self.detailCache_cellCache = nil;
 	self.detailCache_headerViewCache = nil;
 	self.detailTableCellData = nil;
@@ -426,7 +433,6 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 	/* 
 	 If the delegate changes, then the cache automatically becomes stale
 	 */
-	NSLog(@"Updating detailTableDelegate to %@", delegate);
 	[self detailCache_clearCache];
 	detailTableDelegate = delegate;
 }
@@ -456,8 +462,6 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 	
 	if ([self.detailCache_cellCache objectForKey:section] == nil) {
 	
-		NSLog(@"Generating data for row_section %i", _section, section);
-		
 		/*
 		 Check if there are any transactions left
 		 If not, then we throw an exception
@@ -506,15 +510,11 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 	 Optimize: Has to recalculate the amount of rows
 	 each time it is refreshed while filtering!
 	 */
-	
-	NSLog(@"Finding the number of rows in section %i", section);
-	NSLog(@"There are a total of %i sections", [[self.detailTableDelegate.resultsController sections] count]);
-	
+		
 	NSArray * transactions;
 	NSInteger count;
 	
 	if ([self.filteringPredicate isEqual:self.truePredicate]){
-		NSLog(@"Not filtering... counting objects in resultsController");
 		transactions = [[[self.detailTableDelegate.resultsController sections] objectAtIndex:section] objects];
 
 	} else {
@@ -529,12 +529,9 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 		if (![[transactions objectAtIndex:n] isDeleted]) {count++;}
 	}
 	
-	NSLog(@"Found %i rows", count);
 	return count;
 }
 - (void) detailCacheUpdatedTransaction:(Transaction*)transaction {
-	
-	NSLog(@"Updating detail cache");
 	
 	NSString * yearMonth = transaction.yearMonth;
 	NSString * oldYearMonth = transaction.oldYearMonth;
@@ -548,17 +545,12 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 	}
 	
 	if (worthUpdating) {
-		NSLog(@"Telling delegate that it is worth updating");
 		[self detailCache_tellDelegateThatItsWorthUpdating];
-	} else {
-		NSLog(@"DO NOT tell delegate that it is worth updating");
-	}
+	} 
 	
 }
 - (UIView*) detailCache_headerViewForSection:(NSInteger)_section {
-	
-	NSLog(@"Loading headerview for section %i", _section);
-	
+		
 	/*
 	 If there are no elements in the section, then we don't want to display it
 	 */
@@ -570,8 +562,6 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 	NSString * section = [NSString stringWithFormat:@"%i", _section];
 	
 	if ([self.detailCache_headerViewCache objectForKey:section] == nil) {
-		
-		NSLog(@"Have to create a new header view. Cache was empty");
 		
 		//[[NSBundle mainBundle] loadNibNamed:@"DetailHeaderAndFooter" owner:self options:nil]; 
 		DetailHeaderView * headerView = [[DetailHeaderView alloc] initWithFrame:CGRectMake(0, 0, 320, 30)];
@@ -652,7 +642,7 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 }
 - (UIImage*)detailTableCellSeparator {
 	if (detailTableCellSeparator == nil) {
-		detailTableCellSeparator = [[UIImage imageNamed:@"CellSeparator288.png"] retain];
+		detailTableCellSeparator = [[UIImage imageNamed:@"CellSeparator.png"] retain];
 	}
 	return detailTableCellSeparator;
 }
@@ -694,7 +684,6 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 	}
 	return detailHeaderViewBackgroundImage;
 }
-
 
 #pragma mark
 #pragma mark -
@@ -765,28 +754,14 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 - (NSDictionary*)overviewCache_forRow:(NSInteger)row {
 	
 	NSString * yearMonth = [self.overviewCache_months objectAtIndex:row];
-	
-	NSLog(@"Getting overviewCache for yearMonth %@", yearMonth);
-	
+
 	if ([self.overviewCache_cellCache objectForKey:yearMonth] == nil) {
-		
-		NSLog(@"Generating data for yearMonth %@, row %i", yearMonth, row);
 		
 		// Get info to put into cell:
 		if (self.overviewTableDelegate == nil) {return nil;}
 		
 		NSArray * sections = [self.overviewTableDelegate.resultsController sections];
-		
-		NSLog(@"\ncurrently %i sections:\n", [sections count]);
-		for (int n = 0; n < [sections count]; n++) {
-			NSLog(@"\tsection %i has %i transactions\n", n, [[[sections objectAtIndex:n] objects] count]);
-			for (int m = 0; m < [[sections objectAtIndex:n] numberOfObjects]; m++) {
-				Transaction * trs = [[[sections objectAtIndex:n] objects] objectAtIndex:m];
-				NSLog(@"\t\t Amount: %@, Expense: %@, Deleted: %i", [trs kroner], [trs expense], [trs isDeleted]);
-			}
-		}
-		NSLog(@"\n");
-		
+				
 		if ([sections count] <= row) {
 			/* 
 			 This section is activated if there are no sections, or we try to generate cache
@@ -835,9 +810,6 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 			NSNumber * numAmount = [NSNumber numberWithDouble:amount];
 			
 			NSString * calculatedAmount = [[CurrencyManager sharedManager] baseCurrencyDescriptionForAmount:numAmount withFraction:YES];
-			
-			NSLog(@"Got raw and calculated amount to be: %@ and %@", numAmount, calculatedAmount);
-			
 			
 			NSString * realYearMonth = aTransaction.yearMonth;
 			if (![realYearMonth isEqualToString:yearMonth]) {
