@@ -373,13 +373,13 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 }
 - (void) toggleTagWord:(NSString*)tagWord {
 
-	NSMutableArray * tagWords = [[[NSMutableArray alloc] initWithArray:[self tagWords]] autorelease];
-	if ([tagWords containsObject:tagWord]) {
-		[tagWords removeObject:tagWord];
+	NSMutableArray * theTagWords = [[[NSMutableArray alloc] initWithArray:[self tagWords]] autorelease];
+	if ([theTagWords containsObject:tagWord]) {
+		[theTagWords removeObject:tagWord];
 	} else {
-		[tagWords addObject:tagWord];
+		[theTagWords addObject:tagWord];
 	}
-	[self setTagWords:tagWords];
+	[self setTagWords:theTagWords];
 	
 }
 - (UIBarButtonItem*)filterButton {
@@ -630,7 +630,8 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 }
 - (UIImage*)detailTableCellBackgroundImage {
 	if (detailTableCellBackgroundImage == nil) {
-		detailTableCellBackgroundImage = [[UIImage imageNamed:@"CellDetail.png"] retain];
+		//detailTableCellBackgroundImage = [[UIImage imageNamed:@"CellDetail.png"] retain];
+		detailTableCellBackgroundImage = [[UIImage imageNamed:@"CellBackground.png"] retain];
 	}
 	return detailTableCellBackgroundImage;
 }
@@ -662,7 +663,7 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 @synthesize detailHeaderViewBackgroundImage;
 - (UIFont*) detailHeaderViewFont {
 	if (detailHeaderViewFont == nil) {
-		detailHeaderViewFont = [[UIFont systemFontOfSize:15] retain];
+		detailHeaderViewFont = [[UIFont systemFontOfSize:17] retain];
 	}
 	return detailHeaderViewFont;
 }
@@ -711,6 +712,8 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 													  forKey:@"KleioCacheOldBaseCurrency"];
 		} else {
 			self.overviewCache_cellCache = (NSMutableDictionary*)[NSKeyedUnarchiver unarchiveObjectWithFile:[self overviewCache_cachePath]];
+			[self tellDelegatesItsWorthReloading];
+			[self reloadDelegateData];
 		}
 		
 		if (overviewCache_cellCache == nil) { 
@@ -879,6 +882,7 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 		 Hence we have to remove the persistant cache
 		 */
 		[self overviewCache_removePersistentCache];
+		[self overviewCache_invalidateTotalSumCache];
 		return;
 	}
 	
@@ -886,10 +890,12 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 	
 	if ([transaction isDeleted]) {
 		
+		[self overviewCache_invalidateTotalSumCache];
 		[self overviewCache_delete:yearMonth];
 	
 	} else if (transaction.isNew) {
 
+		[self overviewCache_invalidateTotalSumCache];
 		[self overviewCache_insert:yearMonth];
 		
 	} else {
@@ -937,6 +943,7 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 				 kroner: NSNumber
 				 currency: NSString
 				 */
+				[self overviewCache_invalidateTotalSumCache];
 				[self overviewCache_removeCacheForYearMonth:yearMonth];
 				[self overviewCache_tellDelegateThatItsWorthUpdating];
 				
@@ -1045,11 +1052,25 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 - (void)overviewCache_removeCacheForYearMonth:(NSString*)yearMonth {
 	[self.overviewCache_cellCache removeObjectForKey:yearMonth];
 }
+- (void)overviewCache_invalidateTotalSumCache {
+	TT_RELEASE_SAFELY(_cachedTotalSum);
+}
+- (NSString*)overviewCache_totalSum {
+
+	if (_cachedTotalSum == nil) {
+		NSArray * objects = [self.overviewTableDelegate.resultsController fetchedObjects];
+		double amount = [[Utilities toolbox] sumAmountForTransactionArray:objects];
+		NSNumber * numAmount = [NSNumber numberWithDouble:amount];
+		_cachedTotalSum = [[[CurrencyManager sharedManager] baseCurrencyDescriptionForAmount:numAmount withFraction:YES] retain];		
+	}
+	return _cachedTotalSum;
+	
+}
 
 #pragma mark
 #pragma mark -
 #pragma mark Singleton methods
-+ (CacheMasterSingleton*)sharedCacheMaster; {
++ (CacheMasterSingleton*)sharedCacheMaster {
     @synchronized(self) {
         if (sharedCacheMaster == nil) {
 					[[self alloc] init]; // assignment not done here
@@ -1084,6 +1105,40 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 
 - (void)dealloc {	
 	// TODO: Add releasing of all the other variables that are held here...
+	
+	TT_RELEASE_SAFELY(_cachedTotalSum);
+	TT_RELEASE_SAFELY(truePredicate);
+	TT_RELEASE_SAFELY(filteringPredicate);
+	
+	// Detail table cell - resources
+	TT_RELEASE_SAFELY(detailTableCellFont);
+	TT_RELEASE_SAFELY(detailTableCellGrayColor);
+	TT_RELEASE_SAFELY(detailTableCellBlackColor);
+	TT_RELEASE_SAFELY(detailTableCellBackgroundImage);
+	TT_RELEASE_SAFELY(detailTableCellSelectedBackgroundImage);
+	TT_RELEASE_SAFELY(detailTableCellSeparator);	
+	TT_RELEASE_SAFELY(detailTableCellData);
+	
+	// Detail header view - resource
+	TT_RELEASE_SAFELY(detailHeaderViewFont);
+	TT_RELEASE_SAFELY(detailHeaderViewGrayColor);
+	TT_RELEASE_SAFELY(detailHeaderViewBlackColor);
+	TT_RELEASE_SAFELY(detailHeaderViewBackgroundImage);
+	
+	// DetailTable cache
+	TT_RELEASE_SAFELY(detailTableDelegate);
+	TT_RELEASE_SAFELY(detailCache_cellCache);
+	TT_RELEASE_SAFELY(detailCache_headerViewCache);
+	
+	// OverviewTable cache
+	TT_RELEASE_SAFELY(overviewCache_months);
+	TT_RELEASE_SAFELY(overviewCache_cellCache);
+	TT_RELEASE_SAFELY(overviewTableDelegate);
+	
+	// Filtering
+	TT_RELEASE_SAFELY(tagWords);
+	TT_RELEASE_SAFELY(filterButton);
+		
 	
 	[super dealloc];
 }

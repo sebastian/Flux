@@ -8,7 +8,7 @@
 
 #import <Three20/Three20.h>
 
-@interface SuggestedTags : TTTableViewController {
+@interface SuggestedTags : TTTableViewController <UITableViewDelegate, UITableViewDataSource> {
 	NSMutableArray * _items;
 	
 	bool loading;

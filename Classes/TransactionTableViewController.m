@@ -145,7 +145,7 @@
 	// Get results
 	if (![resultsController performFetch:&error]) { 
 		NSLog(@"Error when performing fetch in %@", self);
-		NSLog(@"ERROR: %@", error);
+		//NSLog(@"ERROR: %@", error);
 	}
 
 	// DONE

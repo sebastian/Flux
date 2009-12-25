@@ -817,6 +817,7 @@
 		
 	UIActionSheet * deleteSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Delete transaction" otherButtonTitles:nil];
 	[deleteSheet showInView:self.tabBarController.view];
+	[deleteSheet release];
 	
 }
 

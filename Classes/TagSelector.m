@@ -248,7 +248,7 @@ rect.size.width, rect.size.height)
 	suggestedTagsView.autoresizesSubviews = YES;
 	
 	otherTags = [[SuggestedTags alloc] init];
-	TTTableView * sugTags = otherTags.tableView;
+	UITableView * sugTags = otherTags.tableView;
 	sugTags.height = suggestedTagsView.height;
 	sugTags.top = 0;
 	sugTags.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);

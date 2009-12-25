@@ -77,6 +77,26 @@
 }
 
 
+- (TTStyle*) headerView {
+	UIColor* whiteishColour = RGBACOLOR(255,255,255, 0.1);
+	UIColor* whiteBackground = RGBACOLOR(255,255,255, 0.05);
+	return [TTFourBorderStyle styleWithTop:whiteishColour right:whiteBackground bottom:whiteishColour
+																		left:whiteBackground width:1 next:
+					[TTSolidFillStyle styleWithColor:whiteBackground next:
+					 [TTInsetStyle styleWithInset:UIEdgeInsetsMake(5, 5, 5, 5) next:
+						[TTShapeStyle styleWithShape:[TTRoundedRectangleShape shapeWithRadius:5] next:
+						 [TTSolidFillStyle styleWithColor:RGBACOLOR(255,255,255,0.1) next:nil]]]]];
+}
+- (UIFont*) overviewTotalFont {
+	return [UIFont systemFontOfSize:14.f];
+}
+- (TTStyle*) overviewTotal {
+	return [TTTextStyle styleWithFont:[self overviewTotalFont] 
+															color:RGBACOLOR(255,255,255,0.4) 
+															next:nil];
+}
+
+
 // Filter buttons
 - (TTStyle*)filteringButtonActive:(UIControlState)state {
   return [self toolbarButtonForState:state
@@ -240,16 +260,33 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // DetailTableCell
 - (CGFloat) dcFontSize {
-	return 16.f;
+	if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"TextSize"] isEqualToString:@"Large"]) {
+		return 16.f;
+	} else {
+		return 14.f;
+	}
+}
+- (CGFloat) dcSmallFontSize {
+	if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"TextSize"] isEqualToString:@"Large"]) {
+		return 14.f;
+	} else {
+		return 12.f;
+	}
 }
 - (UIColor*)dcTextColour {
-	return [UIColor blackColor];
+	return RGBCOLOR(20,20,20);
 }
-- (UIColor*)dcHighlightedTextColour {
-	return [UIColor blackColor];
+- (UIColor*)dcLightTextColour {
+	return RGBCOLOR(100,100,100);
 }
 - (UIColor*)dcBackgroundColour {
 	return [UIColor whiteColor];
+}
+- (TTStyle*)dcAreaDivider {
+	return [TTSolidFillStyle styleWithColor:RGBACOLOR(200,200,200,0.2) next:
+					[TTLinearGradientFillStyle styleWithColor1:RGBACOLOR(153,153,114,0.1) color2:[UIColor clearColor] next:nil]];
+	 
+	
 }
 - (TTStyle*)dcCellBackground {
 	return 
@@ -257,42 +294,44 @@
 	 [TTImageStyle styleWithImage:[[CacheMasterSingleton sharedCacheMaster] detailTableCellBackgroundImage] 
 									 defaultImage:[[CacheMasterSingleton sharedCacheMaster] detailTableCellBackgroundImage] 
 										contentMode:UIViewContentModeScaleToFill 
-													 size:CGSizeMake(320, 500) 
+													 size:CGSizeMake(320, 80) 
 													 next:
-		[TTLinearGradientFillStyle styleWithColor1:[UIColor clearColor] color2:RGBACOLOR(153,153,114,0.1) next:nil]]];
+		[TTSolidFillStyle styleWithColor:RGBACOLOR(255,255,255,0.3) next:
+		[TTLinearGradientFillStyle styleWithColor1:[UIColor clearColor] color2:RGBACOLOR(153,153,114,0.1) next:nil]]]];
 }
 - (UIFont*)dcFont {
 	return [UIFont systemFontOfSize:[self dcFontSize]];
 }
+- (UIFont*)dcSmallFont {
+	return [UIFont systemFontOfSize:[self dcSmallFontSize]];
+}
+
 - (TTStyle*)dcText {
 	return [TTTextStyle styleWithFont:[self dcFont] color:[UIColor blackColor] next:nil];
 }
 - (TTStyle*)dcTextWhite {
 	return [TTTextStyle styleWithFont:[self dcFont] color:[UIColor whiteColor] next:nil];
 }
-
-- (TTStyle*)dcTime {
-	return [self dcText];
-}
-- (TTStyle*)dcAmount {
-	return 
-	[TTBoxStyle styleWithMargin:UIEdgeInsetsMake(10, 10, 10, 10) padding:UIEdgeInsetsMake(10, 10, 10, 10) minSize:CGSizeMake(200, 100) position:TTPositionFloatRight next:
-	 [TTSolidFillStyle styleWithColor:[UIColor greenColor] next:
-	 [TTTextStyle styleWithFont:[self dcFont] 
-												color:[self dcTextColour]
-							minimumFontSize:[self dcFontSize]
-									shadowColor:[self dcTextColour]
-								 shadowOffset:CGSizeMake(0, 0) 
-								textAlignment:UITextAlignmentRight 
-						verticalAlignment:UIControlContentVerticalAlignmentFill
-								lineBreakMode:UILineBreakModeTailTruncation
-								numberOfLines:0
-												 next:nil]]];
+- (TTStyle*)dcDetailElement {
+	return	 [TTTextStyle styleWithFont:[self dcFont] 
+																color:[self dcTextColour]
+											minimumFontSize:[self dcFontSize]
+													shadowColor:[self dcBackgroundColour]
+												 shadowOffset:CGSizeMake(1, 1) 
+												textAlignment:UITextAlignmentRight 
+										verticalAlignment:UIControlContentVerticalAlignmentFill
+												lineBreakMode:UILineBreakModeMiddleTruncation
+												numberOfLines:0
+																 next:nil];
 }
 - (TTStyle*)dcDescription {
-	return [self dcText];
+	return [TTTextStyle styleWithFont:[self dcSmallFont] color:[self dcTextColour] next:nil];
+}
+- (TTStyle*)dcNoDescriptionOrTags {
+	return [TTTextStyle styleWithFont:[self dcSmallFont] color:[self dcLightTextColour] next:nil];
 }
 
+// Tags
 - (TTStyle*)dcTag {
 	return [TTShapeStyle styleWithShape:[TTRoundedRectangleShape shapeWithRadius:-1] next:
 					[TTSolidFillStyle styleWithColor: RGBACOLOR(255, 255, 255, 0.7) next:

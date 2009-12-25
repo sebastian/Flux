@@ -36,7 +36,7 @@
 	[[[CacheMasterSingleton sharedCacheMaster] detailHeaderViewBackgroundImage] drawAtPoint:topCorner];
 	
 	CGRect drawTextRect;
-	drawTextRect.origin.y = 6;
+	drawTextRect.origin.y = 4;
 	drawTextRect.size.height = 19;
 	
 	// Set the black colour
@@ -44,7 +44,7 @@
 	
 	// Draw the date
 	drawTextRect.origin.x = 8;
-	drawTextRect.size.width = 17;	
+	drawTextRect.size.width = 22;	
 	[date drawInRect:drawTextRect 
 			withFont:[[CacheMasterSingleton sharedCacheMaster] detailHeaderViewFont] 
 	   lineBreakMode:UILineBreakModeTailTruncation 
@@ -62,7 +62,7 @@
 	[[[CacheMasterSingleton sharedCacheMaster] detailHeaderViewGrayColor] set];
 	
 	// Draw MonthYear
-	drawTextRect.origin.x = 30;
+	drawTextRect.origin.x = 35;
 	drawTextRect.size.width = 130;
 	[monthYear drawInRect:drawTextRect 
 				 withFont:[[CacheMasterSingleton sharedCacheMaster] detailHeaderViewFont] 

@@ -18,6 +18,10 @@
 - (TTStyle*)grayToolbarButton:(UIControlState)state;
 - (TTStyle*)blueToolbarButton:(UIControlState)state;
 
+// OverviewHeaderView
+- (TTStyle*) headerView;
+- (UIFont*) overviewTotalFont;
+- (TTStyle*) overviewTotal;
 
 // Add amount controller
 - (TTStyle*) expenseInputField;
@@ -48,16 +52,23 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // DetailTableCell
+- (CGFloat) dcFontSize;
+- (CGFloat) dcSmallFontSize;
 - (UIColor*)dcTextColour;
-- (UIColor*)dcHighlightedTextColour;
+- (UIColor*)dcLightTextColour;
 - (UIColor*)dcBackgroundColour;
+- (TTStyle*)dcAreaDivider;
 - (TTStyle*)dcCellBackground;
 - (UIFont*)dcFont;
+- (UIFont*)dcSmallFont;
 - (TTStyle*)dcText;
-- (TTStyle*)dcTime;
-- (TTStyle*)dcAmount;
+- (TTStyle*)dcTextWhite;
+- (TTStyle*)dcDetailElement;
 - (TTStyle*)dcDescription;
+- (TTStyle*)dcNoDescriptionOrTags;
 - (TTStyle*)dcTag;
+- (TTStyle*)dcFilteredTag;
+- (TTStyle*)dcTagProcessingChange;
 - (TTStyle*)dcTags;
 @end
 

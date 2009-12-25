@@ -82,7 +82,7 @@
 -(NSArray*)allTagNames;
 -(NSArray*)allTagNamesIncludingAutotags:(BOOL)autotags;
 -(NSArray*)topTagsIncludingAutotags:(BOOL)autotags;
-
+-(void)findLocationTags;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //	CoreData

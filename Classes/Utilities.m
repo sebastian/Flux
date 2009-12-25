@@ -291,9 +291,7 @@ static Utilities *sharedUtilitiesToolbox = nil;
 		
 		NSArray * allLocations = [self.tagManagedObjectContext executeFetchRequest:request error:&error]; 
 		TT_RELEASE_SAFELY(request);
-		
-		NSMutableArray * tagNames = [[NSMutableArray alloc] init];
-		
+				
 		NSMutableDictionary * tagDict = [[NSMutableDictionary alloc] init];
 		
 		for (Location * location in allLocations) {
@@ -315,6 +313,7 @@ static Utilities *sharedUtilitiesToolbox = nil;
 		
 		_topTags = [[tagDict keysSortedByValueUsingSelector:@selector(compare:)] retain];
 		
+		[tagDict release];
 	} 
 		
 	return _topTags;
@@ -369,6 +368,10 @@ static Utilities *sharedUtilitiesToolbox = nil;
 	// And off we go :)
 	[self.geoCoder start];
 }
+- (void) stopGeocoding:(NSTimer*)theTimer {
+	NSLog(@"Stop geocoding timer called");
+	[[LocationController sharedInstance].locationManager stopUpdatingLocation];
+}
 - (void) startGeocoding {
 
 	_didGeoCoding = NO;
@@ -376,7 +379,12 @@ static Utilities *sharedUtilitiesToolbox = nil;
 	
 	[LocationController sharedInstance].delegate = self;
 	[LocationController sharedInstance].locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-	[[LocationController sharedInstance].locationManager startUpdatingLocation];	
+	[[LocationController sharedInstance].locationManager startUpdatingLocation];
+	
+	// Stop geocoding after 15 seconds. Don't want to waste battery
+	NSTimer * timer = [NSTimer timerWithTimeInterval:15.f target:self selector:@selector(stopGeocoding:) userInfo:nil repeats:NO];
+	[[NSRunLoop currentRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
+	
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -438,7 +446,7 @@ static Utilities *sharedUtilitiesToolbox = nil;
 		// We run off the previous local currency, to speed things up.
 		// If it has changed, then we update it
 		if ([[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentLocalCurrency"] != currencyCode) {
-			
+
 			// If the local currency has changed, and has changed back to the base
 			// currency, then the user is back home :)
 			if (([[CurrencyManager sharedManager] baseCurrency] == currencyCode) && 

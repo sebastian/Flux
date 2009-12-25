@@ -118,7 +118,7 @@
 	if (loading) {
 		
 		TTTableActivityItem * loadingItem = [TTTableActivityItem itemWithText:TTLocalizedString(@"Loading...", @"")];
-		TTTableActivityItemCell * cell = [[TTTableActivityItemCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+		TTTableActivityItemCell * cell = [[[TTTableActivityItemCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil] autorelease];
 		cell.object = loadingItem;
 		return cell;
 		
@@ -126,8 +126,7 @@
 		
 		NSString * title = [_items objectAtIndex:indexPath.row];
 		
-		TTTableStyledTextItem * item = [TTTableStyledTextItem itemWithText:title 
-																																	 URL:[@"kleio://addTagToTagTable/" stringByAppendingString:title]];
+		TTTableTextItem * item = [TTTableTextItem itemWithText:title];
 														
 		TTTableTextItemCell *cell = (TTTableTextItemCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 		if (cell == nil) {

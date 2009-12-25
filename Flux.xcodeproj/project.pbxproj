@@ -19,6 +19,8 @@
 		9613974510DBE29E00282040 /* Flux.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9613974410DBE29E00282040 /* Flux.xcdatamodeld */; };
 		9613974610DBE29E00282040 /* Flux.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9613974410DBE29E00282040 /* Flux.xcdatamodeld */; };
 		961E4D25104D41BB0081ADE7 /* CacheManagerFilteringTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 961E4D24104D41BB0081ADE7 /* CacheManagerFilteringTest.m */; };
+		96244DFB10E5193900EFDADD /* OverviewHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96244DFA10E5193900EFDADD /* OverviewHeaderView.m */; };
+		96244DFC10E5193900EFDADD /* OverviewHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96244DFA10E5193900EFDADD /* OverviewHeaderView.m */; };
 		9628FD9F1077778100990F1D /* Zoom.png in Resources */ = {isa = PBXBuildFile; fileRef = 9628FD7A1077778100990F1D /* Zoom.png */; };
 		9628FDA01077778100990F1D /* OverviewCellBunn.png in Resources */ = {isa = PBXBuildFile; fileRef = 9628FD7B1077778100990F1D /* OverviewCellBunn.png */; };
 		9628FDA11077778100990F1D /* OverviewBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 9628FD7C1077778100990F1D /* OverviewBackground.png */; };
@@ -247,6 +249,8 @@
 		960C07FD1021AFF300B9C2A3 /* Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utilities.m; sourceTree = "<group>"; };
 		9613974710DBE29E00282040 /* Flux 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Flux 2.xcdatamodel"; sourceTree = "<group>"; };
 		961E4D24104D41BB0081ADE7 /* CacheManagerFilteringTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacheManagerFilteringTest.m; sourceTree = "<group>"; };
+		96244DF910E5193900EFDADD /* OverviewHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OverviewHeaderView.h; sourceTree = "<group>"; };
+		96244DFA10E5193900EFDADD /* OverviewHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OverviewHeaderView.m; sourceTree = "<group>"; };
 		9628FD7A1077778100990F1D /* Zoom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Zoom.png; path = Graphics/Zoom.png; sourceTree = "<group>"; };
 		9628FD7B1077778100990F1D /* OverviewCellBunn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = OverviewCellBunn.png; path = Graphics/OverviewCellBunn.png; sourceTree = "<group>"; };
 		9628FD7C1077778100990F1D /* OverviewBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = OverviewBackground.png; path = Graphics/OverviewBackground.png; sourceTree = "<group>"; };
@@ -605,6 +609,8 @@
 				964C2DF210D7F632006EDCD3 /* NewOverviewTableViewController.m */,
 				964C2DF510D7F666006EDCD3 /* OverviewTableDataSource.h */,
 				964C2DF610D7F666006EDCD3 /* OverviewTableDataSource.m */,
+				96244DF910E5193900EFDADD /* OverviewHeaderView.h */,
+				96244DFA10E5193900EFDADD /* OverviewHeaderView.m */,
 			);
 			name = OverviewTable;
 			sourceTree = "<group>";
@@ -1042,6 +1048,7 @@
 				96B6D88910D92D58001722B1 /* TransactionModel.m in Sources */,
 				96FA794A10DA0DF6002AC795 /* TransactionTableView.m in Sources */,
 				9629A39C10E2648E00860D7A /* DetailTableItem+Cell.m in Sources */,
+				96244DFB10E5193900EFDADD /* OverviewHeaderView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1094,6 +1101,7 @@
 				96B6D88A10D92D58001722B1 /* TransactionModel.m in Sources */,
 				96FA794B10DA0DF6002AC795 /* TransactionTableView.m in Sources */,
 				9629A39D10E2648E00860D7A /* DetailTableItem+Cell.m in Sources */,
+				96244DFC10E5193900EFDADD /* OverviewHeaderView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

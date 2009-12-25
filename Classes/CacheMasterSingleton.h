@@ -45,6 +45,7 @@
 	NSMutableDictionary * overviewCache_cellCache;
 	TransactionModel * overviewTableDelegate;
 	bool _shouldDeleteOverviewCache;
+	NSString * _cachedTotalSum;
 	
 	// Filtering
 	NSArray * tagWords;
@@ -122,7 +123,9 @@
 - (void) overviewCache_insert:(NSString*)yearMonth;
 - (void) overviewCache_delete:(NSString*)yearMonth;
 - (void) overviewCache_sortMonthsArray;
-- (void)overviewCache_tellDelegateThatItsWorthUpdating;
-- (void)overviewCache_removeCacheForYearMonth:(NSString*)yearMonth;
+- (void) overviewCache_tellDelegateThatItsWorthUpdating;
+- (void) overviewCache_removeCacheForYearMonth:(NSString*)yearMonth;
+- (void) overviewCache_invalidateTotalSumCache;
+- (NSString*) overviewCache_totalSum;
 
 @end

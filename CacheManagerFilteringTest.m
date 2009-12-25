@@ -30,11 +30,14 @@
 - (void)setUp {
 	
 	// Have to ensure that it has registered for callbacks
-	[[CacheMasterSingleton sharedCacheMaster] registerForManagedObjectContextNotifications];
+	[[CacheMasterSingleton sharedCacheMaster] registerForManagedObjectContextNotifications]; 
 	
 	context = [[TestUtils managedObjectContext] retain];
 	[[Utilities toolbox] setManagedObjectContext:context];	
 	[[Utilities toolbox] setAddTransactionManagedObjectContext:context];
+
+	NSManagedObjectContext * tagContext = [TestUtils managedObjectContext];
+	[[Utilities toolbox] setTagManagedObjectContext:tagContext];
 	
 	controller = [[DetailTableModel alloc] initWithYearMonth:@"197001"];
 	[controller loadData];
@@ -155,7 +158,6 @@
  something
  else
 */ 
-
 
 - (void) testPropagationOfPredicates {
 	NSPredicate * newPredicate = [NSPredicate predicateWithFormat:@"tags contains[cd] \" hallo \""];
