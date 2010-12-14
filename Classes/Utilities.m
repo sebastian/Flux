@@ -273,6 +273,11 @@ static Utilities *sharedUtilitiesToolbox = nil;
 
 	if (!_topTags) {
 		
+		////////////////
+		// Stage 1
+		// Find a few popular, recently used tags
+		////////////////
+		
 		NSFetchRequest *request = [[NSFetchRequest alloc] init]; 
 		
 		NSEntityDescription *entity = [NSEntityDescription entityForName:@"Location" 
@@ -284,7 +289,8 @@ static Utilities *sharedUtilitiesToolbox = nil;
 		[request setSortDescriptors:[NSArray arrayWithObject:sortByDate]];
 		TT_RELEASE_SAFELY(sortByDate);
 		
-		[request setFetchLimit:150];
+//		[request setFetchLimit:150];
+		[request setFetchLimit:20];		
 		[request setRelationshipKeyPathsForPrefetching:[NSArray arrayWithObject:@"tag"]];
 		
 		NSError *error; 
@@ -311,9 +317,38 @@ static Utilities *sharedUtilitiesToolbox = nil;
 			
 		}
 		
-		_topTags = [[tagDict keysSortedByValueUsingSelector:@selector(compare:)] retain];
+		NSMutableArray * tagsArray = [NSMutableArray arrayWithArray:[tagDict keysSortedByValueUsingSelector:@selector(compare:)]];
+		TT_RELEASE_SAFELY(tagDict);
 		
-		[tagDict release];
+		////////////////
+		// Stage 2
+		// Load some additional tags to fill up the list
+		////////////////
+		
+		request = [[NSFetchRequest alloc] init]; 
+		
+		NSPredicate * noAutotagsPredicate = [NSPredicate predicateWithFormat:@"autotag = NO"];
+		[request setPredicate:noAutotagsPredicate];
+		
+		entity = [NSEntityDescription entityForName:@"Tag" 
+												 inManagedObjectContext:self.tagManagedObjectContext]; 
+		[request setEntity:entity];
+	
+		[request setFetchLimit:20];		
+	
+		error = nil; 
+		
+		NSArray * someTags = [self.tagManagedObjectContext executeFetchRequest:request error:&error]; 
+		TT_RELEASE_SAFELY(request);
+		
+		for (Tag * tag in someTags) {
+			if (![tagsArray containsObject:tag.name]) {
+				[tagsArray insertObject:tag.name atIndex:0];
+			}
+		}									
+
+		_topTags = [tagsArray retain];
+	
 	} 
 		
 	return _topTags;
@@ -371,6 +406,7 @@ static Utilities *sharedUtilitiesToolbox = nil;
 - (void) stopGeocoding:(NSTimer*)theTimer {
 	NSLog(@"Stop geocoding timer called");
 	[[LocationController sharedInstance].locationManager stopUpdatingLocation];
+	[LocationController sharedInstance].delegate = nil;
 }
 - (void) startGeocoding {
 
@@ -417,18 +453,34 @@ static Utilities *sharedUtilitiesToolbox = nil;
 	if ((foundLocationTags == NO) && (location.horizontalAccuracy < 1500.f) && (location.horizontalAccuracy > 0.f)) {
 		
 		// We don't need more location updates
-		[[LocationController sharedInstance].locationManager stopUpdatingLocation];
-				
+		[self stopGeocoding:nil];
+		
 		[self findLocationTags];
 		
 	}
 	
 }
+
+- (void) askUserToSetCurrency {
+	NSLog(@"We should do something here... Like ask the user to set his or her currency!");
+	
+//	//if ([[NSUserDefaults standardUserDefaults] objectForKey:@"KleioFinanceFirstRunBaseCurrency"] == nil) {
+//		UIAlertView * noLocationAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Problem", @"") 
+//																														 message:NSLocalizedString(@"I don't know which country you are in, and therefore I don't know what currency you are using!", @"")
+//																														delegate:self 
+//																									 cancelButtonTitle:NSLocalizedString(@"Close", @"") 
+//																									 otherButtonTitles:NSLocalizedString(@"Set currency", @"")];
+//		[noLocationAlert show];
+//		[noLocationAlert release];
+	//}
+}
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+	NSLog(@"Clicked button %i", buttonIndex);
+}
+
 -(void)locationError:(NSString *)error {
 	NSLog(@"Got location error: %@", error);
-	if ([[NSUserDefaults standardUserDefaults] objectForKey:@"KleioFinanceFirstRunBaseCurrency"] == nil) {
-		NSLog(@"We should do something here... Like ask the user to set his or her currency!");
-	}
+	[self askUserToSetCurrency];
 }
 -(void)reverseGeocoder:(MKReverseGeocoder *)geocoder didFindPlacemark:(MKPlacemark *)daPlacemark {
 	/*
@@ -487,6 +539,7 @@ static Utilities *sharedUtilitiesToolbox = nil;
 -(void)reverseGeocoder:(MKReverseGeocoder *)geocoder didFailWithError:(NSError *)error {
 	// Nothing much to do...
 	NSLog(@"ERROR... We couldn't fint the location! Unless the base currency has been set we should tell the user!");
+	[self askUserToSetCurrency];
 }
 -(void)findLocationTags {
 	
@@ -573,6 +626,8 @@ static Utilities *sharedUtilitiesToolbox = nil;
 	foundLocationTags = YES;
 		
 }
+
+
 
 #pragma mark
 #pragma mark -

@@ -45,7 +45,6 @@
 	NSMutableDictionary * overviewCache_cellCache;
 	TransactionModel * overviewTableDelegate;
 	bool _shouldDeleteOverviewCache;
-	NSString * _cachedTotalSum;
 	
 	// Filtering
 	NSArray * tagWords;

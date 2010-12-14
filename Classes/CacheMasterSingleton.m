@@ -811,7 +811,7 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 			}
 			
 			NSNumber * numAmount = [NSNumber numberWithDouble:amount];
-			
+						
 			NSString * calculatedAmount = [[CurrencyManager sharedManager] baseCurrencyDescriptionForAmount:numAmount withFraction:YES];
 			
 			NSString * realYearMonth = aTransaction.yearMonth;
@@ -882,7 +882,6 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 		 Hence we have to remove the persistant cache
 		 */
 		[self overviewCache_removePersistentCache];
-		[self overviewCache_invalidateTotalSumCache];
 		return;
 	}
 	
@@ -890,12 +889,10 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 	
 	if ([transaction isDeleted]) {
 		
-		[self overviewCache_invalidateTotalSumCache];
 		[self overviewCache_delete:yearMonth];
 	
 	} else if (transaction.isNew) {
 
-		[self overviewCache_invalidateTotalSumCache];
 		[self overviewCache_insert:yearMonth];
 		
 	} else {
@@ -943,7 +940,6 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 				 kroner: NSNumber
 				 currency: NSString
 				 */
-				[self overviewCache_invalidateTotalSumCache];
 				[self overviewCache_removeCacheForYearMonth:yearMonth];
 				[self overviewCache_tellDelegateThatItsWorthUpdating];
 				
@@ -1052,18 +1048,19 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 - (void)overviewCache_removeCacheForYearMonth:(NSString*)yearMonth {
 	[self.overviewCache_cellCache removeObjectForKey:yearMonth];
 }
-- (void)overviewCache_invalidateTotalSumCache {
-	TT_RELEASE_SAFELY(_cachedTotalSum);
-}
 - (NSString*)overviewCache_totalSum {
 
-	if (_cachedTotalSum == nil) {
-		NSArray * objects = [self.overviewTableDelegate.resultsController fetchedObjects];
-		double amount = [[Utilities toolbox] sumAmountForTransactionArray:objects];
-		NSNumber * numAmount = [NSNumber numberWithDouble:amount];
-		_cachedTotalSum = [[[CurrencyManager sharedManager] baseCurrencyDescriptionForAmount:numAmount withFraction:YES] retain];		
+	int numOfRows = [self overviewCache_numberOfRows];
+	double amount = 0;
+		
+	for (int n = 0; n < numOfRows; n++) {
+		NSDictionary * dict = [self overviewCache_forRow:n];
+		NSNumber * rawAmount = [dict objectForKey:@"rawAmount"];
+		amount += [rawAmount floatValue];
 	}
-	return _cachedTotalSum;
+		
+	NSNumber * numAmount = [NSNumber numberWithDouble:amount];
+	return [[[CurrencyManager sharedManager] baseCurrencyDescriptionForAmount:numAmount withFraction:YES] retain];		
 	
 }
 
@@ -1106,7 +1103,6 @@ static CacheMasterSingleton * sharedCacheMaster = nil;
 - (void)dealloc {	
 	// TODO: Add releasing of all the other variables that are held here...
 	
-	TT_RELEASE_SAFELY(_cachedTotalSum);
 	TT_RELEASE_SAFELY(truePredicate);
 	TT_RELEASE_SAFELY(filteringPredicate);
 	

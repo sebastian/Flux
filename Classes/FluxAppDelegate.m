@@ -16,6 +16,7 @@
 #import "NewDetailTableViewController.h"
 #import "TransactionViewController.h"
 #import "CacheMasterSingleton.h"
+#import "MoreTableViewController.h"
 
 @implementation FluxAppDelegate
 
@@ -38,7 +39,7 @@
 
 	
 	TTURLMap* map = navigator.URLMap;
-	[map from:@"*" toViewController:[TTWebController class]]; // Fall back URL
+	//[map from:@"*" toViewController:[TTWebController class]]; // Fall back URL
 	[map from:@"kleio://tagSelector" toModalViewController:[TagSelector class]];
 	[map from:@"kleio://tabBar" toSharedViewController:[TabBarController class]];
 	[map from:@"kleio://listTransactions" toSharedViewController:[OverviewTableViewController class]];
@@ -47,6 +48,8 @@
 	[map from:@"kleio://showMonth/(initWithMonth:)" toViewController:[NewDetailTableViewController class]];
 	[map from:@"kleio://showTransaction/(initWithSection:)/(andRow:)" toViewController:[TransactionViewController class]];
 	[map from:@"kleio://toggleFilterForWord/(toggleTagWord:)" toObject:[CacheMasterSingleton sharedCacheMaster]];
+	[map from:@"kleio://more" toViewController:[MoreTableViewController class]];
+	
 	
 	[navigator openURL:@"kleio://tabBar" animated:NO];
 
